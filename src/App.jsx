@@ -1,19 +1,23 @@
 import { Fragment } from "react";
 import { BrowserRouter } from "react-router-dom";
 
-import Header from "./structure/Header/Header";
-import Main from "./structure/Main/Main";
-import Footer from "./structure/Footer/Footer";
-import RoutesComponent from "./routes/RoutesComponent";
+import UsersProvider from "./contexts/UsersProvider.jsx";
+
+import Header from "./structure/Header/Header.jsx";
+import Main from "./structure/Main/Main.jsx";
+import RoutesComponent from "./routes/RoutesComponent.jsx";
+import Footer from "./structure/Footer/Footer.jsx";
 
 function App() {
   return (
     <Fragment>
       <BrowserRouter>
-        <Header />
-        <Main>
-          <RoutesComponent />
-        </Main>
+        <UsersProvider>
+          <Header />
+          <Main>
+            <RoutesComponent />
+          </Main>
+        </UsersProvider>
         <Footer />
       </BrowserRouter>
     </Fragment>
