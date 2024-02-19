@@ -20,6 +20,9 @@ const NavComponent = () => {
               <Nav.Link as={Link} to={"/"}>
                 Home
               </Nav.Link>
+              <Nav.Link as={Link} to={"/games"}>
+                Games
+              </Nav.Link>
               <Nav.Link as={Link} to={"/sign-in"}>
                 Sign In
               </Nav.Link>

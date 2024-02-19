@@ -5,7 +5,7 @@ import Col from "react-bootstrap/Col";
 const Footer = () => {
   return (
     <Fragment>
-      <footer className="row">
+      <footer>
         <Col>
           <p className="text-center">
             &copy; <span>2024</span> Software Wizards

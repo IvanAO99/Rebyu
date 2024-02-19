@@ -4,7 +4,7 @@ import NavComponent from "../../components/NavComponent/NavComponent.jsx";
 const Header = () => {
   return (
     <Fragment>
-      <header className="row">
+      <header>
         <NavComponent />
       </header>
     </Fragment>
