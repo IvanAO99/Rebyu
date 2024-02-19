@@ -16,24 +16,12 @@ function App() {
     <Fragment>
       <BrowserRouter>
         <UsersProvider>
-          <Row>
-            <Col>
-              <Header />
-            </Col>
-          </Row>
-          <Row /* className="flex-grow-1" */ className="h-100">
-            <Col>
-              <Main>
-                <RoutesComponent />
-              </Main>
-            </Col>
-          </Row>
+          <Header />
+          <Main>
+            <RoutesComponent />
+          </Main>
         </UsersProvider>
-        <Row>
-          <Col>
-            <Footer />
-          </Col>
-        </Row>
+        <Footer />
       </BrowserRouter>
     </Fragment>
   );
