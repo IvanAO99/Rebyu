@@ -1,4 +1,8 @@
-import React, { createContext, /* useEffect, */ useState } from "react";
+import React, {
+  createContext,
+  useEffect,
+  /* useEffect, */ useState,
+} from "react";
 /* import { useNavigate } from "react-router-dom";
 
 import { supabaseConnection } from "../config/supabase.js"; */
@@ -149,6 +153,9 @@ const UsersProvider = ({ children }) => {
       console.log(signUpForm);
     }
   };
+
+  /* USE EFFECTS */
+  useEffect(() => {}, []);
 
   /* CONTEXT DATA */
   const usersData = {

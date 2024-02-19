@@ -3,7 +3,7 @@ import React, { Fragment } from "react";
 const Main = ({ children }) => {
   return (
     <Fragment>
-      <main className="h-100">{children}</main>
+      <main className="flex-grow-1">{children}</main>
     </Fragment>
   );
 };
