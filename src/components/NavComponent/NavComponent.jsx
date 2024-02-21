@@ -4,9 +4,14 @@ import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import Image from "react-bootstrap/Image";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import Button from "react-bootstrap/Button";
+
+import useUsers from "../../hooks/useUsers.js";
 
 const NavComponent = () => {
+  const { isSessionUp, user, signOut } = useUsers();
   return (
     <Fragment>
       <Navbar expand="lg" className="bg-body-tertiary">
@@ -23,22 +28,37 @@ const NavComponent = () => {
               <Nav.Link as={Link} to={"/games"}>
                 Games
               </Nav.Link>
-              <Nav.Link as={Link} to={"/sign-in"}>
-                Sign In
-              </Nav.Link>
-              <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
-                  Another action
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">
-                  Something
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">
-                  Separated link
-                </NavDropdown.Item>
-              </NavDropdown>
+              {isSessionUp ? (
+                <Fragment>
+                  <Image
+                    src={
+                      user.profile_photo ||
+                      "https://xexkwbqgwmfjmghirwgq.supabase.co/storage/v1/object/public/images/users/default.jpg"
+                    }
+                    roundedCircle
+                    style={{ width: "4rem" }}
+                  />
+                  <NavDropdown title={user.nickname} id="basic-nav-dropdown">
+                    <NavDropdown.Item href="#action/3.1">
+                      Action
+                    </NavDropdown.Item>
+                    <NavDropdown.Item href="#action/3.2">
+                      Another action
+                    </NavDropdown.Item>
+                    <NavDropdown.Item href="#action/3.3">
+                      Something
+                    </NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item as={Button} onClick={() => signOut()}>
+                      Sign Out
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                </Fragment>
+              ) : (
+                <Nav.Link as={Link} to={"/sign-in"}>
+                  Sign In
+                </Nav.Link>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>

@@ -1,11 +1,7 @@
-import React, {
-  createContext,
-  useEffect,
-  /* useEffect, */ useState,
-} from "react";
-/* import { useNavigate } from "react-router-dom";
+import React, { createContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { supabaseConnection } from "../config/supabase.js"; */
+import { supabaseConnection } from "../.config/supabase.js";
 
 import { validateObject } from "../libraries/validateData.js";
 
@@ -14,6 +10,8 @@ import { validateObject } from "../libraries/validateData.js";
 const UsersContext = createContext();
 
 const UsersProvider = ({ children }) => {
+  const navigate = useNavigate();
+
   const passwdRegex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,}/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -28,11 +26,20 @@ const UsersProvider = ({ children }) => {
     },
     signInFormErrors: {},
     signUpForm: {
+      nickname: "",
       email: "",
       password: "",
       repeated_password: "",
+      name: "",
+      birth_date: "",
+      profile_photo: "",
+      terms_services: "",
     },
     signUpFormErrors: {},
+    isSessionUp: false,
+    user: {},
+    isAdmin: false,
+    isConfirmEmailOpen: false,
   };
 
   /* STATES */
@@ -43,6 +50,12 @@ const UsersProvider = ({ children }) => {
   const [signUpForm, setSignUpForm] = useState(initialValues.signUpForm);
   const [signUpFormErrors, setSignUpFormErrors] = useState(
     initialValues.signUpFormErrors
+  );
+  const [isSessionUp, setIsSessionUp] = useState(initialValues.isSessionUp);
+  const [user, setUser] = useState(initialValues.user);
+  const [isAdmin, setIsAdmin] = useState(initialValues.isAdmin);
+  const [isConfirmEmailOpen, setIsConfirmEmailOpen] = useState(
+    initialValues.isConfirmEmailOpen
   );
 
   /* FUNCTIONS */
@@ -56,8 +69,16 @@ const UsersProvider = ({ children }) => {
   const updateSignUpForm = (input) => {
     const { name, value } = input;
 
-    setSignUpForm({ ...signUpForm, [name]: value });
-    setSignUpFormErrors({ ...signUpFormErrors, [name]: null });
+    if (name === "terms_services") {
+      setSignUpForm({
+        ...signUpForm,
+        [name]: signUpForm[name] ? "" : value,
+      });
+      setSignUpFormErrors({ ...signUpFormErrors, [name]: null });
+    } else {
+      setSignUpForm({ ...signUpForm, [name]: value });
+      setSignUpFormErrors({ ...signUpFormErrors, [name]: null });
+    }
   };
 
   const validateSignIn = () => {
@@ -129,6 +150,13 @@ const UsersProvider = ({ children }) => {
       };
     }
 
+    if (!signUpForm.terms_services) {
+      validationErrors = {
+        ...validationErrors,
+        terms_services: "Accept terms and services.",
+      };
+    }
+
     return validationErrors;
   };
 
@@ -140,6 +168,7 @@ const UsersProvider = ({ children }) => {
     } else {
       setSignInFormErrors(initialValues.signInFormErrors);
       console.log(signInForm);
+      signInWithPassword();
     }
   };
 
@@ -151,11 +180,184 @@ const UsersProvider = ({ children }) => {
     } else {
       setSignUpFormErrors(initialValues.signUpFormErrors);
       console.log(signUpForm);
+      createAuthUser();
     }
   };
 
+  /* SUPABASE FETCHS */
+
+  const signInWithPassword = async () => {
+    try {
+      const { error } = await supabaseConnection.auth.signInWithPassword({
+        email: signInForm.email,
+        password: signInForm.password,
+      });
+
+      if (error) throw error;
+    } catch (error) {
+      setSignInFormErrors({
+        email: "Invalid sign in credentials",
+        password: "Invalid sign in credentials",
+      });
+    }
+  };
+
+  const getUserByID = async (authUser) => {
+    try {
+      const { data: users, error } = await supabaseConnection
+        .from("users")
+        .select("*")
+        .eq("id", authUser.id);
+
+      if (error) throw error;
+
+      console.log(`Aditional user data:`);
+      console.log(users[0]);
+
+      setUser({ ...authUser, ...users[0] });
+    } catch (error) {
+      console.log(`User by ID error: ${error.message}`);
+    }
+  };
+
+  const getUser = async () => {
+    try {
+      const { data, error } = await supabaseConnection.auth.getUser();
+
+      if (error) throw error;
+
+      console.log(`User obj:\n ${data}`);
+
+      if (data.user.role === "rebyu_admin") {
+        setIsAdmin(true);
+      } else {
+        setIsAdmin(initialValues.isAdmin);
+      }
+
+      getUserByID(data.user);
+    } catch (error) {
+      console.log(`User error: ${error.message}`);
+    }
+  };
+
+  /*
+  signUpForm: {
+      nickname: "",
+      email: "",
+      password: "",
+      repeated_password: "",
+      name: "",
+      birth_date: "",
+      profile_photo: "",
+      terms_services: "",
+    },
+  */
+
+  const createUser = async (authUserID) => {
+    try {
+      const { data, error } = await supabaseConnection.from("users").insert({
+        id: authUserID,
+        nickname: signUpForm.nickname,
+        name: signUpForm.name,
+        birth_date: signUpForm.birth_date,
+        profile_photo: signUpForm.profile_photo,
+      });
+
+      if (error) throw error;
+
+      console.log(data);
+    } catch (error) {
+      console.log(`User error: ${error.message}`);
+    }
+  };
+
+  const createAuthUser = async () => {
+    try {
+      const { data, error } = await supabaseConnection.auth.signUp({
+        email: signUpForm.email,
+        password: signUpForm.password,
+      });
+
+      if (error) throw error;
+
+      console.log(data);
+
+      setIsConfirmEmailOpen(true);
+
+      createUser(data.user.id);
+    } catch (error) {
+      console.log(`User error: ${error.message}`);
+    }
+  };
+
+  const signOut = async () => {
+    try {
+      await supabaseConnection.auth.signOut();
+    } catch (error) {}
+  };
+
   /* USE EFFECTS */
-  useEffect(() => {}, []);
+  useEffect(() => {
+    const { data } = supabaseConnection.auth.onAuthStateChange(
+      (event, session) => {
+        console.log(event, session);
+
+        if (session) {
+          if (event === "INITIAL_SESSION") {
+            // handle initial session
+            navigate("/");
+
+            setIsConfirmEmailOpen(initialValues.isConfirmEmailOpen);
+            setIsSessionUp(true);
+
+            getUser();
+          } else if (event === "SIGNED_IN") {
+            // handle sign in event
+            navigate("/");
+
+            setIsConfirmEmailOpen(initialValues.isConfirmEmailOpen);
+            setIsSessionUp(true);
+
+            getUser();
+          } else if (event === "SIGNED_OUT") {
+            // handle sign out event
+            setIsSessionUp(initialValues.isSessionUp);
+            setUser(initialValues.user);
+            setIsAdmin(initialValues.isAdmin);
+
+            navigate("/sign-in");
+          } else if (event === "PASSWORD_RECOVERY") {
+            // handle password recovery event
+          } else if (event === "TOKEN_REFRESHED") {
+            // handle token refreshed event
+            navigate("/");
+
+            setIsConfirmEmailOpen(initialValues.isConfirmEmailOpen);
+            setIsSessionUp(true);
+
+            getUser();
+          } else if (event === "USER_UPDATED") {
+            // handle user updated event
+            navigate("/");
+
+            setIsConfirmEmailOpen(initialValues.isConfirmEmailOpen);
+            setIsSessionUp(true);
+
+            getUser();
+          }
+        } else {
+          setIsSessionUp(initialValues.isSessionUp);
+          setUser(initialValues.user);
+          setIsAdmin(initialValues.isAdmin);
+
+          navigate("/sign-in");
+        }
+      }
+    );
+
+    // call unsubscribe to remove the callback
+    //data.subscription.unsubscribe();
+  }, []);
 
   /* CONTEXT DATA */
   const usersData = {
@@ -163,10 +365,15 @@ const UsersProvider = ({ children }) => {
     signInFormErrors,
     signUpForm,
     signUpFormErrors,
+    isSessionUp,
+    user,
+    isAdmin,
+    isConfirmEmailOpen,
     updateSignInForm,
     updateSignUpForm,
     handleSignIn,
     handleSignUp,
+    signOut,
   };
 
   return (
