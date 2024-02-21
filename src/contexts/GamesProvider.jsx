@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import { supabaseConnection } from "../.config/supabase.js";
-import { validateObject } from "../libraries/validateData.js";
+import { validateArray, validateObject } from "../libraries/validateData.js";
 
 import regex from "../jsons/regex.json";
 
@@ -142,16 +142,11 @@ const GamesProvider = ({ children }) => {
 
   const handleCheckboxChange = (event) => {
     const { name, value } = event.target;
-    setGameRegister((prevState) => {
-      if (prevState[name].includes(value)) {
-        return {
-          ...prevState,
-          [name]: prevState[name].filter((item) => item !== value),
-        };
-      } else {
-        return { ...prevState, [name]: [...prevState[name], value] };
-      }
-    });
+
+    setGameRegister({
+      ...gameRegister,
+      [name]: gameRegister[name].includes(value) ? gameRegister[name].filter((item) => item !== value) : [...gameRegister[name], value]
+    })
   };
 
   const updateGameRegister = (input) => {
@@ -159,6 +154,20 @@ const GamesProvider = ({ children }) => {
 
     setGameRegister({ ...gameRegister, [name]: value });
     setGameRegisterErrors({ ...gameRegisterErrors, [name]: null });
+  };
+
+  const isValidURL = (url) => {
+    try {
+      new URL(url);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  };
+
+  const checkValues = (optionsSelected, arrayParam) => {
+    const arrayParamNames = arrayParam.map((value) => value.name);
+    return optionsSelected.every((option) => arrayParamNames.includes(option));
   };
 
   const validateGameRegister = () => {
@@ -176,7 +185,124 @@ const GamesProvider = ({ children }) => {
       };
     }
 
+    if (!gameRegister.synopsis) {
+      validationErrors = {
+        ...validationErrors,
+        synopsis: "The synopsis field is required.",
+      };
+    } else if (
+      !new RegExp(regex.gameForm.synopsis).test(gameRegister.synopsis)
+    ) {
+      validationErrors = {
+        ...validationErrors,
+        synopsis: "The synopsis field is invalid.",
+      };
+    }
+
+    if (!gameRegister.price) {
+      validationErrors = {
+        ...validationErrors,
+        price: "The price field is required.",
+      };
+    } else if (!new RegExp(regex.gameForm.price).test(gameRegister.price)) {
+      validationErrors = {
+        ...validationErrors,
+        price: "The price field is invalid.",
+      };
+    }
+
+    if (!gameRegister.release_date) {
+      validationErrors = {
+        ...validationErrors,
+        release_date: "The date field is required.",
+      };
+    } else if (
+      !new RegExp(regex.gameForm.release_date).test(gameRegister.release_date)
+    ) {
+      validationErrors = {
+        ...validationErrors,
+        release_date: "The date field is invalid.",
+      };
+    }
+
+    if (!gameRegister.cover_pic) {
+      validationErrors = {
+        ...validationErrors,
+        cover_pic: "The cover image field is required.",
+      };
+    } else if (!isValidURL(gameRegister.cover_pic)) {
+      validationErrors = {
+        ...validationErrors,
+        cover_pic: "The URL doesn't exist.",
+      };
+    }
+
+    if (!gameRegister.trailer) {
+      validationErrors = {
+        ...validationErrors,
+        trailer: "The trailer field is required.",
+      };
+    } else if (!isValidURL(gameRegister.trailer)) {
+      validationErrors = {
+        ...validationErrors,
+        trailer: "The URL doesn't exist.",
+      };
+    }
+
+    if (!validateArray(gameRegister.developer)) {
+      validationErrors = {
+        ...validationErrors,
+        developer: "The developer field need one value at least.",
+      };
+    } else if (!checkValues(gameRegister.developer, developers)) {
+      validationErrors = {
+        ...validationErrors,
+        developer: "Make sure to select a valid options.",
+      };
+    }
+
+    if (!validateArray(gameRegister.platform)) {
+      validationErrors = {
+        ...validationErrors,
+        platform: "The developer field need one value at least.",
+      };
+    } else if (!checkValues(gameRegister.platform, platforms)) {
+      validationErrors = {
+        ...validationErrors,
+        platform: "Make sure to select a valid options.",
+      };
+    }
+
+    if (!validateArray(gameRegister.genre)) {
+      validationErrors = {
+        ...validationErrors,
+        genre: "The developer field need one value at least.",
+      };
+    } else if (!checkValues(gameRegister.genre, genres)) {
+      validationErrors = {
+        ...validationErrors,
+        genre: "Make sure to select a valid options.",
+      };
+    }
+
     return validationErrors;
+  };
+
+  const registerGame = async () => {
+    try {
+      const { data, error } = await supabaseConnection
+        .from("games")
+        .insert({ 
+          synopsis: gameRegister.synopsis, 
+          price: gameRegister.price,
+          title: gameRegister.title,
+          release_date: gameRegister.release_date,
+          cover_pic: gameRegister.cover_pic,
+          trailer: gameRegister.trailer
+        });
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   const handleGameRegister = () => {
@@ -184,8 +310,10 @@ const GamesProvider = ({ children }) => {
 
     if (validateObject(validationErrors)) {
       setGameRegisterErrors(validationErrors);
+      console.log("todomal");
     } else {
       setGameRegisterErrors(initialValues.gameRegisterErrors);
+      registerGame();
     }
   };
 
