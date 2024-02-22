@@ -5,6 +5,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 import UsersProvider from "./contexts/UsersProvider.jsx";
+import GamesProvider from "./contexts/GamesProvider.jsx";
 
 import Header from "./structure/Header/Header.jsx";
 import Main from "./structure/Main/Main.jsx";
@@ -18,7 +19,9 @@ function App() {
         <UsersProvider>
           <Header />
           <Main>
-            <RoutesComponent />
+            <GamesProvider>
+              <RoutesComponent />
+            </GamesProvider>
           </Main>
         </UsersProvider>
         <Footer />
