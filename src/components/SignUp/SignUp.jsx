@@ -6,15 +6,39 @@ import Button from "react-bootstrap/Button";
 
 import useUsers from "../../hooks/useUsers.js";
 
+import ShowObj from "../development/ShowObj.jsx";
+
 const SignUp = () => {
   const { signUpForm, signUpFormErrors, updateSignUpForm, handleSignUp } =
     useUsers();
   return (
     <Fragment>
+      {/* <div>
+        <ShowObj obj={signUpForm} />
+      </div> */}
       <Card>
         <Card.Header className="text-center">SIGN UP</Card.Header>
         <Card.Body>
           <Form className="d-flex flex-column">
+            <Form.Group className="mb-3" controlId="sign-up-nickname">
+              <Form.Label>Nickname</Form.Label>
+              <Form.Control
+                type="text"
+                name="nickname"
+                placeholder="Enter nickname"
+                value={signUpForm.nickname || ""}
+                onChange={(event) => {
+                  updateSignUpForm(event.target);
+                }}
+                isInvalid={signUpFormErrors.nickname}
+              />
+              <Form.Text className="text-muted">
+                Enter a valid nickname
+              </Form.Text>
+              <Form.Control.Feedback type="invalid">
+                {signUpFormErrors.nickname}
+              </Form.Control.Feedback>
+            </Form.Group>
             <Form.Group className="mb-3" controlId="sign-up-email">
               <Form.Label>Email</Form.Label>
               <Form.Control
@@ -74,8 +98,72 @@ const SignUp = () => {
                 {signUpFormErrors.repeated_password}
               </Form.Control.Feedback>
             </Form.Group>
+            <Form.Group className="mb-3" controlId="sign-up-name">
+              <Form.Label>Name</Form.Label>
+              <Form.Control
+                type="text"
+                name="name"
+                placeholder="Enter name"
+                value={signUpForm.name || ""}
+                onChange={(event) => {
+                  updateSignUpForm(event.target);
+                }}
+                isInvalid={signUpFormErrors.name}
+              />
+              <Form.Text className="text-muted">Enter a valid name</Form.Text>
+              <Form.Control.Feedback type="invalid">
+                {signUpFormErrors.name}
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="sign-up-birth-date">
+              <Form.Label>Birth date</Form.Label>
+              <Form.Control
+                type="date"
+                name="birth_date"
+                placeholder="Enter your birth date"
+                value={signUpForm.birth_date || ""}
+                onChange={(event) => {
+                  updateSignUpForm(event.target);
+                }}
+                isInvalid={signUpFormErrors.birth_date}
+              />
+              <Form.Text className="text-muted">Enter a valid date</Form.Text>
+              <Form.Control.Feedback type="invalid">
+                {signUpFormErrors.birth_date}
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="sign-up-profile-photo">
+              <Form.Label>Profile photo</Form.Label>
+              <Form.Control
+                type="file"
+                name="profile_photo"
+                placeholder="Enter a photo"
+                value={signUpForm.profile_photo || ""}
+                onChange={(event) => {
+                  updateSignUpForm(event.target);
+                }}
+                isInvalid={signUpFormErrors.profile_photo}
+              />
+              <Form.Text className="text-muted">Enter a valid photo</Form.Text>
+              <Form.Control.Feedback type="invalid">
+                {signUpFormErrors.profile_photo}
+              </Form.Control.Feedback>
+            </Form.Group>
             <Form.Group className="mb-3" controlId="sign-up-checkbox">
-              <Form.Check type="checkbox" label="Accept terms and services" />
+              <Form.Check
+                name="terms_services"
+                type="checkbox"
+                label="Accept terms and services"
+                value={"accepted"}
+                checked={signUpForm.terms_services ? true : false}
+                onChange={(event) => {
+                  updateSignUpForm(event.target);
+                }}
+                isInvalid={signUpFormErrors.terms_services}
+              />
+              <Form.Control.Feedback type="invalid">
+                {signUpFormErrors.terms_services}
+              </Form.Control.Feedback>
             </Form.Group>
             <Button
               variant="primary"
