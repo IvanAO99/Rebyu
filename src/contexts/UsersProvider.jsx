@@ -39,6 +39,7 @@ const UsersProvider = ({ children }) => {
     isSessionUp: false,
     user: {},
     isAdmin: false,
+    isLoadingUser: false,
     isConfirmEmailOpen: false,
   };
 
@@ -54,6 +55,9 @@ const UsersProvider = ({ children }) => {
   const [isSessionUp, setIsSessionUp] = useState(initialValues.isSessionUp);
   const [user, setUser] = useState(initialValues.user);
   const [isAdmin, setIsAdmin] = useState(initialValues.isAdmin);
+  const [isLoadingUser, setIsLoadingUser] = useState(
+    initialValues.isLoadingUser
+  );
   const [isConfirmEmailOpen, setIsConfirmEmailOpen] = useState(
     initialValues.isConfirmEmailOpen
   );
@@ -114,6 +118,13 @@ const UsersProvider = ({ children }) => {
   const validateSignUp = () => {
     let validationErrors = {};
 
+    if (!signUpForm.nickname) {
+      validationErrors = {
+        ...validationErrors,
+        nickname: "The nickname field is required.",
+      };
+    }
+
     if (!signUpForm.email) {
       validationErrors = {
         ...validationErrors,
@@ -147,6 +158,13 @@ const UsersProvider = ({ children }) => {
       validationErrors = {
         ...validationErrors,
         repeated_password: "Passwords do not match.",
+      };
+    }
+
+    if (!signUpForm.name) {
+      validationErrors = {
+        ...validationErrors,
+        name: "The name field is required.",
       };
     }
 
@@ -188,6 +206,8 @@ const UsersProvider = ({ children }) => {
 
   const signInWithPassword = async () => {
     try {
+      setIsLoadingUser(true);
+
       const { error } = await supabaseConnection.auth.signInWithPassword({
         email: signInForm.email,
         password: signInForm.password,
@@ -199,6 +219,10 @@ const UsersProvider = ({ children }) => {
         email: "Invalid sign in credentials",
         password: "Invalid sign in credentials",
       });
+    } finally {
+      setIsLoadingUser(initialValues.isLoadingUser);
+      setSignInForm(initialValues.signInForm);
+      setSignInFormErrors(initialValues.signInFormErrors);
     }
   };
 
@@ -268,11 +292,16 @@ const UsersProvider = ({ children }) => {
       console.log(data);
     } catch (error) {
       console.log(`User error: ${error.message}`);
+    } finally {
+      setSignUpForm(initialValues.signUpForm);
+      setSignUpFormErrors(initialValues.signUpFormErrors);
     }
   };
 
   const createAuthUser = async () => {
     try {
+      setIsLoadingUser(true);
+
       const { data, error } = await supabaseConnection.auth.signUp({
         email: signUpForm.email,
         password: signUpForm.password,
@@ -282,6 +311,7 @@ const UsersProvider = ({ children }) => {
 
       console.log(data);
 
+      setIsLoadingUser(initialValues.isLoadingUser);
       setIsConfirmEmailOpen(true);
 
       createUser(data.user.id);
@@ -368,6 +398,7 @@ const UsersProvider = ({ children }) => {
     isSessionUp,
     user,
     isAdmin,
+    isLoadingUser,
     isConfirmEmailOpen,
     updateSignInForm,
     updateSignUpForm,

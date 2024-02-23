@@ -16,7 +16,7 @@ const SignUp = () => {
       {/* <div>
         <ShowObj obj={signUpForm} />
       </div> */}
-      <Card>
+      <Card className="shadow">
         <Card.Header className="text-center">SIGN UP</Card.Header>
         <Card.Body>
           <Form className="d-flex flex-column">

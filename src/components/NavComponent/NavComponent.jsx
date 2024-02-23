@@ -14,7 +14,11 @@ const NavComponent = () => {
   const { isSessionUp, user, signOut } = useUsers();
   return (
     <Fragment>
-      <Navbar expand="lg" className="bg-body-tertiary">
+      <Navbar
+        expand="lg"
+        data-bs-theme="dark"
+        className="bg-body-tertiary shadow"
+      >
         <Container fluid>
           <Navbar.Brand as={Link} to={"/"}>
             REBYU
