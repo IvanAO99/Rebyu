@@ -43,8 +43,8 @@ const NavComponent = () => {
                     style={{ width: "4rem" }}
                   />
                   <NavDropdown title={user.nickname} id="basic-nav-dropdown">
-                    <NavDropdown.Item href="#action/3.1">
-                      Action
+                    <NavDropdown.Item as={Link} to={"/game"}>
+                      Review form
                     </NavDropdown.Item>
                     <NavDropdown.Item href="#action/3.2">
                       Another action
