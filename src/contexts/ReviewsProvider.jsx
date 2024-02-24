@@ -4,7 +4,7 @@ import useUsers from "../hooks/useUsers";
 
 import regex from "../jsons/regex.json";
 
-import { validateObject } from "../libraries/validateData";
+import { validateArray, validateObject } from "../libraries/validateData";
 
 const ReviewsContext = createContext();
 
@@ -21,6 +21,8 @@ const ReviewsProvider = ({ children }) => {
     },
     reviewFormErrors: {},
     isReviewFormModalOpen: false,
+    updatingReview: false,
+    deletingReview: false,
     isLoadingReviews: false,
     reviews: [],
   };
@@ -29,6 +31,12 @@ const ReviewsProvider = ({ children }) => {
   const [reviewForm, setReviewForm] = useState(initialValues.reviewForm);
   const [reviewFormErrors, setReviewFormErrors] = useState(
     initialValues.reviewFormErrors
+  );
+  const [updatingReview, setUpdatingReview] = useState(
+    initialValues.updatingReview
+  );
+  const [deletingReview, setDeletingReview] = useState(
+    initialValues.deletingReview
   );
   const [isReviewFormModalOpen, setIsReviewFormModalOpen] = useState(
     initialValues.isReviewFormModalOpen
@@ -42,6 +50,7 @@ const ReviewsProvider = ({ children }) => {
   const getReviews = async () => {
     try {
       setReviews(initialValues.reviews);
+      setIsLoadingReviews(true);
 
       const { data, error } = await supabaseConnection
         .from("reviews")
@@ -54,6 +63,8 @@ const ReviewsProvider = ({ children }) => {
       setReviews(data);
     } catch (error) {
       console.log(error.message);
+    } finally {
+      setIsLoadingReviews(initialValues.isLoadingReviews);
     }
   };
 
@@ -71,16 +82,91 @@ const ReviewsProvider = ({ children }) => {
       setIsReviewFormModalOpen(initialValues.isReviewFormModalOpen);
     } catch (error) {
       console.log(error.message);
+    } finally {
+      setReviewForm(initialValues.reviewForm);
+      setReviewFormErrors(initialValues.reviewFormErrors);
+    }
+  };
+
+  const updateReview = async () => {
+    try {
+      const { data, error } = await supabaseConnection
+        .from("reviews")
+        .update({ ...reviewForm, edited: true })
+        .eq("id", reviewForm.id)
+        .select();
+
+      if (error) throw error;
+
+      console.log(data);
+      getReviews();
+      setIsReviewFormModalOpen(initialValues.isReviewFormModalOpen);
+    } catch (error) {
+      console.log("UPDATE ERROR:");
+      console.log(error);
+    } finally {
+      setReviewForm(initialValues.reviewForm);
+      setReviewFormErrors(initialValues.reviewFormErrors);
+    }
+  };
+
+  const deleteReview = async () => {
+    try {
+      const { data, error } = await supabaseConnection
+        .from("reviews")
+        .delete()
+        .eq("id", reviewForm.id)
+        .select();
+
+      if (error) throw error;
+
+      console.log(data);
+      setDeletingReview(initialValues.deletingReview);
+    } catch (error) {
+      console.log("DELETE ERROR:");
+      console.log(error);
+    } finally {
+      getReviews();
+      setReviewForm(initialValues.reviewForm);
+      setReviewFormErrors(initialValues.reviewFormErrors);
     }
   };
 
   /* FUNCTIONS */
-  const showReviewFormModal = () => {
+  const getReviewByID = (id) => {
+    if (validateArray(reviews)) {
+      const wantedReview = reviews.find((review) => review.id === id);
+      setReviewForm(wantedReview);
+    }
+  };
+
+  const showReviewFormModal = (isUpdate, id = null) => {
+    if (isUpdate && id) {
+      getReviewByID(id);
+      setUpdatingReview(true);
+    } else {
+      setUpdatingReview(initialValues.updatingReview);
+    }
+
     setIsReviewFormModalOpen(true);
   };
 
   const hideReviewFormModal = () => {
+    setUpdatingReview(initialValues.updatingReview);
     setIsReviewFormModalOpen(initialValues.isReviewFormModalOpen);
+
+    setReviewForm(initialValues.reviewForm);
+    setReviewFormErrors(initialValues.reviewFormErrors);
+  };
+
+  const showReviewDeleteModal = (id) => {
+    getReviewByID(id);
+    setDeletingReview(true);
+  };
+
+  const hideReviewDeleteModal = () => {
+    setDeletingReview(initialValues.deletingReview);
+    setReviewForm(initialValues.reviewForm);
   };
 
   const updateReviewForm = (input) => {
@@ -125,31 +211,48 @@ const ReviewsProvider = ({ children }) => {
     return validationErrors;
   };
 
-  const handleReviewSubmit = () => {
+  const handleReviewSubmit = (operation) => {
     const validationErrors = validateReviewForm();
 
     if (validateObject(validationErrors)) {
       setReviewFormErrors(validationErrors);
     } else {
       setReviewFormErrors(initialValues.reviewFormErrors);
-      createReview();
+
+      switch (operation) {
+        case "create":
+          createReview();
+          break;
+        case "update":
+          updateReview();
+          break;
+        case "delete":
+          deleteReview();
+          break;
+        default:
+          break;
+      }
     }
   };
 
   useEffect(() => {
     getReviews();
-  }, []);
+  }, [user]);
 
   /* CONTEXT DATA */
   const reviewsData = {
     reviewForm,
     reviewFormErrors,
     isReviewFormModalOpen,
+    updatingReview,
+    deletingReview,
     isLoadingReviews,
     reviews,
     showReviewFormModal,
     hideReviewFormModal,
     updateReviewForm,
+    showReviewDeleteModal,
+    hideReviewDeleteModal,
     handleReviewSubmit,
   };
 

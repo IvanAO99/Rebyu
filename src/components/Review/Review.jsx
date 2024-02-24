@@ -9,8 +9,10 @@ import {
   PencilSquare,
   Trash,
 } from "react-bootstrap-icons";
+import useReviews from "../../hooks/useReviews";
 
 const Review = ({ review }) => {
+  const { showReviewFormModal, showReviewDeleteModal } = useReviews();
   return (
     <Fragment>
       <Card>
@@ -24,7 +26,7 @@ const Review = ({ review }) => {
               height={30}
             />
             <p>
-              <strong className="me-auto">User</strong>
+              <strong className="me-auto">{review.user_id}</strong>
             </p>
             <p>
               <small>{review.date_time}</small>
@@ -39,8 +41,10 @@ const Review = ({ review }) => {
               <Star></Star>
             </div>
             <div className="d-flex align-items-center gap-2">
-              <PencilSquare />
-              <Trash />
+              <PencilSquare
+                onClick={() => showReviewFormModal(true, review.id)}
+              />
+              <Trash onClick={() => showReviewDeleteModal(review.id)} />
             </div>
           </div>
         </Card.Header>

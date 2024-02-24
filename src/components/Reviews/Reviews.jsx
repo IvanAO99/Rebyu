@@ -4,16 +4,19 @@ import Loading from "../Loading/Loading.jsx";
 import { validateArray } from "../../libraries/validateData.js";
 import ShowObj from "../development/ShowObj.jsx";
 import Review from "../Review/Review.jsx";
+import { Col, Row } from "react-bootstrap";
 
 const Reviews = () => {
   const { isLoadingReviews, reviews } = useReviews();
 
   return (
     <Fragment>
-      <div>
+      <Row className="g-2">
         {isLoadingReviews ? (
           <Fragment>
-            <Loading />
+            <Col>
+              <Loading />
+            </Col>
           </Fragment>
         ) : (
           <Fragment>
@@ -21,18 +24,22 @@ const Reviews = () => {
               reviews.map((review, index) => {
                 return (
                   <Fragment key={index}>
-                    <Review review={review} />
+                    <Col xs={12}>
+                      <Review review={review} />
+                    </Col>
                   </Fragment>
                 );
               })
             ) : (
               <Fragment>
-                <p>ERROR</p>
+                <Col>
+                  <p>ERROR</p>
+                </Col>
               </Fragment>
             )}
           </Fragment>
         )}
-      </div>
+      </Row>
     </Fragment>
   );
 };

@@ -333,41 +333,7 @@ const UsersProvider = ({ children }) => {
         console.log(event, session);
 
         if (session) {
-          if (event === "INITIAL_SESSION") {
-            // handle initial session
-            navigate("/");
-
-            setIsConfirmEmailOpen(initialValues.isConfirmEmailOpen);
-            setIsSessionUp(true);
-
-            getUser();
-          } else if (event === "SIGNED_IN") {
-            // handle sign in event
-            navigate("/");
-
-            setIsConfirmEmailOpen(initialValues.isConfirmEmailOpen);
-            setIsSessionUp(true);
-
-            getUser();
-          } else if (event === "SIGNED_OUT") {
-            // handle sign out event
-            setIsSessionUp(initialValues.isSessionUp);
-            setUser(initialValues.user);
-            setIsAdmin(initialValues.isAdmin);
-
-            navigate("/sign-in");
-          } else if (event === "PASSWORD_RECOVERY") {
-            // handle password recovery event
-          } else if (event === "TOKEN_REFRESHED") {
-            // handle token refreshed event
-            navigate("/");
-
-            setIsConfirmEmailOpen(initialValues.isConfirmEmailOpen);
-            setIsSessionUp(true);
-
-            getUser();
-          } else if (event === "USER_UPDATED") {
-            // handle user updated event
+          if (!validateObject(user)) {
             navigate("/");
 
             setIsConfirmEmailOpen(initialValues.isConfirmEmailOpen);
@@ -382,6 +348,37 @@ const UsersProvider = ({ children }) => {
 
           navigate("/sign-in");
         }
+
+        /* if (event === "INITIAL_SESSION") {
+          // handle initial session
+          navigate("/");
+
+          setIsConfirmEmailOpen(initialValues.isConfirmEmailOpen);
+          setIsSessionUp(true);
+
+          getUser();
+        } else if (event === "SIGNED_IN") {
+          // handle sign in event
+          navigate("/");
+
+          setIsConfirmEmailOpen(initialValues.isConfirmEmailOpen);
+          setIsSessionUp(true);
+
+          getUser();
+        } else if (event === "SIGNED_OUT") {
+          // handle sign out event
+          setIsSessionUp(initialValues.isSessionUp);
+          setUser(initialValues.user);
+          setIsAdmin(initialValues.isAdmin);
+
+          navigate("/sign-in");
+        } else if (event === "PASSWORD_RECOVERY") {
+          // handle password recovery event
+        } else if (event === "TOKEN_REFRESHED") {
+          // handle token refreshed event
+        } else if (event === "USER_UPDATED") {
+          // handle user updated event
+        } */
       }
     );
 
