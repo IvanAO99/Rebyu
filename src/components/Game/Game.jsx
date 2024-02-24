@@ -4,9 +4,17 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Badge from "react-bootstrap/Badge";
 
-import { StarFill, StarHalf, Star } from "react-bootstrap-icons";
+import {
+  StarFill,
+  StarHalf,
+  Star,
+  PencilSquare,
+  Trash,
+} from "react-bootstrap-icons";
+import useGames from "../../hooks/useGames";
 
-const Game = () => {
+const Game = ({ game }) => {
+  const {updateSelectedGame, deleteGame} = useGames();
   return (
     <Fragment>
       <Card
@@ -14,15 +22,51 @@ const Game = () => {
         bg="tertiary"
         /* style={{ width: "250px" }} */
         className="shadow"
+        id={game.id}
       >
+        <div className="position-absolute top-0 end-0 m-2 d-flex flex-column justify-content-center align-items-center">
+          <Button
+            className="m-2 d-flex justify-content-center align-items-center"
+            style={{
+              borderRadius: "15px",
+              backgroundColor: "#8a2be2",
+              borderColor: "#8a2be2",
+              color: "white",
+              padding: "15px",
+            }}
+            onClick={()=>{
+              updateSelectedGame(game.id)
+            }}
+          >
+            <PencilSquare />
+          </Button>
+          <Button
+            className="m-2 d-flex justify-content-center align-items-center"
+            style={{
+              borderRadius: "15px",
+              backgroundColor: "#b26b6b",
+              borderColor: "#8a2be2",
+              color: "white",
+              padding: "15px",
+            }}
+            onClick={()=>{
+              deleteGame();
+              
+            }}
+          >
+            <Trash />
+          </Button>
+        </div>
+
         <Card.Img
           variant="top"
-          src="https://upload.wikimedia.org/wikipedia/en/0/02/Uncharted_3_Boxart.jpg"
+          src={game.cover_pic}
           height={300}
           className="object-fit-cover"
         />
+
         <Card.Body>
-          <Card.Title>GAME TITLE</Card.Title>
+          <Card.Title>{game.title}</Card.Title>
           <div className="d-flex justify-content-between align-items-center">
             <div className="d-flex align-items-center">
               <StarFill></StarFill>
@@ -31,7 +75,7 @@ const Game = () => {
               <StarHalf></StarHalf>
               <Star></Star>
             </div>
-            <Badge bg="primary">9.9</Badge>
+            <Badge bg="primary">{game.score}</Badge>
           </div>
         </Card.Body>
       </Card>

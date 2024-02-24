@@ -6,23 +6,28 @@ import useGames from "../../hooks/useGames.js";
 import ShowObject from "../ShowObject/ShowObject.jsx";
 import { Row, Col } from "react-bootstrap";
 
-const GameForm = () => {
+const GameForm = ({ creationMode }) => {
   const {
     developers,
     platforms,
     genres,
     gameRegister,
-    updateGameRegister,
+    updateGameForm,
     handleCheckboxChange,
-    handleGameRegister,
+    handleGameForm,
     gameRegisterErrors,
+    selectedGame,
   } = useGames();
+
+  let actualGame = creationMode ? gameRegister : selectedGame;
 
   return (
     <>
-      <ShowObject games={gameRegister} />
+      {/* <ShowObject games={gameRegister} /> */}
       <Card className="p-0">
-        <Card.Header className="text-center">GAME REGISTER</Card.Header>
+        <Card.Header className="text-center">
+          GAME {creationMode ? "REGISTER" : "UPDATE"}
+        </Card.Header>
         <Card.Body className="p-4">
           <Form className="d-flex flex-column">
             <Form.Group className="mb-3" controlId="game-register-name">
@@ -31,9 +36,9 @@ const GameForm = () => {
                 type="title"
                 name="title"
                 placeholder="Enter title"
-                value={gameRegister.title || ""}
+                value={actualGame.title || ""}
                 onChange={(e) => {
-                  updateGameRegister(e.target);
+                  updateGameForm(e.target, creationMode);
                 }}
                 isInvalid={gameRegisterErrors.title}
               />
@@ -51,9 +56,9 @@ const GameForm = () => {
                 type="synopsis"
                 name="synopsis"
                 placeholder="Enter a synopsis"
-                value={gameRegister.synopsis || ""}
+                value={actualGame.synopsis || ""}
                 onChange={(e) => {
-                  updateGameRegister(e.target);
+                  updateGameForm(e.target, creationMode);
                 }}
                 isInvalid={gameRegisterErrors.synopsis}
               />
@@ -72,9 +77,9 @@ const GameForm = () => {
                 type="number"
                 name="price"
                 placeholder="Enter price"
-                value={gameRegister.price || ""}
+                value={actualGame.price || ""}
                 onChange={(e) => {
-                  updateGameRegister(e.target);
+                  updateGameForm(e.target, creationMode);
                 }}
                 isInvalid={gameRegisterErrors.price}
               />
@@ -91,9 +96,9 @@ const GameForm = () => {
               <Form.Control
                 type="date"
                 name="release_date"
-                value={gameRegister.release_date || ""}
+                value={actualGame.release_date || ""}
                 onChange={(e) => {
-                  updateGameRegister(e.target);
+                  updateGameForm(e.target, creationMode);
                 }}
                 isInvalid={gameRegisterErrors.release_date}
               />
@@ -111,9 +116,9 @@ const GameForm = () => {
                 type="cover_pic"
                 name="cover_pic"
                 placeholder="Enter a cover link"
-                value={gameRegister.cover_pic || ""}
+                value={actualGame.cover_pic || ""}
                 onChange={(e) => {
-                  updateGameRegister(e.target);
+                  updateGameForm(e.target, creationMode);
                 }}
                 isInvalid={gameRegisterErrors.cover_pic}
               />
@@ -139,9 +144,9 @@ const GameForm = () => {
                 type="url"
                 name="trailer"
                 placeholder="Enter trailer link"
-                value={gameRegister.trailer || ""}
+                value={actualGame.trailer || ""}
                 onChange={(e) => {
-                  updateGameRegister(e.target);
+                  updateGameForm(e.target, creationMode);
                 }}
                 isInvalid={gameRegisterErrors.trailer}
               />
@@ -172,10 +177,11 @@ const GameForm = () => {
                           id={`game-register-developer-${developer.id}`}
                           type="checkbox"
                           label={developer.name}
-                          name="developer"
-                          value={developer.name}
-                          onChange={handleCheckboxChange}
-                          isInvalid={gameRegisterErrors.developer}
+                          name="game_developer"
+                          value={developer.id}
+                          checked={actualGame.game_developer.includes(developer.id)}
+                          onChange={(e)=>{handleCheckboxChange(e, creationMode)}}
+                          isInvalid={gameRegisterErrors.game_developer}
                         />
                       );
                     })
@@ -199,10 +205,11 @@ const GameForm = () => {
                           id={`game-register-platform-${platform.id}`}
                           type="checkbox"
                           label={platform.name}
-                          name="platform"
-                          value={platform.name}
-                          onChange={handleCheckboxChange}
-                          isInvalid={gameRegisterErrors.platform}
+                          name="game_platform"
+                          value={platform.id}
+                          checked={actualGame.game_platform.includes(platform.id)}
+                          onChange={(e)=>{handleCheckboxChange(e, creationMode)}}
+                          isInvalid={gameRegisterErrors.game_platform}
                         />
                       );
                     })
@@ -226,10 +233,11 @@ const GameForm = () => {
                           id={`game-register-genre-${genre.id}`}
                           type="checkbox"
                           label={genre.name}
-                          name="genre"
-                          value={genre.name}
-                          onChange={handleCheckboxChange}
-                          isInvalid={gameRegisterErrors.genre}
+                          name="game_genre"
+                          value={genre.id}
+                          checked={actualGame.game_genre.includes(genre.id)}
+                          onChange={(e)=>{handleCheckboxChange(e, creationMode)}}
+                          isInvalid={gameRegisterErrors.game_genre}
                         />
                       );
                     })
@@ -245,7 +253,7 @@ const GameForm = () => {
               className="align-self-center"
               type="button"
               onClick={() => {
-                handleGameRegister();
+                handleGameForm(creationMode);
               }}
             >
               Submit
