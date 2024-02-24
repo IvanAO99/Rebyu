@@ -167,7 +167,7 @@ const UsersProvider = ({ children }) => {
       setSignInFormErrors(validationErrors);
     } else {
       setSignInFormErrors(initialValues.signInFormErrors);
-      console.log(signInForm);
+
       signInWithPassword();
     }
   };
@@ -179,7 +179,7 @@ const UsersProvider = ({ children }) => {
       setSignUpFormErrors(validationErrors);
     } else {
       setSignUpFormErrors(initialValues.signUpFormErrors);
-      console.log(signUpForm);
+
       createAuthUser();
     }
   };
@@ -211,8 +211,6 @@ const UsersProvider = ({ children }) => {
 
       if (error) throw error;
 
-      console.log(`Aditional user data:`);
-      console.log(users[0]);
 
       setUser({ ...authUser, ...users[0] });
     } catch (error) {
@@ -225,8 +223,6 @@ const UsersProvider = ({ children }) => {
       const { data, error } = await supabaseConnection.auth.getUser();
 
       if (error) throw error;
-
-      console.log(`User obj:\n ${data}`);
 
       if (data.user.role === "rebyu_admin") {
         setIsAdmin(true);
@@ -265,7 +261,6 @@ const UsersProvider = ({ children }) => {
 
       if (error) throw error;
 
-      console.log(data);
     } catch (error) {
       console.log(`User error: ${error.message}`);
     }
@@ -279,8 +274,6 @@ const UsersProvider = ({ children }) => {
       });
 
       if (error) throw error;
-
-      console.log(data);
 
       setIsConfirmEmailOpen(true);
 
@@ -300,7 +293,6 @@ const UsersProvider = ({ children }) => {
   useEffect(() => {
     const { data } = supabaseConnection.auth.onAuthStateChange(
       (event, session) => {
-        console.log(event, session);
 
         if (session) {
           if (event === "INITIAL_SESSION") {
