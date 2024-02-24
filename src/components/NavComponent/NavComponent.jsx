@@ -14,7 +14,11 @@ const NavComponent = () => {
   const { isSessionUp, user, signOut } = useUsers();
   return (
     <Fragment>
-      <Navbar expand="lg" className="bg-body-tertiary">
+      <Navbar
+        expand="lg"
+        data-bs-theme="dark"
+        className="bg-body-tertiary shadow"
+      >
         <Container fluid>
           <Navbar.Brand as={Link} to={"/"}>
             REBYU
@@ -39,8 +43,8 @@ const NavComponent = () => {
                     style={{ width: "4rem" }}
                   />
                   <NavDropdown title={user.nickname} id="basic-nav-dropdown">
-                    <NavDropdown.Item href="#action/3.1">
-                      Action
+                    <NavDropdown.Item as={Link} to={"/game"}>
+                      Review form
                     </NavDropdown.Item>
                     <NavDropdown.Item href="#action/3.2">
                       Another action

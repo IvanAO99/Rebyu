@@ -1,11 +1,9 @@
 import { Fragment } from "react";
 import { BrowserRouter } from "react-router-dom";
 
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-
 import UsersProvider from "./contexts/UsersProvider.jsx";
 import GamesProvider from "./contexts/GamesProvider.jsx";
+import ReviewsProvider from "./contexts/ReviewsProvider.jsx";
 
 import Header from "./structure/Header/Header.jsx";
 import Main from "./structure/Main/Main.jsx";
@@ -20,7 +18,9 @@ function App() {
           <Header />
           <Main>
             <GamesProvider>
-              <RoutesComponent />
+              <ReviewsProvider>
+                <RoutesComponent />
+              </ReviewsProvider>
             </GamesProvider>
           </Main>
         </UsersProvider>

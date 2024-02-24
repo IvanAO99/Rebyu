@@ -9,9 +9,10 @@ import SignUp from "../../components/SignUp/SignUp.jsx";
 import MessageModal from "../../components/Modals/MessageModal/MessageModal.jsx";
 import useUsers from "../../hooks/useUsers.js";
 import ShowObj from "../../components/development/ShowObj.jsx";
+import LoadingModal from "../../components/Modals/LoadingModal/LoadingModal.jsx";
 
 const SignPage = () => {
-  const { isConfirmEmailOpen } = useUsers();
+  const { isLoadingUser, isConfirmEmailOpen } = useUsers();
 
   return (
     <Fragment>
@@ -31,6 +32,7 @@ const SignPage = () => {
           </Col>
         </Row>
       </Container>
+      {isLoadingUser && <LoadingModal />}
       <MessageModal isOpen={isConfirmEmailOpen} />
     </Fragment>
   );
