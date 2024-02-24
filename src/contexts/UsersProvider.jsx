@@ -167,6 +167,7 @@ const UsersProvider = ({ children }) => {
       setSignInFormErrors(validationErrors);
     } else {
       setSignInFormErrors(initialValues.signInFormErrors);
+
       signInWithPassword();
     }
   };
@@ -178,6 +179,7 @@ const UsersProvider = ({ children }) => {
       setSignUpFormErrors(validationErrors);
     } else {
       setSignUpFormErrors(initialValues.signUpFormErrors);
+
       createAuthUser();
     }
   };
@@ -208,6 +210,7 @@ const UsersProvider = ({ children }) => {
         .eq("id", authUser.id);
 
       if (error) throw error;
+
 
       setUser({ ...authUser, ...users[0] });
     } catch (error) {
@@ -290,6 +293,7 @@ const UsersProvider = ({ children }) => {
   useEffect(() => {
     const { data } = supabaseConnection.auth.onAuthStateChange(
       (event, session) => {
+
         if (session) {
           if (event === "INITIAL_SESSION") {
             // handle initial session
