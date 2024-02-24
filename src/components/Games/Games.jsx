@@ -3,16 +3,18 @@ import React, { Fragment } from "react";
 import Col from "react-bootstrap/Col";
 
 import Game from "../Game/Game.jsx";
+import useGames from "../../hooks/useGames.js";
 
 const Games = () => {
-  const test = [1, 2, 3, 4, 5];
+  const {games} = useGames();
+
   return (
     <Fragment>
-      {test.map((value, index) => {
+      {games.map((value, index) => {
         return (
           <Fragment key={index}>
             <Col xs={6} md={4} lg={3}>
-              <Game />
+              <Game game={value}/>
             </Col>
           </Fragment>
         );
