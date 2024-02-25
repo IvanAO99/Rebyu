@@ -5,11 +5,13 @@ import useUsers from "../hooks/useUsers";
 import regex from "../jsons/regex.json";
 
 import { validateArray, validateObject } from "../libraries/validateData";
+import useGames from "../hooks/useGames";
 
 const ReviewsContext = createContext();
 
 const ReviewsProvider = ({ children }) => {
   const { user } = useUsers();
+  const { game } = useGames();
 
   /* INITIAL STATES VALUES */
   const initialValues = {
@@ -68,20 +70,42 @@ const ReviewsProvider = ({ children }) => {
     }
   };
 
+  const getReviewsByGame = async (gameID) => {
+    try {
+      setReviews(initialValues.reviews);
+      setIsLoadingReviews(true);
+
+      const { data, error } = await supabaseConnection
+        .from("reviews")
+        .select("*, game:game_id (*), reviewer:user_id (*)")
+        .eq("game_id", gameID);
+
+      if (error) throw error;
+
+      console.log(data);
+
+      setReviews(data);
+    } catch (error) {
+      console.log(error.message);
+    } finally {
+      setIsLoadingReviews(initialValues.isLoadingReviews);
+    }
+  };
+
   const createReview = async () => {
     try {
       const { data, error } = await supabaseConnection
         .from("reviews")
-        .insert({ ...reviewForm, user_id: user.id })
+        .insert({ ...reviewForm, game_id: game.id, user_id: user.id })
         .select();
 
       if (error) throw error;
 
       console.log(data);
-      getReviews();
+      getReviewsByGame(game.id);
       setIsReviewFormModalOpen(initialValues.isReviewFormModalOpen);
     } catch (error) {
-      console.log(error.message);
+      console.log(error);
     } finally {
       setReviewForm(initialValues.reviewForm);
       setReviewFormErrors(initialValues.reviewFormErrors);
@@ -99,7 +123,8 @@ const ReviewsProvider = ({ children }) => {
       if (error) throw error;
 
       console.log(data);
-      getReviews();
+      getReviewsByGame(game.id);
+      //getReviews();
       setIsReviewFormModalOpen(initialValues.isReviewFormModalOpen);
     } catch (error) {
       console.log("UPDATE ERROR:");
@@ -126,7 +151,8 @@ const ReviewsProvider = ({ children }) => {
       console.log("DELETE ERROR:");
       console.log(error);
     } finally {
-      getReviews();
+      //getReviews();
+      getReviewsByGame(game.id);
       setReviewForm(initialValues.reviewForm);
       setReviewFormErrors(initialValues.reviewFormErrors);
     }
@@ -236,8 +262,13 @@ const ReviewsProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    getReviews();
-  }, [user]);
+    if (validateObject(game)) {
+      console.log(game);
+      console.log(game.id);
+
+      getReviewsByGame(game.id);
+    }
+  }, [game]);
 
   /* CONTEXT DATA */
   const reviewsData = {

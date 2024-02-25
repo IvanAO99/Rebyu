@@ -3,10 +3,13 @@ import { supabaseConnection } from "../.config/supabase.js";
 import { validateArray, validateObject } from "../libraries/validateData.js";
 
 import regex from "../jsons/regex.json";
+import { useNavigate } from "react-router-dom";
 
 const GamesContext = createContext();
 
 const GamesProvider = ({ children }) => {
+  const navigate = useNavigate();
+
   /* INITIAL STATES VALUES */
   const initialValues = {
     genres: [],
@@ -103,7 +106,11 @@ const GamesProvider = ({ children }) => {
         throw new Error(
           "Error loading the game. Please reload the page and try again."
         );
-      setGame(data);
+      setGame(data[0]);
+
+      console.log(data);
+
+      navigate("/game");
     } catch (error) {
       console.log(error.message);
     } finally {

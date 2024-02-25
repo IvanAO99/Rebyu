@@ -231,10 +231,9 @@ const UsersProvider = ({ children }) => {
       const { data: users, error } = await supabaseConnection
         .from("users")
         .select("*")
-        .eq("id", authUser.id);
+        .eq("auth_id", authUser.id);
 
       if (error) throw error;
-
 
       setUser({ ...authUser, ...users[0] });
     } catch (error) {
@@ -276,7 +275,7 @@ const UsersProvider = ({ children }) => {
   const createUser = async (authUserID) => {
     try {
       const { data, error } = await supabaseConnection.from("users").insert({
-        id: authUserID,
+        auth_id: authUserID,
         nickname: signUpForm.nickname,
         name: signUpForm.name,
         birth_date: signUpForm.birth_date,
@@ -284,7 +283,6 @@ const UsersProvider = ({ children }) => {
       });
 
       if (error) throw error;
-
     } catch (error) {
       console.log(`User error: ${error.message}`);
     } finally {
@@ -323,6 +321,32 @@ const UsersProvider = ({ children }) => {
   useEffect(() => {
     const { data } = supabaseConnection.auth.onAuthStateChange(
       (event, session) => {
+        if (event === "SIGNED_IN" || event === "SIGNED_OUT") {
+          if (session) {
+            if (!validateObject(user)) {
+              navigate("/");
+
+              setIsConfirmEmailOpen(initialValues.isConfirmEmailOpen);
+              setIsSessionUp(true);
+
+              getUser();
+            }
+          } else {
+            setIsSessionUp(initialValues.isSessionUp);
+            setUser(initialValues.user);
+            setIsAdmin(initialValues.isAdmin);
+
+            navigate("/sign-in");
+          }
+        }
+      },
+      []
+    );
+  });
+
+  /*   useEffect(() => {
+    const { data } = supabaseConnection.auth.onAuthStateChange(
+      (event, session) => {
 
         if (session) {
           if (!validateObject(user)) {
@@ -341,7 +365,7 @@ const UsersProvider = ({ children }) => {
           navigate("/sign-in");
         }
 
-        /* if (event === "INITIAL_SESSION") {
+        if (event === "INITIAL_SESSION") {
           // handle initial session
           navigate("/");
 
@@ -370,13 +394,13 @@ const UsersProvider = ({ children }) => {
           // handle token refreshed event
         } else if (event === "USER_UPDATED") {
           // handle user updated event
-        } */
+        }
       }
     );
 
     // call unsubscribe to remove the callback
     //data.subscription.unsubscribe();
-  }, []);
+  }, []); */
 
   /* CONTEXT DATA */
   const usersData = {
