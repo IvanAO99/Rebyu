@@ -31,6 +31,9 @@ const GamesProvider = ({ children }) => {
       game_developer: [],
     },
     gameRegisterErrors: [],
+    isGamesOffcanvasShowing: false,
+    isGameDeleteModalOpen: false,
+    creatingGame: false,
   };
 
   /* STATES */
@@ -53,8 +56,38 @@ const GamesProvider = ({ children }) => {
   );
 
   const [selectedGame, setSelectedGame] = useState(initialValues.gameRegister);
+  const [isGamesOffcanvasShowing, setIsGamesOffcanvasShowing] = useState(
+    initialValues.isGamesOffcanvasShowing
+  );
+  const [isGameDeleteModalOpen, setIsGameDeleteModalOpen] = useState(
+    initialValues.isGameDeleteModalOpen
+  );
+  const [creatingGame, setCreatingGame] = useState(initialValues.creatingGame);
 
   /* FUNCTIONS */
+
+  const showGamesOffCanvas = (mode = "updating") => {
+    if (mode === "creating") {
+      setCreatingGame(true);
+    } else {
+      setCreatingGame(initialValues.creatingGame);
+    }
+
+    setIsGamesOffcanvasShowing(true);
+  };
+
+  const hideGamesOffCanvas = () => {
+    setIsGamesOffcanvasShowing(initialValues.isGamesOffcanvasShowing);
+  };
+
+  const showGameDeleteModal = () => {
+    setIsGameDeleteModalOpen(true);
+  };
+
+  const hideGameDeleteModal = () => {
+    setIsGameDeleteModalOpen(initialValues.isGameDeleteModalOpen);
+  };
+
   /**
    * Retrieves all games from the database, including associated genres, platforms, and developers.
    * Games are ordered by their ID.
@@ -282,7 +315,9 @@ const GamesProvider = ({ children }) => {
         ...validationErrors,
         synopsis: "The synopsis field is required.",
       };
-    } else if (!new RegExp(regex.gameForm.synopsis).test(actualGame.synopsis)) {
+    } else if (
+      /* !new RegExp(regex.gameForm.synopsis).test(actualGame.synopsis) */ false
+    ) {
       validationErrors = {
         ...validationErrors,
         synopsis: "The synopsis field is invalid.",
@@ -485,7 +520,9 @@ const GamesProvider = ({ children }) => {
           price: gameRegister.price,
           title: gameRegister.title,
           release_date: gameRegister.release_date,
-          cover_pic: gameRegister.cover_pic ? gameRegister.cover_pic : null,
+          cover_pic: gameRegister.cover_pic
+            ? gameRegister.cover_pic
+            : `https://xexkwbqgwmfjmghirwgq.supabase.co/storage/v1/object/public/images/games/default.jpg?t=2024-02-23T11%3A08%3A06.764Z`,
           trailer: gameRegister.trailer,
           score: (Math.random() * 10).toFixed(2),
         })
@@ -524,6 +561,8 @@ const GamesProvider = ({ children }) => {
       getGames();
     } catch (error) {
       console.log(error.message);
+    } finally {
+      hideGamesOffCanvas();
     }
   };
 
@@ -576,6 +615,8 @@ const GamesProvider = ({ children }) => {
       getGames();
     } catch (error) {
       console.log(error.message);
+    } finally {
+      hideGamesOffCanvas();
     }
   };
 
@@ -650,6 +691,8 @@ const GamesProvider = ({ children }) => {
       setSelectedGame(initialValues.gameRegister);
     } catch (error) {
       console.log(error.message);
+    } finally {
+      setIsGameDeleteModalOpen(initialValues.isGameDeleteModalOpen);
     }
   };
 
@@ -675,6 +718,13 @@ const GamesProvider = ({ children }) => {
     updateSelectedGame,
     deleteGame,
     selectedGame,
+    creatingGame,
+    isGamesOffcanvasShowing,
+    showGamesOffCanvas,
+    hideGamesOffCanvas,
+    isGameDeleteModalOpen,
+    showGameDeleteModal,
+    hideGameDeleteModal,
   };
 
   return (

@@ -1,0 +1,10 @@
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  border-radius: 50%;
+
+  background-color: black;
+  opacity: 0.5;
+
+  color: white;
+  text-align: center;
+}
