@@ -15,7 +15,12 @@ import useGames from "../../hooks/useGames";
 import { Link, useNavigate } from "react-router-dom";
 
 const Game = ({ game }) => {
-  const { getGame, updateSelectedGame, deleteGame } = useGames();
+  const {
+    getGame,
+    showGamesOffCanvas,
+    updateSelectedGame,
+    showGameDeleteModal,
+  } = useGames();
   const navigate = useNavigate();
 
   return (
@@ -44,6 +49,7 @@ const Game = ({ game }) => {
             onClick={(event) => {
               event.stopPropagation();
 
+              showGamesOffCanvas();
               updateSelectedGame(game.id);
             }}
           >
@@ -61,7 +67,8 @@ const Game = ({ game }) => {
             onClick={(event) => {
               event.stopPropagation();
 
-              deleteGame();
+              updateSelectedGame(game.id);
+              showGameDeleteModal();
             }}
           >
             <Trash />

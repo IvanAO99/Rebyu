@@ -321,9 +321,10 @@ const UsersProvider = ({ children }) => {
   useEffect(() => {
     const { data } = supabaseConnection.auth.onAuthStateChange(
       (event, session) => {
-        if (event === "SIGNED_IN" || event === "SIGNED_OUT") {
+        if (event === "SIGNED_IN") {
           if (session) {
             if (!validateObject(user)) {
+              console.log(`a`);
               navigate("/");
 
               setIsConfirmEmailOpen(initialValues.isConfirmEmailOpen);
@@ -331,13 +332,13 @@ const UsersProvider = ({ children }) => {
 
               getUser();
             }
-          } else {
-            setIsSessionUp(initialValues.isSessionUp);
-            setUser(initialValues.user);
-            setIsAdmin(initialValues.isAdmin);
-
-            navigate("/sign-in");
           }
+        } else if (event === "SIGNED_OUT") {
+          setIsSessionUp(initialValues.isSessionUp);
+          setUser(initialValues.user);
+          setIsAdmin(initialValues.isAdmin);
+
+          navigate("/sign-in");
         }
       },
       []
