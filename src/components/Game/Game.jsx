@@ -12,9 +12,12 @@ import {
   Trash,
 } from "react-bootstrap-icons";
 import useGames from "../../hooks/useGames";
+import { Link, useNavigate } from "react-router-dom";
 
 const Game = ({ game }) => {
-  const {updateSelectedGame, deleteGame} = useGames();
+  const { getGame, updateSelectedGame, deleteGame } = useGames();
+  const navigate = useNavigate();
+
   return (
     <Fragment>
       <Card
@@ -23,6 +26,10 @@ const Game = ({ game }) => {
         /* style={{ width: "250px" }} */
         className="shadow"
         id={game.id}
+        onClick={(event) => {
+          event.preventDefault();
+          getGame(game.id);
+        }}
       >
         <div className="position-absolute top-0 end-0 m-2 d-flex flex-column justify-content-center align-items-center">
           <Button
@@ -34,8 +41,10 @@ const Game = ({ game }) => {
               color: "white",
               padding: "15px",
             }}
-            onClick={()=>{
-              updateSelectedGame(game.id)
+            onClick={(event) => {
+              event.stopPropagation();
+
+              updateSelectedGame(game.id);
             }}
           >
             <PencilSquare />
@@ -49,9 +58,10 @@ const Game = ({ game }) => {
               color: "white",
               padding: "15px",
             }}
-            onClick={()=>{
+            onClick={(event) => {
+              event.stopPropagation();
+
               deleteGame();
-              
             }}
           >
             <Trash />
