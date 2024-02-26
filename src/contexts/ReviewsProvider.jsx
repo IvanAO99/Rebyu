@@ -17,7 +17,7 @@ const ReviewsProvider = ({ children }) => {
   const initialValues = {
     reviewForm: {
       game_id: "",
-      score: "",
+      score: "0",
       message: "",
       spoiler: "false",
     },

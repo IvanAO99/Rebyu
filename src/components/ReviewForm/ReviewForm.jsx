@@ -2,6 +2,8 @@ import React, { Fragment } from "react";
 
 import Form from "react-bootstrap/Form";
 
+import { FaStar } from "react-icons/fa";
+
 import useReviews from "../../hooks/useReviews.js";
 
 const ReviewForm = () => {
@@ -18,26 +20,30 @@ const ReviewForm = () => {
   return (
     <Fragment>
       <Form className="d-flex flex-column">
-        <Form.Group className="mb-3" controlId="gameID">
-          <Form.Label>Game ID</Form.Label>
-          <Form.Select
-            name="game_id"
-            defaultValue={reviewForm.game_id || ""}
-            onChange={(event) => updateReviewForm(event.target)}
-          >
-            <option value={""} disabled hidden>
-              Select game ID
-            </option>
-            {gamesID.map((v, i) => {
+        <Form.Group className="mb-3" controlId="stars">
+          <Form.Label>Score</Form.Label>
+          <div className="stars">
+            {[...Array(5)].map((star, i) => {
               return (
-                <option key={i} value={v}>
-                  {v}
-                </option>
+                <FaStar
+                  key={i}
+                  color={i + 1 <= reviewForm.score ? "#ffc107" : "#e4e5e9"}
+                  size={50}
+                />
               );
             })}
-          </Form.Select>
+          </div>
+          <Form.Range
+            name="score"
+            value={reviewForm.score || 0}
+            min={0}
+            max={5}
+            onChange={(event) => {
+              updateReviewForm(event.target);
+            }}
+          />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="score">
+        {/* <Form.Group className="mb-3" controlId="score">
           <Form.Label>Score</Form.Label>
           <Form.Control
             type="number"
@@ -52,7 +58,7 @@ const ReviewForm = () => {
           <Form.Control.Feedback type="invalid">
             {reviewFormErrors.score}
           </Form.Control.Feedback>
-        </Form.Group>
+        </Form.Group> */}
         <Form.Group className="mb-3" controlId="message">
           <Form.Label>Message</Form.Label>
           <Form.Control
