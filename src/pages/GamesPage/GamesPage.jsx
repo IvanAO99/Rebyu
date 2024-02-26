@@ -12,6 +12,7 @@ import GameForm from "../../components/GameForm/GameForm.jsx";
 import GameCarousel from "../../components/GameCarousel/GameCarousel.jsx";
 import OffcanvasComponent from "../../components/OffcanvasComponent/OffcanvasComponent.jsx";
 import GameDeleteModal from "../../components/Modals/GameDeleteModal/GameDeleteModal.jsx";
+import GamesFilters from "../../components/GameFilters/GameFilters.jsx";
 
 const GamesPage = () => {
   const { showGamesOffCanvas, creatingGame } = useGames();
@@ -30,6 +31,7 @@ const GamesPage = () => {
       </div>
       <Container className="py-5 h-100">
         <Row className="g-5">
+          <GamesFilters />
           <Games />
         </Row>
       </Container>
