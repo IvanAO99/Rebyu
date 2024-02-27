@@ -2,13 +2,9 @@ import React, { Fragment } from "react";
 
 import Card from "react-bootstrap/Card";
 
-import {
-  StarFill,
-  StarHalf,
-  Star,
-  PencilSquare,
-  Trash,
-} from "react-bootstrap-icons";
+import { FaStar } from "react-icons/fa";
+import { PencilSquare, Trash } from "react-bootstrap-icons";
+
 import useReviews from "../../hooks/useReviews";
 
 const Review = ({ review }) => {
@@ -39,11 +35,16 @@ const Review = ({ review }) => {
             </div>
             <div className="d-flex align-items-center gap-5">
               <div className="d-flex align-items-center">
-                <StarFill></StarFill>
-                <StarFill></StarFill>
-                <StarFill></StarFill>
-                <StarHalf></StarHalf>
-                <Star></Star>
+                {/* <Stars score={review.score} /> */}
+                {[...Array(5)].map((star, i) => {
+                  return (
+                    <FaStar
+                      key={i}
+                      color={i + 1 <= review.score ? "#ffc107" : "#e4e5e9"}
+                      size={30}
+                    />
+                  );
+                })}
               </div>
               <div className="d-flex align-items-center gap-2">
                 <PencilSquare
