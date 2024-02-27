@@ -2,6 +2,7 @@ import React, { Fragment, useEffect } from "react";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 
 import useGames from "../../hooks/useGames.js";
@@ -18,9 +19,16 @@ const GamesPage = () => {
   const { showGamesOffCanvas, creatingGame } = useGames();
   return (
     <Fragment>
+      <Container fluid>
+        <Row>
+          <Col>
       <div>
         <GameCarousel />
       </div>
+      </Col>
+      </Row>
+      <Row>
+        <Col>
       <div>
         <Button
           variant="primary"
@@ -29,11 +37,18 @@ const GamesPage = () => {
           Add game
         </Button>
       </div>
+      </Col>
+      </Row>
+      <Row>
+        <Col>
       <Container className="py-5 h-100">
         <Row className="g-5">
           <GamesFilters />
           <Games />
         </Row>
+      </Container>
+      </Col>
+      </Row>
       </Container>
       <OffcanvasComponent>
         <GameForm creationMode={creatingGame} />
