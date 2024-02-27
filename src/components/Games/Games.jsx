@@ -7,10 +7,11 @@ import useGames from "../../hooks/useGames.js";
 import ShowObject from "../ShowObject/ShowObject.jsx";
 import { validateArray } from "../../libraries/validateData.js";
 const Games = () => {
-  const { filteredGames } = useGames();
+  const { games, filteredGames } = useGames();
 
   return (
     <Fragment>
+      {/* <ShowObject games={filteredGames}/> */}
       {validateArray(filteredGames)
         ? filteredGames.map((value, index) => {
             return (

@@ -325,7 +325,7 @@ const UsersProvider = ({ children }) => {
           if (session) {
             if (!validateObject(user)) {
               console.log(`a`);
-              navigate("/");
+              navigate("/games");
 
               setIsConfirmEmailOpen(initialValues.isConfirmEmailOpen);
               setIsSessionUp(true);
@@ -338,7 +338,7 @@ const UsersProvider = ({ children }) => {
           setUser(initialValues.user);
           setIsAdmin(initialValues.isAdmin);
 
-          navigate("/sign-in");
+          navigate("/");
         }
       },
       []
