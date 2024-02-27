@@ -28,7 +28,7 @@ const Game = ({ game }) => {
       <Card
         border="light"
         bg="tertiary"
-        /* style={{ width: "250px" }} */
+        style={{ width: "300px" }}
         className="shadow"
         id={game.id}
         onClick={(event) => {

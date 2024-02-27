@@ -14,6 +14,7 @@ import GameForm from "../../components/GameForm/GameForm.jsx";
 import GameCarousel from "../../components/GameCarousel/GameCarousel.jsx";
 import OffcanvasComponent from "../../components/OffcanvasComponent/OffcanvasComponent.jsx";
 import GameDeleteModal from "../../components/Modals/GameDeleteModal/GameDeleteModal.jsx";
+import GamesSlider from "../../components/GamesSlider/GamesSlider.jsx";
 
 const GamesPage = () => {
   const { showGamesOffCanvas, creatingGame } = useGames();
@@ -59,6 +60,7 @@ const GamesPage = () => {
           <Col>
             <div>
               <h2>RECOMMENDED</h2>
+              <GamesSlider />
             </div>
           </Col>
         </Row>
