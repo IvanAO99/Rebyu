@@ -1,10 +1,37 @@
+.carousel-container {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.carousel-container > div {
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.game-carousel-img {
+  object-fit: cover;
+  object-position: center;
+}
+
+.game-carousel-caption {
+  background-color: rgba(0, 0, 0, 0.5);
+
+  padding: 1rem;
+
+  color: white !important;
+  text-align: center;
+}
+
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
   border-radius: 50%;
 
-  background-color: black;
-  opacity: 0.5;
+  background-color: rgba(0, 0, 0, 0.5) !important;
 
-  color: white;
+  color: white !important;
+
+  filter: none;
+
   text-align: center;
 }
