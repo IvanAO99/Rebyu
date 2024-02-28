@@ -13,7 +13,7 @@ const SignPage = () => {
 
   return (
     <Fragment>
-      <Container fluid="sm" className="h-100 container-sign">
+      <Container className="h-100 container-sign">
         <SignUp />
       </Container>
       {isLoadingUser && <LoadingModal />}

@@ -16,9 +16,6 @@ const SignUp = () => {
     useUsers();
   return (
     <Fragment>
-      {/* <div>
-        <ShowObj obj={signUpForm} />
-      </div> */}
       <Card className="signup-form shadow">
         <Card.Header className="text-center">SIGN UP</Card.Header>
         <Card.Body>
