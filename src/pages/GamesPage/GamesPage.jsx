@@ -28,7 +28,7 @@ const GamesPage = () => {
   return (
     <Fragment>
       <GameCarousel />
-      <Container className="py-5 h-100">
+      <Container className="pt-1 pb-5 h-100">
         <Row className="mb-5">
           <Col>
             {isSessionUp && validateObject(user) && isAdmin && (
@@ -47,14 +47,14 @@ const GamesPage = () => {
             )}
           </Col>
         </Row>
-        <Row className="mb-5 g-5">
+        <Row className="mb-1 g-5">
           <Col>
             <div>
               <h2>ALL GAMES</h2>
             </div>
           </Col>
         </Row>
-        <Row className="mb-5 g-5">
+        <Row className="mb-1 g-5">
           <Col xs={3}>
             <div>
               <GamesFilters />

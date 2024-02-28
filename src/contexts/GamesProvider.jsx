@@ -6,6 +6,8 @@ import regex from "../jsons/regex.json";
 import { useNavigate } from "react-router-dom";
 import { calculateTopGames } from "../libraries/manipulateData.js";
 
+import { toast, Slide } from "react-toastify";
+
 const GamesContext = createContext();
 
 const GamesProvider = ({ children }) => {
@@ -44,6 +46,7 @@ const GamesProvider = ({ children }) => {
       developer: "*",
       title: "",
     },
+    gameAlert: {},
   };
 
   /* STATES */
@@ -81,8 +84,46 @@ const GamesProvider = ({ children }) => {
 
   const [filteredGames, setFilteredGames] = useState(initialValues.games);
   const [gameFilter, setGameFilter] = useState(initialValues.gameFilter);
+  const [gameAlert, setGameAlert] = useState(initialValues.gameAlert);
 
   /* FUNCTIONS */
+
+  const sendGameAlert = (type, message) => {
+    const notify = () => {
+      switch (type) {
+        case "success":
+          toast.success(message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Slide,
+          });
+          break;
+        case "error":
+          toast.error(message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Slide,
+          });
+          break;
+        default:
+          break;
+      }
+    };
+
+    notify();
+  };
 
   const showGamesOffCanvas = (mode = "updating") => {
     if (mode === "creating") {
@@ -616,11 +657,13 @@ const GamesProvider = ({ children }) => {
       );
 
       // Reset game register state and errors, and reload games data
+      sendGameAlert("success", "Game registered successfully!");
+      //setGameAlert({ message: `Game ${data[0].id} registered successfully!` });
       setGameRegister(initialValues.gameRegister);
       setGameRegisterErrors(initialValues.gameRegisterErrors);
       getGames();
     } catch (error) {
-      console.log(error.message);
+      sendGameAlert("error", "The game could not be registered!");
     } finally {
       hideGamesOffCanvas();
     }
@@ -671,10 +714,11 @@ const GamesProvider = ({ children }) => {
         "developer_id"
       );
 
+      sendGameAlert("success", "Game updated successfully!");
       // Reload games data
       getGames();
     } catch (error) {
-      console.log(error.message);
+      sendGameAlert("error", "The game could not be updated!");
     } finally {
       hideGamesOffCanvas();
     }
@@ -745,12 +789,13 @@ const GamesProvider = ({ children }) => {
 
       if (error) throw new Error(`The game could not be deleted.`);
 
+      sendGameAlert("success", "Game deleted successfully!");
       // After successful deletion, refresh the list of games
       getGames();
       // Reset the selected game state to its initial values
       setSelectedGame(initialValues.gameRegister);
     } catch (error) {
-      console.log(error.message);
+      sendGameAlert("error", "The game could not be deleted!");
     } finally {
       setIsGameDeleteModalOpen(initialValues.isGameDeleteModalOpen);
     }
@@ -858,6 +903,7 @@ const GamesProvider = ({ children }) => {
     filteredGames,
     resetGameFilter,
     gameFilter,
+    gameAlert,
   };
 
   return (
