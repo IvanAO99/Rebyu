@@ -37,6 +37,12 @@ const GamesProvider = ({ children }) => {
     isGamesOffcanvasShowing: false,
     isGameDeleteModalOpen: false,
     creatingGame: false,
+    gameFilter: {
+      genre: "*",
+      platform: "*",
+      developer: "*",
+      title: "",
+    },
   };
 
   /* STATES */
@@ -70,6 +76,9 @@ const GamesProvider = ({ children }) => {
     initialValues.isGameDeleteModalOpen
   );
   const [creatingGame, setCreatingGame] = useState(initialValues.creatingGame);
+
+  const [filteredGames, setFilteredGames] = useState(initialValues.games);
+  const [gameFilter, setGameFilter] = useState(initialValues.gameFilter);
 
   /* FUNCTIONS */
 
@@ -726,6 +735,71 @@ const GamesProvider = ({ children }) => {
     }
   };
 
+  /**
+   * Updates the game filter state based on user input.
+   * @param {Object} input - The input object containing name and value.
+   * @returns {void}
+   */
+  const updateGameFilter = (input) => {
+    const { name, value } = input;
+
+    setGameFilter({ ...gameFilter, [name]: value });
+  };
+
+  /**
+   * Filters a game based on the provided filters.
+   * @param {Object} game - The game object to filter.
+   * @param {Object} filters - The filters to apply.
+   * @returns {boolean} - True if the game passes all filters, false otherwise.
+   */
+  const filterGame = (game, filters) => {
+    const { genre, platform, developer, title } = filters;
+
+    const passesNameFilter =
+      title === "" || game.title.toLowerCase().includes(title.toLowerCase());
+    const passesGenreFilter =
+      genre === "*" || game.game_genre.some((item) => item.genres.id === genre);
+    const passesPlatformFilter =
+      platform === "*" ||
+      game.game_platform.some((item) => item.platforms.id === platform);
+    const passesDeveloperFilter =
+      developer === "*" ||
+      game.game_developer.some((item) => item.developers.id === developer);
+    return (
+      passesGenreFilter &&
+      passesPlatformFilter &&
+      passesDeveloperFilter &&
+      passesNameFilter
+    );
+  };
+
+  /**
+   * Filters a list of games based on the provided filters.
+   * @param {Object[]} games - The array of game objects to filter.
+   * @param {Object} filters - The filters to apply.
+   * @returns {Object[]} - The filtered array of game objects.
+   */
+  const filterGameList = (games, filters) => {
+    return games.filter((game) => filterGame(game, filters));
+  };
+
+  /**
+   * Resets the game filter state to its initial values.
+   * @returns {void}
+   */
+  const resetGameFilter = () => {
+    setGameFilter(initialValues.gameFilter);
+  };
+
+  useEffect(() => {
+    const filteredGames = filterGameList(games, gameFilter);
+    setFilteredGames(filteredGames);
+  }, [gameFilter]);
+
+  useEffect(() => {
+    setFilteredGames(games);
+  }, [games]);
+
   useEffect(() => {
     getGames();
     getTopGames();
@@ -757,6 +831,10 @@ const GamesProvider = ({ children }) => {
     isGameDeleteModalOpen,
     showGameDeleteModal,
     hideGameDeleteModal,
+    updateGameFilter,
+    filteredGames,
+    resetGameFilter,
+    gameFilter,
   };
 
   return (

@@ -20,6 +20,7 @@ import ReviewsSlider from "../../components/ReviewsSlider/ReviewsSlider.jsx";
 import { FaPlus } from "react-icons/fa";
 import useUsers from "../../hooks/useUsers.js";
 import { validateObject } from "../../libraries/validateData.js";
+import GamesFilters from "../../components/GameFilters/GameFilters.jsx";
 
 const GamesPage = () => {
   const { games, topGames, showGamesOffCanvas, creatingGame } = useGames();
@@ -44,6 +45,11 @@ const GamesPage = () => {
                 </div>
               </Fragment>
             )}
+          </Col>
+          <Col>
+            <div>
+              <GamesFilters />
+            </div>
           </Col>
         </Row>
         <Row className="mb-5 g-5">
@@ -93,6 +99,9 @@ const GamesPage = () => {
             </div>
           </Col>
         </Row>
+      </Container>
+      </Col>
+      </Row>
       </Container>
       <OffcanvasComponent>
         <GameForm creationMode={creatingGame} />

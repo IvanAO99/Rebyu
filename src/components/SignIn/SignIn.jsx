@@ -6,13 +6,15 @@ import Button from "react-bootstrap/Button";
 
 import useUsers from "../../hooks/useUsers.js";
 
-const SignIn = () => {
+const SignIn = ({ homePage }) => {
   const { signInForm, signInFormErrors, updateSignInForm, handleSignIn } =
     useUsers();
   return (
     <Fragment>
       <Card className="shadow">
-        <Card.Header className="text-center">SIGN IN</Card.Header>
+        {!homePage && (
+          <Card.Header className="text-center">SIGN IN</Card.Header>
+        )}
         <Card.Body>
           <Form className="d-flex flex-column">
             <Form.Group className="mb-3" controlId="sign-in-email">
@@ -57,12 +59,14 @@ const SignIn = () => {
             </Button>
           </Form>
         </Card.Body>
-        <Card.Footer className="text-muted">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat quasi
-          qui beatae impedit accusamus ad dolore cum repellat voluptatum illum
-          voluptate, veritatis optio natus eius minus nesciunt consequatur culpa
-          perferendis.
-        </Card.Footer>
+        {!homePage && (
+          <Card.Footer className="text-muted">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat
+            quasi qui beatae impedit accusamus ad dolore cum repellat voluptatum
+            illum voluptate, veritatis optio natus eius minus nesciunt
+            consequatur culpa perferendis.
+          </Card.Footer>
+        )}
       </Card>
     </Fragment>
   );
