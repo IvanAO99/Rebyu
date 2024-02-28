@@ -17,6 +17,7 @@ const GamesProvider = ({ children }) => {
     developers: [],
     platforms: [],
     games: [],
+    latestGames: [],
     topGames: [],
     game: {},
     isLoadingGames: true,
@@ -47,6 +48,7 @@ const GamesProvider = ({ children }) => {
 
   /* STATES */
   const [games, setGames] = useState(initialValues.games);
+  const [latestGames, setLatestGames] = useState(initialValues.latestGames);
   const [topGames, setTopGames] = useState(initialValues.topGames);
   const [game, setGame] = useState(initialValues.game);
   const [isLoadingGames, setIsLoadingGames] = useState(
@@ -132,6 +134,25 @@ const GamesProvider = ({ children }) => {
       console.log(error.message);
     } finally {
       setIsLoadingGames(false);
+    }
+  };
+
+  const getLatestGames = async () => {
+    try {
+      const { data, error } = await supabaseConnection
+        .from("games")
+        .select(
+          "*, game_genre(genres(*)), game_platform(platforms(*)), game_developer(developers(*)), reviews (*)"
+        )
+        .order("release_date", { ascending: false })
+        .range(0, 2);
+
+      if (error) throw error;
+
+      console.log(data);
+      setLatestGames(data);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -559,11 +580,11 @@ const GamesProvider = ({ children }) => {
           price: gameRegister.price,
           title: gameRegister.title,
           release_date: gameRegister.release_date,
+          wallpaper: gameRegister.wallpaper,
           cover_pic: gameRegister.cover_pic
             ? gameRegister.cover_pic
             : `https://xexkwbqgwmfjmghirwgq.supabase.co/storage/v1/object/public/images/games/default.jpg?t=2024-02-23T11%3A08%3A06.764Z`,
           trailer: gameRegister.trailer,
-          score: (Math.random() * 10).toFixed(2),
         })
         .select("*");
 
@@ -802,6 +823,7 @@ const GamesProvider = ({ children }) => {
 
   useEffect(() => {
     getGames();
+    getLatestGames();
     getTopGames();
     getGenres();
     getDevelopers();
@@ -810,6 +832,7 @@ const GamesProvider = ({ children }) => {
 
   const gamesData = {
     games,
+    latestGames,
     topGames,
     game,
     getGame,

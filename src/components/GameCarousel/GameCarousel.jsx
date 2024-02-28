@@ -7,8 +7,11 @@ import Carousel from "react-bootstrap/Carousel";
 import "./GameCarousel.css";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { validateArray } from "../../libraries/validateData";
+import useGames from "../../hooks/useGames";
 
 const GameCarousel = () => {
+  const { latestGames } = useGames();
+
   const [index, setIndex] = useState(0);
 
   const handleSelect = (selectedIndex) => {
@@ -26,7 +29,9 @@ const GameCarousel = () => {
       <div
         className="carousel-container"
         style={{
-          backgroundImage: `url(${imgs[index]})`,
+          backgroundImage: `url(${
+            validateArray(latestGames) ? latestGames[index].wallpaper : ""
+          })`,
         }}
       >
         <div>
@@ -39,8 +44,8 @@ const GameCarousel = () => {
                   onSelect={handleSelect}
                   fade
                 >
-                  {validateArray(imgs) ? (
-                    imgs.map((img, i) => {
+                  {validateArray(latestGames) ? (
+                    latestGames.map((latestGame, i) => {
                       return (
                         <Carousel.Item key={i}>
                           <img
@@ -48,15 +53,12 @@ const GameCarousel = () => {
                               height: "80vh",
                             }}
                             className="d-block w-100 game-carousel-img"
-                            src={img}
+                            src={latestGame.wallpaper}
                           />
                           <Carousel.Caption>
                             <div className="game-carousel-caption">
-                              <h3>UNCHARTED 4</h3>
-                              <p>
-                                Nulla vitae elit libero, a pharetra augue mollis
-                                interdum.
-                              </p>
+                              <h3>{latestGame.title}</h3>
+                              <p>{latestGame.synopsis}</p>
                               <Button>See more</Button>
                             </div>
                           </Carousel.Caption>

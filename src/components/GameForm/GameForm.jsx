@@ -130,6 +130,26 @@ const GameForm = ({ creationMode }) => {
               </Form.Control.Feedback>
             </Form.Group>
 
+            <Form.Group className="mb-3" controlId="game-register-wallpaper">
+              <Form.Label>Wallpaper</Form.Label>
+              <Form.Control
+                type="wallpaper"
+                name="wallpaper"
+                placeholder="Enter a wallpaper link"
+                value={actualGame.wallpaper || ""}
+                onChange={(e) => {
+                  updateGameForm(e.target, creationMode);
+                }}
+                isInvalid={gameRegisterErrors.wallpaper}
+              />
+              <Form.Text className="text-muted">
+                Upload a cover image for the game.
+              </Form.Text>
+              <Form.Control.Feedback type="invalid">
+                {gameRegisterErrors.wallpaper}
+              </Form.Control.Feedback>
+            </Form.Group>
+
             {/* <Form.Group className="mb-3" controlId="game-register-cover">
               <Form.Label>Cover Image</Form.Label>
               <Form.Control type="file" name="cover" accept="image/*" />
@@ -179,8 +199,12 @@ const GameForm = ({ creationMode }) => {
                           label={developer.name}
                           name="game_developer"
                           value={developer.id}
-                          checked={actualGame.game_developer.includes(developer.id)}
-                          onChange={(e)=>{handleCheckboxChange(e, creationMode)}}
+                          checked={actualGame.game_developer.includes(
+                            developer.id
+                          )}
+                          onChange={(e) => {
+                            handleCheckboxChange(e, creationMode);
+                          }}
                           isInvalid={gameRegisterErrors.game_developer}
                         />
                       );
@@ -207,8 +231,12 @@ const GameForm = ({ creationMode }) => {
                           label={platform.name}
                           name="game_platform"
                           value={platform.id}
-                          checked={actualGame.game_platform.includes(platform.id)}
-                          onChange={(e)=>{handleCheckboxChange(e, creationMode)}}
+                          checked={actualGame.game_platform.includes(
+                            platform.id
+                          )}
+                          onChange={(e) => {
+                            handleCheckboxChange(e, creationMode);
+                          }}
                           isInvalid={gameRegisterErrors.game_platform}
                         />
                       );
@@ -236,7 +264,9 @@ const GameForm = ({ creationMode }) => {
                           name="game_genre"
                           value={genre.id}
                           checked={actualGame.game_genre.includes(genre.id)}
-                          onChange={(e)=>{handleCheckboxChange(e, creationMode)}}
+                          onChange={(e) => {
+                            handleCheckboxChange(e, creationMode);
+                          }}
                           isInvalid={gameRegisterErrors.game_genre}
                         />
                       );
