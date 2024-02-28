@@ -16,7 +16,12 @@ const Games = () => {
         ? filteredGames.map((value, index) => {
             return (
               <Fragment key={index}>
-                <Col xs={6} md={4} lg={3}>
+                <Col
+                  xs={12}
+                  md={6}
+                  lg={4}
+                  className="d-flex justify-content-center align-items-center"
+                >
                   <Game game={value} />
                 </Col>
               </Fragment>

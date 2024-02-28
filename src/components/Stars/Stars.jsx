@@ -7,9 +7,8 @@ const Stars = ({ score, size }) => {
       <div className="d-flex align-items-center">
         {[...Array(5)].map((star, i) => {
           return (
-            <Fragment>
+            <Fragment key={crypto.randomUUID()}>
               <Star
-                key={`star-${i + 1}`}
                 color={i + 1 <= score ? "#ffc107" : "#e4e5e9"}
                 size={size}
               />
