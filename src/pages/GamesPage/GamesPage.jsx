@@ -15,27 +15,48 @@ import GameCarousel from "../../components/GameCarousel/GameCarousel.jsx";
 import OffcanvasComponent from "../../components/OffcanvasComponent/OffcanvasComponent.jsx";
 import GameDeleteModal from "../../components/Modals/GameDeleteModal/GameDeleteModal.jsx";
 import GamesSlider from "../../components/GamesSlider/GamesSlider.jsx";
+import ShowObj from "../../components/development/ShowObj.jsx";
+import ReviewsSlider from "../../components/ReviewsSlider/ReviewsSlider.jsx";
+import { FaPlus } from "react-icons/fa";
+import useUsers from "../../hooks/useUsers.js";
+import { validateObject } from "../../libraries/validateData.js";
 
 const GamesPage = () => {
-  const { showGamesOffCanvas, creatingGame } = useGames();
+  const { games, topGames, showGamesOffCanvas, creatingGame } = useGames();
+  const { isSessionUp, user, isAdmin } = useUsers();
   return (
     <Fragment>
       <GameCarousel />
-      <div>
-        <Button
-          variant="primary"
-          onClick={() => showGamesOffCanvas("creating")}
-        >
-          Add game
-        </Button>
-      </div>
       <Container className="py-5 h-100">
-        <Row className="g-5">
+        <Row className="mb-5">
+          <Col>
+            {isSessionUp && validateObject(user) && isAdmin && (
+              <Fragment>
+                <div>
+                  <Button
+                    variant="primary"
+                    onClick={() => showGamesOffCanvas("creating")}
+                  >
+                    <span>
+                      <FaPlus size={15} />
+                    </span>
+                  </Button>
+                </div>
+              </Fragment>
+            )}
+          </Col>
+        </Row>
+        <Row className="mb-5 g-5">
+          <Col xs={12}>
+            <div>
+              <h2>ALL GAMES</h2>
+            </div>
+          </Col>
           <Games />
         </Row>
-        <Row>
+        <Row className="mb-5">
           <Col>
-            <div>
+            <div className="d-flex justify-content-center align-items-center">
               <Pagination>
                 <Pagination.First />
                 <Pagination.Prev />
@@ -56,18 +77,19 @@ const GamesPage = () => {
             </div>
           </Col>
         </Row>
-        <Row>
+        <Row className="mb-5">
           <Col>
             <div>
-              <h2>RECOMMENDED</h2>
+              <h2>TOP GAMES</h2>
               <GamesSlider />
             </div>
           </Col>
         </Row>
-        <Row>
+        <Row className="mb-5">
           <Col>
             <div>
               <h2>LAST REVIEWS</h2>
+              <ReviewsSlider />
             </div>
           </Col>
         </Row>

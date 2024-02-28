@@ -1,21 +1,25 @@
 import React from "react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination } from "swiper/modules";
+import { Autoplay, Grid, Pagination } from "swiper/modules";
 
 // Import Swiper styles
 import "swiper/css";
+import "swiper/css/grid";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-import "./GamesSlider.css";
+import "./ReviewsSlider.css";
 import Game from "../Game/Game";
 import useGames from "../../hooks/useGames";
 import { validateArray } from "../../libraries/validateData";
 import Loading from "../Loading/Loading";
+import useReviews from "../../hooks/useReviews";
+import Review from "../Review/Review";
 
-const GamesSlider = () => {
+const ReviewsSlider = () => {
   const { topGames } = useGames();
+  const { lastReviews } = useReviews();
 
   return (
     <div>
@@ -24,25 +28,27 @@ const GamesSlider = () => {
           delay: 0,
           pauseOnMouseEnter: true,
           disableOnInteraction: false,
+          reverseDirection: true,
         }}
-        speed={5000}
+        speed={10000}
         freeMode={true}
         centeredSlides={true}
         loop={true}
+        loopAddBlankSlides={true}
         pagination={{
           type: "progressbar",
         }}
-        modules={[Autoplay, Pagination]}
-        slidesPerView={4}
+        modules={[Autoplay, Grid, Pagination]}
+        slidesPerView={2}
         spaceBetween={16}
-        className="games-slider"
+        className="reviews-slider"
       >
-        {validateArray(topGames) ? (
-          topGames.map((topGame, i) => {
+        {validateArray(lastReviews) ? (
+          lastReviews.map((lastReview, i) => {
             return (
               <SwiperSlide key={i}>
                 <div style={{ padding: "1rem" }}>
-                  <Game game={topGame} />
+                  <Review review={lastReview} />
                 </div>
               </SwiperSlide>
             );
@@ -59,4 +65,4 @@ const GamesSlider = () => {
   );
 };
 
-export default GamesSlider;
+export default ReviewsSlider;

@@ -4,6 +4,7 @@ import { validateArray, validateObject } from "../libraries/validateData.js";
 
 import regex from "../jsons/regex.json";
 import { useNavigate } from "react-router-dom";
+import { calculateTopGames } from "../libraries/manipulateData.js";
 
 const GamesContext = createContext();
 
@@ -16,8 +17,10 @@ const GamesProvider = ({ children }) => {
     developers: [],
     platforms: [],
     games: [],
+    topGames: [],
     game: {},
     isLoadingGames: true,
+    isLoadingTopGames: true,
     isLoadingGame: true,
     gameRegister: {
       title: "",
@@ -38,9 +41,13 @@ const GamesProvider = ({ children }) => {
 
   /* STATES */
   const [games, setGames] = useState(initialValues.games);
+  const [topGames, setTopGames] = useState(initialValues.topGames);
   const [game, setGame] = useState(initialValues.game);
   const [isLoadingGames, setIsLoadingGames] = useState(
     initialValues.isLoadingGames
+  );
+  const [isLoadingTopGames, setIsLoadingTopGames] = useState(
+    initialValues.isLoadingTopGames
   );
   const [isLoadingGame, setIsLoadingGame] = useState(
     initialValues.isLoadingGame
@@ -102,7 +109,7 @@ const GamesProvider = ({ children }) => {
       const { data, error } = await supabaseConnection
         .from("games")
         .select(
-          "*, game_genre(genres(*)), game_platform(platforms(*)), game_developer(developers(*))"
+          "*, game_genre(genres(*)), game_platform(platforms(*)), game_developer(developers(*)), reviews (*)"
         )
         .order("id");
 
@@ -110,11 +117,34 @@ const GamesProvider = ({ children }) => {
         throw new Error(
           "Error loading games. Please reload the page and try again."
         );
+
       setGames(data);
     } catch (error) {
       console.log(error.message);
     } finally {
       setIsLoadingGames(false);
+    }
+  };
+
+  const getTopGames = async () => {
+    try {
+      const { data, error } = await supabaseConnection
+        .from("games")
+        .select(
+          "*, game_genre(genres(*)), game_platform(platforms(*)), game_developer(developers(*)), reviews (*)"
+        );
+
+      if (error) throw error;
+
+      console.log(data);
+
+      const calculatedTopGames = calculateTopGames(data);
+
+      setTopGames(calculatedTopGames);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoadingTopGames(false);
     }
   };
 
@@ -698,6 +728,7 @@ const GamesProvider = ({ children }) => {
 
   useEffect(() => {
     getGames();
+    getTopGames();
     getGenres();
     getDevelopers();
     getPlatforms();
@@ -705,6 +736,7 @@ const GamesProvider = ({ children }) => {
 
   const gamesData = {
     games,
+    topGames,
     game,
     getGame,
     genres,
