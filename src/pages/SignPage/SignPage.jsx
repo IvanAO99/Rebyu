@@ -6,7 +6,6 @@ import SignUp from "../../components/SignUp/SignUp.jsx";
 import MessageModal from "../../components/Modals/MessageModal/MessageModal.jsx";
 import useUsers from "../../hooks/useUsers.js";
 import LoadingModal from "../../components/Modals/LoadingModal/LoadingModal.jsx";
-import './SignPage.css'
 
 const SignPage = () => {
   const { isLoadingUser, isConfirmEmailOpen } = useUsers();
