@@ -100,9 +100,6 @@ const GamesPage = () => {
           </Col>
         </Row>
       </Container>
-      </Col>
-      </Row>
-      </Container>
       <OffcanvasComponent>
         <GameForm creationMode={creatingGame} />
       </OffcanvasComponent>
