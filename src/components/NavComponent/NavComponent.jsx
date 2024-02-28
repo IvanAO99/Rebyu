@@ -12,6 +12,7 @@ import useUsers from "../../hooks/useUsers.js";
 
 const NavComponent = () => {
   const { isSessionUp, user, signOut } = useUsers();
+  
   return (
     <Fragment>
       <Navbar
@@ -26,9 +27,12 @@ const NavComponent = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link as={Link} to={"/"}>
-                Home
-              </Nav.Link>
+              {!isSessionUp && (
+                <Nav.Link as={Link} to={"/"}>
+                  Home
+                </Nav.Link>
+              )}
+
               <Nav.Link as={Link} to={"/games"}>
                 Games
               </Nav.Link>
@@ -60,7 +64,7 @@ const NavComponent = () => {
                 </Fragment>
               ) : (
                 <Nav.Link as={Link} to={"/sign-in"}>
-                  Sign In
+                  Sign Up
                 </Nav.Link>
               )}
             </Nav>

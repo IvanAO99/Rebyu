@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from "react";
 import "./HomePage.css";
 import SignIn from "../../components/SignIn/SignIn.jsx";
-import SignUp from "../../components/SignUp/SignUp.jsx";
 import { Link } from "react-router-dom";
 
 const HomePage = () => {
   const videoUrls = [
-    "https://xexkwbqgwmfjmghirwgq.supabase.co/storage/v1/object/public/videos/intial_page/pexels-luanmote-6685366%20(1080p).mp4?t=2024-02-27T10%3A12%3A20.111Z",
-    "https://xexkwbqgwmfjmghirwgq.supabase.co/storage/v1/object/public/videos/intial_page/pexels-pavel-danilyuk-7667867%20(1080p).mp4?t=2024-02-27T10%3A12%3A29.646Z",
-    "https://xexkwbqgwmfjmghirwgq.supabase.co/storage/v1/object/public/videos/intial_page/pexels-pavel-danilyuk-7668110%20(1080p).mp4?t=2024-02-27T10%3A12%3A35.039Z",
-    "https://xexkwbqgwmfjmghirwgq.supabase.co/storage/v1/object/public/videos/intial_page/pexels-rodnae-productions-7914778%20(1080p).mp4?t=2024-02-27T10%3A12%3A57.619Z",
-    "https://xexkwbqgwmfjmghirwgq.supabase.co/storage/v1/object/public/videos/intial_page/pexels-rodnae-productions-7914850%20(1080p).mp4?t=2024-02-27T10%3A13%3A02.746Z",
+    "https://xexkwbqgwmfjmghirwgq.supabase.co/storage/v1/object/public/videos/intial_page/pexels-luanmote-6685366%20(1080p).mp4?t=2024-02-28T10%3A56%3A59.186Z",
+    "https://xexkwbqgwmfjmghirwgq.supabase.co/storage/v1/object/public/videos/intial_page/pexels-pavel-danilyuk-7667867%20(1080p).mp4?t=2024-02-28T10%3A57%3A09.185Z",
+    "https://xexkwbqgwmfjmghirwgq.supabase.co/storage/v1/object/public/videos/intial_page/pexels-pavel-danilyuk-7668110%20(1080p).mp4?t=2024-02-28T10%3A57%3A16.764Z",
+    "https://xexkwbqgwmfjmghirwgq.supabase.co/storage/v1/object/public/videos/intial_page/pexels-rodnae-productions-7914778%20(1080p).mp4?t=2024-02-28T10%3A57%3A25.794Z",
+    "https://xexkwbqgwmfjmghirwgq.supabase.co/storage/v1/object/public/videos/intial_page/pexels-rodnae-productions-7914850%20(1080p).mp4?t=2024-02-28T10%3A57%3A33.713Z",
     "https://xexkwbqgwmfjmghirwgq.supabase.co/storage/v1/object/public/videos/intial_page/pexels-rodnae-productions-7915041%20(1080p).mp4?t=2024-02-27T10%3A13%3A16.604Z",
-    "https://xexkwbqgwmfjmghirwgq.supabase.co/storage/v1/object/public/videos/intial_page/pexels-ron-lach-7856705%20(2160p).mp4?t=2024-02-27T10%3A13%3A22.114Z",
+    "https://xexkwbqgwmfjmghirwgq.supabase.co/storage/v1/object/public/videos/intial_page/pexels-ron-lach-7856705%20(2160p).mp4?t=2024-02-28T10%3A57%3A48.149Z",
+    "https://xexkwbqgwmfjmghirwgq.supabase.co/storage/v1/object/public/videos/intial_page/production_id_3946076%20(2160p).mp4?t=2024-02-28T10%3A58%3A19.011Z",
+    "https://xexkwbqgwmfjmghirwgq.supabase.co/storage/v1/object/public/videos/intial_page/production_id_4010188%20(2160p).mp4?t=2024-02-28T10%3A58%3A27.181Z",
+    "https://xexkwbqgwmfjmghirwgq.supabase.co/storage/v1/object/public/videos/intial_page/production_id_4247319%20(1080p).mp4?t=2024-02-28T10%3A58%3A34.984Z",
+    "https://xexkwbqgwmfjmghirwgq.supabase.co/storage/v1/object/public/videos/intial_page/production_id_4354243%20(2160p).mp4?t=2024-02-28T10%3A58%3A41.968Z",
+    "https://xexkwbqgwmfjmghirwgq.supabase.co/storage/v1/object/public/videos/intial_page/production_id_4835516%20(2160p).mp4?t=2024-02-28T10%3A58%3A51.336Z"
   ];
 
   function getRandomVideoIndex() {

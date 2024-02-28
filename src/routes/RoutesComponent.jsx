@@ -6,12 +6,14 @@ import GamesPage from "../pages/GamesPage/GamesPage.jsx";
 import GamePage from "../pages/GamePage/GamePage.jsx";
 import SignPage from "../pages/SignPage/SignPage.jsx";
 import Error404Page from "../pages/Error404Page/Error404Page.jsx";
+import useUsers from "../hooks/useUsers.js";
 
 const RoutesComponent = () => {
+  const { isSessionUp } = useUsers();
   return (
     <Fragment>
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        {!isSessionUp && <Route path="/" element={<HomePage />} />}
         <Route path="games" element={<GamesPage />} />
         <Route path="game" element={<GamePage />} />
         <Route path="sign-in" element={<SignPage />} />
