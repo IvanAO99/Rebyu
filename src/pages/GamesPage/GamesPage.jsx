@@ -46,19 +46,25 @@ const GamesPage = () => {
               </Fragment>
             )}
           </Col>
-          <Col>
-            <div>
-              <GamesFilters />
-            </div>
-          </Col>
         </Row>
         <Row className="mb-5 g-5">
-          <Col xs={12}>
+          <Col>
             <div>
               <h2>ALL GAMES</h2>
             </div>
           </Col>
-          <Games />
+        </Row>
+        <Row className="mb-5 g-5">
+          <Col xs={3}>
+            <div>
+              <GamesFilters />
+            </div>
+          </Col>
+          <Col xs={9}>
+            <Row className="mb-5 g-5 justify-content-center align-items-center">
+              <Games />
+            </Row>
+          </Col>
         </Row>
         <Row className="mb-5">
           <Col>
