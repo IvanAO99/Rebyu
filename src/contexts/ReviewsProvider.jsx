@@ -17,7 +17,7 @@ const ReviewsProvider = ({ children }) => {
   const initialValues = {
     reviewForm: {
       game_id: "",
-      score: "",
+      score: "0",
       message: "",
       spoiler: "false",
     },
@@ -27,6 +27,7 @@ const ReviewsProvider = ({ children }) => {
     deletingReview: false,
     isLoadingReviews: false,
     reviews: [],
+    lastReviews: [],
   };
 
   /* STATES */
@@ -47,6 +48,7 @@ const ReviewsProvider = ({ children }) => {
     initialValues.isLoadingReviews
   );
   const [reviews, setReviews] = useState(initialValues.reviews);
+  const [lastReviews, setLastReviews] = useState(initialValues.lastReviews);
 
   /* SUPABASE FETCHS */
   const getReviews = async () => {
@@ -67,6 +69,25 @@ const ReviewsProvider = ({ children }) => {
       console.log(error.message);
     } finally {
       setIsLoadingReviews(initialValues.isLoadingReviews);
+    }
+  };
+
+  const getLastReviews = async () => {
+    try {
+      let { data, error } = await supabaseConnection
+        .from("reviews")
+        .select("*, game:game_id (*), reviewer:user_id (*)")
+        .order("date_time", { ascending: false })
+        .range(0, 20);
+
+      if (error) throw error;
+
+      console.log("LAST REVIEWS");
+      console.log(data);
+
+      setLastReviews(data);
+    } catch (error) {
+      console.log(error.message);
     }
   };
 
@@ -262,6 +283,10 @@ const ReviewsProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    getLastReviews();
+  }, []);
+
+  useEffect(() => {
     if (validateObject(game)) {
       console.log(game);
       console.log(game.id);
@@ -279,6 +304,7 @@ const ReviewsProvider = ({ children }) => {
     deletingReview,
     isLoadingReviews,
     reviews,
+    lastReviews,
     showReviewFormModal,
     hideReviewFormModal,
     updateReviewForm,
