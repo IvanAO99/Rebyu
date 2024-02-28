@@ -7,6 +7,9 @@ import Button from "react-bootstrap/Button";
 import useUsers from "../../hooks/useUsers.js";
 
 import ShowObj from "../development/ShowObj.jsx";
+import { Row, Col } from "react-bootstrap";
+
+import './SignUp.css';
 
 const SignUp = () => {
   const { signUpForm, signUpFormErrors, updateSignUpForm, handleSignUp } =
@@ -16,31 +19,50 @@ const SignUp = () => {
       {/* <div>
         <ShowObj obj={signUpForm} />
       </div> */}
-      <Card className="shadow">
+      <Card className="signup-form shadow">
         <Card.Header className="text-center">SIGN UP</Card.Header>
         <Card.Body>
           <Form className="d-flex flex-column">
-            <Form.Group className="mb-3" controlId="sign-up-nickname">
-              <Form.Label>Nickname</Form.Label>
+            <Row className="mb-3">
+              <Form.Group as={Col} className="mb-3" controlId="sign-up-nickname">
+                <Form.Label>Nickname <span className="obligatory">(*)</span></Form.Label>
+                <Form.Control
+                  type="text"
+                  name="nickname"
+                  placeholder="Enter nickname"
+                  value={signUpForm.nickname || ""}
+                  onChange={(event) => {
+                    updateSignUpForm(event.target);
+                  }}
+                  isInvalid={signUpFormErrors.nickname}
+                />
+                <Form.Text className="text-muted">
+                  Enter a valid nickname
+                </Form.Text>
+                <Form.Control.Feedback type="invalid">
+                  {signUpFormErrors.nickname}
+                </Form.Control.Feedback>
+              </Form.Group>
+              <Form.Group as={Col} className="mb-3" controlId="sign-up-name">
+              <Form.Label>Name <span className="obligatory">(*)</span></Form.Label>
               <Form.Control
                 type="text"
-                name="nickname"
-                placeholder="Enter nickname"
-                value={signUpForm.nickname || ""}
+                name="name"
+                placeholder="Enter name"
+                value={signUpForm.name || ""}
                 onChange={(event) => {
                   updateSignUpForm(event.target);
                 }}
-                isInvalid={signUpFormErrors.nickname}
+                isInvalid={signUpFormErrors.name}
               />
-              <Form.Text className="text-muted">
-                Enter a valid nickname
-              </Form.Text>
+              <Form.Text className="text-muted">Enter a valid name</Form.Text>
               <Form.Control.Feedback type="invalid">
-                {signUpFormErrors.nickname}
+                {signUpFormErrors.name}
               </Form.Control.Feedback>
             </Form.Group>
+            </Row>
             <Form.Group className="mb-3" controlId="sign-up-email">
-              <Form.Label>Email</Form.Label>
+              <Form.Label>Email <span className="obligatory">(*)</span></Form.Label>
               <Form.Control
                 type="email"
                 name="email"
@@ -58,8 +80,9 @@ const SignUp = () => {
                 {signUpFormErrors.email}
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="sign-up-password">
-              <Form.Label>Password</Form.Label>
+            <Row className="mb-3">
+            <Form.Group as={Col} className="mb-3" controlId="sign-up-password">
+              <Form.Label>Password <span className="obligatory">(*)</span></Form.Label>
               <Form.Control
                 type="password"
                 name="password"
@@ -79,8 +102,8 @@ const SignUp = () => {
                 {signUpFormErrors.password}
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="sign-up-repeated-password">
-              <Form.Label>Repeat password</Form.Label>
+            <Form.Group as={Col} className="mb-3" controlId="sign-up-repeated-password">
+              <Form.Label>Repeat password <span className="obligatory">(*)</span></Form.Label>
               <Form.Control
                 type="password"
                 name="repeated_password"
@@ -98,25 +121,10 @@ const SignUp = () => {
                 {signUpFormErrors.repeated_password}
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="sign-up-name">
-              <Form.Label>Name</Form.Label>
-              <Form.Control
-                type="text"
-                name="name"
-                placeholder="Enter name"
-                value={signUpForm.name || ""}
-                onChange={(event) => {
-                  updateSignUpForm(event.target);
-                }}
-                isInvalid={signUpFormErrors.name}
-              />
-              <Form.Text className="text-muted">Enter a valid name</Form.Text>
-              <Form.Control.Feedback type="invalid">
-                {signUpFormErrors.name}
-              </Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="sign-up-birth-date">
-              <Form.Label>Birth date</Form.Label>
+            </Row>
+            <Row className="mb-3">
+            <Form.Group as={Col} className="mb-3" controlId="sign-up-birth-date">
+              <Form.Label>Birth date <span className="obligatory">(*)</span></Form.Label>
               <Form.Control
                 type="date"
                 name="birth_date"
@@ -132,7 +140,7 @@ const SignUp = () => {
                 {signUpFormErrors.birth_date}
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="sign-up-profile-photo">
+            <Form.Group as={Col} className="mb-3" controlId="sign-up-profile-photo">
               <Form.Label>Profile photo</Form.Label>
               <Form.Control
                 type="file"
@@ -149,6 +157,7 @@ const SignUp = () => {
                 {signUpFormErrors.profile_photo}
               </Form.Control.Feedback>
             </Form.Group>
+            </Row>
             <Form.Group className="mb-3" controlId="sign-up-checkbox">
               <Form.Check
                 name="terms_services"
@@ -176,10 +185,11 @@ const SignUp = () => {
           </Form>
         </Card.Body>
         <Card.Footer className="text-muted">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat quasi
-          qui beatae impedit accusamus ad dolore cum repellat voluptatum illum
-          voluptate, veritatis optio natus eius minus nesciunt consequatur culpa
-          perferendis.
+          Welcome to our community! Your privacy is important to us, and we want
+          you to know that we are committed to protecting your personal
+          information. We will never share your data with third parties without
+          your consent. If you have any concerns about privacy or data security,
+          please reach out to us.
         </Card.Footer>
       </Card>
     </Fragment>
