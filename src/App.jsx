@@ -9,6 +9,7 @@ import Header from "./structure/Header/Header.jsx";
 import Main from "./structure/Main/Main.jsx";
 import RoutesComponent from "./routes/RoutesComponent.jsx";
 import Footer from "./structure/Footer/Footer.jsx";
+import MessageAlert from "./components/Alerts/MessageAlert/MessageAlert.jsx";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         </UsersProvider>
         <Footer />
       </BrowserRouter>
+      <MessageAlert />
     </Fragment>
   );
 }

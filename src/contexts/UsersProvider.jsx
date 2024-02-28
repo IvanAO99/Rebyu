@@ -1,6 +1,8 @@
 import React, { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { toast, Slide } from "react-toastify";
+
 import { supabaseConnection } from "../.config/supabase.js";
 
 import { validateObject } from "../libraries/validateData.js";
@@ -63,6 +65,44 @@ const UsersProvider = ({ children }) => {
   );
 
   /* FUNCTIONS */
+
+  const sendUserAlert = (type, message) => {
+    const notify = () => {
+      switch (type) {
+        case "info":
+          toast.info(message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Slide,
+          });
+          break;
+        case "error":
+          toast.error(message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Slide,
+          });
+          break;
+        default:
+          break;
+      }
+    };
+
+    notify();
+  };
+
   const updateSignInForm = (input) => {
     const { name, value } = input;
 
@@ -236,8 +276,9 @@ const UsersProvider = ({ children }) => {
       if (error) throw error;
 
       setUser({ ...authUser, ...users[0] });
+      sendUserAlert("info", `Welcome! ${users[0].nickname}`);
     } catch (error) {
-      console.log(`User by ID error: ${error.message}`);
+      sendUserAlert("error", "Something went wrong, please try again.");
     }
   };
 
@@ -255,22 +296,9 @@ const UsersProvider = ({ children }) => {
 
       getUserByID(data.user);
     } catch (error) {
-      console.log(`User error: ${error.message}`);
+      sendUserAlert("error", "Something went wrong, please try again.");
     }
   };
-
-  /*
-  signUpForm: {
-      nickname: "",
-      email: "",
-      password: "",
-      repeated_password: "",
-      name: "",
-      birth_date: "",
-      profile_photo: "",
-      terms_services: "",
-    },
-  */
 
   const createUser = async (authUserID) => {
     try {
@@ -283,8 +311,10 @@ const UsersProvider = ({ children }) => {
       });
 
       if (error) throw error;
+
+      sendUserAlert("info", "Please, validate your email to continue.");
     } catch (error) {
-      console.log(`User error: ${error.message}`);
+      sendUserAlert("error", "Something went wrong, please try again.");
     } finally {
       setSignUpForm(initialValues.signUpForm);
       setSignUpFormErrors(initialValues.signUpFormErrors);
@@ -307,14 +337,20 @@ const UsersProvider = ({ children }) => {
 
       createUser(data.user.id);
     } catch (error) {
-      console.log(`User error: ${error.message}`);
+      sendUserAlert("error", "Something went wrong, please try again.");
     }
   };
 
   const signOut = async () => {
     try {
-      await supabaseConnection.auth.signOut();
-    } catch (error) {}
+      const { error } = await supabaseConnection.auth.signOut();
+
+      if (error) throw error;
+
+      sendUserAlert("info", `Bye! Come back soon ${user.nickname}`);
+    } catch (error) {
+      sendUserAlert("error", "Something went wrong, please try again.");
+    }
   };
 
   /* USE EFFECTS */
@@ -324,7 +360,6 @@ const UsersProvider = ({ children }) => {
         if (event === "SIGNED_IN") {
           if (session) {
             if (!validateObject(user)) {
-              console.log(`a`);
               navigate("/games");
 
               setIsConfirmEmailOpen(initialValues.isConfirmEmailOpen);
@@ -344,64 +379,6 @@ const UsersProvider = ({ children }) => {
       []
     );
   });
-
-  /*   useEffect(() => {
-    const { data } = supabaseConnection.auth.onAuthStateChange(
-      (event, session) => {
-
-        if (session) {
-          if (!validateObject(user)) {
-            navigate("/");
-
-            setIsConfirmEmailOpen(initialValues.isConfirmEmailOpen);
-            setIsSessionUp(true);
-
-            getUser();
-          }
-        } else {
-          setIsSessionUp(initialValues.isSessionUp);
-          setUser(initialValues.user);
-          setIsAdmin(initialValues.isAdmin);
-
-          navigate("/sign-in");
-        }
-
-        if (event === "INITIAL_SESSION") {
-          // handle initial session
-          navigate("/");
-
-          setIsConfirmEmailOpen(initialValues.isConfirmEmailOpen);
-          setIsSessionUp(true);
-
-          getUser();
-        } else if (event === "SIGNED_IN") {
-          // handle sign in event
-          navigate("/");
-
-          setIsConfirmEmailOpen(initialValues.isConfirmEmailOpen);
-          setIsSessionUp(true);
-
-          getUser();
-        } else if (event === "SIGNED_OUT") {
-          // handle sign out event
-          setIsSessionUp(initialValues.isSessionUp);
-          setUser(initialValues.user);
-          setIsAdmin(initialValues.isAdmin);
-
-          navigate("/sign-in");
-        } else if (event === "PASSWORD_RECOVERY") {
-          // handle password recovery event
-        } else if (event === "TOKEN_REFRESHED") {
-          // handle token refreshed event
-        } else if (event === "USER_UPDATED") {
-          // handle user updated event
-        }
-      }
-    );
-
-    // call unsubscribe to remove the callback
-    //data.subscription.unsubscribe();
-  }, []); */
 
   /* CONTEXT DATA */
   const usersData = {

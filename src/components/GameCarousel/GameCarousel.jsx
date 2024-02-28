@@ -18,12 +18,6 @@ const GameCarousel = () => {
     setIndex(selectedIndex);
   };
 
-  const imgs = [
-    "https://xexkwbqgwmfjmghirwgq.supabase.co/storage/v1/object/public/images/games/uncharted.jpg",
-    "https://xexkwbqgwmfjmghirwgq.supabase.co/storage/v1/object/public/images/games/tlou.jpg",
-    "https://xexkwbqgwmfjmghirwgq.supabase.co/storage/v1/object/public/images/games/cod.png",
-  ];
-
   return (
     <Fragment>
       <div

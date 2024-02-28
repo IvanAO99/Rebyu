@@ -1,4 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
+
+import { toast, Slide } from "react-toastify";
+
 import { supabaseConnection } from "../.config/supabase";
 import useUsers from "../hooks/useUsers";
 
@@ -50,6 +53,43 @@ const ReviewsProvider = ({ children }) => {
   const [reviews, setReviews] = useState(initialValues.reviews);
   const [lastReviews, setLastReviews] = useState(initialValues.lastReviews);
 
+  const sendReviewAlert = (type, message) => {
+    const notify = () => {
+      switch (type) {
+        case "success":
+          toast.success(message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Slide,
+          });
+          break;
+        case "error":
+          toast.error(message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Slide,
+          });
+          break;
+        default:
+          break;
+      }
+    };
+
+    notify();
+  };
+
   /* SUPABASE FETCHS */
   const getReviews = async () => {
     try {
@@ -62,11 +102,12 @@ const ReviewsProvider = ({ children }) => {
 
       if (error) throw error;
 
-      console.log(data);
-
       setReviews(data);
     } catch (error) {
-      console.log(error.message);
+      sendReviewAlert(
+        "error",
+        "Something went wrong, please wait and try again."
+      );
     } finally {
       setIsLoadingReviews(initialValues.isLoadingReviews);
     }
@@ -87,7 +128,10 @@ const ReviewsProvider = ({ children }) => {
 
       setLastReviews(data);
     } catch (error) {
-      console.log(error.message);
+      sendReviewAlert(
+        "error",
+        "Something went wrong, please wait and try again."
+      );
     }
   };
 
@@ -107,7 +151,10 @@ const ReviewsProvider = ({ children }) => {
 
       setReviews(data);
     } catch (error) {
-      console.log(error.message);
+      sendReviewAlert(
+        "error",
+        "Something went wrong, please wait and try again."
+      );
     } finally {
       setIsLoadingReviews(initialValues.isLoadingReviews);
     }
@@ -122,11 +169,11 @@ const ReviewsProvider = ({ children }) => {
 
       if (error) throw error;
 
-      console.log(data);
+      sendReviewAlert("success", "Review added successfully!");
       getReviewsByGame(game.id);
       setIsReviewFormModalOpen(initialValues.isReviewFormModalOpen);
     } catch (error) {
-      console.log(error);
+      sendReviewAlert("error", "The review could not be added!");
     } finally {
       setReviewForm(initialValues.reviewForm);
       setReviewFormErrors(initialValues.reviewFormErrors);
@@ -143,13 +190,12 @@ const ReviewsProvider = ({ children }) => {
 
       if (error) throw error;
 
-      console.log(data);
+      sendReviewAlert("success", "Review updated successfully!");
       getReviewsByGame(game.id);
       //getReviews();
       setIsReviewFormModalOpen(initialValues.isReviewFormModalOpen);
     } catch (error) {
-      console.log("UPDATE ERROR:");
-      console.log(error);
+      sendReviewAlert("error", "The review could not be updated!");
     } finally {
       setReviewForm(initialValues.reviewForm);
       setReviewFormErrors(initialValues.reviewFormErrors);
@@ -166,11 +212,10 @@ const ReviewsProvider = ({ children }) => {
 
       if (error) throw error;
 
-      console.log(data);
+      sendReviewAlert("success", "Review deleted successfully!");
       setDeletingReview(initialValues.deletingReview);
     } catch (error) {
-      console.log("DELETE ERROR:");
-      console.log(error);
+      sendReviewAlert("error", "The review could not be deleted!");
     } finally {
       //getReviews();
       getReviewsByGame(game.id);
@@ -218,8 +263,6 @@ const ReviewsProvider = ({ children }) => {
 
   const updateReviewForm = (input) => {
     const { name, value } = input;
-
-    console.log(`${name} : ${value}`);
 
     if (name === "spoiler") {
       setReviewForm({
@@ -288,9 +331,6 @@ const ReviewsProvider = ({ children }) => {
 
   useEffect(() => {
     if (validateObject(game)) {
-      console.log(game);
-      console.log(game.id);
-
       getReviewsByGame(game.id);
     }
   }, [game]);
