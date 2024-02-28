@@ -20,21 +20,21 @@ const Footer = () => {
             <h3>General</h3>
             <ul>
               <li>
-                <a href="/about">Sobre nosotros</a>
+                <a href="/about">About us</a>
               </li>
               <li>
-                <a href="/contact">Contacto</a>
+                <a href="/contact">Contact</a>
               </li>
               <li>
-                <a href="/privacy-policy">Política de privacidad</a>
+                <a href="/privacy-policy">Privacy Policy</a>
               </li>
               <li>
-                <a href="/terms-of-use">Términos de uso</a>
+                <a href="/terms-of-use">Terms of Use</a>
               </li>
             </ul>
           </div>
           <div className="right-block">
-            <h3>Síguenos</h3>
+            <h3>Follow Us</h3>
             <div className="social-icons">
               <div>
                 <a href="https://facebook.com">
