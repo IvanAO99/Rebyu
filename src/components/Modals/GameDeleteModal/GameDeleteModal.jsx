@@ -3,8 +3,14 @@ import ReactDOM from "react-dom";
 
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import useGames from "../../../hooks/useGames";
 
+import useGames from "../../../hooks/useGames.js";
+
+/**
+ * A React component for rendering a modal to confirm the deletion of a game.
+ * @function GameDeleteModal
+ * @returns {JSX.Element} The rendered component.
+ */
 const GameDeleteModal = () => {
   const {
     selectedGame,
@@ -15,6 +21,7 @@ const GameDeleteModal = () => {
 
   return ReactDOM.createPortal(
     <Fragment>
+      {/* Modal for confirming game deletion */}
       <Modal
         show={isGameDeleteModalOpen}
         backdrop="static"
@@ -27,14 +34,17 @@ const GameDeleteModal = () => {
         </Modal.Header>
         <Modal.Body>
           <div>
+            {/* Confirmation message with game ID */}
             <p>Are you sure you want to DELETE this game?</p>
             <p>{selectedGame.id}</p>
           </div>
         </Modal.Body>
         <Modal.Footer>
+          {/* Cancel button */}
           <Button variant="secondary" onClick={() => hideGameDeleteModal()}>
             Cancel
           </Button>
+          {/* Delete button */}
           <Button variant="danger" onClick={() => deleteGame()}>
             Delete
           </Button>

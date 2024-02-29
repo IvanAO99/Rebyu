@@ -1,5 +1,12 @@
 "use strict";
 
+/**
+ * Calculates the average score for a given game based on its reviews.
+ *
+ * @param {Object} game - The game object with reviews.
+ * @param {Array} game.reviews - An array of review objects with scores.
+ * @returns {number} The rounded average score for the game.
+ */
 const calculateAverageScore = (game) => {
   const totalScore = game.reviews.reduce(
     (accumulator, review) => accumulator + review.score,
@@ -14,6 +21,12 @@ const calculateAverageScore = (game) => {
   return roundedAverageScore;
 };
 
+/**
+ * Calculates and returns the top 13 games with the highest average scores.
+ *
+ * @param {Array} games - An array of game objects with reviews.
+ * @returns {Array} An array of top 13 games with the highest average scores.
+ */
 const calculateTopGames = (games) => {
   // Calculate the average score for each game
   const gamesWithAverageScore = [...games].map((game) => {
@@ -38,6 +51,12 @@ const calculateTopGames = (games) => {
   return topGames;
 };
 
+/**
+ * Formats a date string to the format 'YYYY-MM-DD HH:mm'.
+ *
+ * @param {string} dateString - The input date string.
+ * @returns {string} The formatted date string.
+ */
 const formatDateString = (dateString) => {
   const date = new Date(dateString);
 

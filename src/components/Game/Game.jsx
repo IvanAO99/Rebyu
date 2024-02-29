@@ -1,18 +1,26 @@
 import React, { Fragment } from "react";
-import { Link, useNavigate } from "react-router-dom";
 
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Badge from "react-bootstrap/Badge";
 
-import { FaPen, FaStar, FaTrash } from "react-icons/fa";
+import { FaPen, FaTrash } from "react-icons/fa";
 
-import useGames from "../../hooks/useGames";
-import Stars from "../Stars/Stars";
-import { calculateAverageScore } from "../../libraries/manipulateData";
-import useUsers from "../../hooks/useUsers";
-import { validateObject } from "../../libraries/validateData";
+import useGames from "../../hooks/useGames.js";
+import useUsers from "../../hooks/useUsers.js";
 
+import Stars from "../Stars/Stars.jsx";
+
+import { calculateAverageScore } from "../../libraries/manipulateData.js";
+import { validateObject } from "../../libraries/validateData.js";
+
+/**
+ * A React component representing a game card.
+ * @function Game
+ * @param {object} props - The component props.
+ * @param {object} props.game - The game data.
+ * @returns {JSX.Element} The rendered component.
+ */
 const Game = ({ game }) => {
   const {
     getGame,
@@ -21,7 +29,35 @@ const Game = ({ game }) => {
     showGameDeleteModal,
   } = useGames();
   const { isSessionUp, user, isAdmin } = useUsers();
-  const navigate = useNavigate();
+
+  /**
+   * Handles the click event on the game card.
+   * @param {React.MouseEvent} event - The click event.
+   */
+  const handleCardClick = (event) => {
+    event.preventDefault();
+    getGame(game.id);
+  };
+
+  /**
+   * Handles the edit button click event.
+   * @param {React.MouseEvent} event - The click event.
+   */
+  const handleEditButtonClick = (event) => {
+    event.stopPropagation();
+    showGamesOffCanvas();
+    updateSelectedGame(game.id);
+  };
+
+  /**
+   * Handles the delete button click event.
+   * @param {React.MouseEvent} event - The click event.
+   */
+  const handleDeleteButtonClick = (event) => {
+    event.stopPropagation();
+    updateSelectedGame(game.id);
+    showGameDeleteModal();
+  };
 
   return (
     <Fragment>
@@ -31,47 +67,35 @@ const Game = ({ game }) => {
         style={{ width: "300px" }}
         className="shadow"
         id={game.id}
-        onClick={(event) => {
-          event.preventDefault();
-          getGame(game.id);
-        }}
+        onClick={handleCardClick}
       >
         {isSessionUp && validateObject(user) && isAdmin && (
           <Fragment>
-            <div className="position-absolute top-0 end-0 m-2 d-flex flex-column justify-content-center align-items-center">
+            {/* Edit and Delete buttons for admin users */}
+            <div className="position-absolute top-0 end-0 m-2 d-flex flex-row justify-content-center align-items-center">
               <Button
                 className="m-2 d-flex justify-content-center align-items-center"
                 style={{
-                  borderRadius: "15px",
-                  backgroundColor: "#8a2be2",
-                  borderColor: "#8a2be2",
+                  border: "none",
+                  borderRadius: "16px",
+                  backgroundColor: "rgba(0, 0, 0, 0.5)",
                   color: "white",
-                  padding: "15px",
+                  padding: "16px",
                 }}
-                onClick={(event) => {
-                  event.stopPropagation();
-
-                  showGamesOffCanvas();
-                  updateSelectedGame(game.id);
-                }}
+                onClick={handleEditButtonClick}
               >
                 <FaPen />
               </Button>
               <Button
                 className="m-2 d-flex justify-content-center align-items-center"
                 style={{
-                  borderRadius: "15px",
-                  backgroundColor: "#b26b6b",
-                  borderColor: "#8a2be2",
+                  border: "none",
+                  borderRadius: "16px",
+                  backgroundColor: "rgba(0, 0, 0, 0.5)",
                   color: "white",
-                  padding: "15px",
+                  padding: "16px",
                 }}
-                onClick={(event) => {
-                  event.stopPropagation();
-
-                  updateSelectedGame(game.id);
-                  showGameDeleteModal();
-                }}
+                onClick={handleDeleteButtonClick}
               >
                 <FaTrash />
               </Button>
@@ -79,15 +103,20 @@ const Game = ({ game }) => {
           </Fragment>
         )}
 
+        {/* Game cover image */}
         <Card.Img
           variant="top"
           src={game.cover_pic}
           height={300}
           className="object-fit-cover"
+          loading="lazy"
         />
 
         <Card.Body>
+          {/* Game title */}
           <Card.Title>{game.title}</Card.Title>
+
+          {/* Average score and star rating */}
           <div className="d-flex justify-content-between align-items-center">
             <Stars score={calculateAverageScore(game)} size={25} />
             <Badge bg="primary">{calculateAverageScore(game)}</Badge>

@@ -7,8 +7,6 @@ import { supabaseConnection } from "../.config/supabase.js";
 
 import { validateObject } from "../libraries/validateData.js";
 
-/* import { regularExpressions } from "../jsons/regularExpressions.json"; */
-
 const UsersContext = createContext();
 
 const UsersProvider = ({ children }) => {
@@ -17,8 +15,6 @@ const UsersProvider = ({ children }) => {
   const passwdRegex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,}/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-  /* console.log(regularExpressions.password); */
 
   /* INITIAL STATES VALUES */
   const initialValues = {
@@ -66,7 +62,17 @@ const UsersProvider = ({ children }) => {
 
   /* FUNCTIONS */
 
+  /**
+   * Display a toast notification to the user.
+   * @param {string} type - The type of the alert ("info" or "error").
+   * @param {string} message - The content of the alert message.
+   * @returns {void}
+   */
   const sendUserAlert = (type, message) => {
+    /**
+     * Notify the user using toast notifications.
+     * @returns {void}
+     */
     const notify = () => {
       switch (type) {
         case "info":
@@ -103,6 +109,11 @@ const UsersProvider = ({ children }) => {
     notify();
   };
 
+  /**
+   * Update the sign-in form state based on the input value.
+   * @param {Object} input - The input object containing the name and value.
+   * @returns {void}
+   */
   const updateSignInForm = (input) => {
     const { name, value } = input;
 
@@ -110,6 +121,12 @@ const UsersProvider = ({ children }) => {
     setSignInFormErrors({ ...signInFormErrors, [name]: null });
   };
 
+  /**
+   * Update the sign-up form state based on the input value.
+   * If the input is for the "terms_services" checkbox, toggle its value.
+   * @param {Object} input - The input object containing the name and value.
+   * @returns {void}
+   */
   const updateSignUpForm = (input) => {
     const { name, value } = input;
 
@@ -125,6 +142,10 @@ const UsersProvider = ({ children }) => {
     }
   };
 
+  /**
+   * Validate the sign-in form data.
+   * @returns {Object} An object containing validation errors, if any.
+   */
   const validateSignIn = () => {
     let validationErrors = {};
 
@@ -133,28 +154,22 @@ const UsersProvider = ({ children }) => {
         ...validationErrors,
         email: "The email field is required.",
       };
-    } /* else if (!emailRegex.test(formUser.email)) {
-      validationErrors = {
-        ...validationErrors,
-        email: "The email is invalid.",
-      };
-    } */
+    }
 
     if (!signInForm.password) {
       validationErrors = {
         ...validationErrors,
         password: "The password field is required.",
       };
-    } /* else if (!passwdRegex.test(formUser.password)) {
-      validationErrors = {
-        ...validationErrors,
-        password: "The password is invalid.",
-      };
-    } */
+    }
 
     return validationErrors;
   };
 
+  /**
+   * Validate the sign-up form data.
+   * @returns {Object} An object containing validation errors, if any.
+   */
   const validateSignUp = () => {
     let validationErrors = {};
 
@@ -192,7 +207,7 @@ const UsersProvider = ({ children }) => {
     if (!signUpForm.repeated_password) {
       validationErrors = {
         ...validationErrors,
-        repeated_password: "Enter you password again.",
+        repeated_password: "Enter your password again.",
       };
     } else if (signUpForm.password !== signUpForm.repeated_password) {
       validationErrors = {
@@ -218,6 +233,9 @@ const UsersProvider = ({ children }) => {
     return validationErrors;
   };
 
+  /**
+   * Handle the sign-in process, validating the form data and initiating the sign-in.
+   */
   const handleSignIn = () => {
     const validationErrors = validateSignIn();
 
@@ -230,6 +248,9 @@ const UsersProvider = ({ children }) => {
     }
   };
 
+  /**
+   * Handle the sign-up process, validating the form data and initiating the sign-up.
+   */
   const handleSignUp = () => {
     const validationErrors = validateSignUp();
 
@@ -244,6 +265,10 @@ const UsersProvider = ({ children }) => {
 
   /* SUPABASE FETCHS */
 
+  /**
+   * Sign in a user with their email and password.
+   * Handles loading state, form reset, and error handling.
+   */
   const signInWithPassword = async () => {
     try {
       setIsLoadingUser(true);
@@ -256,8 +281,8 @@ const UsersProvider = ({ children }) => {
       if (error) throw error;
     } catch (error) {
       setSignInFormErrors({
-        email: "Invalid sign in credentials",
-        password: "Invalid sign in credentials",
+        email: "Invalid sign-in credentials",
+        password: "Invalid sign-in credentials",
       });
     } finally {
       setIsLoadingUser(initialValues.isLoadingUser);
@@ -266,6 +291,11 @@ const UsersProvider = ({ children }) => {
     }
   };
 
+  /**
+   * Get a user's data by their authentication ID.
+   * Updates the user state and displays alerts based on success or failure.
+   * @param {object} authUser - The user object obtained after authentication.
+   */
   const getUserByID = async (authUser) => {
     try {
       const { data: users, error } = await supabaseConnection
@@ -282,6 +312,10 @@ const UsersProvider = ({ children }) => {
     }
   };
 
+  /**
+   * Get the current user's data and check if they have admin privileges.
+   * Updates the user and admin states accordingly.
+   */
   const getUser = async () => {
     try {
       const { data, error } = await supabaseConnection.auth.getUser();
@@ -300,6 +334,11 @@ const UsersProvider = ({ children }) => {
     }
   };
 
+  /**
+   * Create a new user in the database with the provided data.
+   * Displays an information alert to instruct the user to validate their email.
+   * @param {string} authUserID - The authentication user ID.
+   */
   const createUser = async (authUserID) => {
     try {
       const { data, error } = await supabaseConnection.from("users").insert({
@@ -321,6 +360,11 @@ const UsersProvider = ({ children }) => {
     }
   };
 
+  /**
+   * Create a new authentication user with the provided email and password.
+   * Calls createUser to create a corresponding user in the database.
+   * Displays an error alert if something goes wrong.
+   */
   const createAuthUser = async () => {
     try {
       setIsLoadingUser(true);
@@ -341,6 +385,10 @@ const UsersProvider = ({ children }) => {
     }
   };
 
+  /**
+   * Sign out the currently authenticated user.
+   * Displays an information alert bidding farewell to the user.
+   */
   const signOut = async () => {
     try {
       const { error } = await supabaseConnection.auth.signOut();
@@ -354,33 +402,46 @@ const UsersProvider = ({ children }) => {
   };
 
   /* USE EFFECTS */
+
+  /**
+   * Set up an authentication state change listener using Supabase.
+   * Redirects to the appropriate route based on the authentication state.
+   * Retrieves user information if authenticated.
+   */
   useEffect(() => {
+    // Set up a listener for changes in authentication state
     const { data } = supabaseConnection.auth.onAuthStateChange(
+      /**
+       * Callback function triggered on authentication state change.
+       * @param {string} event - The type of authentication event ("SIGNED_IN" or "SIGNED_OUT").
+       * @param {object} session - The authentication session object.
+       */
       (event, session) => {
-        if (event === "SIGNED_IN") {
-          if (session) {
-            if (!validateObject(user)) {
-              navigate("/games");
+        // Check if a session is present (user is signed in)
+        if (session) {
+          // Check if user information is already available
+          if (!validateObject(user)) {
+            // Redirect to the authenticated route and initialize state
+            navigate("/games");
+            setIsConfirmEmailOpen(initialValues.isConfirmEmailOpen);
+            setIsSessionUp(true);
 
-              setIsConfirmEmailOpen(initialValues.isConfirmEmailOpen);
-              setIsSessionUp(true);
-
-              getUser();
-            }
+            // Retrieve user information
+            getUser();
           }
-        } else if (event === "SIGNED_OUT") {
+        } else {
+          // If no session, redirect to the public part of the web
           setIsSessionUp(initialValues.isSessionUp);
           setUser(initialValues.user);
           setIsAdmin(initialValues.isAdmin);
-
           navigate("/");
         }
-      },
-      []
+      }
     );
-  });
+  }, []);
 
   /* CONTEXT DATA */
+
   const usersData = {
     signInForm,
     signInFormErrors,

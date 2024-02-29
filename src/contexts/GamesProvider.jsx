@@ -23,6 +23,7 @@ const GamesProvider = ({ children }) => {
     topGames: [],
     game: {},
     isLoadingGames: true,
+    isLoadingLatestGames: true,
     isLoadingTopGames: true,
     isLoadingGame: true,
     gameRegister: {
@@ -56,6 +57,9 @@ const GamesProvider = ({ children }) => {
   const [game, setGame] = useState(initialValues.game);
   const [isLoadingGames, setIsLoadingGames] = useState(
     initialValues.isLoadingGames
+  );
+  const [isLoadingLatestGames, setIsLoadingLatestGames] = useState(
+    initialValues.isLoadingLatestGames
   );
   const [isLoadingTopGames, setIsLoadingTopGames] = useState(
     initialValues.isLoadingTopGames
@@ -180,6 +184,8 @@ const GamesProvider = ({ children }) => {
 
   const getLatestGames = async () => {
     try {
+      setIsLoadingLatestGames(initialValues.isLoadingLatestGames);
+
       const { data, error } = await supabaseConnection
         .from("games")
         .select(
@@ -190,15 +196,17 @@ const GamesProvider = ({ children }) => {
 
       if (error) throw error;
 
-      console.log(data);
       setLatestGames(data);
     } catch (error) {
-      console.log(error);
+    } finally {
+      setIsLoadingLatestGames(false);
     }
   };
 
   const getTopGames = async () => {
     try {
+      setIsLoadingTopGames(initialValues.isLoadingTopGames);
+
       const { data, error } = await supabaseConnection
         .from("games")
         .select(
@@ -207,13 +215,10 @@ const GamesProvider = ({ children }) => {
 
       if (error) throw error;
 
-      console.log(data);
-
       const calculatedTopGames = calculateTopGames(data);
 
       setTopGames(calculatedTopGames);
     } catch (error) {
-      console.log(error);
     } finally {
       setIsLoadingTopGames(false);
     }
@@ -242,11 +247,8 @@ const GamesProvider = ({ children }) => {
         );
       setGame(data[0]);
 
-      console.log(data);
-
       navigate("/game");
     } catch (error) {
-      console.log(error.message);
     } finally {
       setIsLoadingGame(false);
     }
@@ -877,8 +879,11 @@ const GamesProvider = ({ children }) => {
 
   const gamesData = {
     games,
+    isLoadingGames,
     latestGames,
+    isLoadingLatestGames,
     topGames,
+    isLoadingTopGames,
     game,
     getGame,
     genres,

@@ -1,7 +1,16 @@
-import React from "react";
-import { Button, Card, Form } from "react-bootstrap";
-import useGames from "../../hooks/useGames";
+import React, { Fragment } from "react";
 
+import Card from "react-bootstrap/Card";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+
+import useGames from "../../hooks/useGames.js";
+
+/**
+ * A React component for displaying filters to refine game search.
+ * @function GamesFilters
+ * @returns {JSX.Element} The rendered component.
+ */
 const GamesFilters = () => {
   const {
     genres,
@@ -11,11 +20,15 @@ const GamesFilters = () => {
     resetGameFilter,
     gameFilter,
   } = useGames();
+
   return (
-    <>
+    <Fragment>
+      {/* Card container for the game filters */}
       <Card className="shadow">
         <Card.Body>
+          {/* Form for filtering games */}
           <Form className="d-flex flex-column">
+            {/* Genre filter */}
             <Form.Group className="mb-3">
               <Form.Label>Genre</Form.Label>
               <Form.Select
@@ -27,6 +40,7 @@ const GamesFilters = () => {
                 }}
               >
                 <option value="*">All</option>
+                {/* Mapping through genres to create options */}
                 {genres ? (
                   genres.map((genre) => {
                     return (
@@ -40,6 +54,8 @@ const GamesFilters = () => {
                 )}
               </Form.Select>
             </Form.Group>
+
+            {/* Platform filter */}
             <Form.Group className="mb-3">
               <Form.Label>Platform</Form.Label>
               <Form.Select
@@ -51,6 +67,7 @@ const GamesFilters = () => {
                 }}
               >
                 <option value="*">All</option>
+                {/* Mapping through platforms to create options */}
                 {platforms ? (
                   platforms.map((platform) => {
                     return (
@@ -64,6 +81,8 @@ const GamesFilters = () => {
                 )}
               </Form.Select>
             </Form.Group>
+
+            {/* Developer filter */}
             <Form.Group className="mb-3">
               <Form.Label>Developer</Form.Label>
               <Form.Select
@@ -75,6 +94,7 @@ const GamesFilters = () => {
                 }}
               >
                 <option value="*">All</option>
+                {/* Mapping through developers to create options */}
                 {developers ? (
                   developers.map((developer) => {
                     return (
@@ -88,6 +108,8 @@ const GamesFilters = () => {
                 )}
               </Form.Select>
             </Form.Group>
+
+            {/* Title search filter */}
             <Form.Group className="mb-3">
               <Form.Label>Search</Form.Label>
               <Form.Control
@@ -100,6 +122,8 @@ const GamesFilters = () => {
                 }}
               />
             </Form.Group>
+
+            {/* Reset button */}
             <Button
               className="align-self-center"
               variant="primary"
@@ -110,7 +134,7 @@ const GamesFilters = () => {
           </Form>
         </Card.Body>
       </Card>
-    </>
+    </Fragment>
   );
 };
 
