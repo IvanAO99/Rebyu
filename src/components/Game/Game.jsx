@@ -38,15 +38,15 @@ const Game = ({ game }) => {
       >
         {isSessionUp && validateObject(user) && isAdmin && (
           <Fragment>
-            <div className="position-absolute top-0 end-0 m-2 d-flex flex-column justify-content-center align-items-center">
+            <div className="position-absolute top-0 end-0 m-2 d-flex flex-row justify-content-center align-items-center">
               <Button
                 className="m-2 d-flex justify-content-center align-items-center"
                 style={{
-                  borderRadius: "15px",
-                  backgroundColor: "#8a2be2",
-                  borderColor: "#8a2be2",
+                  border: "none",
+                  borderRadius: "16px",
+                  backgroundColor: "rgba(0, 0, 0, 0.5)",
                   color: "white",
-                  padding: "15px",
+                  padding: "16px",
                 }}
                 onClick={(event) => {
                   event.stopPropagation();
@@ -60,11 +60,11 @@ const Game = ({ game }) => {
               <Button
                 className="m-2 d-flex justify-content-center align-items-center"
                 style={{
-                  borderRadius: "15px",
-                  backgroundColor: "#b26b6b",
-                  borderColor: "#8a2be2",
+                  border: "none",
+                  borderRadius: "16px",
+                  backgroundColor: "rgba(0, 0, 0, 0.5)",
                   color: "white",
-                  padding: "15px",
+                  padding: "16px",
                 }}
                 onClick={(event) => {
                   event.stopPropagation();
@@ -84,6 +84,7 @@ const Game = ({ game }) => {
           src={game.cover_pic}
           height={300}
           className="object-fit-cover"
+          loading="lazy"
         />
 
         <Card.Body>

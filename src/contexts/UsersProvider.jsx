@@ -275,6 +275,8 @@ const UsersProvider = ({ children }) => {
 
       if (error) throw error;
 
+      console.log(authUser);
+
       setUser({ ...authUser, ...users[0] });
       sendUserAlert("info", `Welcome! ${users[0].nickname}`);
     } catch (error) {
@@ -357,28 +359,29 @@ const UsersProvider = ({ children }) => {
   useEffect(() => {
     const { data } = supabaseConnection.auth.onAuthStateChange(
       (event, session) => {
-        if (event === "SIGNED_IN") {
-          if (session) {
-            if (!validateObject(user)) {
-              navigate("/games");
+        // Se puede utilizar el operador negación para invertir el orden.
+        if (session) {
+          if (validateObject(user)) {
+            console.log(user);
+          } else {
+            navigate("/games");
 
-              setIsConfirmEmailOpen(initialValues.isConfirmEmailOpen);
-              setIsSessionUp(true);
+            setIsConfirmEmailOpen(initialValues.isConfirmEmailOpen);
+            setIsSessionUp(true);
 
-              getUser();
-            }
+            getUser();
           }
-        } else if (event === "SIGNED_OUT") {
+        } else {
+          // Si no hay sesión, se redirige a la parte pública de la web.
           setIsSessionUp(initialValues.isSessionUp);
           setUser(initialValues.user);
           setIsAdmin(initialValues.isAdmin);
 
           navigate("/");
         }
-      },
-      []
+      }
     );
-  });
+  }, []);
 
   /* CONTEXT DATA */
   const usersData = {

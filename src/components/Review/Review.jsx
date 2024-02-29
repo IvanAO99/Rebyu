@@ -28,6 +28,7 @@ const Review = ({ review }) => {
                 alt=""
                 width={30}
                 height={30}
+                loading="lazy"
               />
               <span>
                 <strong className="me-auto">{`@${review.reviewer.nickname}`}</strong>

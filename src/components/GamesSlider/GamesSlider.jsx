@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
@@ -15,46 +15,72 @@ import { validateArray } from "../../libraries/validateData";
 import Loading from "../Loading/Loading";
 
 const GamesSlider = () => {
-  const { topGames } = useGames();
+  const { isLoadingTopGames, topGames } = useGames();
 
   return (
     <div>
-      <Swiper
-        autoplay={{
-          delay: 0,
-          pauseOnMouseEnter: true,
-          disableOnInteraction: false,
-        }}
-        speed={5000}
-        freeMode={true}
-        centeredSlides={true}
-        loop={true}
-        pagination={{
-          type: "progressbar",
-        }}
-        modules={[Autoplay, Pagination]}
-        slidesPerView={4}
-        spaceBetween={16}
-        className="games-slider"
-      >
-        {validateArray(topGames) ? (
-          topGames.map((topGame, i) => {
-            return (
-              <SwiperSlide key={i}>
+      {isLoadingTopGames ? (
+        <Fragment>
+          <Loading variant="primary" />
+        </Fragment>
+      ) : (
+        <Fragment>
+          <Swiper
+            autoplay={{
+              delay: 0,
+              pauseOnMouseEnter: true,
+              disableOnInteraction: false,
+            }}
+            speed={5000}
+            freeMode={true}
+            centeredSlides={true}
+            loop={true}
+            pagination={{
+              type: "progressbar",
+            }}
+            modules={[Autoplay, Pagination]}
+            slidesPerView={1}
+            spaceBetween={1}
+            breakpoints={{
+              576: {
+                slidesPerView: 1,
+                spaceBetween: 1,
+              },
+              768: {
+                slidesPerView: 2,
+                spaceBetween: 1,
+              },
+              992: {
+                slidesPerView: 3,
+                spaceBetween: 1,
+              },
+              1400: {
+                slidesPerView: 4,
+                spaceBetween: 1,
+              },
+            }}
+            className="games-slider"
+          >
+            {validateArray(topGames) ? (
+              topGames.map((topGame, i) => {
+                return (
+                  <SwiperSlide key={i}>
+                    <div style={{ padding: "1rem" }}>
+                      <Game game={topGame} />
+                    </div>
+                  </SwiperSlide>
+                );
+              })
+            ) : (
+              <>
                 <div style={{ padding: "1rem" }}>
-                  <Game game={topGame} />
+                  <Loading />
                 </div>
-              </SwiperSlide>
-            );
-          })
-        ) : (
-          <>
-            <div style={{ padding: "1rem" }}>
-              <Loading />
-            </div>
-          </>
-        )}
-      </Swiper>
+              </>
+            )}
+          </Swiper>
+        </Fragment>
+      )}
     </div>
   );
 };

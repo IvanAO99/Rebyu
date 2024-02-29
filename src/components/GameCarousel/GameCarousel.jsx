@@ -8,9 +8,10 @@ import "./GameCarousel.css";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { validateArray } from "../../libraries/validateData";
 import useGames from "../../hooks/useGames";
+import Loading from "../Loading/Loading";
 
 const GameCarousel = () => {
-  const { latestGames } = useGames();
+  const { isLoadingLatestGames, latestGames } = useGames();
 
   const [index, setIndex] = useState(0);
 
@@ -38,7 +39,11 @@ const GameCarousel = () => {
                   onSelect={handleSelect}
                   fade
                 >
-                  {validateArray(latestGames) ? (
+                  {isLoadingLatestGames ? (
+                    <Fragment>
+                      <Loading variant="primary" />
+                    </Fragment>
+                  ) : validateArray(latestGames) ? (
                     latestGames.map((latestGame, i) => {
                       return (
                         <Carousel.Item key={i}>
@@ -48,11 +53,14 @@ const GameCarousel = () => {
                             }}
                             className="d-block w-100 game-carousel-img"
                             src={latestGame.wallpaper}
+                            loading="lazy"
                           />
                           <Carousel.Caption>
                             <div className="game-carousel-caption">
                               <h3>{latestGame.title}</h3>
-                              <p>{latestGame.synopsis}</p>
+                              <p className="d-none d-lg-block">
+                                {latestGame.synopsis}
+                              </p>
                               <Button>See more</Button>
                             </div>
                           </Carousel.Caption>

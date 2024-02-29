@@ -22,45 +22,43 @@ import useUsers from "../../hooks/useUsers.js";
 import { validateObject } from "../../libraries/validateData.js";
 import GamesFilters from "../../components/GameFilters/GameFilters.jsx";
 
+import "./GamesPage.css";
+
 const GamesPage = () => {
   const { games, topGames, showGamesOffCanvas, creatingGame } = useGames();
   const { isSessionUp, user, isAdmin } = useUsers();
   return (
     <Fragment>
       <GameCarousel />
-      <Container className="pt-1 pb-5 h-100">
-        <Row className="mb-5">
+      <Container className="h-100">
+        <Row className="my-3">
           <Col>
-            {isSessionUp && validateObject(user) && isAdmin && (
-              <Fragment>
-                <div>
+            <div className="d-flex flex-row justify-content-start align-items-center text-center py-3">
+              <h2 className="m-3">ALL GAMES</h2>
+              {isSessionUp && validateObject(user) && isAdmin && (
+                <Fragment>
                   <Button
                     variant="primary"
+                    className="m-3"
                     onClick={() => showGamesOffCanvas("creating")}
                   >
-                    <span>
+                    <span className="d-flex flex-center justify-content-start align-items-center">
                       <FaPlus size={15} />
                     </span>
                   </Button>
-                </div>
-              </Fragment>
-            )}
-          </Col>
-        </Row>
-        <Row className="mb-1 g-5">
-          <Col>
-            <div>
-              <h2>ALL GAMES</h2>
+                </Fragment>
+              )}
             </div>
+            <div className="separator"></div>
           </Col>
         </Row>
         <Row className="mb-1 g-5">
-          <Col xs={3}>
+          <Col lg={3} className="d-none d-lg-block">
             <div>
               <GamesFilters />
             </div>
           </Col>
-          <Col xs={9}>
+          <Col xs={12} lg={9}>
             <Row className="mb-5 g-5 justify-content-center align-items-center">
               <Games />
             </Row>

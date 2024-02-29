@@ -30,6 +30,7 @@ const ReviewsProvider = ({ children }) => {
     deletingReview: false,
     isLoadingReviews: false,
     reviews: [],
+    isLoadingLastReviews: false,
     lastReviews: [],
   };
 
@@ -51,6 +52,9 @@ const ReviewsProvider = ({ children }) => {
     initialValues.isLoadingReviews
   );
   const [reviews, setReviews] = useState(initialValues.reviews);
+  const [isLoadingLastReviews, setIsLoadingLastReviews] = useState(
+    initialValues.isLoadingLastReviews
+  );
   const [lastReviews, setLastReviews] = useState(initialValues.lastReviews);
 
   const sendReviewAlert = (type, message) => {
@@ -115,6 +119,8 @@ const ReviewsProvider = ({ children }) => {
 
   const getLastReviews = async () => {
     try {
+      setIsLoadingLastReviews(true);
+
       let { data, error } = await supabaseConnection
         .from("reviews")
         .select("*, game:game_id (*), reviewer:user_id (*)")
@@ -123,15 +129,14 @@ const ReviewsProvider = ({ children }) => {
 
       if (error) throw error;
 
-      console.log("LAST REVIEWS");
-      console.log(data);
-
       setLastReviews(data);
     } catch (error) {
       sendReviewAlert(
         "error",
         "Something went wrong, please wait and try again."
       );
+    } finally {
+      setIsLoadingLastReviews(initialValues.isLoadingLastReviews);
     }
   };
 
@@ -146,8 +151,6 @@ const ReviewsProvider = ({ children }) => {
         .eq("game_id", gameID);
 
       if (error) throw error;
-
-      console.log(data);
 
       setReviews(data);
     } catch (error) {
@@ -344,6 +347,7 @@ const ReviewsProvider = ({ children }) => {
     deletingReview,
     isLoadingReviews,
     reviews,
+    isLoadingLastReviews,
     lastReviews,
     showReviewFormModal,
     hideReviewFormModal,
