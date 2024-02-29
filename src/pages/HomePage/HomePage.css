@@ -268,3 +268,19 @@ video {
       border-color: transparent;
     }
   }
+
+  @media (max-width: 768px) {
+    .promo {
+      flex-direction: column;
+      align-items: center; 
+    }
+  
+    .welcome-message,
+    .user-form {
+      width: 80%;
+    }
+  
+    .welcome-message {
+      margin-bottom: 20px;
+    }
+  }

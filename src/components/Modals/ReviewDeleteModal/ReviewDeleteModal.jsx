@@ -34,7 +34,6 @@ const ReviewDeleteModal = ({ isOpen }) => {
           <div>
             {/* Confirmation message with review ID */}
             <p>Are you sure you want to DELETE this review?</p>
-            <p>{reviewForm.id}</p>
           </div>
         </Modal.Body>
         <Modal.Footer>

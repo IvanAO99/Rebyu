@@ -50,7 +50,7 @@ const Reviews = () => {
               <Fragment>
                 {/* Display error message if there are no reviews */}
                 <Col>
-                  <p>ERROR</p>
+                  <p>OOPS...NO REVIEWS HERE</p>
                 </Col>
               </Fragment>
             )}

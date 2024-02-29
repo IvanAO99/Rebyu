@@ -38,8 +38,6 @@ const calculateTopGames = (games) => {
     return { ...game, averageScore };
   });
 
-  console.log(gamesWithAverageScore);
-
   // Sort the games by average score in descending order
   const sortedGames = gamesWithAverageScore.sort(
     (a, b) => b.averageScore - a.averageScore
