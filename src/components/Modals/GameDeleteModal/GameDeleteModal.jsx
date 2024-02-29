@@ -36,7 +36,7 @@ const GameDeleteModal = () => {
           <div>
             {/* Confirmation message with game ID */}
             <p>Are you sure you want to DELETE this game?</p>
-            <p>{selectedGame.id}</p>
+            <p>{selectedGame.title}</p>
           </div>
         </Modal.Body>
         <Modal.Footer>
