@@ -4,21 +4,35 @@ import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-import './SignIn.css';
-
 import useUsers from "../../hooks/useUsers.js";
 
+import "./SignIn.css";
+
+/**
+ * Functional component representing a sign-in form.
+ *
+ * @param {Object} props - Component properties.
+ * @param {boolean} props.homePage - Indicates whether the sign-in form is on the home page.
+ * @returns {JSX.Element} The JSX element for the sign-in form.
+ */
 const SignIn = ({ homePage }) => {
+  // Custom hook to access user-related state and functions
   const { signInForm, signInFormErrors, updateSignInForm, handleSignIn } =
     useUsers();
+
   return (
     <Fragment>
+      {/* Card component for styling */}
       <Card className="shadow">
+        {/* Render header only if not on the home page */}
         {!homePage && (
           <Card.Header className="text-center">SIGN IN</Card.Header>
         )}
+        {/* Card body containing the sign-in form */}
         <Card.Body>
+          {/* Form component for collecting user input */}
           <Form className="d-flex flex-column login-form">
+            {/* Input field for email address */}
             <Form.Group className="mb-3" controlId="sign-in-email">
               <Form.Label>Email address</Form.Label>
               <Form.Control
@@ -35,6 +49,7 @@ const SignIn = ({ homePage }) => {
                 {signInFormErrors.email}
               </Form.Control.Feedback>
             </Form.Group>
+            {/* Input field for password */}
             <Form.Group className="mb-3" controlId="sign-in-password">
               <Form.Label>Password</Form.Label>
               <Form.Control
@@ -51,6 +66,7 @@ const SignIn = ({ homePage }) => {
                 {signInFormErrors.password}
               </Form.Control.Feedback>
             </Form.Group>
+            {/* Button for submitting the sign-in form */}
             <Button
               variant="primary"
               type="button"
@@ -61,6 +77,7 @@ const SignIn = ({ homePage }) => {
             </Button>
           </Form>
         </Card.Body>
+        {/* Render footer only if not on the home page */}
         {!homePage && (
           <Card.Footer className="text-muted">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat

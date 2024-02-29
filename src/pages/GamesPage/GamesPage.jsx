@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment } from "react";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -6,7 +6,10 @@ import Col from "react-bootstrap/Col";
 import Pagination from "react-bootstrap/Pagination";
 import Button from "react-bootstrap/Button";
 
+import { FaPlus } from "react-icons/fa";
+
 import useGames from "../../hooks/useGames.js";
+import useUsers from "../../hooks/useUsers.js";
 
 import Games from "../../components/Games/Games.jsx";
 
@@ -15,18 +18,22 @@ import GameCarousel from "../../components/GameCarousel/GameCarousel.jsx";
 import OffcanvasComponent from "../../components/OffcanvasComponent/OffcanvasComponent.jsx";
 import GameDeleteModal from "../../components/Modals/GameDeleteModal/GameDeleteModal.jsx";
 import GamesSlider from "../../components/GamesSlider/GamesSlider.jsx";
-import ShowObj from "../../components/development/ShowObj.jsx";
 import ReviewsSlider from "../../components/ReviewsSlider/ReviewsSlider.jsx";
-import { FaPlus } from "react-icons/fa";
-import useUsers from "../../hooks/useUsers.js";
-import { validateObject } from "../../libraries/validateData.js";
 import GamesFilters from "../../components/GameFilters/GameFilters.jsx";
+
+import { validateObject } from "../../libraries/validateData.js";
 
 import "./GamesPage.css";
 
+/**
+ * Functional component representing a page for displaying games, including top games and reviews.
+ *
+ * @returns {JSX.Element} The JSX element for the games page.
+ */
 const GamesPage = () => {
   const { games, topGames, showGamesOffCanvas, creatingGame } = useGames();
   const { isSessionUp, user, isAdmin } = useUsers();
+
   return (
     <Fragment>
       <GameCarousel />

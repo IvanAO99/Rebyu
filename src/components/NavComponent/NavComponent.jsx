@@ -9,22 +9,31 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import Button from "react-bootstrap/Button";
 
 import useUsers from "../../hooks/useUsers.js";
-import { Placeholder } from "react-bootstrap";
+
+import Loading from "../Loading/Loading.jsx";
 
 import "./NavComponent.css";
 
+/**
+ * A React component for rendering the navigation bar.
+ * @function NavComponent
+ * @returns {JSX.Element} The rendered component.
+ */
 const NavComponent = () => {
   const navigate = useNavigate();
   const { isSessionUp, isLoadingUser, user, signOut } = useUsers();
 
   return (
     <Fragment>
+      {/* Navigation Bar */}
       <Navbar
         expand="lg"
         data-bs-theme="dark"
         className="bg-body-tertiary shadow"
       >
+        {/* Container for navigation content */}
         <Container fluid className="d-flex flex-row align-items-center mx-5">
+          {/* Logo and brand */}
           <Navbar.Brand
             as={Link}
             to={"/games"}
@@ -40,13 +49,18 @@ const NavComponent = () => {
             />{" "}
             <span className="nav-link">REBYU</span>
           </Navbar.Brand>
+          {/* Navbar toggle button */}
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          {/* Navbar collapse content */}
           <Navbar.Collapse id="basic-navbar-nav">
+            {/* Navigation links */}
             <Nav className="me-auto flex-fill">
               <div className="flex-grow-1 d-flex flex-row justify-content-start align-items-center text-center">
+                {/* Games link */}
                 <Nav.Link as={Link} to={"/games"}>
                   Games
                 </Nav.Link>
+                {/* Sign Up link if not signed in */}
                 {!isSessionUp && (
                   <Fragment>
                     <Nav.Link as={Link} to={"/sign-in"}>
@@ -55,15 +69,17 @@ const NavComponent = () => {
                   </Fragment>
                 )}
               </div>
+              {/* User-related content */}
               {isSessionUp ? (
                 <Fragment>
+                  {/* Loading spinner if user data is still loading */}
                   {isLoadingUser ? (
                     <Fragment>
-                      <Placeholder as={img}></Placeholder>
-                      <Placeholder></Placeholder>
+                      <Loading />
                     </Fragment>
                   ) : (
                     <Fragment>
+                      {/* User profile and dropdown menu */}
                       <div className="d-flex flex-row justify-content-start align-items-center">
                         <Image
                           src={
@@ -89,6 +105,7 @@ const NavComponent = () => {
                             Review form
                           </NavDropdown.Item>
                           <NavDropdown.Divider />
+                          {/* Sign Out button */}
                           <NavDropdown.Item
                             as={Button}
                             onClick={() => signOut()}
@@ -101,6 +118,7 @@ const NavComponent = () => {
                   )}
                 </Fragment>
               ) : (
+                // Sign In button if not signed in
                 <Button variant="primary" onClick={() => navigate("/")}>
                   Sign In
                 </Button>

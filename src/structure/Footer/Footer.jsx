@@ -1,21 +1,36 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom"; 
-import "./Footer.css";
+import { useLocation } from "react-router-dom";
+
 import { FaFacebook, FaTwitter, FaInstagram, FaDiscord } from "react-icons/fa";
 
-const Footer = () => {
-  const location = useLocation(); 
-  const [hideFooter, setHideFooter] = useState(false); 
+import "./Footer.css";
 
+/**
+ * Functional component representing the footer section of the application.
+ *
+ * @returns {JSX.Element} The JSX element for the footer.
+ */
+const Footer = () => {
+  // Hook to get the current location object from React Router
+  const location = useLocation();
+
+  // State to determine whether to hide the footer based on the current page
+  const [hideFooter, setHideFooter] = useState(false);
+
+  // useEffect to update the state when the location changes
   useEffect(() => {
+    // Check if the current page is the home page
     const isHomePage = location.pathname === "/";
-    setHideFooter(isHomePage); 
+    setHideFooter(isHomePage);
   }, [location.pathname]);
 
+  // Render the footer only if it is not set to be hidden
   return (
     !hideFooter && (
       <Fragment>
+        {/* Footer section */}
         <footer className="footer">
+          {/* Left block with general links */}
           <div className="left-block">
             <h3>General</h3>
             <ul>
@@ -33,10 +48,12 @@ const Footer = () => {
               </li>
             </ul>
           </div>
+          {/* Right block with social media icons */}
           <div className="right-block">
             <h3>Follow Us</h3>
             <div className="social-icons">
               <div>
+                {/* Facebook and Twitter icons with links */}
                 <a href="https://facebook.com">
                   <FaFacebook />
                 </a>
@@ -45,6 +62,7 @@ const Footer = () => {
                 </a>
               </div>
               <div>
+                {/* Instagram and Discord icons with links */}
                 <a href="https://instagram.com">
                   <FaInstagram />
                 </a>

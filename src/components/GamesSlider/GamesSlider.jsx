@@ -1,7 +1,13 @@
 import React, { Fragment } from "react";
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
+
+import useGames from "../../hooks/useGames.js";
+
+import Loading from "../Loading/Loading.jsx";
+import Game from "../Game/Game.jsx";
+
+import { validateArray } from "../../libraries/validateData.js";
 
 // Import Swiper styles
 import "swiper/css";
@@ -9,22 +15,25 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 import "./GamesSlider.css";
-import Game from "../Game/Game";
-import useGames from "../../hooks/useGames";
-import { validateArray } from "../../libraries/validateData";
-import Loading from "../Loading/Loading";
 
+/**
+ * A React component for displaying a slider of top games.
+ * @function GamesSlider
+ * @returns {JSX.Element} The rendered component.
+ */
 const GamesSlider = () => {
   const { isLoadingTopGames, topGames } = useGames();
 
   return (
     <div>
+      {/* Display loading spinner while top games are being loaded */}
       {isLoadingTopGames ? (
         <Fragment>
           <Loading variant="primary" />
         </Fragment>
       ) : (
         <Fragment>
+          {/* Swiper component for the slider */}
           <Swiper
             autoplay={{
               delay: 0,
@@ -61,10 +70,12 @@ const GamesSlider = () => {
             }}
             className="games-slider"
           >
+            {/* Mapping through topGames to create each slide */}
             {validateArray(topGames) ? (
               topGames.map((topGame, i) => {
                 return (
                   <SwiperSlide key={i}>
+                    {/* Game component for each top game */}
                     <div style={{ padding: "1rem" }}>
                       <Game game={topGame} />
                     </div>
@@ -72,6 +83,7 @@ const GamesSlider = () => {
                 );
               })
             ) : (
+              // Display loading spinner when topGames array is empty
               <>
                 <div style={{ padding: "1rem" }}>
                   <Loading />

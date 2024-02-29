@@ -1,18 +1,27 @@
 import React, { Fragment } from "react";
-
 import Card from "react-bootstrap/Card";
 
-import { FaHeart, FaPen, FaStar, FaTrash } from "react-icons/fa";
+import { FaHeart, FaPen, FaTrash } from "react-icons/fa";
 
-import useReviews from "../../hooks/useReviews";
-import Stars from "../Stars/Stars";
-import { formatDateString } from "../../libraries/manipulateData";
-import useUsers from "../../hooks/useUsers";
-import { validateObject } from "../../libraries/validateData";
+import useReviews from "../../hooks/useReviews.js";
+import useUsers from "../../hooks/useUsers.js";
 
+import Stars from "../Stars/Stars.jsx";
+
+import { formatDateString } from "../../libraries/manipulateData.js";
+import { validateObject } from "../../libraries/validateData.js";
+
+/**
+ * Functional React component representing a user review card.
+ *
+ * @param {Object} props - React component properties.
+ * @param {Object} props.review - Review object containing information about the review.
+ * @returns {JSX.Element} - Rendered component.
+ */
 const Review = ({ review }) => {
   const { showReviewFormModal, showReviewDeleteModal } = useReviews();
   const { isSessionUp, user, isAdmin } = useUsers();
+
   return (
     <Fragment>
       <Card>

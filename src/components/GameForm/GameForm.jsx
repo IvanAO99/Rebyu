@@ -1,11 +1,20 @@
-import React from "react";
+import React, { Fragment } from "react";
+
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import useGames from "../../hooks/useGames.js";
-import ShowObject from "../ShowObject/ShowObject.jsx";
-import { Row, Col } from "react-bootstrap";
 
+import useGames from "../../hooks/useGames.js";
+
+/**
+ * A React component for displaying a form for game registration or update.
+ * @function GameForm
+ * @param {object} props - The component props.
+ * @param {boolean} props.creationMode - Flag indicating whether it's in creation mode.
+ * @returns {JSX.Element} The rendered component.
+ */
 const GameForm = ({ creationMode }) => {
   const {
     developers,
@@ -19,17 +28,20 @@ const GameForm = ({ creationMode }) => {
     selectedGame,
   } = useGames();
 
+  // Determine which game object to use based on creationMode
   let actualGame = creationMode ? gameRegister : selectedGame;
 
   return (
-    <>
-      {/* <ShowObject games={gameRegister} /> */}
+    <Fragment>
+      {/* Card container for the game form */}
       <Card className="p-0">
         <Card.Header className="text-center">
           GAME {creationMode ? "REGISTER" : "UPDATE"}
         </Card.Header>
         <Card.Body className="p-4">
+          {/* Form for game registration or update */}
           <Form className="d-flex flex-column">
+            {/* Title input */}
             <Form.Group className="mb-3" controlId="game-register-name">
               <Form.Label>Title</Form.Label>
               <Form.Control
@@ -50,6 +62,7 @@ const GameForm = ({ creationMode }) => {
               </Form.Control.Feedback>
             </Form.Group>
 
+            {/* Synopsis input */}
             <Form.Group className="mb-3" controlId="game-register-synopsis">
               <Form.Label>Synopsis</Form.Label>
               <Form.Control
@@ -71,6 +84,7 @@ const GameForm = ({ creationMode }) => {
               </Form.Control.Feedback>
             </Form.Group>
 
+            {/* Price input */}
             <Form.Group className="mb-3" controlId="game-register-price">
               <Form.Label>Price</Form.Label>
               <Form.Control
@@ -91,6 +105,7 @@ const GameForm = ({ creationMode }) => {
               </Form.Control.Feedback>
             </Form.Group>
 
+            {/* Release Date input */}
             <Form.Group className="mb-3" controlId="game-register-release-date">
               <Form.Label>Release Date</Form.Label>
               <Form.Control
@@ -110,6 +125,7 @@ const GameForm = ({ creationMode }) => {
               </Form.Control.Feedback>
             </Form.Group>
 
+            {/* Cover Image input */}
             <Form.Group className="mb-3" controlId="game-register-cover">
               <Form.Label>Cover Image</Form.Label>
               <Form.Control
@@ -130,6 +146,7 @@ const GameForm = ({ creationMode }) => {
               </Form.Control.Feedback>
             </Form.Group>
 
+            {/* Wallpaper input */}
             <Form.Group className="mb-3" controlId="game-register-wallpaper">
               <Form.Label>Wallpaper</Form.Label>
               <Form.Control
@@ -143,21 +160,14 @@ const GameForm = ({ creationMode }) => {
                 isInvalid={gameRegisterErrors.wallpaper}
               />
               <Form.Text className="text-muted">
-                Upload a cover image for the game.
+                Upload a wallpaper image for the game.
               </Form.Text>
               <Form.Control.Feedback type="invalid">
                 {gameRegisterErrors.wallpaper}
               </Form.Control.Feedback>
             </Form.Group>
 
-            {/* <Form.Group className="mb-3" controlId="game-register-cover">
-              <Form.Label>Cover Image</Form.Label>
-              <Form.Control type="file" name="cover" accept="image/*" />
-              <Form.Text className="text-muted">
-                Upload a cover image for the game.
-              </Form.Text>
-            </Form.Group> */}
-
+            {/* Trailer Link input */}
             <Form.Group className="mb-3" controlId="game-register-trailer">
               <Form.Label>Trailer Link</Form.Label>
               <Form.Control
@@ -178,8 +188,10 @@ const GameForm = ({ creationMode }) => {
               </Form.Control.Feedback>
             </Form.Group>
 
+            {/* Developer, Platform, Genre checkboxes */}
             <Row>
               <Col>
+                {/* Developer checkboxes */}
                 <Form.Group
                   className="mb-3"
                   controlId="game-register-developer"
@@ -189,6 +201,7 @@ const GameForm = ({ creationMode }) => {
                   <Form.Text className="text-muted">
                     Select at least one developer.
                   </Form.Text>
+                  {/* Mapping through developers to create checkboxes */}
                   {developers ? (
                     developers.map((developer) => {
                       return (
@@ -215,12 +228,14 @@ const GameForm = ({ creationMode }) => {
                 </Form.Group>
               </Col>
               <Col>
+                {/* Platform checkboxes */}
                 <Form.Group className="mb-3" controlId="game-register-platform">
                   <Form.Label>Platform</Form.Label>
                   <br />
                   <Form.Text className="text-muted">
                     Select at least one platform.
                   </Form.Text>
+                  {/* Mapping through platforms to create checkboxes */}
                   {platforms ? (
                     platforms.map((platform) => {
                       return (
@@ -247,12 +262,14 @@ const GameForm = ({ creationMode }) => {
                 </Form.Group>
               </Col>
               <Col>
+                {/* Genre checkboxes */}
                 <Form.Group className="mb-3" controlId="game-register-genre">
                   <Form.Label>Genre</Form.Label>
                   <br />
                   <Form.Text className="text-muted">
                     Select at least one genre.
                   </Form.Text>
+                  {/* Mapping through genres to create checkboxes */}
                   {genres ? (
                     genres.map((genre) => {
                       return (
@@ -278,6 +295,7 @@ const GameForm = ({ creationMode }) => {
               </Col>
             </Row>
 
+            {/* Submit button */}
             <Button
               variant="primary"
               className="align-self-center"
@@ -291,7 +309,7 @@ const GameForm = ({ creationMode }) => {
           </Form>
         </Card.Body>
       </Card>
-    </>
+    </Fragment>
   );
 };
 
