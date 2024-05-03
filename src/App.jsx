@@ -1,10 +1,15 @@
-function App() {
+import { Fragment } from "react";
+import { BrowserRouter } from "react-router-dom";
+import RouterComponent from "./routes/RouterComponent";
 
+function App() {
   return (
-    <>
-      <h1 className='text-6xl font-bold text-red-800'>Hola mundo</h1>
-    </>
-  )
+    <Fragment>
+      <BrowserRouter>
+        <RouterComponent />
+      </BrowserRouter>
+    </Fragment>
+  );
 }
 
-export default App
+export default App;
