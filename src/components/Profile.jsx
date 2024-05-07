@@ -1,6 +1,9 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa6";
 
 const Profile = () => {
+  const [isHidden, setIsHidden] = useState(true);
+
   const user = {
     photo:
       "https://xexkwbqgwmfjmghirwgq.supabase.co/storage/v1/object/public/images/users/annamartinez.jpg",
@@ -20,7 +23,7 @@ const Profile = () => {
           <img
             src={user.photo}
             alt="User Profile Photo"
-            className="self-center md:self-stretch border-2 border-purple-800 rounded-full w-96 h-96 object-cover"
+            className="self-center lg:self-stretch border-2 border-purple-800 rounded-full w-96 h-96 md:h-40 lg:h-96 object-cover"
           />
           <table className="flex-grow mx-5 my-2">
             <tbody>
@@ -37,8 +40,20 @@ const Profile = () => {
                 <td className="p-5">{user.email}</td>
               </tr>
               <tr className="border-b-2">
-                <td className="font-bold text-purple-800">PASSWORD</td>
-                <td className="p-5">{user.password}</td>
+                <td className="font-bold text-purple-800">
+                  PASSWORD{" "}
+                  <button
+                    type="button"
+                    className="font-bold text-purple-800"
+                    onClick={() => setIsHidden(!isHidden)}
+                  >
+                    {isHidden ? <FaEyeSlash size={24} /> : <FaEye size={24} />}
+                  </button>{" "}
+                </td>
+                <td className="p-5">
+                  {isHidden ? "****************" : user.password}
+                </td>
+                <input type="password" name="" id="" />
               </tr>
               <tr>
                 <td className="font-bold text-purple-800">BIRTH DATE</td>
@@ -47,7 +62,7 @@ const Profile = () => {
             </tbody>
           </table>
         </div>
-        <div className="flex flex-row justify-between items-start mt-5">
+        <div className="flex flex-col lg:flex-row justify-between items-start mt-5">
           <div>
             <table>
               <tbody>
@@ -61,6 +76,14 @@ const Profile = () => {
                       AFFILIATE SINCE
                     </td>
                     <td className="p-5">99/99/9999</td>
+                    <td className="p-5">
+                      <button
+                        type="button"
+                        className="border-none rounded-3xl bg-red-600 text-white px-5 py-2"
+                      >
+                        Cancel subscription
+                      </button>
+                    </td>
                   </tr>
                 )}
               </tbody>
@@ -74,12 +97,20 @@ const Profile = () => {
               </button>
             )}
           </div>
-          <button
-            type="button"
-            className="border-none rounded-3xl bg-red-600 text-white px-5 py-2"
-          >
-            Delete account
-          </button>
+          <div>
+            <button
+              type="button"
+              className="mr-5 border-none rounded-3xl bg-purple-800 text-white px-5 py-2"
+            >
+              Update profile
+            </button>
+            <button
+              type="button"
+              className="border-none rounded-3xl bg-red-600 text-white px-5 py-2"
+            >
+              Delete account
+            </button>
+          </div>
         </div>
       </div>
     </Fragment>

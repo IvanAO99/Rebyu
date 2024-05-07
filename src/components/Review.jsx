@@ -11,6 +11,9 @@ const Review = () => {
     "https://xexkwbqgwmfjmghirwgq.supabase.co/storage/v1/object/public/images/users/annamartinez.jpg";
   const userName = "annamartinez";
 
+  const isEdited = true; // Negar para ver el layout de una reseña sin editar
+  const isSpoiler = true; // Negar para ver el layout de una reseña sin spoilers
+
   return (
     <Fragment>
       <div className="border rounded-3xl shadow-2xl m-5 px-5 py-2 bg-gray-50">
@@ -25,6 +28,7 @@ const Review = () => {
               <span>@</span>
               {userName}
             </p>
+            {isEdited && <small className="italic">edited</small>}
           </div>
           <div className="flex flex-row justify-center items-center gap-1 text-purple-800">
             <FaStar size={24} />
@@ -34,13 +38,23 @@ const Review = () => {
             <FaRegStar size={24} />
           </div>
         </div>
-        <div className="flex flex-row justify-center items-center border-y my-2">
+        <div className="relative flex flex-row justify-center items-center border-y my-2">
           <p className="px-5 py-2">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
             iste molestiae sunt. Aliquid, ut ipsum corporis, consequatur optio
             ad qui necessitatibus sunt aut nostrum sit ab possimus quam
             voluptatem numquam.
           </p>
+          {isSpoiler && (
+            <div className="absolute top-0 flex flex-col justify-center items-center gap-5 w-full h-full backdrop-blur">
+              <button
+                type="button"
+                className="border-none rounded-3xl bg-red-600 text-white px-5 py-2"
+              >
+                See spoilers
+              </button>
+            </div>
+          )}
         </div>
         <div className="flex flex-row justify-between items-center">
           <p>99/99/9999 at 99:99</p>

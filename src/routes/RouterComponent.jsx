@@ -11,6 +11,7 @@ const RouterComponent = () => {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/profile/lists" element={<ProfilePage />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </Fragment>
