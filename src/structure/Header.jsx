@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -24,12 +25,12 @@ const Header = () => {
         <nav className="flex flex-col md:flex-row md:ml-auto md:space-x-4 mt-4 md:mt-0">
           <ul className="flex flex-col mb-5 md:mb-0 text-center md:flex-row">
             <li>
-              <a
-                href="#home"
+              <Link
+                to="/"
                 className="text-gray-800 hover:text-gray-600 mx-5 md:mr-10 text-lg"
               >
                 Home
-              </a>
+              </Link>
             </li>
             <li>
               <a
@@ -63,12 +64,12 @@ const Header = () => {
               <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded shadow-lg">
                 <ul className="py-2">
                   <li>
-                    <a
-                      href="/profile"
+                    <Link
+                      to="/profile"
                       className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
                     >
                       Profile
-                    </a>
+                    </Link>
                   </li>
                   <li>
                     <a
