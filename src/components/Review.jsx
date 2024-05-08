@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import {
   FaHeart,
   FaRegStar,
@@ -12,7 +12,7 @@ const Review = () => {
   const userName = "annamartinez";
 
   const isEdited = true; // Negar para ver el layout de una reseña sin editar
-  const isSpoiler = true; // Negar para ver el layout de una reseña sin spoilers
+  const [isSpoiler, setIsSpoiler] = useState(true)
 
   return (
     <Fragment>
@@ -39,7 +39,7 @@ const Review = () => {
           </div>
         </div>
         <div className="relative flex flex-row justify-center items-center border-y my-2">
-          <p className="px-5 py-2">
+          <p className="px-5 py-2 lg:py-8">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
             iste molestiae sunt. Aliquid, ut ipsum corporis, consequatur optio
             ad qui necessitatibus sunt aut nostrum sit ab possimus quam
@@ -50,6 +50,7 @@ const Review = () => {
               <button
                 type="button"
                 className="border-none rounded-3xl bg-red-600 text-white px-5 py-2"
+                onClick={()=>{setIsSpoiler(!isSpoiler)}}
               >
                 See spoilers
               </button>

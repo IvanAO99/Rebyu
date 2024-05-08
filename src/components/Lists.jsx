@@ -18,11 +18,11 @@ const Lists = () => {
           </button>
         </div>
         <div className="border rounded-3xl shadow-2xl">
-          {array.map((element, index) => (
+          {/* {array.map((element, index) => (
             <Fragment key={index}>
               <List />
             </Fragment>
-          ))}
+          ))} */}
         </div>
       </div>
     </Fragment>
