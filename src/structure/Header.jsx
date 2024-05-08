@@ -72,12 +72,12 @@ const Header = () => {
                     </Link>
                   </li>
                   <li>
-                    <a
-                      href="#"
+                    <Link
+                      to="/profile"
                       className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
                     >
                       Lists
-                    </a>
+                    </Link>
                   </li>
                   <li>
                     <a
