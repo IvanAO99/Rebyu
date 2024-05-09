@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -61,7 +62,12 @@ const Header = () => {
               onClick={toggleMenu}
             />
             {isMenuOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded shadow-lg">
+              <div
+                className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded shadow-lg"
+                onClick={(e) => {
+                  if (e.target.tagName === 'A') toggleMenu();
+                }}
+              >
                 <ul className="py-2">
                   <li>
                     <Link
@@ -80,12 +86,12 @@ const Header = () => {
                     </Link>
                   </li>
                   <li>
-                    <a
-                      href="#"
+                    <Link
+                      to="/affiliate"
                       className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
                     >
                       Affiliate
-                    </a>
+                    </Link>
                   </li>
                   <li>
                     <a
@@ -101,7 +107,12 @@ const Header = () => {
           </div>
 
           {/* Botón de iniciar sesión */}
-          <button className="ml-4 text-gray-800 hover:underline hidden">
+          <button
+            className="ml-4 text-gray-800 hover:underline"
+            onClick={() => {
+              navigate("/login");
+            }}
+          >
             Sign In
           </button>
         </div>

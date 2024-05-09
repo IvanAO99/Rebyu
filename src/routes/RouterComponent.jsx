@@ -4,6 +4,9 @@ import { Route, Routes } from "react-router-dom";
 import HomePage from "../pages/HomePage.jsx";
 import ProfilePage from "../pages/ProfilePage.jsx";
 import ErrorPage from "../pages/ErrorPage.jsx";
+import LogInPage from "../pages/LogInPage.jsx";
+import RegistrationPage from "../pages/RegistrationPage.jsx";
+import AffiliatePage from "../pages/AffiliatePage.jsx";
 
 const RouterComponent = () => {
   return (
@@ -12,6 +15,9 @@ const RouterComponent = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/profile/lists" element={<ProfilePage />} />
+        <Route path="/login" element={<LogInPage />} />
+        <Route path="/register" element={<RegistrationPage />} />
+        <Route path="/affiliate" element={<AffiliatePage />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </Fragment>

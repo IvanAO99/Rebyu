@@ -2,23 +2,19 @@ import React, { Fragment } from "react";
 
 import DecorativeCounter from "../components/DecorativeCounter";
 import AboutUs from "../components/AboutUs";
-import RegistrationForm from "../components/RegistrationForm";
-import AffiliateForm from "../components/AffiliateForm";
-import LogInForm from "../components/LogInForm";
 import Game from "../components/Game.jsx";
 import Review from "../components/Review.jsx";
+import GamesFilters from "../components/GameFilters.jsx";
+import Games from "../components/Games.jsx";
 
 const HomePage = () => {
   return (
     <Fragment>
       <main>
-        <LogInForm />
-        <AffiliateForm />
-        <RegistrationForm />
+        <Games />
         <AboutUs />
         <DecorativeCounter />
       </main>
-      <Game />
       <Review />
     </Fragment>
   );

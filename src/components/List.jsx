@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { FaAngleDown, FaAngleUp, FaPen, FaTrash } from "react-icons/fa6";
+import { FaAngleDown, FaAngleRight, FaPen, FaTrash } from "react-icons/fa6";
 import Game from "./Game";
 
 const List = () => {
@@ -15,7 +15,7 @@ const List = () => {
           onClick={() => setIsOpen(!isOpen)}
         >
           <div className="flex flex-row justify-start items-center gap-5">
-            {isOpen ? <FaAngleDown size={24} /> : <FaAngleUp size={24} />}
+            {isOpen ? <FaAngleDown size={24} /> : <FaAngleRight size={24} />}
             <h3>TITLE</h3>
           </div>
           <div>
