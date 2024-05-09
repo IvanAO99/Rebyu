@@ -10,12 +10,11 @@ import Games from "../components/Games.jsx";
 const HomePage = () => {
   return (
     <Fragment>
-      <main>
+      <div>
         <Games />
         <AboutUs />
         <DecorativeCounter />
-      </main>
-      <Review />
+      </div>
     </Fragment>
   );
 };

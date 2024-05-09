@@ -12,11 +12,11 @@ const Review = () => {
   const userName = "annamartinez";
 
   const isEdited = true; // Negar para ver el layout de una reseña sin editar
-  const [isSpoiler, setIsSpoiler] = useState(true)
+  const [isSpoiler, setIsSpoiler] = useState(true);
 
   return (
     <Fragment>
-      <div className="border rounded-3xl shadow-2xl m-5 px-5 py-2 bg-gray-50">
+      <div className="rounded-3xl shadow px-5 py-2 bg-gray-50">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-row justify-center items-center gap-1">
             <img
@@ -50,7 +50,9 @@ const Review = () => {
               <button
                 type="button"
                 className="border-none rounded-3xl bg-red-600 text-white px-5 py-2"
-                onClick={()=>{setIsSpoiler(!isSpoiler)}}
+                onClick={() => {
+                  setIsSpoiler(!isSpoiler);
+                }}
               >
                 See spoilers
               </button>

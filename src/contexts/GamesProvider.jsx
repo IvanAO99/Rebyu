@@ -174,7 +174,7 @@ const GamesProvider = ({ children }) => {
           "Error loading games. Please reload the page and try again."
         );
 
-        console.log(data)
+      console.log(data);
 
       setGames(data);
     } catch (error) {
@@ -243,13 +243,16 @@ const GamesProvider = ({ children }) => {
         )
         .eq("id", gameID);
 
+      console.log(data);
+
       if (error)
         throw new Error(
           "Error loading the game. Please reload the page and try again."
         );
+
       setGame(data[0]);
 
-      navigate("/game");
+      //navigate("/game");
     } catch (error) {
     } finally {
       setIsLoadingGame(false);
@@ -871,13 +874,16 @@ const GamesProvider = ({ children }) => {
   }, [games]);
 
   useEffect(() => {
-    console.log("Use effecf")
+    console.log("Use effecf");
     getGames();
     getLatestGames();
     getTopGames();
     getGenres();
     getDevelopers();
     getPlatforms();
+
+    // Borrar esto es para pruebas
+    getGame("7f500401-0395-4856-9a94-d9938e799dda");
   }, []);
 
   const gamesData = {

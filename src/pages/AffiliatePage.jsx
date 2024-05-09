@@ -3,9 +3,9 @@ import AffiliateForm from "../components/AffiliateForm";
 
 function AffiliatePage() {
   return (
-    <main>
+    <div>
       <AffiliateForm />
-    </main>
+    </div>
   );
 }
 

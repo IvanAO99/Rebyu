@@ -7,12 +7,14 @@ import ErrorPage from "../pages/ErrorPage.jsx";
 import LogInPage from "../pages/LogInPage.jsx";
 import RegistrationPage from "../pages/RegistrationPage.jsx";
 import AffiliatePage from "../pages/AffiliatePage.jsx";
+import GamePage from "../pages/GamePage.jsx";
 
 const RouterComponent = () => {
   return (
     <Fragment>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/game" element={<GamePage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/profile/lists" element={<ProfilePage />} />
         <Route path="/login" element={<LogInPage />} />
