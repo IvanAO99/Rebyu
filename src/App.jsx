@@ -7,6 +7,7 @@ import Footer from "./structure/Footer";
 import UsersProvider from "./contexts/UsersProvider";
 import GamesProvider from "./contexts/GamesProvider";
 import ReviewsProvider from "./contexts/ReviewsProvider";
+import Main from "./structure/Main";
 
 function App() {
   return (
@@ -16,7 +17,9 @@ function App() {
           <Header />
           <GamesProvider>
             <ReviewsProvider>
-              <RouterComponent />
+              <Main>
+                <RouterComponent />
+              </Main>
             </ReviewsProvider>
           </GamesProvider>
         </UsersProvider>

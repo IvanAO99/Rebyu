@@ -1,0 +1,77 @@
+import React from "react";
+import { Fragment } from "react";
+import useGames from "../hooks/useGames";
+import { validateObject } from "../libraries/validateData";
+import Review from "../components/Review";
+import Loading from "../components/Loading";
+import ReviewForm from "../components/ReviewForm";
+import GameData from "../components/GameData";
+import Reviews from "../components/Reviews";
+
+const GamePage = () => {
+  const userReview = false; // Cambiar para ver el layout de la reseña o el formulario
+
+  const { isLoadingGame, game } = useGames();
+
+  return (
+    <>
+      <div className="h-full flex flex-col gap-5">
+        {isLoadingGame ? (
+          <>
+            <div className="h-full flex flex-col justify-center items-center">
+              <Loading />
+              <p className="px-5 py-2 text-purple-800 font-bold">
+                Loading game data...
+              </p>
+            </div>
+          </>
+        ) : validateObject(game) ? (
+          <>
+            <GameData />
+            <div className="flex flex-col gap-5">
+              <div className="flex flex-row justify-stretch items-center gap-1 py-2">
+                <div className="flex-grow border-y-2 border-purple-800"></div>
+                <h2 className="text-5xl font-bold">REVIEWS</h2>
+                <div className="flex-grow border-y-2 border-purple-800"></div>
+              </div>
+              {userReview ? (
+                <>
+                  <div className="flex flex-row gap-5">
+                    <Review />
+                    <div className="flex flex-col justify-start items-stretch gap-5">
+                      <button
+                        type="button"
+                        className="border-none rounded-3xl bg-purple-800 text-white px-5 py-2"
+                      >
+                        Update
+                      </button>
+                      <button
+                        type="button"
+                        className="border-none rounded-3xl bg-red-600 text-white px-5 py-2"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <ReviewForm />
+                </>
+              )}
+              <Reviews />
+            </div>
+          </>
+        ) : (
+          <>
+            <div>
+              <p>ERROR. No game found.</p>
+            </div>
+          </>
+        )}
+      </div>
+    </>
+  );
+};
+
+export default GamePage;

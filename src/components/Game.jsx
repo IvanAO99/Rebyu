@@ -1,11 +1,9 @@
 import React, { Fragment } from "react";
 import { FaHeart } from "react-icons/fa6";
 
-const Game = ({game}) => {
+const Game = ({ game }) => {
   //console.log(game)
-  const {id, synopsis, price, title, release_date, cover_pic, trailer, wallpaper} = game;
-  const gameCover =
-    "https://xexkwbqgwmfjmghirwgq.supabase.co/storage/v1/object/public/images/games/covers/tlou2.jpg";
+  const { id, synopsis, title, cover_pic } = game;
 
   return (
     <Fragment>
@@ -30,11 +28,15 @@ const Game = ({game}) => {
           </div>
         </div>
         <div className="absolute -bottom-full flex flex-col justify-center items-center bg-gray-800 w-full h-full group-hover:bottom-0 transition-all duration-500">
-          <p className="text-white px-5 py-2">
-            {synopsis}
+          <p className="px-5 py-2">
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aperiam
+            ipsa ipsam itaque repellat voluptate. Eos, inventore dignissimos
+            doloremque recusandae ducimus, quas ipsa unde, quia iusto repellat
+            illum non. Autem, quibusdam!
           </p>
           <button
             type="button"
+            id={`game-card-${id}`}
             className="border-none rounded-3xl bg-purple-800 text-white px-5 py-2 transition-all duration-300"
           >
             See more

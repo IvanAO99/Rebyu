@@ -3,9 +3,9 @@ import RegistrationForm from "../components/RegistrationForm";
 
 function RegistrationPage() {
   return (
-    <main>
+    <div>
       <RegistrationForm />
-    </main>
+    </div>
   );
 }
 

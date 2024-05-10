@@ -64,7 +64,7 @@ const formatDateString = (dateString) => {
   const hour = String(date.getHours()).padStart(2, "0");
   const minute = String(date.getMinutes()).padStart(2, "0");
 
-  return `${year}-${month}-${day} ${hour}:${minute}`;
+  return `${month}-${day}-${year} at ${hour}:${minute}`;
 };
 
 export { calculateAverageScore, calculateTopGames, formatDateString };

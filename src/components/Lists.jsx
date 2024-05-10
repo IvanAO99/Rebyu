@@ -8,16 +8,18 @@ const Lists = () => {
   return (
     <Fragment>
       <div id="lists">
-        <div className="flex flex-row justify-start items-center gap-5 py-2">
-          <h2 className="py-2 text-4xl font-bold">LISTS</h2>
+        <div className="flex flex-row justify-stretch items-center gap-5 py-2">
+          <div className="border-y-2 border-purple-800"></div>
+          <h2 className="text-5xl font-bold">LISTS</h2>
           <button
             type="button"
             className="border-none rounded-full bg-purple-800 text-white p-2"
           >
             <FaPlus size={24} />
           </button>
+          <div className="flex-grow border-y-2 border-purple-800"></div>
         </div>
-        <div className="border rounded-3xl shadow-2xl">
+        <div className="rounded-3xl shadow">
           {/* {array.map((element, index) => (
             <Fragment key={index}>
               <List />

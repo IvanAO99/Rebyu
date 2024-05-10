@@ -5,16 +5,35 @@ import { validateArray } from "../libraries/validateData";
 import Game from "./Game.jsx";
 
 function Games() {
-  const { isLoadingGames, filteredGames } = useGames();
+  const { isLoadingGames, filteredGames, getGame } = useGames();
 
   //console.log(filteredGames)
+
+  /**
+   * Handles the click event on the game card.
+   * @param {React.MouseEvent} event - The click event.
+   */
+  const handleGameClick = (event) => {
+    event.preventDefault();
+
+    if (event.target.tagName === "BUTTON") {
+      const targetID = event.target.id;
+      const uuidPattern =
+        /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/;
+      const gameID = targetID.match(uuidPattern)[0];
+
+      //console.log(gameID);
+
+      getGame(gameID);
+    }
+  };
 
   return (
     <Fragment>
       <div>
         <h2>CHECK ALL OUR GAMES!</h2>
         <GamesFilters />
-        <div>
+        <div onClick={(event) => handleGameClick(event)}>
           {isLoadingGames ? (
             <Fragment>
               <div className="d-flex justify-content-center align-items-center">
@@ -26,7 +45,7 @@ function Games() {
             filteredGames.map((value, index) => {
               return (
                 <Fragment key={index}>
-                    <Game game={value} />
+                  <Game game={value} />
                 </Fragment>
               );
             })

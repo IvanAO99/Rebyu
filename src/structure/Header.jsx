@@ -1,13 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { FaMoon, FaSun } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const [theme, setTheme] = useState("light");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      setTheme("dark");
+    } else {
+      setTheme("light");
+    }
+  }, []);
+
+  useEffect(() => {
+    if (theme === "dark") {
+      document.body.classList.add("dark");
+    } else {
+      document.body.classList.remove("dark");
+    }
+  }, [theme]);
 
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 w-full z-50">
@@ -52,6 +71,25 @@ const Header = () => {
           </ul>
         </nav>
 
+        {/* Light/Dark mode toggle */}
+        <div>
+          <button
+            type="button"
+            className="rounded-full bg-purple-800 text-gray-50 p-2"
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          >
+            {theme === "dark" ? (
+              <>
+                <FaSun size={24} />
+              </>
+            ) : (
+              <>
+                <FaMoon size={24} />
+              </>
+            )}
+          </button>
+        </div>
+
         {/* Foto de usuario y menú */}
         <div className="flex items-center">
           <div className="relative">
@@ -65,7 +103,7 @@ const Header = () => {
               <div
                 className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded shadow-lg"
                 onClick={(e) => {
-                  if (e.target.tagName === 'A') toggleMenu();
+                  if (e.target.tagName === "A") toggleMenu();
                 }}
               >
                 <ul className="py-2">

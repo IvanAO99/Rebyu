@@ -5,30 +5,31 @@ import {
   FaRegStarHalfStroke,
   FaStar,
 } from "react-icons/fa6";
+import { formatDateString } from "../libraries/manipulateData";
 
-const Review = () => {
-  const userProfilePhoto =
-    "https://xexkwbqgwmfjmghirwgq.supabase.co/storage/v1/object/public/images/users/annamartinez.jpg";
-  const userName = "annamartinez";
+const Review = ({ review }) => {
+  const [isSpoiler, setIsSpoiler] = useState(true);
 
-  const isEdited = true; // Negar para ver el layout de una reseña sin editar
-  const [isSpoiler, setIsSpoiler] = useState(true)
+  console.log(review);
+
+  const { reviewer, edited, spoiler, score, likes, message, date_time } =
+    review;
 
   return (
     <Fragment>
-      <div className="border rounded-3xl shadow-2xl m-5 px-5 py-2 bg-gray-50">
-        <div className="flex flex-row justify-between items-center">
+      <div className="rounded-3xl shadow px-5 py-2 bg-gray-50 dark:bg-gray-950">
+        <div className="flex flex-row justify-between items-center gap-5">
           <div className="flex flex-row justify-center items-center gap-1">
             <img
-              src={userProfilePhoto}
+              src={reviewer.profile_photo}
               alt="User Profile Photo"
-              className="border-2 border-purple-800 rounded-full w-16 h-16 object-cover"
+              className="rounded-full w-16 h-16 object-cover"
             />
             <p className="hidden sm:block font-bold text-purple-800 italic">
               <span>@</span>
-              {userName}
+              {reviewer.nickname}
             </p>
-            {isEdited && <small className="italic">edited</small>}
+            {edited && <small className="italic">edited</small>}
           </div>
           <div className="flex flex-row justify-center items-center gap-1 text-purple-800">
             <FaStar size={24} />
@@ -39,18 +40,15 @@ const Review = () => {
           </div>
         </div>
         <div className="relative flex flex-row justify-center items-center border-y my-2">
-          <p className="px-5 py-2 lg:py-8">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
-            iste molestiae sunt. Aliquid, ut ipsum corporis, consequatur optio
-            ad qui necessitatibus sunt aut nostrum sit ab possimus quam
-            voluptatem numquam.
-          </p>
-          {isSpoiler && (
+          <p className="px-5 py-2 lg:py-8">{message}</p>
+          {spoiler && (
             <div className="absolute top-0 flex flex-col justify-center items-center gap-5 w-full h-full backdrop-blur">
               <button
                 type="button"
-                className="border-none rounded-3xl bg-red-600 text-white px-5 py-2"
-                onClick={()=>{setIsSpoiler(!isSpoiler)}}
+                className="rounded-3xl bg-red-600 text-gray-50 px-5 py-2"
+                onClick={() => {
+                  setIsSpoiler(!isSpoiler);
+                }}
               >
                 See spoilers
               </button>
@@ -58,10 +56,10 @@ const Review = () => {
           )}
         </div>
         <div className="flex flex-row justify-between items-center">
-          <p>99/99/9999 at 99:99</p>
+          <p>{formatDateString(date_time)}</p>
           <div className="flex flex-row justify-center items-center gap-1 text-purple-800">
             <FaHeart size={24} />
-            <p className="text-black">99k</p>
+            <p className="text-gray-50">{likes}</p>
           </div>
         </div>
       </div>

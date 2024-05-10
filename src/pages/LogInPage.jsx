@@ -1,13 +1,12 @@
-import React from 'react';
+import React from "react";
 import LogInForm from "../components/LogInForm";
-
 
 function LogInPage() {
   return (
-    <main>
-        <LogInForm />
-    </main>
-  )
+    <div>
+      <LogInForm />
+    </div>
+  );
 }
 
-export default LogInPage
+export default LogInPage;

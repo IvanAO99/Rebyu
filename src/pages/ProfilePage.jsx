@@ -6,11 +6,10 @@ import Lists from "../components/Lists.jsx";
 const ProfilePage = () => {
   return (
     <Fragment>
-      <main className="container mx-auto px-5 py-2">
+      <div>
         <Profile />
-        <div className="my-2 border-y"></div>
         <Lists />
-      </main>
+      </div>
     </Fragment>
   );
 };

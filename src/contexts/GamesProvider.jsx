@@ -174,7 +174,7 @@ const GamesProvider = ({ children }) => {
           "Error loading games. Please reload the page and try again."
         );
 
-        console.log(data)
+      console.log(data);
 
       setGames(data);
     } catch (error) {
@@ -236,6 +236,9 @@ const GamesProvider = ({ children }) => {
   const getGame = async (gameID) => {
     try {
       setIsLoadingGame(true);
+
+      navigate("/game");
+
       const { data, error } = await supabaseConnection
         .from("games")
         .select(
@@ -243,13 +246,14 @@ const GamesProvider = ({ children }) => {
         )
         .eq("id", gameID);
 
+      console.log(data);
+
       if (error)
         throw new Error(
           "Error loading the game. Please reload the page and try again."
         );
-      setGame(data[0]);
 
-      navigate("/game");
+      setGame(data[0]);
     } catch (error) {
     } finally {
       setIsLoadingGame(false);
@@ -871,7 +875,6 @@ const GamesProvider = ({ children }) => {
   }, [games]);
 
   useEffect(() => {
-    console.log("Use effecf")
     getGames();
     getLatestGames();
     getTopGames();
