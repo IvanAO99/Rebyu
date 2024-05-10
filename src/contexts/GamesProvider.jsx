@@ -236,6 +236,9 @@ const GamesProvider = ({ children }) => {
   const getGame = async (gameID) => {
     try {
       setIsLoadingGame(true);
+
+      navigate("/game");
+
       const { data, error } = await supabaseConnection
         .from("games")
         .select(
@@ -251,8 +254,6 @@ const GamesProvider = ({ children }) => {
         );
 
       setGame(data[0]);
-
-      //navigate("/game");
     } catch (error) {
     } finally {
       setIsLoadingGame(false);
@@ -874,16 +875,12 @@ const GamesProvider = ({ children }) => {
   }, [games]);
 
   useEffect(() => {
-    console.log("Use effecf");
     getGames();
     getLatestGames();
     getTopGames();
     getGenres();
     getDevelopers();
     getPlatforms();
-
-    // Borrar esto es para pruebas
-    getGame("7f500401-0395-4856-9a94-d9938e799dda");
   }, []);
 
   const gamesData = {
