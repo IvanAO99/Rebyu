@@ -8,7 +8,6 @@ const ProfilePage = () => {
     <Fragment>
       <div>
         <Profile />
-        <div className="my-2 border-y"></div>
         <Lists />
       </div>
     </Fragment>
