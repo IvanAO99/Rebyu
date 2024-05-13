@@ -165,14 +165,16 @@ const GamesProvider = ({ children }) => {
       const { data, error } = await supabaseConnection
         .from("games")
         .select(
-          "*, game_genre(genres(*)), game_platform(platforms(*)), game_developer(developers(*)), reviews (*)"
+          "*, game_genre(genres(*)), game_platform(platforms(*)), game_developer(developers(*))"
         )
         .order("id");
 
-      if (error)
+      if (error) {
+        console.log(error);
         throw new Error(
           "Error loading games. Please reload the page and try again."
         );
+      }
 
       console.log(data);
 

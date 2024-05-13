@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { FaMoon, FaSun } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
+import useUsers from "../hooks/useUsers";
+import { validateObject } from "../libraries/validateData";
 
 const Header = () => {
+  const { isSessionUp, user, signOut } = useUsers();
+
+  console.log(user);
+
   const [theme, setTheme] = useState("light");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -92,67 +98,80 @@ const Header = () => {
 
         {/* Foto de usuario y menú */}
         <div className="flex items-center">
-          <div className="relative">
-            <img
-              src="src/assets/profile-photo-default.jpg"
-              alt="User"
-              className="h-10 w-10 rounded-full cursor-pointer hover:opacity-75"
-              onClick={toggleMenu}
-            />
-            {isMenuOpen && (
-              <div
-                className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded shadow-lg"
-                onClick={(e) => {
-                  if (e.target.tagName === "A") toggleMenu();
+          {isSessionUp && validateObject(user) ? (
+            <>
+              <div className="relative">
+                <img
+                  src={
+                    user.profile_photo || "src/assets/profile-photo-default.jpg"
+                  }
+                  alt="User"
+                  className="h-10 w-10 rounded-full cursor-pointer hover:opacity-75"
+                  onClick={toggleMenu}
+                />
+                {isMenuOpen && (
+                  <div
+                    className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded shadow-lg"
+                    onClick={(e) => {
+                      if (e.target.tagName === "A") toggleMenu();
+                    }}
+                  >
+                    <ul className="py-2">
+                      <li>
+                        <Link
+                          to="/profile"
+                          className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                        >
+                          Profile
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to="/profile"
+                          className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                        >
+                          Lists
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to="/affiliate"
+                          className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                        >
+                          Affiliate
+                        </Link>
+                      </li>
+                      <li>
+                        <button
+                          type="button"
+                          className="bg-red-600 text-white px-5 py-2"
+                          onClick={() => signOut()}
+                        >
+                          Log out
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                )}
+              </div>
+              <p>
+                <span>@</span>
+                {user.nickname}
+              </p>
+            </>
+          ) : (
+            <>
+              {/* Botón de iniciar sesión */}
+              <button
+                className="ml-4 text-gray-800 hover:underline"
+                onClick={() => {
+                  navigate("/login");
                 }}
               >
-                <ul className="py-2">
-                  <li>
-                    <Link
-                      to="/profile"
-                      className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
-                    >
-                      Profile
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/profile"
-                      className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
-                    >
-                      Lists
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/affiliate"
-                      className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
-                    >
-                      Affiliate
-                    </Link>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-white bg-red-400 hover:bg-red-300"
-                    >
-                      Log out
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            )}
-          </div>
-
-          {/* Botón de iniciar sesión */}
-          <button
-            className="ml-4 text-gray-800 hover:underline"
-            onClick={() => {
-              navigate("/login");
-            }}
-          >
-            Sign In
-          </button>
+                Sign In
+              </button>
+            </>
+          )}
         </div>
       </div>
     </header>

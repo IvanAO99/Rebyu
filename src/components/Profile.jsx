@@ -1,27 +1,19 @@
 import React, { Fragment, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
+import useUsers from "../hooks/useUsers";
+import { formatDateString } from "../libraries/manipulateData";
 
 const Profile = () => {
-  const [isHidden, setIsHidden] = useState(true);
+  const { isSessionUp, user } = useUsers();
 
-  const user = {
-    photo:
-      "https://xexkwbqgwmfjmghirwgq.supabase.co/storage/v1/object/public/images/users/annamartinez.jpg",
-    nickname: "annamartinez",
-    name: "Anna",
-    email: "annamartinez@gmail.com",
-    password: "annamartinez",
-    birth_date: "99/99/9999",
-    is_affiliate: true, // Cambiar valor para ver el layout de un usuario no afiliado
-    affiliate_date: "99/99/9999",
-  };
+  const [isHidden, setIsHidden] = useState(true);
 
   return (
     <Fragment>
       <div>
         <div className="flex flex-col md:flex-row justify-stretch items-stretch gap-5">
           <img
-            src={user.photo}
+            src={user.profile_photo || "./src/assets/profile-photo-default.jpg"}
             alt="User Profile Photo"
             className="self-center rounded-full w-96 h-96 md:h-40 lg:h-96 object-cover"
           />
@@ -67,16 +59,16 @@ const Profile = () => {
           <div className="flex-grow flex flex-col justify-between items-start gap-5">
             <div className="px-5">
               <p className="text-xl font-bold text-purple-800">USER SINCE</p>
-              <p>{user.birth_date}</p>
+              <p>{formatDateString(user.created_at)}</p>
             </div>
             <div className="border"></div>
-            {user.is_affiliate ? (
+            {user.affiliate_start_date ? (
               <>
                 <div className="px-5">
                   <p className="text-xl font-bold text-purple-800">
                     AFFILIATE SINCE
                   </p>
-                  <p className="">{user.birth_date}</p>
+                  <p className="">{user.affiliate_start_date}</p>
                 </div>
                 <button
                   type="button"
