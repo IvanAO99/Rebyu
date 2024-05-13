@@ -253,7 +253,7 @@ const UsersProvider = ({ children }) => {
    */
   const handleSignUp = () => {
     const validationErrors = validateSignUp();
-
+    /* console.log(validationErrors) */
     if (validateObject(validationErrors)) {
       setSignUpFormErrors(validationErrors);
     } else {
@@ -342,7 +342,7 @@ const UsersProvider = ({ children }) => {
   const createUser = async (authUserID) => {
     try {
       const { data, error } = await supabaseConnection.from("users").insert({
-        auth_id: authUserID,
+        id: authUserID,
         nickname: signUpForm.nickname,
         name: signUpForm.name,
         birth_date: signUpForm.birth_date,
