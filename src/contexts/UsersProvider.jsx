@@ -301,12 +301,14 @@ const UsersProvider = ({ children }) => {
       const { data: users, error } = await supabaseConnection
         .from("users")
         .select("*")
-        .eq("auth_id", authUser.id);
+        .eq("id", authUser.id);
 
       if (error) throw error;
 
       setUser({ ...authUser, ...users[0] });
       sendUserAlert("info", `Welcome! ${users[0].nickname}`);
+
+      console.log(user);
     } catch (error) {
       sendUserAlert("error", "Something went wrong, please try again.");
     }
@@ -409,7 +411,35 @@ const UsersProvider = ({ children }) => {
    * Retrieves user information if authenticated.
    */
   useEffect(() => {
-    // useEffect to control user session
+    // Set up a listener for changes in authentication state
+    const { data } = supabaseConnection.auth.onAuthStateChange(
+      /**
+       * Callback function triggered on authentication state change.
+       * @param {string} event - The type of authentication event ("SIGNED_IN" or "SIGNED_OUT").
+       * @param {object} session - The authentication session object.
+       */
+      (event, session) => {
+        // Check if a session is present (user is signed in)
+        if (session) {
+          // Check if user information is already available
+          if (!validateObject(user)) {
+            // Redirect to the authenticated route and initialize state
+            navigate("/");
+            setIsConfirmEmailOpen(initialValues.isConfirmEmailOpen);
+            setIsSessionUp(true);
+
+            // Retrieve user information
+            getUser();
+          }
+        } else {
+          // If no session, redirect to the public part of the web
+          setIsSessionUp(initialValues.isSessionUp);
+          setUser(initialValues.user);
+          setIsAdmin(initialValues.isAdmin);
+          navigate("/");
+        }
+      }
+    );
   }, []);
 
   /* CONTEXT DATA */
