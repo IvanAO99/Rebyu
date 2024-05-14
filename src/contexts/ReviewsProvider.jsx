@@ -21,10 +21,11 @@ const ReviewsProvider = ({ children }) => {
 
   const initialValues = {
     reviewForm: {
-      game_id: "",
-      score: "0",
+      score: "4",
       message: "",
       spoiler: "false",
+      edited: "false",
+      ia_score: "3"
     },
     reviewFormErrors: {},
     isReviewFormModalOpen: false,
@@ -34,6 +35,7 @@ const ReviewsProvider = ({ children }) => {
     reviews: [],
     isLoadingLastReviews: false,
     lastReviews: [],
+    userReview: {}
   };
 
   /* STATES */
@@ -59,6 +61,7 @@ const ReviewsProvider = ({ children }) => {
     initialValues.isLoadingLastReviews
   );
   const [lastReviews, setLastReviews] = useState(initialValues.lastReviews);
+  const [userReview, setUserReview] = useState(initialValues.userReview)
 
   /**
    * Display a toast notification for review-related actions.
@@ -109,6 +112,30 @@ const ReviewsProvider = ({ children }) => {
 
   /* SUPABASE FETCHS */
 
+  const getUserReview = async () => {
+    try {
+      const { data, error } = await supabaseConnection
+        .from("user_game_review")
+        .select("*, reviews(*), users(*)")
+        .eq("user_id", user.id)
+        .eq("game_id", game.id);
+
+        if (validateArray(data)) {
+          console.log("Array lleno")
+          console.log(data)
+          setUserReview(data[0].reviews)
+        } else {
+          console.log("Array vacio")
+          console.log(data)
+          setUserReview({})
+        }
+
+        //validateArray(data[0]) ? setUserReview(data[0].reviews) : setUserReview(initialValues.userReview);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   /**
    * Fetches reviews from the "reviews" table and updates the state accordingly.
    */
@@ -151,7 +178,7 @@ const ReviewsProvider = ({ children }) => {
       // Fetch last reviews from the "reviews" table with game and reviewer details
       let { data, error } = await supabaseConnection
         .from("reviews")
-        .select("*, game:game_id (*), reviewer:user_id (*)")
+        .select("*, game:game_id (*), reviewer:users (*)")
         .order("date_time", { ascending: false })
         .range(0, 20);
 
@@ -184,9 +211,11 @@ const ReviewsProvider = ({ children }) => {
 
       // Fetch reviews from the "reviews" table with game and reviewer details for a specific game
       const { data, error } = await supabaseConnection
-        .from("reviews")
-        .select("*, game:game_id (*), reviewer:user_id (*)")
-        .eq("game_id", gameID);
+        .from("user_game_review")
+        .select("*, reviews(*), users(*)")
+        .eq("game_id", game.id);
+
+      console.log(data)
 
       if (error) throw error;
 
@@ -204,6 +233,28 @@ const ReviewsProvider = ({ children }) => {
     }
   };
 
+
+  const createUserReview = async (reviewId) => {
+    try {
+      // Insert the review form data into the "reviews" table and associate it with the current game and user
+      const { data, error } = await supabaseConnection
+        .from("user_game_review")
+        .insert({
+          user_id: user.id,
+          game_id: game.id,
+          review_id: reviewId
+        })
+        .select();
+
+      if (error) throw error;
+
+      getUserReview();
+
+    } catch (error) {
+      console.log('ERRORRRRR')
+    }
+  }
+
   /**
    * Creates a new review by inserting the review form data into the "reviews" table,
    * associates it with the current game and user, and updates the state accordingly.
@@ -213,10 +264,12 @@ const ReviewsProvider = ({ children }) => {
       // Insert the review form data into the "reviews" table and associate it with the current game and user
       const { data, error } = await supabaseConnection
         .from("reviews")
-        .insert({ ...reviewForm, game_id: game.id, user_id: user.id })
+        .insert({ ...reviewForm})
         .select();
 
       if (error) throw error;
+
+      createUserReview(data[0].id)
 
       // Display a success alert and fetch reviews for the current game
       sendReviewAlert("success", "Review added successfully!");
@@ -454,6 +507,7 @@ const ReviewsProvider = ({ children }) => {
    */
   useEffect(() => {
     if (validateObject(game)) {
+      getUserReview()
       getReviewsByGame(game.id);
     }
   }, [game]);
@@ -475,6 +529,7 @@ const ReviewsProvider = ({ children }) => {
     showReviewDeleteModal,
     hideReviewDeleteModal,
     handleReviewSubmit,
+    userReview
   };
 
   return (

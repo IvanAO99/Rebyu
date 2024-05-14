@@ -3,7 +3,7 @@ import useReviews from "../hooks/useReviews";
 import { FaStar } from "react-icons/fa6";
 
 const ReviewForm = () => {
-  const { reviewForm, reviewFormErrors, updateReviewForm } = useReviews();
+  const { reviewForm, reviewFormErrors, updateReviewForm, handleReviewSubmit } = useReviews();
 
   return (
     <>
@@ -48,6 +48,7 @@ const ReviewForm = () => {
           <button
             type="button"
             className="rounded-3xl bg-purple-800 px-5 py-2 text-white shadow"
+            onClick={() => {handleReviewSubmit('create')}}
           >
             Review
           </button>
