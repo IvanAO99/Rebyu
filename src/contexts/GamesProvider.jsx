@@ -170,17 +170,17 @@ const GamesProvider = ({ children }) => {
         .order("id");
 
       if (error) {
-        console.log(error);
+        //console.log(error);
         throw new Error(
           "Error loading games. Please reload the page and try again."
         );
       }
 
-      console.log(data);
+      //console.log(data);
 
       setGames(data);
     } catch (error) {
-      console.log(error.message);
+     //console.log(error.message);
     } finally {
       setIsLoadingGames(false);
     }
@@ -248,7 +248,7 @@ const GamesProvider = ({ children }) => {
         )
         .eq("id", gameID);
 
-      console.log(data);
+      //console.log(data);
 
       if (error)
         throw new Error(
@@ -280,7 +280,7 @@ const GamesProvider = ({ children }) => {
         );
       setGenres(data);
     } catch (error) {
-      console.log(error.message);
+      //console.log(error.message);
     }
   };
 
@@ -302,7 +302,7 @@ const GamesProvider = ({ children }) => {
         );
       setDevelopers(data);
     } catch (error) {
-      console.log(error.message);
+      //console.log(error.message);
     }
   };
 
@@ -324,7 +324,7 @@ const GamesProvider = ({ children }) => {
         );
       setPlatforms(data);
     } catch (error) {
-      console.log(error.message);
+      //console.log(error.message);
     }
   };
 
@@ -549,7 +549,7 @@ const GamesProvider = ({ children }) => {
 
       if (error) throw error;
     } catch (error) {
-      console.log(error.message);
+      //console.log(error.message);
     }
   };
 
@@ -615,7 +615,7 @@ const GamesProvider = ({ children }) => {
         }
       }
     } catch (error) {
-      console.log(error.message);
+      //console.log(error.message);
     }
   };
 
@@ -783,7 +783,7 @@ const GamesProvider = ({ children }) => {
 
       if (error) throw error;
     } catch (error) {
-      console.log(error.message);
+      //console.log(error.message);
     }
   };
 

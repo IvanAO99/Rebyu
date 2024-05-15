@@ -7,7 +7,7 @@ import { validateObject } from "../libraries/validateData";
 const Header = () => {
   const { isSessionUp, user, signOut } = useUsers();
 
-  console.log(user);
+  //console.log(user);
 
   const [theme, setTheme] = useState("light");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -144,7 +144,7 @@ const Header = () => {
                       <li>
                         <button
                           type="button"
-                          className="bg-red-600 text-white px-5 py-2"
+                          className="block px-4 hover:bg-gray-200 bg-red-600 text-white py-2"
                           onClick={() => signOut()}
                         >
                           Log out

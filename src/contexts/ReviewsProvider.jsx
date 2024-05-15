@@ -35,7 +35,8 @@ const ReviewsProvider = ({ children }) => {
     reviews: [],
     isLoadingLastReviews: false,
     lastReviews: [],
-    userReview: {}
+    userReview: {},
+    reviewsWithLikes: []
   };
 
   /* STATES */
@@ -62,6 +63,8 @@ const ReviewsProvider = ({ children }) => {
   );
   const [lastReviews, setLastReviews] = useState(initialValues.lastReviews);
   const [userReview, setUserReview] = useState(initialValues.userReview)
+
+  const [reviewsWithLikes, setReviewsWithLikes] = useState(initialValues.reviewsWithLikes);
 
   /**
    * Display a toast notification for review-related actions.
@@ -121,16 +124,11 @@ const ReviewsProvider = ({ children }) => {
         .eq("game_id", game.id);
 
         if (validateArray(data)) {
-          console.log("Array lleno")
-          console.log(data)
-          setUserReview(data[0].reviews)
+          setUserReview(data[0])
         } else {
-          console.log("Array vacio")
-          console.log(data)
-          setUserReview({})
+          setUserReview(initialValues.userReview)
         }
 
-        //validateArray(data[0]) ? setUserReview(data[0].reviews) : setUserReview(initialValues.userReview);
     } catch (error) {
       console.log(error)
     }
@@ -198,6 +196,25 @@ const ReviewsProvider = ({ children }) => {
     }
   };
 
+  const getReviewLikes = async (reviewID) => {
+    try {
+      const { data, error } = await supabaseConnection
+        .from("review_likes")
+        .select("count")
+        .eq("review_id", reviewID);
+
+      console.log(data)
+
+      if (error) throw error;
+
+      console.log(data[0].count)
+      return data[0].count;
+
+    } catch (error) {
+      return 0;
+    }
+  }
+
   /**
    * Fetches reviews from the "reviews" table for a specific game, including details of the associated game and reviewer,
    * and updates the state accordingly.
@@ -215,10 +232,8 @@ const ReviewsProvider = ({ children }) => {
         .select("*, reviews(*), users(*)")
         .eq("game_id", game.id);
 
-      console.log(data)
-
       if (error) throw error;
-
+      console.log(data)
       // Update reviews state with fetched data
       setReviews(data);
     } catch (error) {
@@ -251,7 +266,7 @@ const ReviewsProvider = ({ children }) => {
       getUserReview();
 
     } catch (error) {
-      console.log('ERRORRRRR')
+      console.log(error)
     }
   }
 
@@ -493,6 +508,25 @@ const ReviewsProvider = ({ children }) => {
     }
   };
 
+  useEffect(()=>{
+    console.log(reviewsWithLikes)
+  }, [reviewsWithLikes])
+
+  useEffect(() => {
+    if (validateArray(reviews)) {
+      let array = [];
+
+      reviews.forEach(async (review) => {
+        const likes = await getReviewLikes(review.review_id);
+        const reviewWithLikes = { ...review, likes };
+        array.push(reviewWithLikes); 
+      });
+
+      console.log(array)
+      setReviewsWithLikes(array)
+    }
+  }, [reviews])
+
   /**
    * Effect hook to fetch the latest reviews when the component mounts.
    */
@@ -520,7 +554,6 @@ const ReviewsProvider = ({ children }) => {
     updatingReview,
     deletingReview,
     isLoadingReviews,
-    reviews,
     isLoadingLastReviews,
     lastReviews,
     showReviewFormModal,
@@ -529,7 +562,8 @@ const ReviewsProvider = ({ children }) => {
     showReviewDeleteModal,
     hideReviewDeleteModal,
     handleReviewSubmit,
-    userReview
+    userReview,
+    reviewsWithLikes
   };
 
   return (
