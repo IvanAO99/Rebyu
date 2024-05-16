@@ -9,7 +9,6 @@ import { validateArray } from "../libraries/validateData.js";
 
 const Reviews = () => {
   const { isLoadingReviews, reviewsWithLikes } = useReviews();
-
   return (
     <>
       <div>

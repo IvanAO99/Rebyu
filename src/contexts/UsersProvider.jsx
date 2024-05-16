@@ -308,7 +308,7 @@ const UsersProvider = ({ children }) => {
       setUser({ ...authUser, ...users[0] });
       sendUserAlert("info", `Welcome! ${users[0].nickname}`);
 
-      console.log(user);
+      //console.log(user);
     } catch (error) {
       sendUserAlert("error", "Something went wrong, please try again.");
     }

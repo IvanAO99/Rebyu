@@ -11,11 +11,15 @@ import regex from "../jsons/regex.json";
 
 import { validateArray, validateObject } from "../libraries/validateData.js";
 
+import Sentiment from 'sentiment';
+
 const ReviewsContext = createContext();
 
 const ReviewsProvider = ({ children }) => {
   const { user } = useUsers();
   const { game } = useGames();
+
+  const sentiment = new Sentiment();
 
   /* INITIAL STATES VALUES */
 
@@ -25,7 +29,7 @@ const ReviewsProvider = ({ children }) => {
       message: "",
       spoiler: "false",
       edited: "false",
-      ia_score: "3"
+      ia_score: ""
     },
     reviewFormErrors: {},
     isReviewFormModalOpen: false,
@@ -115,6 +119,85 @@ const ReviewsProvider = ({ children }) => {
 
   /* SUPABASE FETCHS */
 
+
+  const handleLikes = async (reviewId) => {
+    try {
+      const { data: existingLike, error: existingLikeError } = await supabaseConnection
+        .from("review_likes")
+        .select("*")
+        .eq("user_id", user.id)
+        .eq("review_id", reviewId);
+  
+      if (existingLikeError) throw existingLikeError;
+  
+      if (existingLike && existingLike.length > 0) {
+        await removeLikeFromReview(reviewId);
+      } else {
+        await likeAReview(reviewId);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+    // Función para dar like a una review
+  const likeAReview = async (reviewId) => {
+    try {
+      const { data, error } = await supabaseConnection
+        .from("review_likes")
+        .insert({
+          user_id: user.id,
+          review_id: reviewId
+        })
+        .select();
+
+      if (error) throw error;
+
+      // Actualizar las reviews después de dar like
+      getReviewsByGame();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const removeLikeFromReview = async (reviewId) => {
+    try {
+      const { data, error } = await supabaseConnection
+        .from("review_likes")
+        .delete()
+        .eq("user_id", user.id)
+        .eq("review_id", reviewId)
+        .select();
+  
+      if (error) throw error;
+  
+      // Actualizar las reviews después de quitar el like
+      getReviewsByGame();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+/*   const likeAReview = async (reviewId) => {
+    try {
+      const { data, error } = await supabaseConnection
+        .from("review_likes")
+        .insert({
+          user_id: user.id,
+          review_id: reviewId
+        })
+        .select();
+
+        if (error) throw error;
+
+        getReviewsByGame();
+
+    } catch (error) {
+      console.log(error)
+    }
+  } */
+
+
   const getUserReview = async () => {
     try {
       const { data, error } = await supabaseConnection
@@ -168,7 +251,7 @@ const ReviewsProvider = ({ children }) => {
    * Fetches the last reviews from the "reviews" table, including details of the associated game and reviewer,
    * and updates the state accordingly.
    */
-  const getLastReviews = async () => {
+/*   const getLastReviews = async () => {
     try {
       // Set loading state
       setIsLoadingLastReviews(true);
@@ -194,7 +277,7 @@ const ReviewsProvider = ({ children }) => {
       // Reset loading state
       setIsLoadingLastReviews(initialValues.isLoadingLastReviews);
     }
-  };
+  }; */
 
   const getReviewLikes = async (reviewID) => {
     try {
@@ -203,11 +286,11 @@ const ReviewsProvider = ({ children }) => {
         .select("count")
         .eq("review_id", reviewID);
 
-      console.log(data)
+      //console.log(data)
 
       if (error) throw error;
 
-      console.log(data[0].count)
+      //console.log(data[0].count)
       return data[0].count;
 
     } catch (error) {
@@ -223,7 +306,8 @@ const ReviewsProvider = ({ children }) => {
   const getReviewsByGame = async (gameID) => {
     try {
       // Reset reviews and set loading state
-      setReviews(initialValues.reviews);
+      //setReviews(initialValues.reviews);
+      setReviewsWithLikes(initialValues.reviews);
       setIsLoadingReviews(true);
 
       // Fetch reviews from the "reviews" table with game and reviewer details for a specific game
@@ -233,7 +317,7 @@ const ReviewsProvider = ({ children }) => {
         .eq("game_id", game.id);
 
       if (error) throw error;
-      console.log(data)
+      //console.log(data)
       // Update reviews state with fetched data
       setReviews(data);
     } catch (error) {
@@ -264,10 +348,16 @@ const ReviewsProvider = ({ children }) => {
       if (error) throw error;
 
       getUserReview();
+      getReviewsByGame();
 
     } catch (error) {
       console.log(error)
     }
+  }
+
+  const analize_review = (reviewPhrase) => {
+    let result = sentiment.analyze(reviewPhrase)['score'];
+    return result
   }
 
   /**
@@ -276,10 +366,13 @@ const ReviewsProvider = ({ children }) => {
    */
   const createReview = async () => {
     try {
+
+      let ia_score = analize_review(reviewForm['message']);
+
       // Insert the review form data into the "reviews" table and associate it with the current game and user
       const { data, error } = await supabaseConnection
         .from("reviews")
-        .insert({ ...reviewForm})
+        .insert({ ...reviewForm, ["ia_score"]: ia_score })
         .select();
 
       if (error) throw error;
@@ -508,11 +601,7 @@ const ReviewsProvider = ({ children }) => {
     }
   };
 
-  useEffect(()=>{
-    console.log(reviewsWithLikes)
-  }, [reviewsWithLikes])
-
-  useEffect(() => {
+/*   useEffect(() => {
     if (validateArray(reviews)) {
       let array = [];
 
@@ -523,16 +612,32 @@ const ReviewsProvider = ({ children }) => {
       });
 
       console.log(array)
+      console.log(array.length)
       setReviewsWithLikes(array)
     }
-  }, [reviews])
+  }, [reviews]) */
+
+  useEffect(() => {
+    if (validateArray(reviews)) {
+      const fetchLikes = async () => {
+        const promises = reviews.map(async (review) => {
+          const likes = await getReviewLikes(review.review_id);
+          return { ...review, likes };
+        });
+        const reviewsWithLikes = await Promise.all(promises);
+        setReviewsWithLikes(reviewsWithLikes);
+      };
+  
+      fetchLikes();
+    }
+  }, [reviews]);
 
   /**
    * Effect hook to fetch the latest reviews when the component mounts.
    */
-  useEffect(() => {
+/*   useEffect(() => {
     getLastReviews();
-  }, []);
+  }, []); */
 
   /**
    * Effect hook to fetch reviews associated with the current game whenever the 'game' prop changes.
@@ -541,7 +646,9 @@ const ReviewsProvider = ({ children }) => {
    */
   useEffect(() => {
     if (validateObject(game)) {
-      getUserReview()
+      if(user.id) {
+        getUserReview()
+      }
       getReviewsByGame(game.id);
     }
   }, [game]);
@@ -563,7 +670,8 @@ const ReviewsProvider = ({ children }) => {
     hideReviewDeleteModal,
     handleReviewSubmit,
     userReview,
-    reviewsWithLikes
+    reviewsWithLikes,
+    handleLikes
   };
 
   return (

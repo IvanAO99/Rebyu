@@ -37,7 +37,7 @@ const GamePage = () => {
               {validateObject(userReview) ? (
                 <>
                   <div className="flex flex-row gap-5">
-                    <Review review={userReview} />
+                    <Review review={userReview} ownReview={true} />
                     <div className="flex flex-col justify-start items-stretch gap-5">
                       <button
                         type="button"

@@ -6,14 +6,18 @@ import {
   FaStar,
 } from "react-icons/fa6";
 import { formatDateString } from "../libraries/manipulateData";
+import useReviews from "../hooks/useReviews";
 
-const Review = ({ review }) => {
+const Review = ({ review, ownReview=false }) => {
   const [isSpoiler, setIsSpoiler] = useState(true);
 
-  const { users, reviews, likes } =
+  const { handleLikes } = useReviews();
+
+  const { users, reviews, likes, review_id } =
   review;
-  
-  //console.log(review);
+
+  console.log(review)
+
   return (
     <Fragment>
       <div className="rounded-3xl shadow px-5 py-2 bg-gray-50 dark:bg-gray-950">
@@ -56,10 +60,12 @@ const Review = ({ review }) => {
         </div>
         <div className="flex flex-row justify-between items-center">
           <p>{formatDateString(reviews.date_time)}</p>
-          <div className="flex flex-row justify-center items-center gap-1 text-purple-800">
-            <FaHeart size={24} />
-            <p className="text-gray-50">{likes}</p>
-          </div>
+          {!ownReview && (
+            <div className="flex flex-row justify-center items-center gap-1 text-purple-800">
+              <p className="">{likes}</p>
+              <FaHeart size={24} onClick={() => {handleLikes(review_id)}}/>
+            </div>
+          )}
         </div>
       </div>
     </Fragment>
