@@ -7,11 +7,11 @@ import Loading from "../components/Loading";
 import ReviewForm from "../components/ReviewForm";
 import GameData from "../components/GameData";
 import Reviews from "../components/Reviews";
+import useReviews from "../hooks/useReviews";
 
 const GamePage = () => {
-  const userReview = false; // Cambiar para ver el layout de la reseña o el formulario
-
   const { isLoadingGame, game } = useGames();
+  const { userReview } = useReviews();
 
   return (
     <>
@@ -34,10 +34,10 @@ const GamePage = () => {
                 <h2 className="text-6xl font-bold">REVIEWS</h2>
                 <div className="flex-grow border-y-2 border-purple-600"></div>
               </div>
-              {userReview ? (
+              {validateObject(userReview) ? (
                 <>
                   <div className="flex flex-row gap-5">
-                    <Review />
+                    <Review review={userReview} ownReview={true} />
                     <div className="flex flex-col justify-start items-stretch gap-5">
                       <button
                         type="button"
@@ -56,7 +56,7 @@ const GamePage = () => {
                 </>
               ) : (
                 <>
-                  <ReviewForm />
+                      <ReviewForm />
                 </>
               )}
               <div className="border-y-2 border-gray-100 dark:border-gray-800"></div>
