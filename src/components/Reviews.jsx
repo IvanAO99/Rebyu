@@ -8,8 +8,7 @@ import Review from "./Review.jsx";
 import { validateArray } from "../libraries/validateData.js";
 
 const Reviews = () => {
-  const { isLoadingReviews, reviews } = useReviews();
-
+  const { isLoadingReviews, reviewsWithLikes } = useReviews();
   return (
     <>
       <div>
@@ -22,11 +21,11 @@ const Reviews = () => {
               </p>
             </div>
           </>
-        ) : validateArray(reviews) ? (
+        ) : validateArray(reviewsWithLikes) ? (
           <>
             <div className="flex flex-col items-center gap-5">
-              {reviews.map((review) => (
-                <Fragment key={review.id}>
+              {reviewsWithLikes.map((review) => (
+                <Fragment key={review.review_id}>
                   <Review review={review} />
                 </Fragment>
               ))}

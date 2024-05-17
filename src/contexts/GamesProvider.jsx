@@ -170,14 +170,11 @@ const GamesProvider = ({ children }) => {
         .order("id");
 
       if (error) {
-        console.log(error);
+        //console.log(error);
         throw new Error(
           "Error loading games. Please reload the page and try again."
         );
       }
-
-      console.log(data);
-
       setGames(data);
     } catch (error) {
       console.log(error.message);
@@ -186,7 +183,7 @@ const GamesProvider = ({ children }) => {
     }
   };
 
-  const getLatestGames = async () => {
+/*   const getLatestGames = async () => {
     try {
       setIsLoadingLatestGames(initialValues.isLoadingLatestGames);
 
@@ -202,12 +199,13 @@ const GamesProvider = ({ children }) => {
 
       setLatestGames(data);
     } catch (error) {
+        console.log(error)
     } finally {
       setIsLoadingLatestGames(false);
     }
-  };
+  }; */
 
-  const getTopGames = async () => {
+/*   const getTopGames = async () => {
     try {
       setIsLoadingTopGames(initialValues.isLoadingTopGames);
 
@@ -223,10 +221,11 @@ const GamesProvider = ({ children }) => {
 
       setTopGames(calculatedTopGames);
     } catch (error) {
+      console.log(error)
     } finally {
       setIsLoadingTopGames(false);
     }
-  };
+  }; */
 
   /**
    * Retrieves a specific game from the database by its ID, including associated genres, platforms, and developers.
@@ -248,7 +247,7 @@ const GamesProvider = ({ children }) => {
         )
         .eq("id", gameID);
 
-      console.log(data);
+      //console.log(data);
 
       if (error)
         throw new Error(
@@ -257,6 +256,7 @@ const GamesProvider = ({ children }) => {
 
       setGame(data[0]);
     } catch (error) {
+      console.log(error)
     } finally {
       setIsLoadingGame(false);
     }
@@ -549,7 +549,7 @@ const GamesProvider = ({ children }) => {
 
       if (error) throw error;
     } catch (error) {
-      console.log(error.message);
+      //console.log(error.message);
     }
   };
 
@@ -615,7 +615,7 @@ const GamesProvider = ({ children }) => {
         }
       }
     } catch (error) {
-      console.log(error.message);
+      //console.log(error.message);
     }
   };
 
@@ -878,8 +878,8 @@ const GamesProvider = ({ children }) => {
 
   useEffect(() => {
     getGames();
-    getLatestGames();
-    getTopGames();
+    //getLatestGames();
+    //getTopGames();
     getGenres();
     getDevelopers();
     getPlatforms();
