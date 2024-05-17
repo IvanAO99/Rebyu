@@ -8,6 +8,7 @@ import UsersProvider from "./contexts/UsersProvider";
 import GamesProvider from "./contexts/GamesProvider";
 import ReviewsProvider from "./contexts/ReviewsProvider";
 import Main from "./structure/Main";
+import ListsProvider from "./contexts/ListsProvider";
 
 function App() {
   return (
@@ -15,13 +16,15 @@ function App() {
       <BrowserRouter>
         <UsersProvider>
           <Header />
-          <GamesProvider>
-            <ReviewsProvider>
-              <Main>
-                <RouterComponent />
-              </Main>
-            </ReviewsProvider>
-          </GamesProvider>
+          <ListsProvider>
+            <GamesProvider>
+              <ReviewsProvider>
+                <Main>
+                  <RouterComponent />
+                </Main>
+              </ReviewsProvider>
+            </GamesProvider>
+          </ListsProvider>
         </UsersProvider>
         <Footer />
       </BrowserRouter>

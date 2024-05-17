@@ -1,8 +1,7 @@
 import React, { Fragment } from "react";
-import { FaHeart } from "react-icons/fa6";
+import { FaHeart, FaHeartCrack } from "react-icons/fa6";
 
-const Game = ({ game }) => {
-  //console.log(game)
+const Game = ({ game, onList = false }) => {
   const { id, synopsis, title, cover_pic } = game;
 
   return (
@@ -12,12 +11,23 @@ const Game = ({ game }) => {
           <div className="absolute bottom-0 bg-purple-800 px-5 py-2 w-full">
             <h2 className="text-2xl text-gray-50 text-center">{title}</h2>
           </div>
-          <button
-            type="button"
-            className="absolute top-0 right-0 m-5 rounded-full text-purple-800 shadow-2xl z-10"
-          >
-            <FaHeart size={24} />
-          </button>
+          {onList ? (
+            <button
+              type="button"
+              id={`likeHeart~${id}`}
+              className="absolute top-0 right-0 m-5 rounded-full text-red-800 shadow-2xl z-10"
+            >
+              <FaHeartCrack size={24} />
+            </button>
+          ) : (
+            <button
+              type="button"
+              id={`likeHeart~${id}`}
+              className="absolute top-0 right-0 m-5 rounded-full text-purple-800 shadow-2xl z-10"
+            >
+              <FaHeart size={24} />
+            </button>
+          )}
           <img
             src={cover_pic}
             alt="Game Cover IMG"
