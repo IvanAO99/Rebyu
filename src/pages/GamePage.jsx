@@ -20,7 +20,7 @@ const GamePage = () => {
           <>
             <div className="h-full flex flex-col justify-center items-center">
               <Loading />
-              <p className="px-5 py-2 text-purple-800 font-bold">
+              <p className="px-5 py-2 text-purple-600 font-bold">
                 Loading game data...
               </p>
             </div>
@@ -30,9 +30,9 @@ const GamePage = () => {
             <GameData />
             <div className="flex flex-col gap-5">
               <div className="flex flex-row justify-stretch items-center gap-1 py-2">
-                <div className="flex-grow border-y-2 border-purple-800"></div>
-                <h2 className="text-5xl font-bold">REVIEWS</h2>
-                <div className="flex-grow border-y-2 border-purple-800"></div>
+                <div className="flex-grow border-y-2 border-purple-600"></div>
+                <h2 className="text-6xl font-bold">REVIEWS</h2>
+                <div className="flex-grow border-y-2 border-purple-600"></div>
               </div>
               {userReview ? (
                 <>
@@ -41,7 +41,7 @@ const GamePage = () => {
                     <div className="flex flex-col justify-start items-stretch gap-5">
                       <button
                         type="button"
-                        className="border-none rounded-3xl bg-purple-800 text-white px-5 py-2"
+                        className="border-none rounded-3xl bg-purple-600 text-white px-5 py-2"
                       >
                         Update
                       </button>
@@ -59,6 +59,7 @@ const GamePage = () => {
                   <ReviewForm />
                 </>
               )}
+              <div className="border-y-2 border-gray-100 dark:border-gray-800"></div>
               <Reviews />
             </div>
           </>

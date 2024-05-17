@@ -35,7 +35,7 @@ const Reviews = () => {
         ) : (
           <>
             <div>
-              <p>No reviews yet.</p>
+              <p className="text-3xl">No reviews yet.</p>
             </div>
           </>
         )}

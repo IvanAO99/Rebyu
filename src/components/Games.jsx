@@ -33,7 +33,10 @@ function Games() {
       <div>
         <h2>CHECK ALL OUR GAMES!</h2>
         <GamesFilters />
-        <div onClick={(event) => handleGameClick(event)}>
+        <div
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 place-items-center gap-5 p-5"
+          onClick={(event) => handleGameClick(event)}
+        >
           {isLoadingGames ? (
             <Fragment>
               <div className="d-flex justify-content-center align-items-center">
