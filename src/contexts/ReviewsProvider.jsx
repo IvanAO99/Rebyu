@@ -645,6 +645,7 @@ const ReviewsProvider = ({ children }) => {
    * @param {Object} game - The current game object.
    */
   useEffect(() => {
+    setUserReview(initialValues.userReview);
     if (validateObject(game)) {
       if(user.id) {
         getUserReview()
