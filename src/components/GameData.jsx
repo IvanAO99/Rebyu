@@ -5,9 +5,11 @@ import ReactPlayer from "react-player";
 import useGames from "../hooks/useGames.js";
 
 import GameVideo from "./GameVideo.jsx";
+import useReviews from "../hooks/useReviews.js";
 
 const GameData = () => {
   const { game } = useGames();
+  const { reviewsWithLikes } = useReviews();
 
   return (
     <>
@@ -29,7 +31,7 @@ const GameData = () => {
             </div>
             <div>
               <p className="text-6xl">
-                <span className="text-6xl font-bold text-purple-600">1k</span>{" "}
+                <span className="text-6xl font-bold text-purple-600">{reviewsWithLikes.length}</span>{" "}
                 Reviews
               </p>
             </div>
