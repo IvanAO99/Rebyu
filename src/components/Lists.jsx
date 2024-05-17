@@ -1,10 +1,10 @@
 import React, { Fragment } from "react";
 import List from "./List.jsx";
 import { FaPlus } from "react-icons/fa6";
-
+import useLists from "../hooks/useLists.js";
+import { validateArray } from "../libraries/validateData.js";
 const Lists = () => {
-  const array = [1, 2, 3, 4, 5];
-
+  const { userLists } = useLists();
   return (
     <Fragment>
       <div id="lists">
@@ -20,11 +20,15 @@ const Lists = () => {
           <div className="flex-grow border-y-2 border-purple-800"></div>
         </div>
         <div className="rounded-3xl shadow">
-          {/* {array.map((element, index) => (
-            <Fragment key={index}>
-              <List />
-            </Fragment>
-          ))} */}
+          {validateArray(userLists) ? (
+            userLists.map((list, index) => (
+              <Fragment key={index}>
+                <List list={list} />
+              </Fragment>
+            ))
+          ) : (
+            <p>Lists not found</p>
+          )}
         </div>
       </div>
     </Fragment>

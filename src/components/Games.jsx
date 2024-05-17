@@ -1,12 +1,13 @@
 import React, { Fragment } from "react";
 import GamesFilters from "./GameFilters";
 import useGames from "../hooks/useGames";
+import useLists from "../hooks/useLists.js";
 import { validateArray } from "../libraries/validateData";
 import Game from "./Game.jsx";
 
 function Games() {
   const { isLoadingGames, filteredGames, getGame } = useGames();
-
+  const { addGameToList } = useLists();
   //console.log(filteredGames)
 
   /**
@@ -35,7 +36,13 @@ function Games() {
         <GamesFilters />
         <div
           className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 place-items-center gap-5 p-5"
-          onClick={(event) => handleGameClick(event)}
+          onClick={(event) => {
+            handleGameClick(event);
+
+            if (event.target.parentElement.parentElement.id.includes('likeHeart')){
+              addGameToList(event.target.parentElement.parentElement.id.replace('likeHeart~', ''));
+            }
+          }}
         >
           {isLoadingGames ? (
             <Fragment>
