@@ -39,6 +39,8 @@ const UsersProvider = ({ children }) => {
     isAdmin: false,
     isLoadingUser: false,
     isConfirmEmailOpen: false,
+    userCreation: false,
+    idUserCreated: ''
   };
 
   /* STATES */
@@ -59,6 +61,8 @@ const UsersProvider = ({ children }) => {
   const [isConfirmEmailOpen, setIsConfirmEmailOpen] = useState(
     initialValues.isConfirmEmailOpen
   );
+  const [userCreation, setUserCreation] = useState(initialValues.userCreation);
+  const [idUserCreated, setIDUserCreated] = useState(initialValues.idUserCreated);
 
   /* FUNCTIONS */
 
@@ -353,6 +357,8 @@ const UsersProvider = ({ children }) => {
 
       if (error) throw error;
 
+      setUserCreation(true);
+      setIDUserCreated(authUserID);
       sendUserAlert("info", "Please, validate your email to continue.");
     } catch (error) {
       sendUserAlert("error", "Something went wrong, please try again.");
@@ -402,6 +408,10 @@ const UsersProvider = ({ children }) => {
       sendUserAlert("error", "Something went wrong, please try again.");
     }
   };
+
+  const cancelUserCreation = () => {
+    setUserCreation(false);
+  }
 
   /* USE EFFECTS */
 
@@ -459,6 +469,9 @@ const UsersProvider = ({ children }) => {
     handleSignIn,
     handleSignUp,
     signOut,
+    userCreation,
+    cancelUserCreation,
+    idUserCreated
   };
 
   return (
