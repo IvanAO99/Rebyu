@@ -3,55 +3,100 @@ import useReviews from "../hooks/useReviews";
 import { FaStar } from "react-icons/fa6";
 
 const ReviewForm = () => {
-  const { reviewForm, reviewFormErrors, updateReviewForm, handleReviewSubmit } = useReviews();
+  const { reviewForm, reviewFormErrors, updateReviewForm, handleReviewSubmit } =
+    useReviews();
 
   return (
     <>
       <div>
-        <form>
-          <div className="flex flex-row justify-stretch items-center gap-1">
-            {[...Array(5)].map((e, i) => (
-              <Fragment key={i}>
-                <FaStar
-                  size={24}
-                  color={
-                    i + 1 <= reviewForm.score
-                      ? "rgb(107 33 168)"
-                      : "rgb(107 114 128)"
-                  }
+        <pre>{JSON.stringify(reviewForm)}</pre>
+        <pre>{JSON.stringify(reviewFormErrors)}</pre>
+        <form className="flex flex-col gap-5">
+          <div className="flex gap-5">
+            <div className="flex flex-col gap-5">
+              <div className="flex flex-row justify-center items-center gap-1">
+                {[...Array(5)].map((e, i) => (
+                  <Fragment key={i}>
+                    <FaStar
+                      size={48}
+                      color={
+                        i < reviewForm.score
+                          ? "rgb(107 33 168)"
+                          : "rgb(107 114 128)"
+                      }
+                      onMouseOver={(event) => {
+                        updateReviewForm(event.target, i + 1);
+                      }}
+                    />
+                  </Fragment>
+                ))}
+              </div>
+              {/*               <div>
+                <input
+                  type="range"
+                  name="score"
+                  value={reviewForm.score || 0}
+                  min={0}
+                  max={5}
+                  id="score"
+                  className="appearance-none w-full h-6 p-0 focus:outline-none focus:ring-0"
+                  onChange={(event) => {
+                    updateReviewForm(event.target);
+                  }}
                 />
-              </Fragment>
-            ))}
+              </div> */}
+              <div>
+                <input
+                  type="checkbox"
+                  name="spoiler"
+                  id="spoiler"
+                  value={"true"}
+                  checked={reviewForm.spoiler === "true"}
+                  className="border-none focus:outline-none focus:ring-2 focus:ring-purple-600 rounded-3xl accent-purple-600"
+                  onChange={(e) => updateReviewForm(e.target)}
+                />
+                <label htmlFor="spoiler" className={`ml-2`}>
+                  Check if the review contains spoilers.
+                </label>
+              </div>
+              <div>
+                <button
+                  type="button"
+                  className="self-start rounded-3xl bg-purple-600 hover:bg-purple-400 px-5 py-2 text-gray-50 shadow"
+                  onClick={() => {
+                    handleReviewSubmit("create");
+                  }}
+                >
+                  Review
+                </button>
+              </div>
+            </div>
+            <div className="flex-grow">
+              <textarea
+                name="message"
+                id="message"
+                value={reviewForm.message || ""}
+                placeholder="Write here..."
+                className={`resize-none w-full h-48 border-none focus:outline-none ${
+                  reviewFormErrors.message
+                    ? "ring-2 ring-red-600 focus:ring-red-600"
+                    : "focus:ring-2 focus:ring-purple-600"
+                } rounded-3xl bg-gray-100 dark:bg-gray-800 px-5 py-2 caret-purple-600 shadow`}
+                onChange={(e) => updateReviewForm(e.target)}
+              ></textarea>
+            </div>
           </div>
-          <div>
-            <input
-              type="checkbox"
-              name="spoiler"
-              id="spoiler"
-              value={"true"}
-              checked={reviewForm.spoiler === "true"}
-              className="accent-purple-800"
-              onChange={(e) => updateReviewForm(e.target)}
-            />
-            <label htmlFor="spoiler" className="ml-1">
-              Check if the review contains spoilers.
-            </label>
+          <div className="hidden">
+            <button
+              type="button"
+              className="self-start rounded-3xl bg-purple-800 px-5 py-2 text-white shadow"
+              onClick={() => {
+                handleReviewSubmit("create");
+              }}
+            >
+              Review
+            </button>
           </div>
-          <textarea
-            name="message"
-            id="message"
-            value={reviewForm.message || ""}
-            placeholder="Write here..."
-            className="outline-purple-800 rounded-3xl px-5 py-2 shadow"
-            onChange={(e) => updateReviewForm(e.target)}
-          ></textarea>
-          <button
-            type="button"
-            className="rounded-3xl bg-purple-800 px-5 py-2 text-white shadow"
-            onClick={() => {handleReviewSubmit('create')}}
-          >
-            Review
-          </button>
         </form>
       </div>
     </>

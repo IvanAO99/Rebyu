@@ -56,7 +56,7 @@ const GamePage = () => {
                 </>
               ) : (
                 <>
-                      <ReviewForm />
+                  <ReviewForm />
                 </>
               )}
               <div className="border-y-2 border-gray-100 dark:border-gray-800"></div>

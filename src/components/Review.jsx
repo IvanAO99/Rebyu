@@ -8,47 +8,56 @@ import {
 import { formatDateString } from "../libraries/manipulateData";
 import useReviews from "../hooks/useReviews";
 
-const Review = ({ review, ownReview=false }) => {
-  const [isSpoiler, setIsSpoiler] = useState(true);
+const Review = ({ review, ownReview = false }) => {
+  const { users, reviews, likes, review_id } = review;
 
   const { handleLikes } = useReviews();
 
-  const { users, reviews, likes, review_id } =
-  review;
-
-  console.log(review)
+  const [isSpoiler, setIsSpoiler] = useState(
+    ownReview ? false : reviews.spoiler
+  );
 
   return (
     <Fragment>
-      <div className="rounded-3xl shadow px-5 py-2 bg-gray-50 dark:bg-gray-950">
+      <div className="rounded-3xl shadow px-5 py-2 bg-gray-100 dark:bg-gray-800">
         <div className="flex flex-row justify-between items-center gap-5">
           <div className="flex flex-row justify-center items-center gap-1">
             <img
-              src={users.profile_photo || "./src/assets/profile-photo-default.jpg"}
+              src={
+                users.profile_photo || "./src/assets/profile-photo-default.jpg"
+              }
               alt="User Profile Photo"
               className="rounded-full w-16 h-16 object-cover"
             />
-            <p className="hidden sm:block font-bold text-purple-800 italic">
+            <p className="hidden sm:block font-bold text-purple-600 italic">
               <span>@</span>
               {users.nickname}
             </p>
             {reviews.edited && <small className="italic">edited</small>}
           </div>
-          <div className="flex flex-row justify-center items-center gap-1 text-purple-800">
-            <FaStar size={24} />
-            <FaStar size={24} />
-            <FaStar size={24} />
-            <FaRegStarHalfStroke size={24} />
-            <FaRegStar size={24} />
+          <div className="flex flex-row justify-center items-center gap-1">
+            {[...Array(5)].map((star, i) => {
+              return (
+                <Fragment key={crypto.randomUUID()}>
+                  {/* Render the Star component with customized color and size */}
+                  <FaStar
+                    size={24}
+                    color={
+                      i < reviews.score ? "rgb(147 51 234)" : "rgb(17 24 39)"
+                    }
+                  />
+                </Fragment>
+              );
+            })}
           </div>
         </div>
         <div className="relative flex flex-row justify-center items-center border-y my-2">
           <p className="px-5 py-2 lg:py-8">{reviews.message}</p>
-          {reviews.spoiler && (
+          {isSpoiler && (
             <div className="absolute top-0 flex flex-col justify-center items-center gap-5 w-full h-full backdrop-blur">
               <button
                 type="button"
-                className="rounded-3xl bg-red-600 text-gray-50 px-5 py-2"
+                className="rounded-3xl bg-red-600 hover:bg-red-400 text-gray-50 px-5 py-2"
                 onClick={() => {
                   setIsSpoiler(!isSpoiler);
                 }}
@@ -61,9 +70,14 @@ const Review = ({ review, ownReview=false }) => {
         <div className="flex flex-row justify-between items-center">
           <p>{formatDateString(reviews.date_time)}</p>
           {!ownReview && (
-            <div className="flex flex-row justify-center items-center gap-1 text-purple-800">
+            <div className="flex flex-row justify-center items-center gap-1 text-purple-600">
               <p className="">{likes}</p>
-              <FaHeart size={24} onClick={() => {handleLikes(review_id)}}/>
+              <FaHeart
+                size={24}
+                onClick={() => {
+                  handleLikes(review_id);
+                }}
+              />
             </div>
           )}
         </div>

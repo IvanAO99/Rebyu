@@ -31,20 +31,29 @@ const GameData = () => {
             </div>
             <div>
               <p className="text-6xl">
-                <span className="text-6xl font-bold text-purple-600">{reviewsWithLikes.length}</span>{" "}
+                <span className="text-6xl font-bold text-purple-600">
+                  {reviewsWithLikes.length}
+                </span>{" "}
                 Reviews
               </p>
             </div>
           </div>
         </div>
-        <div className="rounded-3xl px-5 py-2 text-center shadow">
-          <h3 className="px-5 py-2 text-6xl font-bold text-purple-600">
+        <div className="flex flex-row justify-stretch items-center gap-1 py-2">
+          <div className="flex-grow border-y-2 border-purple-600"></div>
+          <h2 className="text-6xl font-bold">SUMMARY</h2>
+          <div className="flex-grow border-y-2 border-purple-600"></div>
+        </div>
+        <div className="text-center">
+          {/*           <h3 className="px-5 py-2 text-6xl font-bold text-purple-600">
             SYNOPSIS
-          </h3>
-          <p className="px-5 py-2 text-justify">{game.synopsis}</p>
+          </h3> */}
+          <div className="rounded-3xl bg-gray-100 dark:bg-gray-800 px-5 py-2 text-justify shadow">
+            <p>{game.synopsis}</p>
+          </div>
         </div>
         <div className="flex flex-row justify-between items-stretch gap-5">
-          <div className="flex-grow rounded-3xl px-5 py-2 text-center shadow">
+          <div className="flex-grow rounded-3xl bg-gray-100 dark:bg-gray-800 px-5 py-2 text-center shadow">
             <h3 className="px-5 py-2 text-6xl font-bold text-purple-600">
               GENRES
             </h3>
@@ -61,7 +70,7 @@ const GameData = () => {
               ))}
             </div>
           </div>
-          <div className="flex-grow rounded-3xl px-5 py-2 text-center shadow">
+          <div className="flex-grow rounded-3xl bg-gray-100 dark:bg-gray-800 px-5 py-2 text-center shadow">
             <h3 className="px-5 py-2 text-6xl font-bold text-purple-600">
               PLATFORMS
             </h3>
