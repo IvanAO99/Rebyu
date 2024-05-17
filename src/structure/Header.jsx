@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { FaMoon, FaSun } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
-import useUsers from "../hooks/useUsers";
-import { validateObject } from "../libraries/validateData";
+import { FaMoon, FaSun } from "react-icons/fa6";
+
+import useUsers from "../hooks/useUsers.js";
+
+import { validateObject } from "../libraries/validateData.js";
 
 const Header = () => {
   const { isSessionUp, user, signOut } = useUsers();
@@ -35,7 +37,7 @@ const Header = () => {
   }, [theme]);
 
   return (
-    <header className="bg-white border-b border-gray-200 sticky top-0 w-full z-50">
+    <header className="bg-gray-100 dark:bg-gray-800 border-b-2 border-gray-200 dark:border-gray-900 sticky top-0 w-full z-50">
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center py-4 px-8">
         {/* Logo y marca */}
         <div className="flex items-center justify-center md:justify-start">
@@ -46,14 +48,13 @@ const Header = () => {
           />
           <span className="font-bold text-4xl mr-4 tracking-widest">REBYU</span>
         </div>
-
         {/* Navegación */}
         <nav className="flex flex-col md:flex-row md:ml-auto md:space-x-4 mt-4 md:mt-0">
           <ul className="flex flex-col mb-5 md:mb-0 text-center md:flex-row">
             <li>
               <Link
                 to="/"
-                className="text-gray-800 hover:text-gray-600 mx-5 md:mr-10 text-lg"
+                className="hover:font-bold hover:text-purple-800 mx-5 md:mr-10 text-lg"
               >
                 Home
               </Link>
@@ -61,7 +62,7 @@ const Header = () => {
             <li>
               <a
                 href="#recommended"
-                className="text-gray-800 hover:text-gray-600 mx-5 md:mr-10 text-lg"
+                className="hover:font-bold hover:text-purple-800 mx-5 md:mr-10 text-lg"
               >
                 Recommended
               </a>
@@ -69,19 +70,18 @@ const Header = () => {
             <li>
               <a
                 href="#about-us"
-                className="text-gray-800 hover:text-gray-600 mx-5 md:mr-10 text-lg"
+                className="hover:font-bold hover:text-purple-800 mx-5 md:mr-10 text-lg"
               >
                 About Us
               </a>
             </li>
           </ul>
         </nav>
-
         {/* Light/Dark mode toggle */}
         <div>
           <button
             type="button"
-            className="rounded-full bg-purple-800 text-gray-50 p-2"
+            className="rounded-full bg-purple-800 hover:bg-purple-600 text-gray-50 p-2"
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
           >
             {theme === "dark" ? (
@@ -95,7 +95,6 @@ const Header = () => {
             )}
           </button>
         </div>
-
         {/* Foto de usuario y menú */}
         <div className="flex items-center">
           {isSessionUp && validateObject(user) ? (
@@ -111,16 +110,16 @@ const Header = () => {
                 />
                 {isMenuOpen && (
                   <div
-                    className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded shadow-lg"
+                    className="absolute right-0 mt-2 w-48 bg-gray-100 dark:bg-gray-700 rounded-3xl shadow overflow-hidden"
                     onClick={(e) => {
                       if (e.target.tagName === "A") toggleMenu();
                     }}
                   >
-                    <ul className="py-2">
+                    <ul className="divide-y divide-gray-200 dark:divide-gray-800 text-center">
                       <li>
                         <Link
                           to="/profile"
-                          className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                          className="block hover:bg-purple-600  px-5 py-2"
                         >
                           Profile
                         </Link>
@@ -128,7 +127,7 @@ const Header = () => {
                       <li>
                         <Link
                           to="/profile"
-                          className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                          className="block hover:bg-purple-600 px-5 py-2"
                         >
                           Lists
                         </Link>
@@ -136,7 +135,7 @@ const Header = () => {
                       <li>
                         <Link
                           to="/affiliate"
-                          className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                          className="block hover:bg-purple-600 px-5 py-2"
                         >
                           Affiliate
                         </Link>
@@ -144,7 +143,7 @@ const Header = () => {
                       <li>
                         <button
                           type="button"
-                          className="block px-4 hover:bg-gray-200 bg-red-600 text-white py-2"
+                          className="w-full px-5 py-2 bg-red-600 hover:bg-red-400 text-gray-50"
                           onClick={() => signOut()}
                         >
                           Log out
@@ -163,7 +162,7 @@ const Header = () => {
             <>
               {/* Botón de iniciar sesión */}
               <button
-                className="ml-4 text-gray-800 hover:underline"
+                className="rounded-3xl px-5 py-2 bg-purple-800 hover:bg-purple-600 text-gray-50 transition-all"
                 onClick={() => {
                   navigate("/login");
                 }}
