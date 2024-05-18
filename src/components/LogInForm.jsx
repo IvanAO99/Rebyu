@@ -27,7 +27,11 @@ function LogInForm() {
               name="email"
               value={signInForm.email || ""}
               id="email"
-              className="w-full  border-b-2 border-gray-300 focus:border-purple-500 py-2 px-4"
+              className={`border-none focus:outline-none ${
+                signInFormErrors.email
+                  ? "ring-2 ring-red-600 focus:ring-red-600"
+                  : "focus:ring-2 focus:ring-purple-600"
+              } rounded-3xl bg-gray-100 dark:bg-gray-800 px-5 py-2 shadow`}
               onChange={(e) => updateSignInForm(e.target)}
             />
           </div>
@@ -40,7 +44,11 @@ function LogInForm() {
               name="password"
               value={signInForm.password || ""}
               id="password"
-              className="w-full border-b-2 border-gray-300 focus:border-purple-500 py-2 px-4"
+              className={`border-none focus:outline-none ${
+                signInFormErrors.password
+                  ? "ring-2 ring-red-600 focus:ring-red-600"
+                  : "focus:ring-2 focus:ring-purple-600"
+              } rounded-3xl bg-gray-100 dark:bg-gray-800 px-5 py-2 shadow`}
               onChange={(e) => updateSignInForm(e.target)}
             />
           </div>

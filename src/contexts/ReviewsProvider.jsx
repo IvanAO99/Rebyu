@@ -11,7 +11,7 @@ import regex from "../jsons/regex.json";
 
 import { validateArray, validateObject } from "../libraries/validateData.js";
 
-import Sentiment from 'sentiment';
+import Sentiment from "sentiment";
 
 const ReviewsContext = createContext();
 
@@ -25,11 +25,11 @@ const ReviewsProvider = ({ children }) => {
 
   const initialValues = {
     reviewForm: {
-      score: "4",
+      score: "0",
       message: "",
       spoiler: "false",
       edited: "false",
-      ia_score: ""
+      ia_score: "",
     },
     reviewFormErrors: {},
     isReviewFormModalOpen: false,
@@ -40,7 +40,7 @@ const ReviewsProvider = ({ children }) => {
     isLoadingLastReviews: false,
     lastReviews: [],
     userReview: {},
-    reviewsWithLikes: []
+    reviewsWithLikes: [],
   };
 
   /* STATES */
@@ -66,9 +66,11 @@ const ReviewsProvider = ({ children }) => {
     initialValues.isLoadingLastReviews
   );
   const [lastReviews, setLastReviews] = useState(initialValues.lastReviews);
-  const [userReview, setUserReview] = useState(initialValues.userReview)
+  const [userReview, setUserReview] = useState(initialValues.userReview);
 
-  const [reviewsWithLikes, setReviewsWithLikes] = useState(initialValues.reviewsWithLikes);
+  const [reviewsWithLikes, setReviewsWithLikes] = useState(
+    initialValues.reviewsWithLikes
+  );
 
   /**
    * Display a toast notification for review-related actions.
@@ -119,17 +121,17 @@ const ReviewsProvider = ({ children }) => {
 
   /* SUPABASE FETCHS */
 
-
   const handleLikes = async (reviewId) => {
     try {
-      const { data: existingLike, error: existingLikeError } = await supabaseConnection
-        .from("review_likes")
-        .select("*")
-        .eq("user_id", user.id)
-        .eq("review_id", reviewId);
-  
+      const { data: existingLike, error: existingLikeError } =
+        await supabaseConnection
+          .from("review_likes")
+          .select("*")
+          .eq("user_id", user.id)
+          .eq("review_id", reviewId);
+
       if (existingLikeError) throw existingLikeError;
-  
+
       if (existingLike && existingLike.length > 0) {
         await removeLikeFromReview(reviewId);
       } else {
@@ -138,16 +140,16 @@ const ReviewsProvider = ({ children }) => {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
-    // Función para dar like a una review
+  // Función para dar like a una review
   const likeAReview = async (reviewId) => {
     try {
       const { data, error } = await supabaseConnection
         .from("review_likes")
         .insert({
           user_id: user.id,
-          review_id: reviewId
+          review_id: reviewId,
         })
         .select();
 
@@ -158,7 +160,7 @@ const ReviewsProvider = ({ children }) => {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const removeLikeFromReview = async (reviewId) => {
     try {
@@ -168,17 +170,17 @@ const ReviewsProvider = ({ children }) => {
         .eq("user_id", user.id)
         .eq("review_id", reviewId)
         .select();
-  
+
       if (error) throw error;
-  
+
       // Actualizar las reviews después de quitar el like
       getReviewsByGame();
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
-/*   const likeAReview = async (reviewId) => {
+  /*   const likeAReview = async (reviewId) => {
     try {
       const { data, error } = await supabaseConnection
         .from("review_likes")
@@ -197,7 +199,6 @@ const ReviewsProvider = ({ children }) => {
     }
   } */
 
-
   const getUserReview = async () => {
     try {
       const { data, error } = await supabaseConnection
@@ -206,16 +207,15 @@ const ReviewsProvider = ({ children }) => {
         .eq("user_id", user.id)
         .eq("game_id", game.id);
 
-        if (validateArray(data)) {
-          setUserReview(data[0])
-        } else {
-          setUserReview(initialValues.userReview)
-        }
-
+      if (validateArray(data)) {
+        setUserReview(data[0]);
+      } else {
+        setUserReview(initialValues.userReview);
+      }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   /**
    * Fetches reviews from the "reviews" table and updates the state accordingly.
@@ -251,7 +251,7 @@ const ReviewsProvider = ({ children }) => {
    * Fetches the last reviews from the "reviews" table, including details of the associated game and reviewer,
    * and updates the state accordingly.
    */
-/*   const getLastReviews = async () => {
+  /*   const getLastReviews = async () => {
     try {
       // Set loading state
       setIsLoadingLastReviews(true);
@@ -292,11 +292,10 @@ const ReviewsProvider = ({ children }) => {
 
       //console.log(data[0].count)
       return data[0].count;
-
     } catch (error) {
       return 0;
     }
-  }
+  };
 
   /**
    * Fetches reviews from the "reviews" table for a specific game, including details of the associated game and reviewer,
@@ -332,7 +331,6 @@ const ReviewsProvider = ({ children }) => {
     }
   };
 
-
   const createUserReview = async (reviewId) => {
     try {
       // Insert the review form data into the "reviews" table and associate it with the current game and user
@@ -341,7 +339,7 @@ const ReviewsProvider = ({ children }) => {
         .insert({
           user_id: user.id,
           game_id: game.id,
-          review_id: reviewId
+          review_id: reviewId,
         })
         .select();
 
@@ -349,16 +347,15 @@ const ReviewsProvider = ({ children }) => {
 
       getUserReview();
       getReviewsByGame();
-
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   const analize_review = (reviewPhrase) => {
-    let result = sentiment.analyze(reviewPhrase)['score'];
-    return result
-  }
+    let result = sentiment.analyze(reviewPhrase)["score"];
+    return result;
+  };
 
   /**
    * Creates a new review by inserting the review form data into the "reviews" table,
@@ -366,8 +363,7 @@ const ReviewsProvider = ({ children }) => {
    */
   const createReview = async () => {
     try {
-
-      let ia_score = analize_review(reviewForm['message']);
+      let ia_score = analize_review(reviewForm["message"]);
 
       // Insert the review form data into the "reviews" table and associate it with the current game and user
       const { data, error } = await supabaseConnection
@@ -377,7 +373,7 @@ const ReviewsProvider = ({ children }) => {
 
       if (error) throw error;
 
-      createUserReview(data[0].id)
+      createUserReview(data[0].id);
 
       // Display a success alert and fetch reviews for the current game
       sendReviewAlert("success", "Review added successfully!");
@@ -523,18 +519,25 @@ const ReviewsProvider = ({ children }) => {
    *
    * @param {Object} input - The input event object containing name and value.
    */
-  const updateReviewForm = (input) => {
-    const { name, value } = input;
-
-    if (name === "spoiler") {
+  const updateReviewForm = (input, score = null) => {
+    if (score) {
       setReviewForm({
         ...reviewForm,
-        [name]: reviewForm[name] === "false" ? value : "false",
+        score: score,
       });
-      setReviewFormErrors({ ...reviewFormErrors, [name]: null });
     } else {
-      setReviewForm({ ...reviewForm, [name]: value });
-      setReviewFormErrors({ ...reviewFormErrors, [name]: null });
+      const { name, value } = input;
+
+      if (name === "spoiler") {
+        setReviewForm({
+          ...reviewForm,
+          [name]: reviewForm[name] === "false" ? value : "false",
+        });
+        setReviewFormErrors({ ...reviewFormErrors, [name]: null });
+      } else {
+        setReviewForm({ ...reviewForm, [name]: value });
+        setReviewFormErrors({ ...reviewFormErrors, [name]: null });
+      }
     }
   };
 
@@ -601,7 +604,7 @@ const ReviewsProvider = ({ children }) => {
     }
   };
 
-/*   useEffect(() => {
+  /*   useEffect(() => {
     if (validateArray(reviews)) {
       let array = [];
 
@@ -627,7 +630,7 @@ const ReviewsProvider = ({ children }) => {
         const reviewsWithLikes = await Promise.all(promises);
         setReviewsWithLikes(reviewsWithLikes);
       };
-  
+
       fetchLikes();
     }
   }, [reviews]);
@@ -635,7 +638,7 @@ const ReviewsProvider = ({ children }) => {
   /**
    * Effect hook to fetch the latest reviews when the component mounts.
    */
-/*   useEffect(() => {
+  /*   useEffect(() => {
     getLastReviews();
   }, []); */
 
@@ -647,8 +650,8 @@ const ReviewsProvider = ({ children }) => {
   useEffect(() => {
     setUserReview(initialValues.userReview);
     if (validateObject(game)) {
-      if(user.id) {
-        getUserReview()
+      if (user.id) {
+        getUserReview();
       }
       getReviewsByGame(game.id);
     }
@@ -672,7 +675,7 @@ const ReviewsProvider = ({ children }) => {
     handleReviewSubmit,
     userReview,
     reviewsWithLikes,
-    handleLikes
+    handleLikes,
   };
 
   return (
