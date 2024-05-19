@@ -8,7 +8,6 @@ import Game from "./Game.jsx";
 function Games() {
   const { isLoadingGames, filteredGames, getGame } = useGames();
   const { addGameToList } = useLists();
-  //console.log(filteredGames)
 
   /**
    * Handles the click event on the game card.
@@ -22,8 +21,6 @@ function Games() {
       const uuidPattern =
         /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/;
       const gameID = targetID.match(uuidPattern)[0];
-
-      //console.log(gameID);
 
       getGame(gameID);
     }

@@ -7,11 +7,14 @@ import { useNavigate } from "react-router-dom";
 import { calculateTopGames } from "../libraries/manipulateData.js";
 
 import { toast, Slide } from "react-toastify";
+import useLists from "../hooks/useLists.js";
 
 const GamesContext = createContext();
 
 const GamesProvider = ({ children }) => {
   const navigate = useNavigate();
+
+  const {gameAdded, cancelGameAdded} = useLists();
 
   /* INITIAL STATES VALUES */
   const initialValues = {
@@ -866,6 +869,13 @@ const GamesProvider = ({ children }) => {
   const resetGameFilter = () => {
     setGameFilter(initialValues.gameFilter);
   };
+
+/*   useEffect(()=>{
+    if(gameAdded){
+      getGames();
+      cancelGameAdded();
+    }
+  }, [gameAdded]) */
 
   useEffect(() => {
     const filteredGames = filterGameList(games, gameFilter);
