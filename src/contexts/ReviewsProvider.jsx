@@ -11,15 +11,13 @@ import regex from "../jsons/regex.json";
 
 import { validateArray, validateObject } from "../libraries/validateData.js";
 
-import Sentiment from "sentiment";
+import score_review from "../model/CohereModel.js";
 
 const ReviewsContext = createContext();
 
 const ReviewsProvider = ({ children }) => {
   const { user } = useUsers();
   const { game } = useGames();
-
-  const sentiment = new Sentiment();
 
   /* INITIAL STATES VALUES */
 
@@ -352,18 +350,14 @@ const ReviewsProvider = ({ children }) => {
     }
   };
 
-  const analize_review = (reviewPhrase) => {
-    let result = sentiment.analyze(reviewPhrase)["score"];
-    return result;
-  };
-
   /**
    * Creates a new review by inserting the review form data into the "reviews" table,
    * associates it with the current game and user, and updates the state accordingly.
    */
   const createReview = async () => {
     try {
-      let ia_score = analize_review(reviewForm["message"]);
+
+      let ia_score = await score_review(reviewForm["message"]);
 
       // Insert the review form data into the "reviews" table and associate it with the current game and user
       const { data, error } = await supabaseConnection
