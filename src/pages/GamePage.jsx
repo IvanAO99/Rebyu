@@ -1,5 +1,5 @@
 import React from "react";
-import { Fragment } from "react";
+
 import useGames from "../hooks/useGames";
 import { validateObject } from "../libraries/validateData";
 import Review from "../components/Review";
@@ -8,10 +8,11 @@ import ReviewForm from "../components/ReviewForm";
 import GameData from "../components/GameData";
 import Reviews from "../components/Reviews";
 import useReviews from "../hooks/useReviews";
+import CustomModal from "../components/CustomModal";
 
 const GamePage = () => {
   const { isLoadingGame, game } = useGames();
-  const { userReview } = useReviews();
+  const { userReview, isReviewFormModalOpen } = useReviews();
 
   return (
     <>
@@ -71,6 +72,12 @@ const GamePage = () => {
           </>
         )}
       </div>
+      {true && (
+        <CustomModal>
+          <p className="px-5 py-2">Hello world!</p>
+          <p></p>
+        </CustomModal>
+      )}
     </>
   );
 };
