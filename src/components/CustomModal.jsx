@@ -34,15 +34,7 @@ const CustomModal = ({ children, isOpen = true }) => {
           },
         }}
       >
-        <div className="rounded-3xl bg-gray-50 dark:bg-gray-700 shadow">
-          <div className="flex flex-row justify-between items-center px-5 py-2">
-            <h2 className="text-6xl font-bold">MODAL HEADER</h2>
-            <button type="button" className="text-gray-900 dark:text-gray-50">
-              <FaX size={24} />
-            </button>
-          </div>
-          <div>{children}</div>
-        </div>
+        {children}
       </Modal>
     </>
   );
