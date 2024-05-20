@@ -1,9 +1,13 @@
 import React, { Fragment, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
-import useUsers from "../hooks/useUsers";
-import { formatDateString } from "../libraries/manipulateData";
+
+import useUsers from "../hooks/useUsers.js";
+
+import { formatDateString } from "../libraries/manipulateData.js";
 
 const Profile = () => {
+  const navigate = useNavigate();
   const { isSessionUp, user } = useUsers();
 
   const [isHidden, setIsHidden] = useState(true);
@@ -82,6 +86,9 @@ const Profile = () => {
                 <button
                   type="button"
                   className="rounded-3xl bg-purple-800 text-white px-5 py-2"
+                  onClick={() => {
+                    navigate("/affiliate");
+                  }}
                 >
                   Become affiliate
                 </button>

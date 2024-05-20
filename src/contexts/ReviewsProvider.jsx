@@ -56,6 +56,9 @@ const ReviewsProvider = ({ children }) => {
   const [isReviewFormModalOpen, setIsReviewFormModalOpen] = useState(
     initialValues.isReviewFormModalOpen
   );
+  const [isDeleteReviewModalOpen, setIsDeleteReviewModalOpen] = useState(
+    initialValues.isReviewFormModalOpen
+  );
   const [isLoadingReviews, setIsLoadingReviews] = useState(
     initialValues.isLoadingReviews
   );
@@ -402,6 +405,7 @@ const ReviewsProvider = ({ children }) => {
 
       // Display a success alert and fetch reviews for the current game
       sendReviewAlert("success", "Review updated successfully!");
+      getUserReview(game.id);
       getReviewsByGame(game.id);
 
       // Close the review form modal
@@ -439,6 +443,7 @@ const ReviewsProvider = ({ children }) => {
       sendReviewAlert("error", "The review could not be deleted!");
     } finally {
       // Fetch reviews for the current game after deletion
+      getUserReview();
       getReviewsByGame(game.id);
 
       // Reset review form and errors
@@ -457,8 +462,11 @@ const ReviewsProvider = ({ children }) => {
    */
   const getReviewByID = (id) => {
     if (validateArray(reviews)) {
-      const wantedReview = reviews.find((review) => review.id === id);
-      setReviewForm(wantedReview);
+      const wantedReview = reviewsWithLikes.find(
+        (review) => review.review_id === id
+      );
+      console.log(wantedReview);
+      setReviewForm(wantedReview.reviews);
     }
   };
 

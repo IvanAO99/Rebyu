@@ -1,5 +1,5 @@
 import React from "react";
-import { Fragment } from "react";
+
 import useGames from "../hooks/useGames";
 import { validateObject } from "../libraries/validateData";
 import Review from "../components/Review";
@@ -8,10 +8,23 @@ import ReviewForm from "../components/ReviewForm";
 import GameData from "../components/GameData";
 import Reviews from "../components/Reviews";
 import useReviews from "../hooks/useReviews";
+import CustomModal from "../components/CustomModal";
+import ReviewFormModal from "../components/ReviewFormModal";
+import DeleteModal from "../components/DeleteModal";
 
 const GamePage = () => {
   const { isLoadingGame, game } = useGames();
-  const { userReview } = useReviews();
+  const {
+    userReview,
+    showReviewFormModal,
+    showReviewDeleteModal,
+    hideReviewDeleteModal,
+    isReviewFormModalOpen,
+    deletingReview,
+    handleReviewSubmit,
+  } = useReviews();
+
+  console.log(userReview);
 
   return (
     <>
@@ -42,12 +55,18 @@ const GamePage = () => {
                       <button
                         type="button"
                         className="border-none rounded-3xl bg-purple-600 text-white px-5 py-2"
+                        onClick={() =>
+                          showReviewFormModal(true, userReview.review_id)
+                        }
                       >
                         Update
                       </button>
                       <button
                         type="button"
                         className="border-none rounded-3xl bg-red-600 text-white px-5 py-2"
+                        onClick={() => {
+                          showReviewDeleteModal(userReview.review_id);
+                        }}
                       >
                         Delete
                       </button>
@@ -71,6 +90,24 @@ const GamePage = () => {
           </>
         )}
       </div>
+      {isReviewFormModalOpen && (
+        <CustomModal isOpen={isReviewFormModalOpen}>
+          <ReviewFormModal />
+        </CustomModal>
+      )}
+      {deletingReview && (
+        <CustomModal isOpen={deletingReview}>
+          <DeleteModal
+            title={"DELETE REVIEW"}
+            hideFunction={hideReviewDeleteModal}
+            deleteFunction={handleReviewSubmit}
+          >
+            <h1 className="text-3xl font-bold text-center">
+              ARE YOU SURE YOU WANT TO DELETE THIS REVIEW?
+            </h1>
+          </DeleteModal>
+        </CustomModal>
+      )}
     </>
   );
 };

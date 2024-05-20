@@ -1,11 +1,14 @@
 import React from "react";
-import AffiliateForm from "../components/AffiliateForm";
+
+import AffiliateForm from "../components/AffiliateForm.jsx";
 
 function AffiliatePage() {
   return (
-    <div>
-      <AffiliateForm />
-    </div>
+    <>
+      <div>
+        <AffiliateForm />
+      </div>
+    </>
   );
 }
 
