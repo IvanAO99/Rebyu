@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import useUsers from "../hooks/useUsers";
 import { supabaseConnection } from "../.config/supabase.js";
+import { validateArray } from "../libraries/validateData.js";
 
 const ListsContext = createContext();
 
@@ -15,19 +16,33 @@ const ListsProvider = ({ children }) => {
       creator_id: "",
     },
     userLists: [],
-    selectedListID: "30285dfd-3a0d-4c1e-b333-2098b9138e5b",
+    selectedList: {},
+    gameAdded: false,
+    listToUpdate: {
+      name: "",
+      type: ""
+    },
+    possibleDelete: false,
+    newList: {
+      name: "",
+      type: "public"
+    }
   };
 
   /* STATES */
   const [userLists, setUserLists] = useState(initialValues.userLists);
-  const [selectedList, setSelectedList] = useState(
-    initialValues.selectedListID
+  const [selectedList, setSelectedList] = useState(initialValues.selectedList);
+  const [listToUpdate, setListToUpdate] = useState(initialValues.listToUpdate);
+  const [newList, setNewList] = useState(initialValues.newList);
+  const [possibleDelete, setPossibleDelete] = useState(
+    initialValues.possibleDelete
   );
+
+  const [gameAdded, setGameAdded] = useState(initialValues.gameAdded);
 
   /* FUNCTIONS */
   const createDefaultList = async (userID) => {
     try {
-      // Insert the review form data into the "reviews" table and associate it with the current game and user
       const { data, error } = await supabaseConnection
         .from("lists")
         .insert({
@@ -36,7 +51,6 @@ const ListsProvider = ({ children }) => {
         })
         .select();
 
-      console.log(data);
       if (error) throw error;
     } catch (error) {
       console.log(error);
@@ -59,13 +73,13 @@ const ListsProvider = ({ children }) => {
   };
 
   const addGameToList = async (gameID) => {
-    if (user.id) {
+    if (user.id && !checkGameInList(gameID)) {
       try {
         const { data, error } = await supabaseConnection
           .from("games_on_list")
           .insert({
             game_id: gameID,
-            list_id: selectedList,
+            list_id: selectedList.id,
           })
           .select();
 
@@ -73,6 +87,7 @@ const ListsProvider = ({ children }) => {
         if (error) throw error;
 
         getListsFromUser();
+        setGameAdded(true);
       } catch (error) {
         console.log(error);
       }
@@ -80,29 +95,112 @@ const ListsProvider = ({ children }) => {
   };
 
   const removeGameFromList = async (gameID, listID) => {
-    console.log("entro a funcion")
     if (user.id) {
-      console.log("entro a if")
-      console.log(`-${gameID}-`)
-      console.log(`-${listID}-`)
       try {
-        console.log("entro a try")
         const { error } = await supabaseConnection
           .from("games_on_list")
           .delete()
           .eq("game_id", gameID)
           .eq("list_id", listID);
 
-        console.log("hecho")
         if (error) throw new Error(`The game could not be deleted.`);
 
         getListsFromUser();
-        console.log("actualizo")
       } catch (error) {
         console.log(error);
       }
     }
   };
+
+  const changeActiveList = (listID) => {
+    if (validateArray(userLists)) {
+      userLists.map((list) => {
+        if (list.id === listID) setSelectedList(list);
+      });
+    }
+  };
+
+  const checkGameInList = (gameID) => {
+    if (selectedList && validateArray(selectedList.games_on_list)) {
+      return selectedList.games_on_list.some(
+        (game) => game.games.id === gameID
+      );
+    }
+    return false;
+  };
+
+  const cancelGameAdded = () => {
+    setGameAdded(false);
+  };
+
+  const selectListToUpdate = (list) => {
+    setListToUpdate(list);
+  };
+
+  const updateList = async () => {
+    try {
+      const { data, error } = await supabaseConnection
+        .from("lists")
+        .update({ 
+          name: listToUpdate.name,
+          type: listToUpdate.type
+         })
+        .eq("id", listToUpdate.id);
+
+      if (error) throw error;
+
+      getListsFromUser();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteList = async (listID) => {
+    try {
+      const { data, error } = await supabaseConnection
+        .from("lists")
+        .delete()
+        .eq("id", listID);
+
+      if (error) throw error;
+
+      getListsFromUser();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const createList = async () => {
+    try {
+      const { data, error } = await supabaseConnection
+        .from("lists")
+        .insert({
+          ...newList,
+          creator_id: user.id
+        })
+        .select();
+
+      if (error) throw error;
+
+      getListsFromUser();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const updateData = (event, mode) => {
+    const { name, value } = event.target;
+    if (mode === "creation") {
+      setNewList({ ...newList, [name]: value });
+    } else if (mode === "update") {
+      setListToUpdate({ ...listToUpdate, [name]: value });
+    }
+  };
+
+  useEffect(() => {
+    userLists.length > 1 ? setPossibleDelete(true) : setPossibleDelete(false);
+  }, [userLists]);
+
 
   useEffect(() => {
     if (userCreation) {
@@ -122,6 +220,20 @@ const ListsProvider = ({ children }) => {
     userLists,
     addGameToList,
     removeGameFromList,
+    selectedList,
+    changeActiveList,
+    checkGameInList,
+    gameAdded,
+    cancelGameAdded,
+    listToUpdate,
+    selectListToUpdate,
+    /* changeNameOfList, */
+    updateList,
+    deleteList,
+    possibleDelete,
+    updateData,
+    newList,
+    createList
   };
 
   return (

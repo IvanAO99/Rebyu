@@ -1,8 +1,13 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { FaHeart, FaHeartCrack } from "react-icons/fa6";
+import useLists from "../hooks/useLists";
 
 const Game = ({ game, onList = false }) => {
   const { id, synopsis, title, cover_pic } = game;
+  const [isHovered, setIsHovered] = useState(false);
+  /* const { checkGameInList } = useLists();
+
+  const inList = checkGameInList(id); */
 
   return (
     <Fragment>
@@ -15,9 +20,13 @@ const Game = ({ game, onList = false }) => {
             <button
               type="button"
               id={`likeHeart~${id}`}
-              className="absolute top-0 right-0 m-5 rounded-full text-red-800 shadow-2xl z-10"
+              className={`absolute top-0 right-0 m-5 rounded-full shadow-2xl z-10 ${
+                isHovered ? "text-red-500" : "text-purple-800"
+              }`}
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
             >
-              <FaHeartCrack size={24} />
+              {isHovered ? <FaHeartCrack size={24} /> : <FaHeart size={24} />}
             </button>
           ) : (
             <button
@@ -27,6 +36,15 @@ const Game = ({ game, onList = false }) => {
             >
               <FaHeart size={24} />
             </button>
+            /* <button
+              type="button"
+              id={`likeHeart~${id}`}
+              className={`absolute top-0 right-0 m-5 rounded-full shadow-2xl z-10 ${
+                inList ? "text-red-500" : "text-purple-800"
+              }`}
+            >
+              {inList ? <FaHeartCrack size={24} /> : <FaHeart size={24} />}
+            </button> */
           )}
           <img
             src={cover_pic}
