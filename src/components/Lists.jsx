@@ -3,6 +3,7 @@ import List from "./List.jsx";
 import { FaPlus } from "react-icons/fa6";
 import useLists from "../hooks/useLists.js";
 import { validateArray } from "../libraries/validateData.js";
+import ActiveListForm from "./ActiveListForm.jsx";
 const Lists = () => {
   const { userLists } = useLists();
   return (
@@ -18,6 +19,10 @@ const Lists = () => {
             <FaPlus size={24} />
           </button>
           <div className="flex-grow border-y-2 border-purple-800"></div>
+        </div>
+        <div className="flex ml-10 py-4 gap-5">
+          <p>ACTIVE LIST:</p>
+          <ActiveListForm />
         </div>
         <div className="rounded-3xl shadow">
           {validateArray(userLists) ? (
