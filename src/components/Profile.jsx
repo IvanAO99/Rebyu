@@ -23,26 +23,26 @@ const Profile = () => {
           />
           <div className="flex-grow flex flex-col justify-between items-stretch gap-5">
             <div className="px-5">
-              <p className="text-xl font-bold text-purple-800">NICKNAME</p>
+              <p className="text-xl font-bold text-purple-600">NICKNAME</p>
               <p>{user.nickname}</p>
             </div>
             <div className="border"></div>
             <div className="px-5">
-              <p className="text-xl font-bold text-purple-800">NAME</p>
+              <p className="text-xl font-bold text-purple-600">NAME</p>
               <p className="">{user.name}</p>
             </div>
             <div className="border"></div>
             <div className="px-5">
-              <p className="text-xl font-bold text-purple-800">EMAIL</p>
+              <p className="text-xl font-bold text-purple-600">EMAIL</p>
               <p className="">{user.email}</p>
             </div>
             <div className="border"></div>
             <div className="px-5">
               <div className="flex flex-row justify-stretch items-center gap-1">
-                <p className="text-xl font-bold text-purple-800">PASSWORD</p>
+                <p className="text-xl font-bold text-purple-600">PASSWORD</p>
                 <button
                   type="button"
-                  className="font-bold text-purple-800"
+                  className="font-bold text-purple-600 hover:text-purple-400"
                   onClick={() => setIsHidden(!isHidden)}
                 >
                   {isHidden ? <FaEyeSlash size={24} /> : <FaEye size={24} />}
@@ -54,7 +54,7 @@ const Profile = () => {
             </div>
             <div className="border"></div>
             <div className="px-5">
-              <p className="text-xl font-bold text-purple-800">BIRTH DATE</p>
+              <p className="text-xl font-bold text-purple-600">BIRTH DATE</p>
               <p className="">{user.birth_date}</p>
             </div>
           </div>
@@ -62,21 +62,21 @@ const Profile = () => {
         <div className="flex flex-col lg:flex-row justify-between items-start mt-5">
           <div className="flex-grow flex flex-col justify-between items-start gap-5">
             <div className="px-5">
-              <p className="text-xl font-bold text-purple-800">USER SINCE</p>
+              <p className="text-xl font-bold text-purple-600">USER SINCE</p>
               <p>{formatDateString(user.created_at)}</p>
             </div>
             <div className="border"></div>
             {user.affiliate_start_date ? (
               <>
                 <div className="px-5">
-                  <p className="text-xl font-bold text-purple-800">
+                  <p className="text-xl font-bold text-purple-600">
                     AFFILIATE SINCE
                   </p>
                   <p className="">{user.affiliate_start_date}</p>
                 </div>
                 <button
                   type="button"
-                  className="rounded-3xl bg-red-600 text-white px-5 py-2"
+                  className="rounded-3xl bg-red-600 hover:bg-red-400 text-gray-50 px-5 py-2"
                 >
                   Cancel subscription
                 </button>
@@ -85,7 +85,7 @@ const Profile = () => {
               <>
                 <button
                   type="button"
-                  className="rounded-3xl bg-purple-800 text-white px-5 py-2"
+                  className="rounded-3xl bg-purple-600 hover:bg-purple-400 text-gray-50 px-5 py-2"
                   onClick={() => {
                     navigate("/affiliate");
                   }}
@@ -98,13 +98,13 @@ const Profile = () => {
           <div>
             <button
               type="button"
-              className="mr-5 border-none rounded-3xl bg-purple-800 text-white px-5 py-2"
+              className="mr-5 rounded-3xl bg-purple-600 hover:bg-purple-400 text-gray-50 px-5 py-2"
             >
               Update profile
             </button>
             <button
               type="button"
-              className="border-none rounded-3xl bg-red-600 text-white px-5 py-2"
+              className="rounded-3xl bg-red-600 hover:bg-red-400 text-gray-50 px-5 py-2"
             >
               Delete account
             </button>

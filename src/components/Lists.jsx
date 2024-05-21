@@ -5,20 +5,23 @@ import useLists from "../hooks/useLists.js";
 import { validateArray } from "../libraries/validateData.js";
 import ActiveListForm from "./ActiveListForm.jsx";
 const Lists = () => {
-  const { userLists } = useLists();
+  const { userLists, showListFormModal } = useLists();
   return (
     <Fragment>
       <div id="lists">
         <div className="flex flex-row justify-stretch items-center gap-5 py-2">
-          <div className="border-y-2 border-purple-800"></div>
+          <div className="border-y-2 border-purple-600"></div>
           <h2 className="text-5xl font-bold">LISTS</h2>
           <button
             type="button"
-            className="border-none rounded-full bg-purple-800 text-white p-2"
+            className="rounded-full bg-purple-600 hover:bg-purple-400 text-gray-50 p-2"
+            onClick={() => {
+              showListFormModal(false);
+            }}
           >
             <FaPlus size={24} />
           </button>
-          <div className="flex-grow border-y-2 border-purple-800"></div>
+          <div className="flex-grow border-y-2 border-purple-600"></div>
         </div>
         <div className="flex ml-10 py-4 gap-5">
           <p>ACTIVE LIST:</p>

@@ -1,7 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import useUsers from "../hooks/useUsers";
 import { supabaseConnection } from "../.config/supabase.js";
-import { validateArray } from "../libraries/validateData.js";
+import { validateArray, validateObject } from "../libraries/validateData.js";
 
 const ListsContext = createContext();
 
@@ -20,22 +20,34 @@ const ListsProvider = ({ children }) => {
     gameAdded: false,
     listToUpdate: {
       name: "",
-      type: ""
+      type: "",
     },
     possibleDelete: false,
     newList: {
       name: "",
-      type: "public"
-    }
+      type: "public",
+    },
+    updatingList: false,
+    isListModalOpen: false,
   };
 
   /* STATES */
   const [userLists, setUserLists] = useState(initialValues.userLists);
   const [selectedList, setSelectedList] = useState(initialValues.selectedList);
   const [listToUpdate, setListToUpdate] = useState(initialValues.listToUpdate);
+  const [listToDelete, setListToDelete] = useState(initialValues.listToUpdate);
   const [newList, setNewList] = useState(initialValues.newList);
   const [possibleDelete, setPossibleDelete] = useState(
     initialValues.possibleDelete
+  );
+
+  const [updatingList, setUpdatingList] = useState(initialValues.updatingList);
+
+  const [isListFormModalOpen, setIsListFormModalOpen] = useState(
+    initialValues.isListModalOpen
+  );
+  const [isDeleteListModalOpen, setIsDeleteListModalOpen] = useState(
+    initialValues.isListModalOpen
   );
 
   const [gameAdded, setGameAdded] = useState(initialValues.gameAdded);
@@ -141,30 +153,36 @@ const ListsProvider = ({ children }) => {
     try {
       const { data, error } = await supabaseConnection
         .from("lists")
-        .update({ 
+        .update({
           name: listToUpdate.name,
-          type: listToUpdate.type
-         })
+          type: listToUpdate.type,
+        })
         .eq("id", listToUpdate.id);
 
       if (error) throw error;
 
       getListsFromUser();
+
+      setUpdatingList(initialValues.updatingList);
+      setIsListFormModalOpen(initialValues.isListModalOpen);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const deleteList = async (listID) => {
+  const deleteList = async () => {
     try {
       const { data, error } = await supabaseConnection
         .from("lists")
         .delete()
-        .eq("id", listID);
+        .eq("id", listToDelete.id);
 
       if (error) throw error;
 
       getListsFromUser();
+
+      setListToDelete({});
+      setIsDeleteListModalOpen(initialValues.isListModalOpen);
     } catch (error) {
       console.log(error);
     }
@@ -176,13 +194,14 @@ const ListsProvider = ({ children }) => {
         .from("lists")
         .insert({
           ...newList,
-          creator_id: user.id
+          creator_id: user.id,
         })
         .select();
 
       if (error) throw error;
 
       getListsFromUser();
+      hideListFormModal();
     } catch (error) {
       console.log(error);
     }
@@ -197,10 +216,37 @@ const ListsProvider = ({ children }) => {
     }
   };
 
+  const showListFormModal = (isUpdate, list = null) => {
+    if (isUpdate && validateObject(list)) {
+      selectListToUpdate(list);
+      setUpdatingList(true);
+    } else {
+      setUpdatingList(initialValues.updatingList);
+    }
+
+    setIsListFormModalOpen(true);
+  };
+
+  const hideListFormModal = () => {
+    setUpdatingList(initialValues.updatingList);
+    setIsListFormModalOpen(initialValues.isListModalOpen);
+
+    /* PONER ESTADOS INICIALES DEL FORMULARIO PARA LIMPIARLO (NO ENTIENDO LOS ESTADOS DE DIANA) */
+  };
+
+  const showListDeleteModal = (list) => {
+    setListToDelete(list);
+    setIsDeleteListModalOpen(true);
+  };
+
+  const hideListDeleteModal = () => {
+    setListToDelete({});
+    setIsDeleteListModalOpen(initialValues.isListModalOpen);
+  };
+
   useEffect(() => {
     userLists.length > 1 ? setPossibleDelete(true) : setPossibleDelete(false);
   }, [userLists]);
-
 
   useEffect(() => {
     if (userCreation) {
@@ -226,6 +272,7 @@ const ListsProvider = ({ children }) => {
     gameAdded,
     cancelGameAdded,
     listToUpdate,
+    listToDelete,
     selectListToUpdate,
     /* changeNameOfList, */
     updateList,
@@ -233,7 +280,14 @@ const ListsProvider = ({ children }) => {
     possibleDelete,
     updateData,
     newList,
-    createList
+    createList,
+    updatingList,
+    isListFormModalOpen,
+    isDeleteListModalOpen,
+    showListFormModal,
+    hideListFormModal,
+    showListDeleteModal,
+    hideListDeleteModal,
   };
 
   return (

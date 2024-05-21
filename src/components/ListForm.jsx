@@ -1,5 +1,6 @@
 import React from "react";
-import useLists from "../hooks/useLists";
+
+import useLists from "../hooks/useLists.js";
 
 const ListForm = ({ creationMode = false }) => {
   const { listToUpdate, updateData, updateList, newList, createList } =
@@ -45,16 +46,6 @@ const ListForm = ({ creationMode = false }) => {
           <option value="private">Private</option>
         </select>
       </div>
-      <button
-        type="submit"
-        className="w-full bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline"
-        onClick={(e) => {
-          e.preventDefault();
-          creationMode ? createList() : updateList();
-        }}
-      >
-        Confirm changes
-      </button>
     </form>
   );
 };

@@ -9,8 +9,14 @@ const List = ({ list }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const { id, name, type, games_on_list } = list;
-  const { removeGameFromList, selectListToUpdate, deleteList, possibleDelete } =
-    useLists();
+  const {
+    showListFormModal,
+    removeGameFromList,
+    selectListToUpdate,
+    deleteList,
+    possibleDelete,
+    showListDeleteModal,
+  } = useLists();
   const { getGame } = useGames();
 
   const handleGameClick = (event) => {
@@ -48,9 +54,10 @@ const List = ({ list }) => {
             </p>
             <button
               type="button"
-              className="mr-5 text-purple-800"
-              onClick={() => {
-                selectListToUpdate(list);
+              className="mr-5 text-purple-600 hover:text-purple-400"
+              onClick={(event) => {
+                event.stopPropagation();
+                showListFormModal(true, list);
               }}
             >
               <FaPen size={24} />
@@ -58,9 +65,10 @@ const List = ({ list }) => {
             {possibleDelete && (
               <button
                 type="button"
-                className="text-red-600"
-                onClick={() => {
-                  deleteList(id);
+                className="text-red-600 hover:text-red-400"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  showListDeleteModal(list);
                 }}
               >
                 <FaTrash size={24} />
