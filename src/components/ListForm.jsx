@@ -6,47 +6,71 @@ const ListForm = ({ creationMode = false }) => {
   const { listToUpdate, updateData, updateList, newList, createList } =
     useLists();
 
+  const errors = {
+    name: true,
+    type: false,
+  };
+
   return (
-    <form className="max-w-md mx-auto mt-8 p-4 bg-gray-100 shadow-md rounded-md">
-      <div className="mb-4">
-        <label
-          htmlFor="listName"
-          className="block text-gray-700 font-bold mb-2"
-        >
-          Name:
-        </label>
-        <input
-          type="text"
-          name="name"
-          id="listName"
-          value={creationMode ? newList.name : listToUpdate.name}
-          onChange={(event) =>
-            updateData(event, creationMode ? "creation" : "update")
-          }
-          className="w-full py-2 px-4 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-purple-500"
-        />
+    <>
+      <div>
+        <form className="flex flex-col gap-5">
+          <div className="flex flex-col gap-1">
+            <label
+              htmlFor="listName"
+              className="block text-xl font-bold text-purple-600"
+            >
+              Name:
+            </label>
+            {errors.name && (
+              <>
+                <p className="text-red-600">The name is required.</p>
+              </>
+            )}
+            <input
+              autoFocus
+              type="text"
+              name="name"
+              id="listName"
+              placeholder="Enter name..."
+              value={creationMode ? newList.name : listToUpdate.name}
+              onChange={(event) =>
+                updateData(event, creationMode ? "creation" : "update")
+              }
+              className={`border-none focus:outline-none ${
+                errors.name
+                  ? "ring-2 ring-red-600 focus:ring-red-600 placeholder-red-600"
+                  : "focus:ring-2 focus:ring-purple-600"
+              } rounded-3xl bg-gray-100 dark:bg-gray-800 px-5 py-2 caret-purple-600 shadow`}
+            />
+          </div>
+          <div className="flex flex-col gap-1">
+            <label
+              htmlFor="listType"
+              className="block text-xl font-bold text-purple-600"
+            >
+              Type:
+            </label>
+            <select
+              id="listType"
+              name="type"
+              value={creationMode ? newList.type : listToUpdate.type}
+              onChange={(event) =>
+                updateData(event, creationMode ? "creation" : "update")
+              }
+              className={`border-none focus:outline-none ${
+                errors.type
+                  ? "ring-2 ring-red-600 focus:ring-red-600 placeholder-red-600"
+                  : "focus:ring-2 focus:ring-purple-600"
+              } rounded-3xl bg-gray-100 dark:bg-gray-800 px-5 py-2 caret-purple-600 shadow`}
+            >
+              <option value="public">Public</option>
+              <option value="private">Private</option>
+            </select>
+          </div>
+        </form>
       </div>
-      <div className="mb-4">
-        <label
-          htmlFor="listType"
-          className="block text-gray-700 font-bold mb-2"
-        >
-          Type:
-        </label>
-        <select
-          id="listType"
-          name="type"
-          value={creationMode ? newList.type : listToUpdate.type}
-          onChange={(event) =>
-            updateData(event, creationMode ? "creation" : "update")
-          }
-          className="w-full py-2 px-4 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-purple-500"
-        >
-          <option value="public">Public</option>
-          <option value="private">Private</option>
-        </select>
-      </div>
-    </form>
+    </>
   );
 };
 
