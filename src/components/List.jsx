@@ -36,7 +36,9 @@ const List = ({ list }) => {
     <Fragment>
       <div className="[&:not(:last-child)]:border-b-2 py-4">
         <div
-          className="flex flex-row justify-between items-center px-5 py-2 hover:cursor-pointer"
+          className={`flex flex-row justify-between items-center ${
+            isOpen && "bg-gray-100 dark:bg-gray-800"
+          } hover:bg-gray-100 hover:dark:bg-gray-800 px-5 py-2 hover:cursor-pointer transition-all duration-300`}
           onClick={() => setIsOpen(!isOpen)}
         >
           <div className="flex flex-row justify-start items-center gap-5">
@@ -46,15 +48,15 @@ const List = ({ list }) => {
           </div>
           <div className="flex gap-2">
             <p
-              className={`mr-10 px-10 rounded-xl font-bold ${
-                type === "public" ? "bg-green-300" : "bg-red-300"
-              }`}
+              className={`mr-10 px-5 py-2 rounded-3xl font-bold ${
+                type === "public" ? "bg-purple-600" : "bg-red-600"
+              } text-gray-50`}
             >
               {type.toUpperCase()}
             </p>
             <button
               type="button"
-              className="mr-5 text-purple-600 hover:text-purple-400 transition-all duration-300"
+              className="mr-5 rounded-3xl hover:bg-gray-800 p-2 text-purple-600 hover:text-purple-400 transition-all duration-300"
               onClick={(event) => {
                 event.stopPropagation();
                 showListFormModal(true, list);
@@ -65,7 +67,7 @@ const List = ({ list }) => {
             {possibleDelete && (
               <button
                 type="button"
-                className="text-red-600 hover:text-red-400 transition-all duration-300"
+                className="rounded-3xl hover:bg-gray-800 p-2 text-red-600 hover:text-red-400 transition-all duration-300"
                 onClick={(event) => {
                   event.stopPropagation();
                   showListDeleteModal(list);
@@ -76,7 +78,11 @@ const List = ({ list }) => {
             )}
           </div>
         </div>
-        <div className={`${isOpen ? "block" : "hidden"} border-t-2 px-5 py-2`}>
+        <div
+          className={`${
+            isOpen ? "block" : "hidden"
+          } border-t-2 bg-gray-100 dark:bg-gray-800/50 px-5 py-2`}
+        >
           <div
             className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 place-items-center gap-5 p-5"
             onClick={(event) => {
