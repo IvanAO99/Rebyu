@@ -7,6 +7,7 @@ import useLists from "../hooks/useLists.js";
 import CustomModal from "../components/CustomModal.jsx";
 import ListFormModal from "../components/ListFormModal.jsx";
 import DeleteModal from "../components/DeleteModal.jsx";
+import InformativeTable from "../components/InformativeTable.jsx";
 
 const ProfilePage = () => {
   const {
@@ -40,10 +41,17 @@ const ProfilePage = () => {
             hideFunction={hideListDeleteModal}
             deleteFunction={deleteList}
           >
-            <h1 className="text-3xl font-bold text-center">
-              ARE YOU SURE YOU WANT TO DELETE THIS LIST?
+            <h1 className="text-xl font-bold text-center">
+              ARE YOU SURE YOU WANT TO{" "}
+              <span className="text-red-600">DELETE</span> THIS LIST?
             </h1>
-            <p>{listToDelete.name || ""}</p>
+            <InformativeTable
+              object={{
+                name: listToDelete.name,
+                type: listToDelete.type,
+                total_games: listToDelete.games_on_list.length,
+              }}
+            />
           </DeleteModal>
         </CustomModal>
       )}
