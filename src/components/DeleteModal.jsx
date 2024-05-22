@@ -9,7 +9,7 @@ const DeleteModal = ({ children, title, hideFunction, deleteFunction }) => {
           <h1 className="text-3xl font-bold text-center">{title}</h1>
           <button
             type="button"
-            className="rounded-full hover:bg-gray-100 hover:dark:bg-gray-800 p-2 text-gray-900 dark:text-gray-50 hover:shadow"
+            className="rounded-full hover:bg-gray-100 hover:dark:bg-gray-800 p-2 text-gray-900 dark:text-gray-50 hover:shadow transition-all duration-300"
             onClick={() => hideFunction()}
           >
             <FaX size={24} />
@@ -22,7 +22,7 @@ const DeleteModal = ({ children, title, hideFunction, deleteFunction }) => {
           <div className="flex flex-row justify-end items-center gap-5 px-5 py-2">
             <button
               type="button"
-              className="rounded-3xl bg-red-600 hover:bg-red-400 px-5 py-2 text-gray-50 shadow"
+              className="rounded-3xl bg-red-600 hover:bg-red-400 px-5 py-2 text-gray-50 shadow transition-all duration-300"
               onClick={() => {
                 deleteFunction("delete");
               }}
@@ -31,7 +31,7 @@ const DeleteModal = ({ children, title, hideFunction, deleteFunction }) => {
             </button>
             <button
               type="button"
-              className="rounded-3xl bg-gray-800 hover:bg-gray-600 px-5 py-2 text-gray-50 shadow"
+              className="rounded-3xl bg-gray-800 hover:bg-gray-600 px-5 py-2 text-gray-50 shadow transition-all duration-300"
               onClick={() => hideFunction()}
             >
               Cancel

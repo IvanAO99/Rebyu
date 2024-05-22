@@ -54,7 +54,7 @@ const List = ({ list }) => {
             </p>
             <button
               type="button"
-              className="mr-5 text-purple-600 hover:text-purple-400"
+              className="mr-5 text-purple-600 hover:text-purple-400 transition-all duration-300"
               onClick={(event) => {
                 event.stopPropagation();
                 showListFormModal(true, list);
@@ -65,7 +65,7 @@ const List = ({ list }) => {
             {possibleDelete && (
               <button
                 type="button"
-                className="text-red-600 hover:text-red-400"
+                className="text-red-600 hover:text-red-400 transition-all duration-300"
                 onClick={(event) => {
                   event.stopPropagation();
                   showListDeleteModal(list);

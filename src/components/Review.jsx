@@ -57,7 +57,7 @@ const Review = ({ review, ownReview = false }) => {
             <div className="absolute top-0 flex flex-col justify-center items-center gap-5 w-full h-full backdrop-blur">
               <button
                 type="button"
-                className="rounded-3xl bg-red-600 hover:bg-red-400 text-gray-50 px-5 py-2"
+                className="rounded-3xl bg-red-600 hover:bg-red-400 text-gray-50 px-5 py-2 shadow transition-all duration-300"
                 onClick={() => {
                   setIsSpoiler(!isSpoiler);
                 }}

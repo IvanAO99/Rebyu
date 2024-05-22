@@ -13,7 +13,7 @@ const Game = ({ game, onList = false }) => {
     <Fragment>
       <div className="relative overflow-hidden rounded-3xl shadow w-60 h-60 lg:w-80 lg:h-80 group">
         <div className="relative overflow-hidden h-full">
-          <div className="absolute bottom-0 bg-purple-800 px-5 py-2 w-full">
+          <div className="absolute bottom-0 bg-purple-600 px-5 py-2 w-full">
             <h2 className="text-2xl text-gray-50 text-center">{title}</h2>
           </div>
           {onList ? (
@@ -21,8 +21,8 @@ const Game = ({ game, onList = false }) => {
               type="button"
               id={`likeHeart~${id}`}
               className={`absolute top-0 right-0 m-5 rounded-full shadow-2xl z-10 ${
-                isHovered ? "text-red-500" : "text-purple-800"
-              }`}
+                isHovered ? "text-red-600" : "text-purple-600"
+              } transition-all duration-300`}
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
             >
@@ -32,7 +32,7 @@ const Game = ({ game, onList = false }) => {
             <button
               type="button"
               id={`likeHeart~${id}`}
-              className="absolute top-0 right-0 m-5 rounded-full text-purple-800 shadow-2xl z-10"
+              className="z-10 absolute top-0 right-0 m-5 rounded-full text-gray-600 hover:text-purple-600 shadow transition-all duration-300"
             >
               <FaHeart size={24} />
             </button>
@@ -51,7 +51,7 @@ const Game = ({ game, onList = false }) => {
             alt="Game Cover IMG"
             className="object-fill w-full h-full"
           />
-          <div className="absolute top-0 m-5 rounded-full bg-purple-800 shadow-2xl">
+          <div className="absolute top-0 m-5 rounded-full bg-purple-600 shadow-2xl">
             <p className="px-5 py-2 text-2xl text-gray-50">10</p>
           </div>
         </div>
@@ -60,7 +60,7 @@ const Game = ({ game, onList = false }) => {
           <button
             type="button"
             id={`game-card-${id}`}
-            className="rounded-3xl bg-purple-800 text-gray-50 px-5 py-2 transition-all duration-300"
+            className="rounded-3xl bg-purple-600 hover:bg-purple-400 px-5 py-2 text-gray-50 shadow transition-all duration-300"
           >
             See more
           </button>

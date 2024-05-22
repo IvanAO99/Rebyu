@@ -120,7 +120,7 @@ const ReviewForm = ({ isUpdating = false }) => {
                   <div>
                     <button
                       type="button"
-                      className="self-start rounded-3xl bg-purple-600 hover:bg-purple-400 px-5 py-2 text-gray-50 shadow"
+                      className="self-start rounded-3xl bg-purple-600 hover:bg-purple-400 px-5 py-2 text-gray-50 shadow transition-all duration-300"
                       onClick={() => {
                         handleReviewSubmit("create");
                       }}
@@ -147,7 +147,7 @@ const ReviewForm = ({ isUpdating = false }) => {
               <div className="hidden">
                 <button
                   type="button"
-                  className="self-start rounded-3xl bg-purple-800 px-5 py-2 text-white shadow"
+                  className="self-start rounded-3xl bg-purple-600 hover:bg-purple-400 px-5 py-2 text-gray-50 shadow transition-all duration-300"
                   onClick={() => {
                     handleReviewSubmit("create");
                   }}

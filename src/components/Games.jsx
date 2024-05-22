@@ -29,15 +29,26 @@ function Games() {
   return (
     <Fragment>
       <div>
-        <h2>CHECK ALL OUR GAMES!</h2>
+        <div className="flex flex-row justify-stretch items-center gap-1 py-2">
+          <div className="flex-grow border-y-2 border-purple-600"></div>
+          <h2 className="text-6xl font-bold">CHECK ALL OUR GAMES!</h2>
+          <div className="flex-grow border-y-2 border-purple-600"></div>
+        </div>
         <GamesFilters />
         <div
           className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 place-items-center gap-5 p-5"
           onClick={(event) => {
             handleGameClick(event);
 
-            if (event.target.parentElement.parentElement.id.includes('likeHeart')){
-              addGameToList(event.target.parentElement.parentElement.id.replace('likeHeart~', ''));
+            if (
+              event.target.parentElement.parentElement.id.includes("likeHeart")
+            ) {
+              addGameToList(
+                event.target.parentElement.parentElement.id.replace(
+                  "likeHeart~",
+                  ""
+                )
+              );
             }
           }}
         >

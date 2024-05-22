@@ -16,7 +16,7 @@ const Reviews = () => {
           <>
             <div className="flex flex-col justify-center items-center px-5 py-2">
               <Loading />
-              <p className="px-5 py-2 text-purple-800 font-bold">
+              <p className="px-5 py-2 text-purple-600 font-bold">
                 Loading reviews...
               </p>
             </div>
