@@ -40,7 +40,7 @@ const UsersProvider = ({ children }) => {
     isLoadingUser: false,
     isConfirmEmailOpen: false,
     userCreation: false,
-    idUserCreated: ''
+    idUserCreated: '',
   };
 
   /* STATES */

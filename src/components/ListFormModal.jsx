@@ -6,7 +6,7 @@ import useLists from "../hooks/useLists.js";
 import ListForm from "./ListForm.jsx";
 
 const ListFormModal = () => {
-  const { updatingList, hideListFormModal, createList, updateList } =
+  const { updatingList, hideListFormModal, createList, updateList, handleListCreation } =
     useLists();
 
   return (
@@ -33,7 +33,7 @@ const ListFormModal = () => {
               type="button"
               className="rounded-3xl bg-purple-600 hover:bg-purple-400 px-5 py-2 text-gray-50 shadow"
               onClick={() => {
-                updatingList ? updateList() : createList();
+                updatingList ? handleListCreation() : handleListCreation(true);
               }}
             >
               {updatingList ? "Update" : "Create"}

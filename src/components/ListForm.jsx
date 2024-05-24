@@ -3,8 +3,15 @@ import React from "react";
 import useLists from "../hooks/useLists.js";
 
 const ListForm = ({ creationMode = false }) => {
-  const { listToUpdate, updateData, updateList, newList, createList } =
-    useLists();
+  const {
+    listToUpdate,
+    updateData,
+    updateList,
+    newList,
+    createList,
+    listFormErrors,
+    handleListCreation,
+  } = useLists();
 
   const errors = {
     name: true,
@@ -14,7 +21,10 @@ const ListForm = ({ creationMode = false }) => {
   return (
     <>
       <div>
-        <form className="flex flex-col gap-5">
+        <form
+          className="flex flex-col gap-5"
+          onSubmit={(e) => e.preventDefault()}
+        >
           <div className="flex flex-col gap-1">
             <label
               htmlFor="listName"
@@ -22,9 +32,9 @@ const ListForm = ({ creationMode = false }) => {
             >
               Name:
             </label>
-            {errors.name && (
+            {listFormErrors.name && (
               <>
-                <p className="text-red-600">The name is required.</p>
+                <p className="text-red-600">{listFormErrors.name}</p>
               </>
             )}
             <input
@@ -38,7 +48,7 @@ const ListForm = ({ creationMode = false }) => {
                 updateData(event, creationMode ? "creation" : "update")
               }
               className={`border-none focus:outline-none ${
-                errors.name
+                listFormErrors.name
                   ? "ring-2 ring-red-600 focus:ring-red-600 placeholder-red-600"
                   : "focus:ring-2 focus:ring-purple-600"
               } rounded-3xl bg-gray-100 dark:bg-gray-800 px-5 py-2 caret-purple-600 shadow`}
@@ -51,6 +61,11 @@ const ListForm = ({ creationMode = false }) => {
             >
               Type:
             </label>
+            {listFormErrors.type && (
+              <>
+                <p className="text-red-600">{listFormErrors.type}</p>
+              </>
+            )}
             <select
               id="listType"
               name="type"
@@ -59,7 +74,7 @@ const ListForm = ({ creationMode = false }) => {
                 updateData(event, creationMode ? "creation" : "update")
               }
               className={`border-none focus:outline-none ${
-                errors.type
+                listFormErrors.type
                   ? "ring-2 ring-red-600 focus:ring-red-600 placeholder-red-600"
                   : "focus:ring-2 focus:ring-purple-600"
               } rounded-3xl bg-gray-100 dark:bg-gray-800 px-5 py-2 caret-purple-600 shadow`}
