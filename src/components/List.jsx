@@ -54,27 +54,29 @@ const List = ({ list }) => {
             >
               {type.toUpperCase()}
             </p>
-            <button
-              type="button"
-              className="mr-5 rounded-3xl hover:bg-gray-800 p-2 text-purple-600 hover:text-purple-400 transition-all duration-300"
-              onClick={(event) => {
-                event.stopPropagation();
-                showListFormModal(true, list);
-              }}
-            >
-              <FaPen size={24} />
-            </button>
-            {possibleDelete && (
-              <button
-                type="button"
-                className="rounded-3xl hover:bg-gray-800 p-2 text-red-600 hover:text-red-400 transition-all duration-300"
-                onClick={(event) => {
-                  event.stopPropagation();
-                  showListDeleteModal(list);
-                }}
-              >
-                <FaTrash size={24} />
-              </button>
+            {name !== "FAVOURITES" && (
+              <>
+                <button
+                  type="button"
+                  className="rounded-3xl hover:bg-gray-800 p-2 text-purple-600 hover:text-purple-400 transition-all duration-300"
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    showListFormModal(true, list);
+                  }}
+                >
+                  <FaPen size={24} />
+                </button>
+                <button
+                  type="button"
+                  className="rounded-3xl hover:bg-gray-800 p-2 text-red-600 hover:text-red-400 transition-all duration-300"
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    showListDeleteModal(list);
+                  }}
+                >
+                  <FaTrash size={24} />
+                </button>
+              </>
             )}
           </div>
         </div>

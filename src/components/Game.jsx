@@ -1,13 +1,29 @@
 import React, { Fragment, useState } from "react";
-import { FaHeart, FaHeartCrack } from "react-icons/fa6";
+import { FaHeart, FaHeartCrack, FaTrash, FaPen } from "react-icons/fa6";
 import useLists from "../hooks/useLists";
+import useUsers from "../hooks/useUsers";
+import { validateObject } from "../libraries/validateData";
+import useGames from "../hooks/useGames";
 
 const Game = ({ game, onList = false }) => {
   const { id, synopsis, title, cover_pic } = game;
   const [isHovered, setIsHovered] = useState(false);
+  const { user, isAdmin } = useUsers();
+  const { updateSelectedGame, deleteGame } = useGames();
   /* const { checkGameInList } = useLists();
 
   const inList = checkGameInList(id); */
+
+  const handleGameActions = (id, action) => {
+    updateSelectedGame(id);
+
+    /*MOSTRAR MODAL EN CASO DE UPDATE*/
+    /* if (action === "update-game") MODAL ; */
+
+    /*MOSTRAR MODAL EN CASO DE BORRADO*/
+    /*Si no va es porque llama a deleteGame antes de seleccionarlo*/
+    if (action === "delete-game") deleteGame();
+  };
 
   return (
     <Fragment>
@@ -31,22 +47,35 @@ const Game = ({ game, onList = false }) => {
               {isHovered ? <FaHeartCrack size={24} /> : <FaHeart size={24} />}
             </button>
           ) : (
-            <button
-              type="button"
-              id={`likeHeart~${id}`}
-              className="z-10 absolute top-0 right-0 m-5 rounded-full text-gray-600 hover:text-purple-600 shadow transition-all duration-300"
-            >
-              <FaHeart size={24} />
-            </button>
-            /* <button
-              type="button"
-              id={`likeHeart~${id}`}
-              className={`absolute top-0 right-0 m-5 rounded-full shadow-2xl z-10 ${
-                inList ? "text-red-500" : "text-purple-800"
-              }`}
-            >
-              {inList ? <FaHeartCrack size={24} /> : <FaHeart size={24} />}
-            </button> */
+            validateObject(user) &&
+            (isAdmin ? (
+              <div
+                onClick={(e) => {
+                  handleGameActions(id, e.target.parentNode.id);
+                }}
+              >
+                <button
+                  type="button"
+                  className="absolute top-0 right-10 m-5 rounded-full text-purple-600 hover:text-purple-400 shadow-2xl z-10"
+                >
+                  <FaPen size={24} id="update-game" />
+                </button>
+                <button
+                  type="button"
+                  className="absolute top-0 right-0 m-5 rounded-full text-red-600 hover:text-red-400 shadow-2xl z-10"
+                >
+                  <FaTrash size={24} id="delete-game" />
+                </button>
+              </div>
+            ) : (
+              <button
+                type="button"
+                id={`likeHeart~${id}`}
+                className="z-10 absolute top-0 right-0 m-5 rounded-full text-gray-600 hover:text-purple-600 shadow transition-all duration-300"
+              >
+                <FaHeart size={24} />
+              </button>
+            ))
           )}
           <img
             src={cover_pic}

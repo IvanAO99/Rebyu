@@ -32,7 +32,6 @@ const GamesProvider = ({ children }) => {
     gameRegister: {
       title: "",
       synopsis: "",
-      price: "",
       release_date: "",
       cover_pic: "",
       trailer: "",
@@ -41,7 +40,6 @@ const GamesProvider = ({ children }) => {
       game_developer: [],
     },
     gameRegisterErrors: [],
-    isGamesOffcanvasShowing: false,
     isGameDeleteModalOpen: false,
     creatingGame: false,
     gameFilter: {
@@ -81,9 +79,6 @@ const GamesProvider = ({ children }) => {
   );
 
   const [selectedGame, setSelectedGame] = useState(initialValues.gameRegister);
-  const [isGamesOffcanvasShowing, setIsGamesOffcanvasShowing] = useState(
-    initialValues.isGamesOffcanvasShowing
-  );
   const [isGameDeleteModalOpen, setIsGameDeleteModalOpen] = useState(
     initialValues.isGameDeleteModalOpen
   );
@@ -130,28 +125,6 @@ const GamesProvider = ({ children }) => {
     };
 
     notify();
-  };
-
-  const showGamesOffCanvas = (mode = "updating") => {
-    if (mode === "creating") {
-      setCreatingGame(true);
-    } else {
-      setCreatingGame(initialValues.creatingGame);
-    }
-
-    setIsGamesOffcanvasShowing(true);
-  };
-
-  const hideGamesOffCanvas = () => {
-    setIsGamesOffcanvasShowing(initialValues.isGamesOffcanvasShowing);
-  };
-
-  const showGameDeleteModal = () => {
-    setIsGameDeleteModalOpen(true);
-  };
-
-  const hideGameDeleteModal = () => {
-    setIsGameDeleteModalOpen(initialValues.isGameDeleteModalOpen);
   };
 
   /**
@@ -368,7 +341,6 @@ const GamesProvider = ({ children }) => {
    */
   const updateGameForm = (input, creation) => {
     const { name, value } = input;
-
     if (creation) {
       setGameRegister({ ...gameRegister, [name]: value });
     } else {
@@ -438,19 +410,6 @@ const GamesProvider = ({ children }) => {
       validationErrors = {
         ...validationErrors,
         synopsis: "The synopsis field is invalid.",
-      };
-    }
-
-    // Validate price field
-    if (!actualGame.price) {
-      validationErrors = {
-        ...validationErrors,
-        price: "The price field is required.",
-      };
-    } else if (!new RegExp(regex.gameForm.price).test(actualGame.price)) {
-      validationErrors = {
-        ...validationErrors,
-        price: "The price field is invalid.",
       };
     }
 
@@ -634,7 +593,6 @@ const GamesProvider = ({ children }) => {
         .from("games")
         .insert({
           synopsis: gameRegister.synopsis,
-          price: gameRegister.price,
           title: gameRegister.title,
           release_date: gameRegister.release_date,
           wallpaper: gameRegister.wallpaper,
@@ -689,12 +647,12 @@ const GamesProvider = ({ children }) => {
    * Updates an existing game in the database and associated intermediary tables.
    */
   const updateGame = async () => {
+    console.log(selectedGame);
     try {
       const { data, error } = await supabaseConnection
         .from("games")
         .update({
           synopsis: selectedGame.synopsis,
-          price: selectedGame.price,
           title: selectedGame.title,
           release_date: selectedGame.release_date,
           cover_pic: selectedGame.cover_pic ? selectedGame.cover_pic : null,
@@ -733,6 +691,8 @@ const GamesProvider = ({ children }) => {
       sendGameAlert("success", "Game updated successfully!");
       // Reload games data
       getGames();
+
+      setSelectedGame(initialValues.gameRegister);
     } catch (error) {
       sendGameAlert("error", "The game could not be updated!");
     } finally {
@@ -797,6 +757,7 @@ const GamesProvider = ({ children }) => {
    * Deletes the selected game from the database.
    */
   const deleteGame = async () => {
+    console.log("entroo");
     try {
       const { error } = await supabaseConnection
         .from("games")
@@ -919,12 +880,7 @@ const GamesProvider = ({ children }) => {
     deleteGame,
     selectedGame,
     creatingGame,
-    isGamesOffcanvasShowing,
-    showGamesOffCanvas,
-    hideGamesOffCanvas,
     isGameDeleteModalOpen,
-    showGameDeleteModal,
-    hideGameDeleteModal,
     updateGameFilter,
     filteredGames,
     resetGameFilter,

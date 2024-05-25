@@ -16,7 +16,7 @@ import score_review from "../model/CohereModel.js";
 const ReviewsContext = createContext();
 
 const ReviewsProvider = ({ children }) => {
-  const { user } = useUsers();
+  const { user, isSessionUp } = useUsers();
   const { game } = useGames();
 
   /* INITIAL STATES VALUES */
@@ -39,6 +39,8 @@ const ReviewsProvider = ({ children }) => {
     lastReviews: [],
     userReview: {},
     reviewsWithLikes: [],
+    allReviews: [],
+    allReviewsWithLike: [],
   };
 
   /* STATES */
@@ -72,7 +74,6 @@ const ReviewsProvider = ({ children }) => {
   const [reviewsWithLikes, setReviewsWithLikes] = useState(
     initialValues.reviewsWithLikes
   );
-
   /**
    * Display a toast notification for review-related actions.
    * @param {string} type - The type of alert ("success" or "error").
@@ -123,23 +124,25 @@ const ReviewsProvider = ({ children }) => {
   /* SUPABASE FETCHS */
 
   const handleLikes = async (reviewId) => {
-    try {
-      const { data: existingLike, error: existingLikeError } =
-        await supabaseConnection
-          .from("review_likes")
-          .select("*")
-          .eq("user_id", user.id)
-          .eq("review_id", reviewId);
+    if (isSessionUp & validateObject(user)) {
+      try {
+        const { data: existingLike, error: existingLikeError } =
+          await supabaseConnection
+            .from("review_likes")
+            .select("*")
+            .eq("user_id", user.id)
+            .eq("review_id", reviewId);
 
-      if (existingLikeError) throw existingLikeError;
+        if (existingLikeError) throw existingLikeError;
 
-      if (existingLike && existingLike.length > 0) {
-        await removeLikeFromReview(reviewId);
-      } else {
-        await likeAReview(reviewId);
+        if (existingLike && existingLike.length > 0) {
+          await removeLikeFromReview(reviewId);
+        } else {
+          await likeAReview(reviewId);
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
     }
   };
 
@@ -181,24 +184,25 @@ const ReviewsProvider = ({ children }) => {
     }
   };
 
-  /*   const likeAReview = async (reviewId) => {
+  const getAllReviews = async () => {
     try {
+      setReviewsWithLikes(initialValues.reviews);
+      setIsLoadingReviews(true);
+
       const { data, error } = await supabaseConnection
-        .from("review_likes")
-        .insert({
-          user_id: user.id,
-          review_id: reviewId
-        })
-        .select();
+        .from("user_game_review")
+        .select("*, reviews(*), users(*)");
 
-        if (error) throw error;
+      if (error) throw error;
 
-        getReviewsByGame();
-
+      setReviews(data);
     } catch (error) {
-      console.log(error)
+      console.error("Error fetching reviews:", error.message);
+    } finally {
+      // Reset loading state
+      setIsLoadingReviews(initialValues.isLoadingReviews);
     }
-  } */
+  };
 
   const getUserReview = async () => {
     try {
@@ -401,10 +405,12 @@ const ReviewsProvider = ({ children }) => {
    */
   const updateReview = async () => {
     try {
+      let ia_score = await score_review(reviewForm["message"]);
+
       // Update the review in the "reviews" table based on the review ID
       const { data, error } = await supabaseConnection
         .from("reviews")
-        .update({ ...reviewForm, edited: true })
+        .update({ ...reviewForm, ["ia_score"]: ia_score, edited: true })
         .eq("id", reviewForm.id)
         .select();
 
@@ -685,6 +691,7 @@ const ReviewsProvider = ({ children }) => {
     userReview,
     reviewsWithLikes,
     handleLikes,
+    getAllReviews,
   };
 
   return (

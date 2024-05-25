@@ -7,12 +7,11 @@ import Review from "./Review.jsx";
 
 import { validateArray } from "../libraries/validateData.js";
 
-const Reviews = () => {
-  const { isLoadingReviews, reviewsWithLikes } = useReviews();
+const Reviews = ({loading, reviews}) => {
   return (
     <>
       <div>
-        {isLoadingReviews ? (
+        {loading ? (
           <>
             <div className="flex flex-col justify-center items-center px-5 py-2">
               <Loading />
@@ -21,10 +20,10 @@ const Reviews = () => {
               </p>
             </div>
           </>
-        ) : validateArray(reviewsWithLikes) ? (
+        ) : validateArray(reviews) ? (
           <>
             <div className="flex flex-col items-center gap-5">
-              {reviewsWithLikes.map((review) => (
+              {reviews.map((review) => (
                 <Fragment key={review.review_id}>
                   <Review review={review} />
                 </Fragment>
