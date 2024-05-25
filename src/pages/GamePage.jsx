@@ -11,6 +11,7 @@ import useReviews from "../hooks/useReviews";
 import CustomModal from "../components/CustomModal";
 import ReviewFormModal from "../components/ReviewFormModal";
 import DeleteModal from "../components/DeleteModal";
+import useUsers from "../hooks/useUsers";
 
 const GamePage = () => {
   const { isLoadingGame, game } = useGames();
@@ -22,9 +23,11 @@ const GamePage = () => {
     isReviewFormModalOpen,
     deletingReview,
     handleReviewSubmit,
+    isLoadingReviews,
+    reviewsWithLikes
   } = useReviews();
 
-  console.log(userReview);
+  const { user, isAdmin } = useUsers();
 
   return (
     <>
@@ -73,13 +76,15 @@ const GamePage = () => {
                     </div>
                   </div>
                 </>
-              ) : (
+              ) : validateObject(user) ? (
                 <>
                   <ReviewForm />
                 </>
+              ) : (
+                <p>Log In for Review This Game!</p>
               )}
               <div className="border-y-2 border-gray-100 dark:border-gray-800"></div>
-              <Reviews />
+              <Reviews loading={isLoadingReviews} reviews={reviewsWithLikes} />
             </div>
           </>
         ) : (

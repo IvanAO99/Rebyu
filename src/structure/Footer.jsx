@@ -6,9 +6,12 @@ import {
   FaFacebookF,
   FaYoutube,
 } from "react-icons/fa";
+import useUsers from "../hooks/useUsers";
 
 function Footer() {
+  const {isAdmin} = useUsers();
   return (
+    /* <footer className={`bg-gray-800 text-gray-50 py-8 ${isAdmin ? 'hidden' : ''}`}> */
     <footer className="bg-gray-800 text-gray-50 py-8">
       <div className="container mx-auto flex flex-col justify-center items-center">
         {/* Redes sociales */}

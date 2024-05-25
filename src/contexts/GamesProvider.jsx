@@ -14,7 +14,7 @@ const GamesContext = createContext();
 const GamesProvider = ({ children }) => {
   const navigate = useNavigate();
 
-  const {gameAdded, cancelGameAdded} = useLists();
+  const { gameAdded, cancelGameAdded } = useLists();
 
   /* INITIAL STATES VALUES */
   const initialValues = {
@@ -32,7 +32,6 @@ const GamesProvider = ({ children }) => {
     gameRegister: {
       title: "",
       synopsis: "",
-      price: "",
       release_date: "",
       cover_pic: "",
       trailer: "",
@@ -41,7 +40,6 @@ const GamesProvider = ({ children }) => {
       game_developer: [],
     },
     gameRegisterErrors: [],
-    isGamesOffcanvasShowing: false,
     isGameDeleteModalOpen: false,
     creatingGame: false,
     gameFilter: {
@@ -81,9 +79,6 @@ const GamesProvider = ({ children }) => {
   );
 
   const [selectedGame, setSelectedGame] = useState(initialValues.gameRegister);
-  const [isGamesOffcanvasShowing, setIsGamesOffcanvasShowing] = useState(
-    initialValues.isGamesOffcanvasShowing
-  );
   const [isGameDeleteModalOpen, setIsGameDeleteModalOpen] = useState(
     initialValues.isGameDeleteModalOpen
   );
@@ -132,28 +127,6 @@ const GamesProvider = ({ children }) => {
     notify();
   };
 
-  const showGamesOffCanvas = (mode = "updating") => {
-    if (mode === "creating") {
-      setCreatingGame(true);
-    } else {
-      setCreatingGame(initialValues.creatingGame);
-    }
-
-    setIsGamesOffcanvasShowing(true);
-  };
-
-  const hideGamesOffCanvas = () => {
-    setIsGamesOffcanvasShowing(initialValues.isGamesOffcanvasShowing);
-  };
-
-  const showGameDeleteModal = () => {
-    setIsGameDeleteModalOpen(true);
-  };
-
-  const hideGameDeleteModal = () => {
-    setIsGameDeleteModalOpen(initialValues.isGameDeleteModalOpen);
-  };
-
   /**
    * Retrieves all games from the database, including associated genres, platforms, and developers.
    * Games are ordered by their ID.
@@ -186,7 +159,7 @@ const GamesProvider = ({ children }) => {
     }
   };
 
-/*   const getLatestGames = async () => {
+  /*   const getLatestGames = async () => {
     try {
       setIsLoadingLatestGames(initialValues.isLoadingLatestGames);
 
@@ -208,7 +181,7 @@ const GamesProvider = ({ children }) => {
     }
   }; */
 
-/*   const getTopGames = async () => {
+  /*   const getTopGames = async () => {
     try {
       setIsLoadingTopGames(initialValues.isLoadingTopGames);
 
@@ -259,7 +232,7 @@ const GamesProvider = ({ children }) => {
 
       setGame(data[0]);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     } finally {
       setIsLoadingGame(false);
     }
@@ -365,7 +338,6 @@ const GamesProvider = ({ children }) => {
    */
   const updateGameForm = (input, creation) => {
     const { name, value } = input;
-
     if (creation) {
       setGameRegister({ ...gameRegister, [name]: value });
     } else {
@@ -409,7 +381,7 @@ const GamesProvider = ({ children }) => {
 
     // Determine which game data object to validate based on creation mode
     let actualGame = creationMode ? gameRegister : selectedGame;
-
+    
     // Validate title field
     if (!actualGame.title) {
       validationErrors = {
@@ -435,19 +407,6 @@ const GamesProvider = ({ children }) => {
       validationErrors = {
         ...validationErrors,
         synopsis: "The synopsis field is invalid.",
-      };
-    }
-
-    // Validate price field
-    if (!actualGame.price) {
-      validationErrors = {
-        ...validationErrors,
-        price: "The price field is required.",
-      };
-    } else if (!new RegExp(regex.gameForm.price).test(actualGame.price)) {
-      validationErrors = {
-        ...validationErrors,
-        price: "The price field is invalid.",
       };
     }
 
@@ -631,7 +590,6 @@ const GamesProvider = ({ children }) => {
         .from("games")
         .insert({
           synopsis: gameRegister.synopsis,
-          price: gameRegister.price,
           title: gameRegister.title,
           release_date: gameRegister.release_date,
           wallpaper: gameRegister.wallpaper,
@@ -686,12 +644,12 @@ const GamesProvider = ({ children }) => {
    * Updates an existing game in the database and associated intermediary tables.
    */
   const updateGame = async () => {
+    console.log(selectedGame)
     try {
       const { data, error } = await supabaseConnection
         .from("games")
         .update({
           synopsis: selectedGame.synopsis,
-          price: selectedGame.price,
           title: selectedGame.title,
           release_date: selectedGame.release_date,
           cover_pic: selectedGame.cover_pic ? selectedGame.cover_pic : null,
@@ -730,6 +688,8 @@ const GamesProvider = ({ children }) => {
       sendGameAlert("success", "Game updated successfully!");
       // Reload games data
       getGames();
+
+      setSelectedGame(initialValues.gameRegister)
     } catch (error) {
       sendGameAlert("error", "The game could not be updated!");
     } finally {
@@ -794,6 +754,7 @@ const GamesProvider = ({ children }) => {
    * Deletes the selected game from the database.
    */
   const deleteGame = async () => {
+    console.log("entroo")
     try {
       const { error } = await supabaseConnection
         .from("games")
@@ -870,7 +831,7 @@ const GamesProvider = ({ children }) => {
     setGameFilter(initialValues.gameFilter);
   };
 
-/*   useEffect(()=>{
+  /*   useEffect(()=>{
     if(gameAdded){
       getGames();
       cancelGameAdded();
@@ -916,12 +877,7 @@ const GamesProvider = ({ children }) => {
     deleteGame,
     selectedGame,
     creatingGame,
-    isGamesOffcanvasShowing,
-    showGamesOffCanvas,
-    hideGamesOffCanvas,
     isGameDeleteModalOpen,
-    showGameDeleteModal,
-    hideGameDeleteModal,
     updateGameFilter,
     filteredGames,
     resetGameFilter,

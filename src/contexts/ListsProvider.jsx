@@ -11,7 +11,7 @@ const ListsProvider = ({ children }) => {
   /* INITIAL STATES VALUES */
   const initialValues = {
     defaultList: {
-      name: "Favourites",
+      name: "FAVOURITES",
       type: "public",
       creator_id: "",
     },
@@ -20,15 +20,15 @@ const ListsProvider = ({ children }) => {
     gameAdded: false,
     listToUpdate: {
       name: "",
-      type: "",
+      type: "public",
     },
-    possibleDelete: false,
     newList: {
       name: "",
       type: "public",
     },
     updatingList: false,
     isListModalOpen: false,
+    listFormErrors: {},
   };
 
   /* STATES */
@@ -37,9 +37,6 @@ const ListsProvider = ({ children }) => {
   const [listToUpdate, setListToUpdate] = useState(initialValues.listToUpdate);
   const [listToDelete, setListToDelete] = useState(initialValues.listToUpdate);
   const [newList, setNewList] = useState(initialValues.newList);
-  const [possibleDelete, setPossibleDelete] = useState(
-    initialValues.possibleDelete
-  );
 
   const [updatingList, setUpdatingList] = useState(initialValues.updatingList);
 
@@ -51,6 +48,10 @@ const ListsProvider = ({ children }) => {
   );
 
   const [gameAdded, setGameAdded] = useState(initialValues.gameAdded);
+
+  const [listFormErrors, setListFormErrors] = useState(
+    initialValues.listFormErrors
+  );
 
   /* FUNCTIONS */
   const createDefaultList = async (userID) => {
@@ -244,9 +245,48 @@ const ListsProvider = ({ children }) => {
     setIsDeleteListModalOpen(initialValues.isListModalOpen);
   };
 
-  useEffect(() => {
-    userLists.length > 1 ? setPossibleDelete(true) : setPossibleDelete(false);
-  }, [userLists]);
+  const isListAlreadyCreated = (ListName) => {
+    return userLists.some(
+      (list) => list.name.toUpperCase() === ListName.toUpperCase()
+    );
+  };
+
+  const validateListForm = (creationMode) => {
+    let validationErrors = {};
+
+    const list = creationMode ? { ...newList } : { ...listToUpdate };
+
+    if (!list.name) {
+      validationErrors = {
+        ...validationErrors,
+        name: "The name field is required.",
+      };
+    } else if (isListAlreadyCreated(list.name)) {
+      validationErrors = {
+        ...validationErrors,
+        name: "Already exist a list with that name.",
+      };
+    }
+
+    if (list.type !== "public" && list.type !== "private") {
+      validationErrors = {
+        ...validationErrors,
+        type: "Select a valid type for the list.",
+      };
+    }
+
+    return validationErrors;
+  };
+
+  const handleListCreation = (creationMode = false) => {
+    const validationErrors = validateListForm(creationMode);
+    if (validateObject(validationErrors)) {
+      setListFormErrors(validationErrors);
+    } else {
+      setListFormErrors(initialValues.listFormErrors);
+      creationMode ? createList() : updateList();
+    }
+  };
 
   useEffect(() => {
     if (userCreation) {
@@ -277,7 +317,6 @@ const ListsProvider = ({ children }) => {
     /* changeNameOfList, */
     updateList,
     deleteList,
-    possibleDelete,
     updateData,
     newList,
     createList,
@@ -288,6 +327,8 @@ const ListsProvider = ({ children }) => {
     hideListFormModal,
     showListDeleteModal,
     hideListDeleteModal,
+    handleListCreation,
+    listFormErrors,
   };
 
   return (

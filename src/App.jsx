@@ -25,8 +25,8 @@ function App() {
               </ReviewsProvider>
             </GamesProvider>
           </ListsProvider>
+          <Footer />
         </UsersProvider>
-        <Footer />
       </BrowserRouter>
     </Fragment>
   );

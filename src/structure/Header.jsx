@@ -7,7 +7,7 @@ import useUsers from "../hooks/useUsers.js";
 import { validateObject } from "../libraries/validateData.js";
 
 const Header = () => {
-  const { isSessionUp, user, signOut } = useUsers();
+  const { isSessionUp, user, signOut, isAdmin } = useUsers();
 
   //console.log(user);
 
@@ -20,13 +20,17 @@ const Header = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  useEffect(() => {
+  useEffect(() => {    
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
       setTheme("dark");
     } else {
       setTheme("light");
     }
   }, []);
+
+  useEffect(()=>{
+    setIsMenuOpen(false);
+  }, [user])
 
   useEffect(() => {
     if (theme === "dark") {
@@ -37,6 +41,7 @@ const Header = () => {
   }, [theme]);
 
   return (
+    /* <header className={`bg-gray-100 dark:bg-gray-800 border-b-2 border-gray-200 dark:border-gray-900 sticky top-0 w-full z-50 ${isAdmin ? 'hidden' : ''}`}> */
     <header className="bg-gray-100 dark:bg-gray-800 border-b-2 border-gray-200 dark:border-gray-900 sticky top-0 w-full z-50">
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center py-4 px-8">
         {/* Logo y marca */}

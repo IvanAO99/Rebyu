@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import HomePage from "../pages/HomePage.jsx";
@@ -8,12 +8,20 @@ import LogInPage from "../pages/LogInPage.jsx";
 import RegistrationPage from "../pages/RegistrationPage.jsx";
 import AffiliatePage from "../pages/AffiliatePage.jsx";
 import GamePage from "../pages/GamePage.jsx";
+import useUsers from "../hooks/useUsers.js";
+import AdminPage from "../pages/AdminPage.jsx";
+import { validateObject } from "../libraries/validateData.js";
 
 const RouterComponent = () => {
+  const { user, isAdmin } = useUsers();
   return (
     <Fragment>
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        {isAdmin ? (
+          <Route path="/" element={<AdminPage />} />
+        ) : (
+          <Route path="/" element={<HomePage />} />
+        )}
         <Route path="/game" element={<GamePage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/profile/lists" element={<ProfilePage />} />
