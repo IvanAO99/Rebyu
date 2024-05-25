@@ -23,12 +23,11 @@ const GamePage = () => {
     isReviewFormModalOpen,
     deletingReview,
     handleReviewSubmit,
+    isLoadingReviews,
+    reviewsWithLikes
   } = useReviews();
 
   const { user, isAdmin } = useUsers();
-  console.log(user)
-
-  console.log(userReview);
 
   return (
     <>
@@ -85,7 +84,7 @@ const GamePage = () => {
                 <p>Log In for Review This Game!</p>
               )}
               <div className="border-y-2 border-gray-100 dark:border-gray-800"></div>
-              <Reviews />
+              <Reviews loading={isLoadingReviews} reviews={reviewsWithLikes} />
             </div>
           </>
         ) : (

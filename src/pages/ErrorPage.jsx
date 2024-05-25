@@ -1,7 +1,19 @@
 import React from "react";
 
 const ErrorPage = () => {
-  return <div>ErrorPage</div>;
+  return (
+    <div className="min-h-screen flex flex-col justify-center items-center">
+      <h1 className="text-4xl font-bold text-center mb-8">404 Not Found</h1>
+      <p className="text-lg text-center mb-4">
+        Parece ser que estás intentando entrar a una página que no te incumbe,
+        igual en otro momento...
+      </p>
+      <p className="text-lg text-center">
+        It seems you are trying to access a page that does not concern you,
+        maybe some other time...
+      </p>
+    </div>
+  );
 };
 
 export default ErrorPage;

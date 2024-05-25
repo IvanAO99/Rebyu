@@ -41,6 +41,7 @@ const UsersProvider = ({ children }) => {
     isConfirmEmailOpen: false,
     userCreation: false,
     idUserCreated: '',
+    allUsers: []
   };
 
   /* STATES */
@@ -63,6 +64,7 @@ const UsersProvider = ({ children }) => {
   );
   const [userCreation, setUserCreation] = useState(initialValues.userCreation);
   const [idUserCreated, setIDUserCreated] = useState(initialValues.idUserCreated);
+  const [allUsers, setAllUsers] = useState(initialValues.allUsers);
 
   /* FUNCTIONS */
 
@@ -318,6 +320,20 @@ const UsersProvider = ({ children }) => {
     }
   };
 
+  const getAllUsers = async () => {
+    try {
+      const { data, error } = await supabaseConnection
+      .from("users")
+      .select("*");
+
+      if (error) throw error;
+
+      setAllUsers(data);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   /**
    * Get the current user's data and check if they have admin privileges.
    * Updates the user and admin states accordingly.
@@ -452,6 +468,10 @@ const UsersProvider = ({ children }) => {
     );
   }, []);
 
+  useEffect(()=>{
+    console.log(allUsers);
+  }, [allUsers])
+
   /* CONTEXT DATA */
 
   const usersData = {
@@ -471,7 +491,9 @@ const UsersProvider = ({ children }) => {
     signOut,
     userCreation,
     cancelUserCreation,
-    idUserCreated
+    idUserCreated,
+    allUsers,
+    getAllUsers
   };
 
   return (
