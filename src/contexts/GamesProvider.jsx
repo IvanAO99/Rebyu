@@ -159,49 +159,52 @@ const GamesProvider = ({ children }) => {
     }
   };
 
-  /*   const getLatestGames = async () => {
+  const getLatestGames = async () => {
     try {
       setIsLoadingLatestGames(initialValues.isLoadingLatestGames);
 
       const { data, error } = await supabaseConnection
         .from("games")
         .select(
-          "*, game_genre(genres(*)), game_platform(platforms(*)), game_developer(developers(*)), reviews (*)"
+          "*, game_genre(genres(*)), game_platform(platforms(*)), game_developer(developers(*))"
         )
         .order("release_date", { ascending: false })
-        .range(0, 2);
+        .range(0, 10);
 
       if (error) throw error;
 
       setLatestGames(data);
     } catch (error) {
-        console.log(error)
+      console.log(error);
     } finally {
       setIsLoadingLatestGames(false);
     }
-  }; */
+  };
 
-  /*   const getTopGames = async () => {
+  const getTopGames = async () => {
     try {
       setIsLoadingTopGames(initialValues.isLoadingTopGames);
 
       const { data, error } = await supabaseConnection
-        .from("games")
-        .select(
-          "*, game_genre(genres(*)), game_platform(platforms(*)), game_developer(developers(*)), reviews (*)"
-        );
+        .from("top_games")
+        .select("*")
+        .range(0, 10);
+
+      console.log(data);
 
       if (error) throw error;
 
-      const calculatedTopGames = calculateTopGames(data);
+      setTopGames(data);
 
-      setTopGames(calculatedTopGames);
+      //const calculatedTopGames = calculateTopGames(data);
+
+      //setTopGames(calculatedTopGames);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     } finally {
       setIsLoadingTopGames(false);
     }
-  }; */
+  };
 
   /**
    * Retrieves a specific game from the database by its ID, including associated genres, platforms, and developers.
@@ -381,7 +384,7 @@ const GamesProvider = ({ children }) => {
 
     // Determine which game data object to validate based on creation mode
     let actualGame = creationMode ? gameRegister : selectedGame;
-    
+
     // Validate title field
     if (!actualGame.title) {
       validationErrors = {
@@ -644,7 +647,7 @@ const GamesProvider = ({ children }) => {
    * Updates an existing game in the database and associated intermediary tables.
    */
   const updateGame = async () => {
-    console.log(selectedGame)
+    console.log(selectedGame);
     try {
       const { data, error } = await supabaseConnection
         .from("games")
@@ -689,7 +692,7 @@ const GamesProvider = ({ children }) => {
       // Reload games data
       getGames();
 
-      setSelectedGame(initialValues.gameRegister)
+      setSelectedGame(initialValues.gameRegister);
     } catch (error) {
       sendGameAlert("error", "The game could not be updated!");
     } finally {
@@ -754,7 +757,7 @@ const GamesProvider = ({ children }) => {
    * Deletes the selected game from the database.
    */
   const deleteGame = async () => {
-    console.log("entroo")
+    console.log("entroo");
     try {
       const { error } = await supabaseConnection
         .from("games")
@@ -849,8 +852,8 @@ const GamesProvider = ({ children }) => {
 
   useEffect(() => {
     getGames();
-    //getLatestGames();
-    //getTopGames();
+    getLatestGames();
+    getTopGames();
     getGenres();
     getDevelopers();
     getPlatforms();

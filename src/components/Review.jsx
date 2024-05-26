@@ -8,7 +8,7 @@ import {
 import { formatDateString } from "../libraries/manipulateData";
 import useReviews from "../hooks/useReviews";
 
-const Review = ({ review, ownReview = false }) => {
+const Review = ({ review, onSlide = false, ownReview = false }) => {
   const { users, reviews, likes, review_id } = review;
 
   const { handleLikes } = useReviews();
@@ -19,7 +19,11 @@ const Review = ({ review, ownReview = false }) => {
 
   return (
     <Fragment>
-      <div className="rounded-3xl shadow px-5 py-2 bg-gray-100 dark:bg-gray-800">
+      <div
+        className={` ${
+          onSlide && "w-[400px]"
+        } rounded-3xl shadow px-5 py-2 bg-gray-100 dark:bg-gray-800`}
+      >
         <div className="flex flex-row justify-between items-center gap-5">
           <div className="flex flex-row justify-center items-center gap-1">
             <img
@@ -29,11 +33,17 @@ const Review = ({ review, ownReview = false }) => {
               alt="User Profile Photo"
               className="rounded-full w-16 h-16 object-cover"
             />
-            <p className="hidden sm:block font-bold text-purple-600 italic">
+            <p
+              className={`w-auto ${
+                onSlide ? "block" : "hidden sm:block"
+              } font-bold text-purple-600 italic truncate`}
+            >
               <span>@</span>
               {users.nickname}
             </p>
-            {reviews.edited && <small className="italic">edited</small>}
+            {reviews.edited && (
+              <small className={`${onSlide && "hidden"} italic`}>edited</small>
+            )}
           </div>
           <div className="flex flex-row justify-center items-center gap-1">
             {[...Array(5)].map((star, i) => {
@@ -52,12 +62,14 @@ const Review = ({ review, ownReview = false }) => {
           </div>
         </div>
         <div className="relative flex flex-row justify-center items-center border-y my-2">
-          <p className="px-5 py-2 lg:py-8">{reviews.message}</p>
+          <p className={`${onSlide && "w-full truncate"} px-5 py-2 lg:py-8`}>
+            {reviews.message}
+          </p>
           {isSpoiler && (
             <div className="absolute top-0 flex flex-col justify-center items-center gap-5 w-full h-full backdrop-blur">
               <button
                 type="button"
-                className="rounded-3xl bg-red-600 hover:bg-red-400 text-gray-50 px-5 py-2"
+                className="rounded-3xl bg-red-600 hover:bg-red-400 text-gray-50 px-5 py-2 shadow transition-all duration-300"
                 onClick={() => {
                   setIsSpoiler(!isSpoiler);
                 }}
@@ -69,7 +81,7 @@ const Review = ({ review, ownReview = false }) => {
         </div>
         <div className="flex flex-row justify-between items-center">
           <p>{formatDateString(reviews.date_time)}</p>
-          {!ownReview && (
+          {!ownReview && !onSlide && (
             <div className="flex flex-row justify-center items-center gap-1 text-purple-600">
               <p className="">{likes}</p>
               <FaHeart

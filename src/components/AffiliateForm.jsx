@@ -115,7 +115,7 @@ function AffiliateForm() {
                 </label>
               </div>
               <div className="self-center">
-                <button className="rounded-3xl bg-purple-600 hover:bg-purple-400 px-4 py-2 text-gray-50">
+                <button className="rounded-3xl bg-purple-600 hover:bg-purple-400 px-4 py-2 text-gray-50 transition-all duration-300">
                   Accept
                 </button>
               </div>

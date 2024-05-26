@@ -14,7 +14,7 @@ const Lists = () => {
           <h2 className="text-5xl font-bold">LISTS</h2>
           <button
             type="button"
-            className="rounded-full bg-purple-600 hover:bg-purple-400 text-gray-50 p-2"
+            className="rounded-full bg-purple-600 hover:bg-purple-400 text-gray-50 p-2 transition-all duration-300"
             onClick={() => {
               showListFormModal(false);
             }}

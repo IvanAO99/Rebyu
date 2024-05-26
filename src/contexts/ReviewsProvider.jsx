@@ -256,17 +256,25 @@ const ReviewsProvider = ({ children }) => {
    * Fetches the last reviews from the "reviews" table, including details of the associated game and reviewer,
    * and updates the state accordingly.
    */
-  /*   const getLastReviews = async () => {
+  const getLastReviews = async () => {
     try {
       // Set loading state
       setIsLoadingLastReviews(true);
 
       // Fetch last reviews from the "reviews" table with game and reviewer details
-      let { data, error } = await supabaseConnection
+      /*       let { data, error } = await supabaseConnection
         .from("reviews")
-        .select("*, game:game_id (*), reviewer:users (*)")
+        .select("*")
         .order("date_time", { ascending: false })
-        .range(0, 20);
+        .range(0, 20); */
+
+      const { data, error } = await supabaseConnection
+        .from("user_game_review")
+        .select("*, reviews(*), users(*)")
+        .order("reviews(date_time)", { ascending: false })
+        .range(0, 24);
+
+      console.log(data);
 
       if (error) throw error;
 
@@ -282,7 +290,7 @@ const ReviewsProvider = ({ children }) => {
       // Reset loading state
       setIsLoadingLastReviews(initialValues.isLoadingLastReviews);
     }
-  }; */
+  };
 
   const getReviewLikes = async (reviewID) => {
     try {
@@ -321,7 +329,7 @@ const ReviewsProvider = ({ children }) => {
         .eq("game_id", game.id);
 
       if (error) throw error;
-      //console.log(data)
+      console.log(data);
       // Update reviews state with fetched data
       setReviews(data);
     } catch (error) {
@@ -645,9 +653,9 @@ const ReviewsProvider = ({ children }) => {
   /**
    * Effect hook to fetch the latest reviews when the component mounts.
    */
-  /*   useEffect(() => {
+  useEffect(() => {
     getLastReviews();
-  }, []); */
+  }, []);
 
   /**
    * Effect hook to fetch reviews associated with the current game whenever the 'game' prop changes.

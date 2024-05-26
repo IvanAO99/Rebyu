@@ -66,7 +66,7 @@ function LogInForm() {
             </div>
             <div className="self-center">
               <button
-                className="rounded-3xl bg-purple-600 hover:bg-purple-400 px-4 py-2 text-gray-50"
+                className="rounded-3xl bg-purple-600 hover:bg-purple-400 px-4 py-2 text-gray-50 transition-all duration-300"
                 onClick={() => handleSignIn()}
               >
                 Log In
@@ -78,7 +78,7 @@ function LogInForm() {
               Don't have an account?{" "}
               <Link
                 to={"/register"}
-                className="font-bold text-purple-600 hover:text-purple-400"
+                className="font-bold text-purple-600 hover:text-purple-400 transition-all duration-300"
               >
                 Register
               </Link>{" "}
