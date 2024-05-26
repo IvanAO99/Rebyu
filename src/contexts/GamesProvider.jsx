@@ -145,13 +145,34 @@ const GamesProvider = ({ children }) => {
         )
         .order("id");
 
-      if (error) {
+      const { data: scoreData, error: scoreError } = await supabaseConnection
+        .from("top_games")
+        .select("id, average_score")
+        .order("id");
+
+      if (error || scoreError) {
         //console.log(error);
         throw new Error(
           "Error loading games. Please reload the page and try again."
         );
       }
-      setGames(data);
+
+      const gamesWithScore = data.map((dataGame) => {
+        const matchingGame = scoreData.find(
+          (gameScore) => gameScore.id === dataGame.id
+        );
+
+        if (matchingGame) {
+          return {
+            ...dataGame,
+            average_score: matchingGame.average_score,
+          };
+        }
+
+        return dataGame;
+      });
+
+      setGames(gamesWithScore);
     } catch (error) {
       console.log(error.message);
     } finally {
@@ -693,7 +714,7 @@ const GamesProvider = ({ children }) => {
       setSelectedGame(initialValues.gameRegister);
     } catch (error) {
       sendGameAlert("error", "The game could not be updated!");
-    } 
+    }
   };
 
   /**

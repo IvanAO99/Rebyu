@@ -25,6 +25,22 @@ const Game = ({ game, onList = false }) => {
     if (action === "delete-game") deleteGame();
   };
 
+  const formatScore = (score) => {
+    let formattedScore = "";
+
+    if (score === null || score === undefined) {
+      formattedScore = "-";
+    } else {
+      const scaledScore = score * 2;
+      formattedScore = Number.isInteger(scaledScore)
+        ? scaledScore.toString()
+        : scaledScore.toFixed(1);
+      formattedScore += "/10";
+    }
+
+    return formattedScore;
+  };
+
   return (
     <Fragment>
       <div className="relative overflow-hidden rounded-3xl shadow w-60 h-60 lg:w-80 lg:h-80 group">
@@ -83,7 +99,9 @@ const Game = ({ game, onList = false }) => {
             className="object-cover w-full h-full"
           />
           <div className="absolute top-0 m-5 rounded-full bg-purple-600 shadow-2xl">
-            <p className="px-5 py-2 text-2xl text-gray-50">10</p>
+            <p className="px-5 py-2 text-2xl text-gray-50">
+              {formatScore(game.average_score)}
+            </p>
           </div>
         </div>
         <div className="absolute -bottom-full flex flex-col justify-center items-center gap-5 bg-gray-800 w-full h-full group-hover:bottom-0 transition-all duration-500">
