@@ -20,7 +20,7 @@ const Header = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  useEffect(() => {    
+  useEffect(() => {
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
       setTheme("dark");
     } else {
@@ -28,9 +28,9 @@ const Header = () => {
     }
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     setIsMenuOpen(false);
-  }, [user])
+  }, [user]);
 
   useEffect(() => {
     if (theme === "dark") {

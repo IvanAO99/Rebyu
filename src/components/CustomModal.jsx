@@ -2,7 +2,9 @@ import React from "react";
 import Modal from "react-modal";
 import { FaX } from "react-icons/fa6";
 
-const CustomModal = ({ children, isOpen = true }) => {
+Modal.setAppElement("#modal-root");
+
+const CustomModal = ({ children, isOpen }) => {
   return (
     <>
       <Modal
