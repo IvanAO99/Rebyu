@@ -638,8 +638,6 @@ const GamesProvider = ({ children }) => {
       getGames();
     } catch (error) {
       sendGameAlert("error", "The game could not be registered!");
-    } finally {
-      hideGamesOffCanvas();
     }
   };
 
@@ -695,9 +693,7 @@ const GamesProvider = ({ children }) => {
       setSelectedGame(initialValues.gameRegister);
     } catch (error) {
       sendGameAlert("error", "The game could not be updated!");
-    } finally {
-      hideGamesOffCanvas();
-    }
+    } 
   };
 
   /**

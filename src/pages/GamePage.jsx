@@ -12,6 +12,7 @@ import CustomModal from "../components/CustomModal";
 import ReviewFormModal from "../components/ReviewFormModal";
 import DeleteModal from "../components/DeleteModal";
 import useUsers from "../hooks/useUsers";
+import ReviewsFilter from "../components/ReviewsFilter";
 
 const GamePage = () => {
   const { isLoadingGame, game } = useGames();
@@ -24,7 +25,8 @@ const GamePage = () => {
     deletingReview,
     handleReviewSubmit,
     isLoadingReviews,
-    reviewsWithLikes
+    reviewsWithLikes,
+    filteredReviews
   } = useReviews();
 
   const { user, isAdmin } = useUsers();
@@ -83,8 +85,9 @@ const GamePage = () => {
               ) : (
                 <p>Log In for Review This Game!</p>
               )}
-              <div className="border-y-2 border-gray-100 dark:border-gray-800"></div>
-              <Reviews loading={isLoadingReviews} reviews={reviewsWithLikes} />
+              {/* <div className="border-y-2 border-gray-100 dark:border-gray-800"></div> */}
+              <ReviewsFilter />
+              <Reviews loading={isLoadingReviews} reviews={filteredReviews} />
             </div>
           </>
         ) : (

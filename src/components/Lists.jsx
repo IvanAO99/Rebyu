@@ -23,10 +23,7 @@ const Lists = () => {
           </button>
           <div className="flex-grow border-y-2 border-purple-600"></div>
         </div>
-        <div className="flex ml-10 py-4 gap-5">
-          <p>ACTIVE LIST:</p>
           <ActiveListForm />
-        </div>
         <div className="rounded-3xl shadow">
           {validateArray(userLists) ? (
             userLists.map((list, index) => (

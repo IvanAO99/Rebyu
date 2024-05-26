@@ -13,21 +13,27 @@ import AdminPage from "../pages/AdminPage.jsx";
 import { validateObject } from "../libraries/validateData.js";
 
 const RouterComponent = () => {
-  const { user, isAdmin } = useUsers();
+  const { isAdmin, isSessionUp } = useUsers();
   return (
     <Fragment>
       <Routes>
-        {isAdmin ? (
-          <Route path="/" element={<AdminPage />} />
-        ) : (
-          <Route path="/" element={<HomePage />} />
+        {isAdmin && isSessionUp && <Route path="/" element={<AdminPage />} />}
+        {isSessionUp && !isAdmin && (
+          <>
+            <Route path="profile" element={<ProfilePage />} />
+            <Route path="profile/lists" element={<ProfilePage />} />
+          </>
         )}
-        <Route path="/game" element={<GamePage />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/profile/lists" element={<ProfilePage />} />
-        <Route path="/login" element={<LogInPage />} />
-        <Route path="/register" element={<RegistrationPage />} />
-        <Route path="/affiliate" element={<AffiliatePage />} />
+        {!isSessionUp && !isAdmin && (
+          <>
+            <Route path="login" element={<LogInPage />} />
+            <Route path="register" element={<RegistrationPage />} />
+          </>
+        )}
+
+        <Route path="/" element={<HomePage />} />
+        <Route path="game" element={<GamePage />} />
+        <Route path="affiliate" element={<AffiliatePage />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </Fragment>

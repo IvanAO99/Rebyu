@@ -80,6 +80,15 @@ const ListsProvider = ({ children }) => {
       if (error) throw error;
 
       setUserLists(data);
+
+      /*PRUEBA*/
+      const favouritesList = data.find(list => list.name.toUpperCase() === "FAVOURITES");
+
+      // Si se encuentra la lista de favoritos, establecerla como selectedList
+      if (favouritesList) {
+        setSelectedList(favouritesList);
+      }
+      
     } catch (error) {
       console.log(error);
     }
@@ -287,6 +296,12 @@ const ListsProvider = ({ children }) => {
       creationMode ? createList() : updateList();
     }
   };
+
+  useEffect(()=>{
+    if (validateArray(userLists) & validateObject(selectedList)){
+      changeActiveList(selectedList.id);
+    }
+  }, [userLists])
 
   useEffect(() => {
     if (userCreation) {

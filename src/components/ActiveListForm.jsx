@@ -17,17 +17,16 @@ const ActiveListForm = () => {
   }, [selectedList, userLists, changeActiveList]);
 
   return (
-    <form>
+    <div className="w-2/5 mx-auto bg-gray-100 dark:bg-gray-800 p-4 rounded-md flex items-center justify-between shadow-md">
+      <label htmlFor="active-list" className="mr-2">Select your list to add to favorites!</label>
       <select
         name="active-list"
         onChange={(e) => {
           handleSelectChange(e);
         }}
         value={selectedList ? selectedList.id : "None"}
+        className="p-2 border border-gray-300 dark:border-gray-600 rounded-md"
       >
-        <option value="">
-          None
-        </option>
         {validateArray(userLists) ? (
           userLists.map((list, index) => (
             <option key={index} value={list.id}>
@@ -38,7 +37,7 @@ const ActiveListForm = () => {
           <option value="none">No lists found</option>
         )}
       </select>
-    </form>
+    </div>
   );
 };
 
