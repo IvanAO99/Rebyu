@@ -41,6 +41,7 @@ const ReviewsProvider = ({ children }) => {
     reviewsWithLikes: [],
     allReviews: [],
     allReviewsWithLike: [],
+    filteredReviews: []
   };
 
   /* STATES */
@@ -74,6 +75,8 @@ const ReviewsProvider = ({ children }) => {
   const [reviewsWithLikes, setReviewsWithLikes] = useState(
     initialValues.reviewsWithLikes
   );
+
+  const [filteredReviews, setFilteredReviews] = useState(initialValues.filteredReviews)
   /**
    * Display a toast notification for review-related actions.
    * @param {string} type - The type of alert ("success" or "error").
@@ -619,6 +622,27 @@ const ReviewsProvider = ({ children }) => {
     }
   };
 
+  const filterReviews = (filterType) => {
+    let filteredReviews = [];
+    let sortedReviews = [];
+    
+    switch (filterType) {
+      case 'positive':
+        filteredReviews = reviewsWithLikes.filter((review) => review.reviews.ia_score >= 0);
+        sortedReviews = filteredReviews.sort((a, b) => b.reviews.ia_score - a.reviews.ia_score);
+        break;
+      case 'negative':
+        filteredReviews = reviewsWithLikes.filter((review) => review.reviews.ia_score < 0);
+        sortedReviews = filteredReviews.sort((a, b) => b.reviews.ia_score - a.reviews.ia_score);
+        break;
+      default:
+        sortedReviews = reviewsWithLikes;
+        break;
+    }
+    
+    setFilteredReviews(sortedReviews);
+  }
+
   /*   useEffect(() => {
     if (validateArray(reviews)) {
       let array = [];
@@ -634,6 +658,10 @@ const ReviewsProvider = ({ children }) => {
       setReviewsWithLikes(array)
     }
   }, [reviews]) */
+
+  useEffect(()=>{
+    setFilteredReviews(reviewsWithLikes);
+  }, [reviewsWithLikes])
 
   useEffect(() => {
     if (validateArray(reviews)) {
@@ -692,6 +720,8 @@ const ReviewsProvider = ({ children }) => {
     reviewsWithLikes,
     handleLikes,
     getAllReviews,
+    filteredReviews,
+    filterReviews
   };
 
   return (

@@ -1,10 +1,14 @@
 import React from "react";
 import CountUp from "react-countup";
 import { useInView } from "react-intersection-observer";
+import { Link } from "react-router-dom";
+import useGames from "../hooks/useGames";
 
 function DecorativeCounter() {
-  const registeredGames = 232;
-  const affiliates = 323;
+  const {filteredGames} = useGames();
+
+  const registeredGames = filteredGames.length;
+  const affiliates = 232;
 
   const [registeredGamesInViewRef, registeredGamesInView] = useInView({
     threshold: 0.5,
@@ -18,7 +22,9 @@ function DecorativeCounter() {
 
   return (
     <div className="flex flex-col items-center justify-center bg-cover w-3/4 mx-auto">
-      <h1 className="text-5xl font-bold text-gray-800 mb-6">¡Already Many of Us!</h1>
+      <h1 className="text-5xl font-bold text-gray-800 dark:text-gray-200 mb-6">
+        ¡Already Many of Us!
+      </h1>
       <div className="w-full h-64 relative">
         <img
           src="src/assets/layout-image.png"
@@ -36,34 +42,41 @@ function DecorativeCounter() {
             <CountUp
               end={registeredGames}
               duration={3}
-              className="text-purple-500 text-7xl font-bold"
+              className="text-purple-500 dark:text-purple-400 text-7xl font-bold"
             />
           ) : (
-            <p className="text-purple-500 text-7xl font-bold">{registeredGames}</p>
+            <p className="text-purple-500 dark:text-purple-400 text-7xl font-bold">
+              {registeredGames}
+            </p>
           )}
-          <p className="text-3xl">Registered Games</p>
+          <p className="text-3xl text-gray-800 dark:text-gray-200">
+            Registered Games
+          </p>
         </div>
         <div className="flex flex-col items-center" ref={affiliatesInViewRef}>
           {affiliatesInView ? (
             <CountUp
               end={affiliates}
               duration={3}
-              className="text-purple-500 text-7xl font-bold"
+              className="text-purple-500 dark:text-purple-400 text-7xl font-bold"
             />
           ) : (
-            <p className="text-purple-500 text-7xl font-bold">{affiliates}</p>
+            <p className="text-purple-500 dark:text-purple-400 text-7xl font-bold">
+              {affiliates}
+            </p>
           )}
-          <p className="text-3xl">Affiliated People</p>
+          <p className="text-3xl text-gray-800 dark:text-gray-200">
+            Affiliated People
+          </p>
         </div>
       </div>
       <div className="flex flex-col items-center mt-4">
-        <p className="text-lg">What are you waiting for?</p>
-        <a
-          href="enlace/a/otra/web"
-          className="text-purple-500 hover:underline text-2xl"
-        >
-          Become a member and support the project!
-        </a>
+        <p className="text-lg text-gray-800 dark:text-gray-200">
+          What are you waiting for?
+        </p>
+        <Link to="/affiliate" className="text-purple-500 dark:text-purple-400 hover:underline text-2xl">
+        Become a member and support the project!
+        </Link>
       </div>
     </div>
   );

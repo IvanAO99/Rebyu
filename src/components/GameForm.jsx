@@ -19,9 +19,9 @@ function GameForm({ creationMode }) {
   return (
     <div>
       <div className="my-5">
-        <h1 className="text-6xl font-bold text-center">GAME CREATION</h1>
-        <h2 className="text-3xl text-center">
-          Share your games with the community
+        <h1 className="text-6xl font-bold text-center">{creationMode ? "GAME CREATION" : "GAME UPDATE"}</h1>
+        <h2 className="text-2xl text-center italic">
+        {creationMode ? "Share your games with the community" : "Update a game for the community"}
         </h2>
       </div>
       {/* <pre>{JSON.stringify(actualGame.title)}</pre>
