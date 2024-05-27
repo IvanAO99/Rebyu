@@ -151,7 +151,8 @@ const GamesProvider = ({ children }) => {
         .order("id");
 
       if (error || scoreError) {
-        //console.log(error);
+        console.log(error);
+        console.log(scoreError);
         throw new Error(
           "Error loading games. Please reload the page and try again."
         );

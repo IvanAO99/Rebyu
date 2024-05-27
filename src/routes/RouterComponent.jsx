@@ -11,27 +11,40 @@ import GamePage from "../pages/GamePage.jsx";
 import useUsers from "../hooks/useUsers.js";
 import AdminPage from "../pages/AdminPage.jsx";
 import { validateObject } from "../libraries/validateData.js";
+import Games from "../components/Games.jsx";
+import Reviews from "../components/Reviews.jsx";
 
 const RouterComponent = () => {
-  const { isAdmin, isSessionUp } = useUsers();
+  const { isSessionUp, user, isAdmin } = useUsers();
+
   return (
     <Fragment>
       <Routes>
-        {isAdmin && isSessionUp && <Route path="/" element={<AdminPage />} />}
-        {isSessionUp && !isAdmin && (
+        {isSessionUp && validateObject(user) && isAdmin ? (
+          <>
+            <Route path="/" element={<AdminPage />}>
+              <Route index element={<Games />} />
+              <Route path="/games" element={<Games />} />
+              <Route path="/reviews" element={<Reviews />} />
+            </Route>
+          </>
+        ) : (
+          <>
+            <Route path="/" element={<HomePage />} />
+          </>
+        )}
+        {isSessionUp && validateObject(user) && !isAdmin && (
           <>
             <Route path="profile" element={<ProfilePage />} />
             <Route path="profile/lists" element={<ProfilePage />} />
           </>
         )}
-        {!isSessionUp && !isAdmin && (
+        {!isSessionUp && !validateObject(user) && (
           <>
             <Route path="login" element={<LogInPage />} />
             <Route path="register" element={<RegistrationPage />} />
           </>
         )}
-
-        <Route path="/" element={<HomePage />} />
         <Route path="game" element={<GamePage />} />
         <Route path="affiliate" element={<AffiliatePage />} />
         <Route path="*" element={<ErrorPage />} />

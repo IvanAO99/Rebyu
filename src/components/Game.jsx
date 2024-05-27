@@ -8,7 +8,7 @@ import useGames from "../hooks/useGames";
 const Game = ({ game, onList = false }) => {
   const { id, synopsis, title, cover_pic } = game;
   const [isHovered, setIsHovered] = useState(false);
-  const { user, isAdmin } = useUsers();
+  const { isSessionUp, user, isAdmin } = useUsers();
   const { updateSelectedGame, deleteGame } = useGames();
   /* const { checkGameInList } = useLists();
 
@@ -63,22 +63,24 @@ const Game = ({ game, onList = false }) => {
               {isHovered ? <FaHeartCrack size={24} /> : <FaHeart size={24} />}
             </button>
           ) : (
+            isSessionUp &&
             validateObject(user) &&
             (isAdmin ? (
               <div
+                className="z-10 absolute top-0 right-0 m-5 flex flex-row gap-2"
                 onClick={(e) => {
                   handleGameActions(id, e.target.parentNode.id);
                 }}
               >
                 <button
                   type="button"
-                  className="absolute top-0 right-10 m-5 rounded-full text-purple-600 hover:text-purple-400 shadow-2xl z-10"
+                  className="rounded-full bg-gray-800/50 p-2 text-purple-600 hover:text-purple-400 shadow-2xl"
                 >
                   <FaPen size={24} id="update-game" />
                 </button>
                 <button
                   type="button"
-                  className="absolute top-0 right-0 m-5 rounded-full text-red-600 hover:text-red-400 shadow-2xl z-10"
+                  className="rounded-full bg-gray-800/50 p-2 text-red-600 hover:text-red-400 shadow-2xl"
                 >
                   <FaTrash size={24} id="delete-game" />
                 </button>
