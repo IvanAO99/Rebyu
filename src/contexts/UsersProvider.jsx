@@ -6,6 +6,7 @@ import { toast, Slide } from "react-toastify";
 import { supabaseConnection } from "../.config/supabase.js";
 
 import { validateObject } from "../libraries/validateData.js";
+import AlertIcon from "../components/AlertIcon.jsx";
 
 const UsersContext = createContext();
 
@@ -93,6 +94,7 @@ const UsersProvider = ({ children }) => {
             draggable: true,
             progress: undefined,
             theme: "colored",
+            icon: AlertIcon,
             transition: Slide,
           });
           break;
@@ -106,6 +108,7 @@ const UsersProvider = ({ children }) => {
             draggable: true,
             progress: undefined,
             theme: "colored",
+            icon: AlertIcon,
             transition: Slide,
           });
           break;

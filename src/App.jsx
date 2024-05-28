@@ -10,6 +10,7 @@ import ReviewsProvider from "./contexts/ReviewsProvider";
 import Main from "./structure/Main";
 import ListsProvider from "./contexts/ListsProvider";
 import Container from "./structure/Container";
+import Alert from "./components/Alert";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           </Container>
         </UsersProvider>
       </BrowserRouter>
+      <Alert />
     </Fragment>
   );
 }

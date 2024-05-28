@@ -12,6 +12,7 @@ import regex from "../jsons/regex.json";
 import { validateArray, validateObject } from "../libraries/validateData.js";
 
 import score_review from "../model/CohereModel.js";
+import AlertIcon from "../components/AlertIcon.jsx";
 
 const ReviewsContext = createContext();
 
@@ -41,7 +42,7 @@ const ReviewsProvider = ({ children }) => {
     reviewsWithLikes: [],
     allReviews: [],
     allReviewsWithLike: [],
-    filteredReviews: []
+    filteredReviews: [],
   };
 
   /* STATES */
@@ -76,7 +77,9 @@ const ReviewsProvider = ({ children }) => {
     initialValues.reviewsWithLikes
   );
 
-  const [filteredReviews, setFilteredReviews] = useState(initialValues.filteredReviews)
+  const [filteredReviews, setFilteredReviews] = useState(
+    initialValues.filteredReviews
+  );
   /**
    * Display a toast notification for review-related actions.
    * @param {string} type - The type of alert ("success" or "error").
@@ -100,6 +103,7 @@ const ReviewsProvider = ({ children }) => {
             draggable: true,
             progress: undefined,
             theme: "colored",
+            icon: AlertIcon,
             transition: Slide,
           });
           break;
@@ -113,6 +117,7 @@ const ReviewsProvider = ({ children }) => {
             draggable: true,
             progress: undefined,
             theme: "colored",
+            icon: AlertIcon,
             transition: Slide,
           });
           break;
@@ -625,23 +630,31 @@ const ReviewsProvider = ({ children }) => {
   const filterReviews = (filterType) => {
     let filteredReviews = [];
     let sortedReviews = [];
-    
+
     switch (filterType) {
-      case 'positive':
-        filteredReviews = reviewsWithLikes.filter((review) => review.reviews.ia_score >= 0);
-        sortedReviews = filteredReviews.sort((a, b) => b.reviews.ia_score - a.reviews.ia_score);
+      case "positive":
+        filteredReviews = reviewsWithLikes.filter(
+          (review) => review.reviews.ia_score >= 0
+        );
+        sortedReviews = filteredReviews.sort(
+          (a, b) => b.reviews.ia_score - a.reviews.ia_score
+        );
         break;
-      case 'negative':
-        filteredReviews = reviewsWithLikes.filter((review) => review.reviews.ia_score < 0);
-        sortedReviews = filteredReviews.sort((a, b) => b.reviews.ia_score - a.reviews.ia_score);
+      case "negative":
+        filteredReviews = reviewsWithLikes.filter(
+          (review) => review.reviews.ia_score < 0
+        );
+        sortedReviews = filteredReviews.sort(
+          (a, b) => b.reviews.ia_score - a.reviews.ia_score
+        );
         break;
       default:
         sortedReviews = reviewsWithLikes;
         break;
     }
-    
+
     setFilteredReviews(sortedReviews);
-  }
+  };
 
   /*   useEffect(() => {
     if (validateArray(reviews)) {
@@ -659,9 +672,9 @@ const ReviewsProvider = ({ children }) => {
     }
   }, [reviews]) */
 
-  useEffect(()=>{
+  useEffect(() => {
     setFilteredReviews(reviewsWithLikes);
-  }, [reviewsWithLikes])
+  }, [reviewsWithLikes]);
 
   useEffect(() => {
     if (validateArray(reviews)) {
@@ -721,7 +734,7 @@ const ReviewsProvider = ({ children }) => {
     handleLikes,
     getAllReviews,
     filteredReviews,
-    filterReviews
+    filterReviews,
   };
 
   return (
