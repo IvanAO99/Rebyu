@@ -40,8 +40,9 @@ const GamesProvider = ({ children }) => {
       game_developer: [],
     },
     gameRegisterErrors: [],
+    isGameFormModalOpen: false,
+    creationMode: true,
     isGameDeleteModalOpen: false,
-    creatingGame: false,
     gameFilter: {
       genre: "*",
       platform: "*",
@@ -79,10 +80,13 @@ const GamesProvider = ({ children }) => {
   );
 
   const [selectedGame, setSelectedGame] = useState(initialValues.gameRegister);
+  const [isGameFormModalOpen, setIsGameFormModalOpen] = useState(
+    initialValues.isGameFormModalOpen
+  );
   const [isGameDeleteModalOpen, setIsGameDeleteModalOpen] = useState(
     initialValues.isGameDeleteModalOpen
   );
-  const [creatingGame, setCreatingGame] = useState(initialValues.creatingGame);
+  const [creationMode, setCreationMode] = useState(initialValues.creationMode);
 
   const [filteredGames, setFilteredGames] = useState(initialValues.games);
   const [gameFilter, setGameFilter] = useState(initialValues.gameFilter);
@@ -125,6 +129,24 @@ const GamesProvider = ({ children }) => {
     };
 
     notify();
+  };
+
+  const showGameFormModal = (formMode) => {
+    setCreationMode(formMode === "create");
+
+    setIsGameFormModalOpen(true);
+  };
+
+  const hideGameFormModal = () => {
+    setIsGameFormModalOpen(initialValues.isGameFormModalOpen);
+  };
+
+  const showGameDeleteModal = () => {
+    setIsGameDeleteModalOpen(true);
+  };
+
+  const hideGameDeleteModal = () => {
+    setIsGameDeleteModalOpen(initialValues.isGameDeleteModalOpen);
   };
 
   /**
@@ -652,6 +674,8 @@ const GamesProvider = ({ children }) => {
         "developer_id"
       );
 
+      hideGameFormModal();
+
       // Reset game register state and errors, and reload games data
       sendGameAlert("success", "Game registered successfully!");
       //setGameAlert({ message: `Game ${data[0].id} registered successfully!` });
@@ -707,6 +731,8 @@ const GamesProvider = ({ children }) => {
         "game_id",
         "developer_id"
       );
+
+      hideGameFormModal();
 
       sendGameAlert("success", "Game updated successfully!");
       // Reload games data
@@ -897,13 +923,18 @@ const GamesProvider = ({ children }) => {
     updateSelectedGame,
     deleteGame,
     selectedGame,
-    creatingGame,
     isGameDeleteModalOpen,
     updateGameFilter,
     filteredGames,
     resetGameFilter,
     gameFilter,
     gameAlert,
+    isGameFormModalOpen,
+    creationMode,
+    showGameFormModal,
+    hideGameFormModal,
+    showGameDeleteModal,
+    hideGameDeleteModal,
   };
 
   return (
