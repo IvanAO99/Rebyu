@@ -9,23 +9,26 @@ import GamesProvider from "./contexts/GamesProvider";
 import ReviewsProvider from "./contexts/ReviewsProvider";
 import Main from "./structure/Main";
 import ListsProvider from "./contexts/ListsProvider";
+import Container from "./structure/Container";
 
 function App() {
   return (
     <Fragment>
       <BrowserRouter>
         <UsersProvider>
-          <Header />
-          <ListsProvider>
-            <GamesProvider>
-              <ReviewsProvider>
-                <Main>
-                  <RouterComponent />
-                </Main>
-              </ReviewsProvider>
-            </GamesProvider>
-          </ListsProvider>
-          <Footer />
+          <Container>
+            <Header />
+            <ListsProvider>
+              <GamesProvider>
+                <ReviewsProvider>
+                  <Main>
+                    <RouterComponent />
+                  </Main>
+                </ReviewsProvider>
+              </GamesProvider>
+            </ListsProvider>
+            <Footer />
+          </Container>
         </UsersProvider>
       </BrowserRouter>
     </Fragment>

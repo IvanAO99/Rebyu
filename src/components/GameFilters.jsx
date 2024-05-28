@@ -28,7 +28,7 @@ const GamesFilters = () => {
             onChange={(e) => {
               updateGameFilter(e.target);
             }}
-            className="border-none focus:outline-none focus:ring-2 focus:ring-purple-600 rounded-3xl bg-gray-100 dark:bg-gray-800 px-5 py-2 caret-purple-600 shadow"
+            className="cursor-pointer border-none focus:outline-none focus:ring-2 focus:ring-purple-600 rounded-3xl bg-gray-100 dark:bg-gray-800 px-5 py-2 caret-purple-600 shadow"
           >
             <option value="*">Select genre</option>
             {genres ? (
@@ -50,7 +50,7 @@ const GamesFilters = () => {
             onChange={(e) => {
               updateGameFilter(e.target);
             }}
-            className="border-none focus:outline-none focus:ring-2 focus:ring-purple-600 rounded-3xl bg-gray-100 dark:bg-gray-800 px-5 py-2 caret-purple-600 shadow"
+            className="cursor-pointer border-none focus:outline-none focus:ring-2 focus:ring-purple-600 rounded-3xl bg-gray-100 dark:bg-gray-800 px-5 py-2 caret-purple-600 shadow"
           >
             <option value="*">Select platform</option>
             {platforms ? (
@@ -72,7 +72,7 @@ const GamesFilters = () => {
             onChange={(e) => {
               updateGameFilter(e.target);
             }}
-            className="border-none focus:outline-none focus:ring-2 focus:ring-purple-600 rounded-3xl bg-gray-100 dark:bg-gray-800 px-5 py-2 caret-purple-600 shadow"
+            className="cursor-pointer border-none focus:outline-none focus:ring-2 focus:ring-purple-600 rounded-3xl bg-gray-100 dark:bg-gray-800 px-5 py-2 caret-purple-600 shadow"
           >
             <option value="*">Select developer</option>
             {developers ? (

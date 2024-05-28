@@ -40,8 +40,8 @@ const UsersProvider = ({ children }) => {
     isLoadingUser: false,
     isConfirmEmailOpen: false,
     userCreation: false,
-    idUserCreated: '',
-    allUsers: []
+    idUserCreated: "",
+    allUsers: [],
   };
 
   /* STATES */
@@ -63,7 +63,9 @@ const UsersProvider = ({ children }) => {
     initialValues.isConfirmEmailOpen
   );
   const [userCreation, setUserCreation] = useState(initialValues.userCreation);
-  const [idUserCreated, setIDUserCreated] = useState(initialValues.idUserCreated);
+  const [idUserCreated, setIDUserCreated] = useState(
+    initialValues.idUserCreated
+  );
   const [allUsers, setAllUsers] = useState(initialValues.allUsers);
 
   /* FUNCTIONS */
@@ -291,7 +293,6 @@ const UsersProvider = ({ children }) => {
         password: "Invalid sign-in credentials",
       });
     } finally {
-      setIsLoadingUser(initialValues.isLoadingUser);
       setSignInForm(initialValues.signInForm);
       setSignInFormErrors(initialValues.signInFormErrors);
     }
@@ -315,24 +316,27 @@ const UsersProvider = ({ children }) => {
       sendUserAlert("info", `Welcome! ${users[0].nickname}`);
 
       //console.log(user);
+      navigate("/");
     } catch (error) {
       sendUserAlert("error", "Something went wrong, please try again.");
+    } finally {
+      setIsLoadingUser(initialValues.isLoadingUser);
     }
   };
 
   const getAllUsers = async () => {
     try {
       const { data, error } = await supabaseConnection
-      .from("users")
-      .select("*");
+        .from("users")
+        .select("*");
 
       if (error) throw error;
 
       setAllUsers(data);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   /**
    * Get the current user's data and check if they have admin privileges.
@@ -427,7 +431,7 @@ const UsersProvider = ({ children }) => {
 
   const cancelUserCreation = () => {
     setUserCreation(false);
-  }
+  };
 
   /* USE EFFECTS */
 
@@ -449,8 +453,9 @@ const UsersProvider = ({ children }) => {
         if (session) {
           // Check if user information is already available
           if (!validateObject(user)) {
+            setIsLoadingUser(true);
+
             // Redirect to the authenticated route and initialize state
-            navigate("/");
             setIsConfirmEmailOpen(initialValues.isConfirmEmailOpen);
             setIsSessionUp(true);
 
@@ -468,9 +473,9 @@ const UsersProvider = ({ children }) => {
     );
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log(allUsers);
-  }, [allUsers])
+  }, [allUsers]);
 
   /* CONTEXT DATA */
 
@@ -493,7 +498,7 @@ const UsersProvider = ({ children }) => {
     cancelUserCreation,
     idUserCreated,
     allUsers,
-    getAllUsers
+    getAllUsers,
   };
 
   return (
