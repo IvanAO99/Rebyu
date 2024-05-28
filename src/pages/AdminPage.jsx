@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useUsers from "../hooks/useUsers";
-import Games from "../components/Games";
-import { FaPlus } from "react-icons/fa6";
 import GameForm from "../components/GameForm";
 import useReviews from "../hooks/useReviews";
-import Reviews from "../components/Reviews";
-import Users from "../components/Users";
 import { validateObject } from "../libraries/validateData";
 import { Outlet } from "react-router-dom";
 import CustomModal from "../components/CustomModal";
@@ -25,12 +21,10 @@ const AdminPage = () => {
     selectedGame,
   } = useGames();
 
-  const [selectedOption, setSelectedOption] = useState("users");
-  const { getAllReviews, reviewsWithLikes, isLoadingReviews } = useReviews();
+  const { getAllReviews, isLoadingReviews } = useReviews();
 
   useEffect(() => {
-    //getAllReviews();
-    getAllUsers();
+    getAllReviews();
   }, []);
 
   return (

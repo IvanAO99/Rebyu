@@ -78,12 +78,12 @@ const GamePage = () => {
                     </div>
                   </div>
                 </>
-              ) : validateObject(user) ? (
+              ) : validateObject(user) && !isAdmin ? (
                 <>
                   <ReviewForm />
                 </>
               ) : (
-                <p>Log In for Review This Game!</p>
+                <p>{isAdmin ? "Admins can't review gamea!" : "Log in to review this game!"}</p>
               )}
               {/* <div className="border-y-2 border-gray-100 dark:border-gray-800"></div> */}
               <ReviewsFilter />

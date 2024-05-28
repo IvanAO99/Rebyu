@@ -911,6 +911,7 @@ const GamesProvider = ({ children }) => {
 
   const refreshGames = () => {
     getGames();
+    getGame(game.id);
   }
 
   /*   useEffect(()=>{

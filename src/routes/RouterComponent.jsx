@@ -14,10 +14,12 @@ import { validateObject } from "../libraries/validateData.js";
 import Games from "../components/Games.jsx";
 import Reviews from "../components/Reviews.jsx";
 import AdminWelcome from "../components/AdminWelcome.jsx";
+import useReviews from "../hooks/useReviews.js";
+import ReviewAdministration from "../components/ReviewAdministration.jsx";
 
 const RouterComponent = () => {
   const { isSessionUp, user, isAdmin } = useUsers();
-
+  const { filteredReviews } = useReviews();
   return (
     <Fragment>
       <Routes>
@@ -26,7 +28,7 @@ const RouterComponent = () => {
             <Route path="/" element={<AdminPage />}>
               <Route index element={<AdminWelcome />} />
               <Route path="/games" element={<Games />} />
-              <Route path="/reviews" element={<Reviews />} />
+              <Route path="/reviews" element={<ReviewAdministration />} />
             </Route>
           </>
         ) : (

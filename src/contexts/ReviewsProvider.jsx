@@ -212,6 +212,27 @@ const ReviewsProvider = ({ children }) => {
     }
   };
 
+  const deleteUserReview = async (reviewId) => {
+    try {
+      const { data, error } = await supabaseConnection
+        .from("reviews")
+        .delete()
+        .eq("id", reviewId)
+        .select();
+
+      if (error) throw error;
+
+      // Display a success alert and reset the deletingReview state
+      sendReviewAlert("success", "Review deleted successfully!");
+      setDeletingReview(initialValues.deletingReview);
+    } catch (error) {
+      // Display an error alert if something goes wrong
+      sendReviewAlert("error", "The review could not be deleted!");
+    } finally {
+      getAllReviews();
+    }
+  }
+
   const getUserReview = async () => {
     try {
       const { data, error } = await supabaseConnection
@@ -659,22 +680,6 @@ const ReviewsProvider = ({ children }) => {
     setFilteredReviews(sortedReviews);
   };
 
-  /*   useEffect(() => {
-    if (validateArray(reviews)) {
-      let array = [];
-
-      reviews.forEach(async (review) => {
-        const likes = await getReviewLikes(review.review_id);
-        const reviewWithLikes = { ...review, likes };
-        array.push(reviewWithLikes); 
-      });
-
-      console.log(array)
-      console.log(array.length)
-      setReviewsWithLikes(array)
-    }
-  }, [reviews]) */
-
   useEffect(() => {
     setFilteredReviews(reviewsWithLikes);
   }, [reviewsWithLikes]);
@@ -738,6 +743,7 @@ const ReviewsProvider = ({ children }) => {
     getAllReviews,
     filteredReviews,
     filterReviews,
+    deleteUserReview
   };
 
   return (
