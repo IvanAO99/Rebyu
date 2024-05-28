@@ -4,6 +4,7 @@ import useLists from "../hooks/useLists";
 import useUsers from "../hooks/useUsers";
 import { validateObject } from "../libraries/validateData";
 import useGames from "../hooks/useGames";
+import { formatScore } from "../libraries/manipulateData";
 
 const Game = ({ game, onList = false }) => {
   const { id, synopsis, title, cover_pic } = game;
@@ -24,22 +25,6 @@ const Game = ({ game, onList = false }) => {
     /*MOSTRAR MODAL EN CASO DE BORRADO*/
     /*Si no va es porque llama a deleteGame antes de seleccionarlo*/
     if (action === "delete-game") showGameDeleteModal();
-  };
-
-  const formatScore = (score) => {
-    let formattedScore = "";
-
-    if (score === null || score === undefined) {
-      formattedScore = "-";
-    } else {
-      const scaledScore = score * 2;
-      formattedScore = Number.isInteger(scaledScore)
-        ? scaledScore.toString()
-        : scaledScore.toFixed(1);
-      formattedScore += "/10";
-    }
-
-    return formattedScore;
   };
 
   return (

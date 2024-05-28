@@ -18,7 +18,7 @@ const ReviewsContext = createContext();
 
 const ReviewsProvider = ({ children }) => {
   const { user, isSessionUp } = useUsers();
-  const { game } = useGames();
+  const { game, refreshGames } = useGames();
 
   /* INITIAL STATES VALUES */
 
@@ -368,6 +368,7 @@ const ReviewsProvider = ({ children }) => {
 
       getUserReview();
       getReviewsByGame();
+      refreshGames();
     } catch (error) {
       console.log(error);
     }
@@ -428,6 +429,7 @@ const ReviewsProvider = ({ children }) => {
       sendReviewAlert("success", "Review updated successfully!");
       getUserReview(game.id);
       getReviewsByGame(game.id);
+      refreshGames();
 
       // Close the review form modal
       setIsReviewFormModalOpen(initialValues.isReviewFormModalOpen);
@@ -459,6 +461,7 @@ const ReviewsProvider = ({ children }) => {
       // Display a success alert and reset the deletingReview state
       sendReviewAlert("success", "Review deleted successfully!");
       setDeletingReview(initialValues.deletingReview);
+      refreshGames();
     } catch (error) {
       // Display an error alert if something goes wrong
       sendReviewAlert("error", "The review could not be deleted!");
