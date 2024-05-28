@@ -11,7 +11,7 @@ const Main = ({ children }) => {
       {isSessionUp && validateObject(user) && isAdmin ? (
         <>
           <Aside />
-          <main className="max-h-screen flex-grow overflow-y-scroll">
+          <main className="min-h-screen flex-grow overflow-y-scroll">
             {children}
           </main>
         </>
