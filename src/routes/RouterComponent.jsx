@@ -13,6 +13,7 @@ import AdminPage from "../pages/AdminPage.jsx";
 import { validateObject } from "../libraries/validateData.js";
 import Games from "../components/Games.jsx";
 import Reviews from "../components/Reviews.jsx";
+import AdminWelcome from "../components/AdminWelcome.jsx";
 
 const RouterComponent = () => {
   const { isSessionUp, user, isAdmin } = useUsers();
@@ -23,7 +24,7 @@ const RouterComponent = () => {
         {isSessionUp && validateObject(user) && isAdmin ? (
           <>
             <Route path="/" element={<AdminPage />}>
-              <Route index element={<Games />} />
+              <Route index element={<AdminWelcome />} />
               <Route path="/games" element={<Games />} />
               <Route path="/reviews" element={<Reviews />} />
             </Route>

@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import { FaPlus } from "react-icons/fa6";
 import GamesFilters from "./GameFilters";
 import useGames from "../hooks/useGames";
 import useLists from "../hooks/useLists.js";
@@ -9,7 +10,8 @@ import Loading from "./Loading.jsx";
 
 function Games() {
   const { isSessionUp, user, isAdmin } = useUsers();
-  const { isLoadingGames, filteredGames, getGame } = useGames();
+  const { isLoadingGames, filteredGames, getGame, showGameFormModal } =
+    useGames();
   const { addGameToList } = useLists();
 
   /**
@@ -32,13 +34,24 @@ function Games() {
   return (
     <Fragment>
       <div>
-        <div className="flex flex-row justify-stretch items-center gap-1 py-2">
+        <div className="flex flex-row justify-stretch items-center gap-2 py-2">
           <div className="flex-grow border-y-2 border-purple-600"></div>
           <h2 className="text-6xl font-bold">
             {isSessionUp && validateObject(user) && isAdmin
               ? "GAMES"
               : "CHECK ALL OUR GAMES!"}
           </h2>
+          {isSessionUp && validateObject(user) && isAdmin && (
+            <>
+              <button
+                type="button"
+                className="rounded-full bg-purple-600 hover:bg-purple-400 text-gray-50 p-2 transition-all duration-300"
+                onClick={() => showGameFormModal("create")}
+              >
+                <FaPlus size={24} />
+              </button>
+            </>
+          )}
           <div className="flex-grow border-y-2 border-purple-600"></div>
         </div>
         <GamesFilters />

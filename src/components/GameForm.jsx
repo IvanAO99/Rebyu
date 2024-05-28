@@ -9,7 +9,6 @@ function GameForm({ creationMode }) {
     gameRegister,
     updateGameForm,
     handleCheckboxChange,
-    handleGameForm,
     gameRegisterErrors,
     selectedGame,
   } = useGames();
@@ -18,12 +17,6 @@ function GameForm({ creationMode }) {
 
   return (
     <div>
-      <div className="my-5">
-        <h1 className="text-6xl font-bold text-center">{creationMode ? "GAME CREATION" : "GAME UPDATE"}</h1>
-        <h2 className="text-2xl text-center italic">
-        {creationMode ? "Share your games with the community" : "Update a game for the community"}
-        </h2>
-      </div>
       {/* <pre>{JSON.stringify(actualGame.title)}</pre>
       <pre>{JSON.stringify(selectedGame.title)}</pre> */}
       <form
@@ -55,7 +48,9 @@ function GameForm({ creationMode }) {
               }}
             />
 
-            {gameRegisterErrors.title && (<p className="text-red-400">{gameRegisterErrors.title}</p>)}
+            {gameRegisterErrors.title && (
+              <p className="text-red-400">{gameRegisterErrors.title}</p>
+            )}
           </div>
           <div className="flex flex-col gap-1 w-full max-w-md">
             <label
@@ -78,7 +73,9 @@ function GameForm({ creationMode }) {
                 updateGameForm(event.target, creationMode);
               }}
             />
-            {gameRegisterErrors.release_date && (<p className="text-red-400">{gameRegisterErrors.release_date}</p>)}
+            {gameRegisterErrors.release_date && (
+              <p className="text-red-400">{gameRegisterErrors.release_date}</p>
+            )}
           </div>
           <div className="flex flex-col gap-1 w-full max-w-md">
             <label
@@ -102,7 +99,9 @@ function GameForm({ creationMode }) {
                 updateGameForm(event.target, creationMode);
               }}
             />
-            {gameRegisterErrors.cover_pic && (<p className="text-red-400">{gameRegisterErrors.cover_pic}</p>)}
+            {gameRegisterErrors.cover_pic && (
+              <p className="text-red-400">{gameRegisterErrors.cover_pic}</p>
+            )}
           </div>
           <div className="flex flex-col gap-1 w-full max-w-md">
             <label
@@ -126,7 +125,9 @@ function GameForm({ creationMode }) {
                 updateGameForm(event.target, creationMode);
               }}
             />
-            {gameRegisterErrors.trailer && (<p className="text-red-400">{gameRegisterErrors.trailer}</p>)}
+            {gameRegisterErrors.trailer && (
+              <p className="text-red-400">{gameRegisterErrors.trailer}</p>
+            )}
           </div>
           <div className="flex flex-col gap-1 w-full max-w-md">
             <label
@@ -149,7 +150,9 @@ function GameForm({ creationMode }) {
                 updateGameForm(event.target, creationMode);
               }}
             />
-            {gameRegisterErrors.synopsis && (<p className="text-red-400">{gameRegisterErrors.synopsis}</p>)}
+            {gameRegisterErrors.synopsis && (
+              <p className="text-red-400">{gameRegisterErrors.synopsis}</p>
+            )}
           </div>
         </div>
         <div className="md:w-full flex flex-col md:flex-row md:pl-5 items-center justify-center gap-24 my-10">
@@ -160,7 +163,9 @@ function GameForm({ creationMode }) {
             >
               Genre
             </label>
-            {gameRegisterErrors.game_genre && (<p className="text-red-400">{gameRegisterErrors.game_genre}</p>)}
+            {gameRegisterErrors.game_genre && (
+              <p className="text-red-400">{gameRegisterErrors.game_genre}</p>
+            )}
             {genres ? (
               genres.map((genre) => (
                 <div key={genre.id} className="flex items-center">
@@ -189,7 +194,11 @@ function GameForm({ creationMode }) {
             >
               Developer
             </label>
-            {gameRegisterErrors.game_developer && (<p className="text-red-400">{gameRegisterErrors.game_developer}</p>)}
+            {gameRegisterErrors.game_developer && (
+              <p className="text-red-400">
+                {gameRegisterErrors.game_developer}
+              </p>
+            )}
             {developers ? (
               developers.map((developer) => (
                 <div key={developer.id} className="flex items-center">
@@ -218,7 +227,9 @@ function GameForm({ creationMode }) {
             >
               Platform
             </label>
-            {gameRegisterErrors.game_platform && (<p className="text-red-400">{gameRegisterErrors.game_platform}</p>)}
+            {gameRegisterErrors.game_platform && (
+              <p className="text-red-400">{gameRegisterErrors.game_platform}</p>
+            )}
             {platforms ? (
               platforms.map((platform) => (
                 <div key={platform.id} className="flex items-center">
@@ -240,14 +251,6 @@ function GameForm({ creationMode }) {
               <div>Error. Reload the page</div>
             )}
           </div>
-        </div>
-        <div className="self-center">
-          <button
-            className="rounded-3xl bg-purple-600 hover:bg-purple-400 px-4 py-2 text-gray-50"
-            onClick={() => handleGameForm(creationMode)}
-          >
-            Submit
-          </button>
         </div>
       </form>
     </div>

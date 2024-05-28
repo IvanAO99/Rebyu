@@ -9,7 +9,8 @@ const Game = ({ game, onList = false }) => {
   const { id, synopsis, title, cover_pic } = game;
   const [isHovered, setIsHovered] = useState(false);
   const { isSessionUp, user, isAdmin } = useUsers();
-  const { updateSelectedGame, deleteGame } = useGames();
+  const { showGameFormModal, updateSelectedGame, showGameDeleteModal } =
+    useGames();
   /* const { checkGameInList } = useLists();
 
   const inList = checkGameInList(id); */
@@ -18,11 +19,11 @@ const Game = ({ game, onList = false }) => {
     updateSelectedGame(id);
 
     /*MOSTRAR MODAL EN CASO DE UPDATE*/
-    /* if (action === "update-game") MODAL ; */
+    if (action === "update-game") showGameFormModal("update");
 
     /*MOSTRAR MODAL EN CASO DE BORRADO*/
     /*Si no va es porque llama a deleteGame antes de seleccionarlo*/
-    if (action === "delete-game") deleteGame();
+    if (action === "delete-game") showGameDeleteModal();
   };
 
   const formatScore = (score) => {

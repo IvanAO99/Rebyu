@@ -11,12 +11,14 @@ import LatestReviews from "../components/LatestReviews.jsx";
 import LatestGames from "../components/LatestGames.jsx";
 import ActiveListForm from "../components/ActiveListForm.jsx";
 import useUsers from "../hooks/useUsers.js";
+import NewGames from "../components/NewGames.jsx";
 
 const HomePage = () => {
   const { isSessionUp } = useUsers();
   return (
     <Fragment>
       <div>
+        <NewGames />
         {isSessionUp && <ActiveListForm />}
         <Games />
         <TopGames />

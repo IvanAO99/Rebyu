@@ -2,6 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+.swiper-pagination-bullets.swiper-pagination-horizontal {
+  @apply w-auto;
+}
+
+button.swiper-pagination-bullet {
+  @apply shadow p-2;
+}
+
+.custom-bullet {
+  @apply rounded-full p-2 bg-gray-800/50 hover:bg-gray-800 transition-all duration-300;
+}
+
+.swiper-pagination-bullet-active.custom-bullet {
+  @apply bg-purple-600 transition-all duration-300;
+}
+
 .slick-track {
   display: flex;
   flex-direction: row;

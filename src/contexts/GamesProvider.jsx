@@ -8,6 +8,7 @@ import { calculateTopGames } from "../libraries/manipulateData.js";
 
 import { toast, Slide } from "react-toastify";
 import useLists from "../hooks/useLists.js";
+import AlertIcon from "../components/AlertIcon.jsx";
 
 const GamesContext = createContext();
 
@@ -18,6 +19,7 @@ const GamesProvider = ({ children }) => {
 
   /* INITIAL STATES VALUES */
   const initialValues = {
+    newGames: [],
     genres: [],
     developers: [],
     platforms: [],
@@ -40,8 +42,9 @@ const GamesProvider = ({ children }) => {
       game_developer: [],
     },
     gameRegisterErrors: [],
+    isGameFormModalOpen: false,
+    creationMode: true,
     isGameDeleteModalOpen: false,
-    creatingGame: false,
     gameFilter: {
       genre: "*",
       platform: "*",
@@ -52,6 +55,7 @@ const GamesProvider = ({ children }) => {
   };
 
   /* STATES */
+  const [newGames, setNewGames] = useState(initialValues.newGames);
   const [games, setGames] = useState(initialValues.games);
   const [latestGames, setLatestGames] = useState(initialValues.latestGames);
   const [topGames, setTopGames] = useState(initialValues.topGames);
@@ -79,10 +83,13 @@ const GamesProvider = ({ children }) => {
   );
 
   const [selectedGame, setSelectedGame] = useState(initialValues.gameRegister);
+  const [isGameFormModalOpen, setIsGameFormModalOpen] = useState(
+    initialValues.isGameFormModalOpen
+  );
   const [isGameDeleteModalOpen, setIsGameDeleteModalOpen] = useState(
     initialValues.isGameDeleteModalOpen
   );
-  const [creatingGame, setCreatingGame] = useState(initialValues.creatingGame);
+  const [creationMode, setCreationMode] = useState(initialValues.creationMode);
 
   const [filteredGames, setFilteredGames] = useState(initialValues.games);
   const [gameFilter, setGameFilter] = useState(initialValues.gameFilter);
@@ -103,6 +110,7 @@ const GamesProvider = ({ children }) => {
             draggable: true,
             progress: undefined,
             theme: "colored",
+            icon: AlertIcon,
             transition: Slide,
           });
           break;
@@ -116,6 +124,7 @@ const GamesProvider = ({ children }) => {
             draggable: true,
             progress: undefined,
             theme: "colored",
+            icon: AlertIcon,
             transition: Slide,
           });
           break;
@@ -125,6 +134,24 @@ const GamesProvider = ({ children }) => {
     };
 
     notify();
+  };
+
+  const showGameFormModal = (formMode) => {
+    setCreationMode(formMode === "create");
+
+    setIsGameFormModalOpen(true);
+  };
+
+  const hideGameFormModal = () => {
+    setIsGameFormModalOpen(initialValues.isGameFormModalOpen);
+  };
+
+  const showGameDeleteModal = () => {
+    setIsGameDeleteModalOpen(true);
+  };
+
+  const hideGameDeleteModal = () => {
+    setIsGameDeleteModalOpen(initialValues.isGameDeleteModalOpen);
   };
 
   /**
@@ -179,6 +206,22 @@ const GamesProvider = ({ children }) => {
     } finally {
       setIsLoadingGames(false);
     }
+  };
+
+  const getNewGames = async () => {
+    try {
+      const { data, error } = await supabaseConnection
+        .from("games")
+        .select(
+          "*, game_genre(genres(*)), game_platform(platforms(*)), game_developer(developers(*))"
+        )
+        .order("release_date", { ascending: false })
+        .range(0, 2);
+
+      if (error) throw error;
+
+      setNewGames(data);
+    } catch (error) {}
   };
 
   const getLatestGames = async () => {
@@ -652,6 +695,8 @@ const GamesProvider = ({ children }) => {
         "developer_id"
       );
 
+      hideGameFormModal();
+
       // Reset game register state and errors, and reload games data
       sendGameAlert("success", "Game registered successfully!");
       //setGameAlert({ message: `Game ${data[0].id} registered successfully!` });
@@ -707,6 +752,8 @@ const GamesProvider = ({ children }) => {
         "game_id",
         "developer_id"
       );
+
+      hideGameFormModal();
 
       sendGameAlert("success", "Game updated successfully!");
       // Reload games data
@@ -869,6 +916,7 @@ const GamesProvider = ({ children }) => {
   }, [games]);
 
   useEffect(() => {
+    getNewGames();
     getGames();
     getLatestGames();
     getTopGames();
@@ -878,6 +926,7 @@ const GamesProvider = ({ children }) => {
   }, []);
 
   const gamesData = {
+    newGames,
     games,
     isLoadingGames,
     latestGames,
@@ -897,13 +946,18 @@ const GamesProvider = ({ children }) => {
     updateSelectedGame,
     deleteGame,
     selectedGame,
-    creatingGame,
     isGameDeleteModalOpen,
     updateGameFilter,
     filteredGames,
     resetGameFilter,
     gameFilter,
     gameAlert,
+    isGameFormModalOpen,
+    creationMode,
+    showGameFormModal,
+    hideGameFormModal,
+    showGameDeleteModal,
+    hideGameDeleteModal,
   };
 
   return (
