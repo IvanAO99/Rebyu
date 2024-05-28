@@ -80,6 +80,28 @@ const ReviewsProvider = ({ children }) => {
   const [filteredReviews, setFilteredReviews] = useState(
     initialValues.filteredReviews
   );
+
+  const [filteredByUserAndMessage, setFilteredByUserAndMessage] = useState([]);
+
+  const filterReviewsByUserAndMessage = (reviews, searchTerm) => {
+    return reviews.filter(
+      ({ reviews, users }) =>
+        users.nickname.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        reviews.message.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  };
+
+  const handleFilter = (searchTerm) => {
+    console.log(searchTerm);
+    if (!searchTerm) {
+      setFilteredByUserAndMessage(filteredReviews);
+      return;
+    }
+
+    const filtered = filterReviewsByUserAndMessage(filteredReviews, searchTerm);
+    setFilteredByUserAndMessage(filtered);
+  };
+
   /**
    * Display a toast notification for review-related actions.
    * @param {string} type - The type of alert ("success" or "error").
@@ -231,7 +253,7 @@ const ReviewsProvider = ({ children }) => {
     } finally {
       getAllReviews();
     }
-  }
+  };
 
   const getUserReview = async () => {
     try {
@@ -681,6 +703,10 @@ const ReviewsProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    setFilteredByUserAndMessage(filteredReviews);
+  }, [filteredReviews]);
+
+  useEffect(() => {
     setFilteredReviews(reviewsWithLikes);
   }, [reviewsWithLikes]);
 
@@ -743,7 +769,9 @@ const ReviewsProvider = ({ children }) => {
     getAllReviews,
     filteredReviews,
     filterReviews,
-    deleteUserReview
+    deleteUserReview,
+    filteredByUserAndMessage,
+    handleFilter,
   };
 
   return (
