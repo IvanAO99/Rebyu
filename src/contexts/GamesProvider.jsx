@@ -18,6 +18,7 @@ const GamesProvider = ({ children }) => {
 
   /* INITIAL STATES VALUES */
   const initialValues = {
+    newGames: [],
     genres: [],
     developers: [],
     platforms: [],
@@ -53,6 +54,7 @@ const GamesProvider = ({ children }) => {
   };
 
   /* STATES */
+  const [newGames, setNewGames] = useState(initialValues.newGames);
   const [games, setGames] = useState(initialValues.games);
   const [latestGames, setLatestGames] = useState(initialValues.latestGames);
   const [topGames, setTopGames] = useState(initialValues.topGames);
@@ -201,6 +203,22 @@ const GamesProvider = ({ children }) => {
     } finally {
       setIsLoadingGames(false);
     }
+  };
+
+  const getNewGames = async () => {
+    try {
+      const { data, error } = await supabaseConnection
+        .from("games")
+        .select(
+          "*, game_genre(genres(*)), game_platform(platforms(*)), game_developer(developers(*))"
+        )
+        .order("release_date", { ascending: false })
+        .range(0, 2);
+
+      if (error) throw error;
+
+      setNewGames(data);
+    } catch (error) {}
   };
 
   const getLatestGames = async () => {
@@ -895,6 +913,7 @@ const GamesProvider = ({ children }) => {
   }, [games]);
 
   useEffect(() => {
+    getNewGames();
     getGames();
     getLatestGames();
     getTopGames();
@@ -904,6 +923,7 @@ const GamesProvider = ({ children }) => {
   }, []);
 
   const gamesData = {
+    newGames,
     games,
     isLoadingGames,
     latestGames,
