@@ -34,7 +34,7 @@ To run this project locally, follow these steps:
    ```bash
     VITE_API_KEY=<API_KEY_COHERE>
     ```
-    You can obtain your API key by creating a free account on the official Cohere website: [Cohere Dashboard](https://dashboard.cohere.com/)a
+    You can obtain your API key by creating a free account on the official Cohere website: [Cohere Dashboard](https://dashboard.cohere.com/)
 
 
 4. **Install the dependencies:**
