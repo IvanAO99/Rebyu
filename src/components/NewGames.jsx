@@ -51,8 +51,8 @@ const NewGames = () => {
           >
             {validateArray(newGames) &&
               newGames.map((newGame, index) => (
-                <Fragment>
-                  <SwiperSlide>
+                <Fragment key={crypto.randomUUID()}>
+                  <SwiperSlide key={crypto.randomUUID()}>
                     <NewGame game={newGame} />
                   </SwiperSlide>
                 </Fragment>
