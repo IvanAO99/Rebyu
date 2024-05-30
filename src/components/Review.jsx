@@ -97,7 +97,7 @@ const Review = ({ review, onSlide = false, ownReview = false }) => {
             </div>
           )}
           {isAdmin && (
-            <div className="rounded-full p-2 text-red-600 hover:text-red-400 shadow-2xl cursor-pointer">
+            <div className="cursor-pointer shadow rounded-full p-2 text-red-600 hover:text-red-400">
               <FaTrash
                 size={24}
                 onClick={() => {

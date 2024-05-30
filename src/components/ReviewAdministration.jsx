@@ -4,21 +4,23 @@ import Reviews from "./Reviews";
 import useReviews from "../hooks/useReviews";
 
 function ReviewAdministration() {
-  const { handleFilter, filteredByUserAndMessage } = useReviews();
+  const { handleFilter, isLoadingReviews, filteredByUserAndMessage } =
+    useReviews();
+
   const handleSearchChange = (event) => {
     handleFilter(event.target.value);
   };
 
   return (
     <div>
-        {/* Esto hay que ponerlo más bonico, pero al menos va */}
       <input
-        type="text"
+        type="search"
         placeholder="Search for a user or a message..."
-        onChange={handleSearchChange}
+        className="shadow ml-5 rounded-3xl border-none focus:outline-none focus:ring-2 focus:ring-purple-600 bg-gray-100 dark:bg-gray-800 px-5 py-2 caret-purple-600"
+        onChange={(event) => handleSearchChange(event)}
       />
       <ReviewsFilter />
-      <Reviews reviews={filteredByUserAndMessage} />
+      <Reviews loading={isLoadingReviews} reviews={filteredByUserAndMessage} />
     </div>
   );
 }
