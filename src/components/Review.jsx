@@ -4,25 +4,29 @@ import {
   FaRegStar,
   FaRegStarHalfStroke,
   FaStar,
+  FaTrash,
 } from "react-icons/fa6";
 import { formatDateString } from "../libraries/manipulateData";
 import useReviews from "../hooks/useReviews";
+import useUsers from "../hooks/useUsers";
 
 const Review = ({ review, onSlide = false, ownReview = false }) => {
   const { users, reviews, likes, review_id } = review;
 
-  const { handleLikes } = useReviews();
+  const { handleLikes, deleteUserReview } = useReviews();
 
   const [isSpoiler, setIsSpoiler] = useState(
     ownReview ? false : reviews.spoiler
   );
+
+  const { isAdmin } = useUsers();
 
   return (
     <Fragment>
       <div
         className={` ${
           onSlide && "w-[400px]"
-        } rounded-3xl shadow px-5 py-2 bg-gray-100 dark:bg-gray-800`}
+        } rounded-3xl shadow px-5 py-2 bg-gray-100 dark:bg-gray-800 w-[400px] md:w-[800px]`}
       >
         <div className="flex flex-row justify-between items-center gap-5">
           <div className="flex flex-row justify-center items-center gap-1">
@@ -81,13 +85,23 @@ const Review = ({ review, onSlide = false, ownReview = false }) => {
         </div>
         <div className="flex flex-row justify-between items-center">
           <p>{formatDateString(reviews.date_time)}</p>
-          {!ownReview && !onSlide && (
+          {!ownReview && !isAdmin && !onSlide && (
             <div className="flex flex-row justify-center items-center gap-1 text-purple-600">
               <p className="">{likes}</p>
               <FaHeart
                 size={24}
                 onClick={() => {
                   handleLikes(review_id);
+                }}
+              />
+            </div>
+          )}
+          {isAdmin && (
+            <div className="rounded-full p-2 text-red-600 hover:text-red-400 shadow-2xl cursor-pointer">
+              <FaTrash
+                size={24}
+                onClick={() => {
+                  deleteUserReview(review_id);
                 }}
               />
             </div>

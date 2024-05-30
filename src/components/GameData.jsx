@@ -6,16 +6,16 @@ import useGames from "../hooks/useGames.js";
 
 import GameVideo from "./GameVideo.jsx";
 import useReviews from "../hooks/useReviews.js";
+import { formatScore } from "../libraries/manipulateData.js";
 
 const GameData = () => {
   const { game } = useGames();
   const { reviewsWithLikes } = useReviews();
-
   return (
     <>
       <div className="flex flex-col gap-5">
         <div className="border-b-4 border-purple-600 text-right">
-          <h2 className="text-9xl font-bold text-purple-600">{game.title}</h2>
+          <h2 className="text-8xl font-bold text-purple-600">{game.title}</h2>
         </div>
         <div className="flex flex-row gap-5">
           <ReactPlayer
@@ -27,7 +27,7 @@ const GameData = () => {
           />
           <div className="flex-grow flex flex-col gap-5">
             <div className="self-center rounded-full bg-purple-600 text-gray-50 p-5">
-              <p className="text-5xl font-bold">99/100</p>
+              <p className="text-5xl font-bold">{formatScore(game.average_score)}</p>
             </div>
             <div>
               <p className="text-6xl">

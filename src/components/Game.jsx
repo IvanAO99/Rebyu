@@ -4,6 +4,7 @@ import useLists from "../hooks/useLists";
 import useUsers from "../hooks/useUsers";
 import { validateObject } from "../libraries/validateData";
 import useGames from "../hooks/useGames";
+import { formatScore } from "../libraries/manipulateData";
 
 const Game = ({ game, onList = false }) => {
   const { id, synopsis, title, cover_pic } = game;
@@ -24,22 +25,6 @@ const Game = ({ game, onList = false }) => {
     /*MOSTRAR MODAL EN CASO DE BORRADO*/
     /*Si no va es porque llama a deleteGame antes de seleccionarlo*/
     if (action === "delete-game") showGameDeleteModal();
-  };
-
-  const formatScore = (score) => {
-    let formattedScore = "";
-
-    if (score === null || score === undefined) {
-      formattedScore = "-";
-    } else {
-      const scaledScore = score * 2;
-      formattedScore = Number.isInteger(scaledScore)
-        ? scaledScore.toString()
-        : scaledScore.toFixed(1);
-      formattedScore += "/10";
-    }
-
-    return formattedScore;
   };
 
   return (
@@ -75,13 +60,13 @@ const Game = ({ game, onList = false }) => {
               >
                 <button
                   type="button"
-                  className="rounded-full bg-gray-800/50 p-2 text-purple-600 hover:text-purple-400 shadow-2xl"
+                  className="rounded-full bg-gray-800/50 p-2 text-purple-600 hover:text-purple-400 shadow-2xl cursor-pointer"
                 >
                   <FaPen size={24} id="update-game" />
                 </button>
                 <button
                   type="button"
-                  className="rounded-full bg-gray-800/50 p-2 text-red-600 hover:text-red-400 shadow-2xl"
+                  className="rounded-full bg-gray-800/50 p-2 text-red-600 hover:text-red-400 shadow-2xl cursor-pointer"
                 >
                   <FaTrash size={24} id="delete-game" />
                 </button>
@@ -90,7 +75,7 @@ const Game = ({ game, onList = false }) => {
               <button
                 type="button"
                 id={`likeHeart~${id}`}
-                className="z-10 absolute top-0 right-0 m-5 rounded-full text-gray-600 hover:text-purple-600 shadow transition-all duration-300"
+                className="z-10 absolute top-0 right-0 m-5 rounded-full text-gray-600 hover:text-purple-600 shadow transition-all duration-300 cursor-pointer"
               >
                 <FaHeart size={24} />
               </button>

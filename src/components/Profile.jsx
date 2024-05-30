@@ -95,7 +95,7 @@ const Profile = () => {
               </>
             )}
           </div>
-          <div>
+{/*           <div>
             <button
               type="button"
               className="mr-5 rounded-3xl bg-purple-600 hover:bg-purple-400 text-gray-50 px-5 py-2 shadow transition-all duration-300"
@@ -108,7 +108,7 @@ const Profile = () => {
             >
               Delete account
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </Fragment>

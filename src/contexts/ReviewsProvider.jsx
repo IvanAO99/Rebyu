@@ -18,7 +18,7 @@ const ReviewsContext = createContext();
 
 const ReviewsProvider = ({ children }) => {
   const { user, isSessionUp } = useUsers();
-  const { game } = useGames();
+  const { game, refreshGames } = useGames();
 
   /* INITIAL STATES VALUES */
 
@@ -80,6 +80,28 @@ const ReviewsProvider = ({ children }) => {
   const [filteredReviews, setFilteredReviews] = useState(
     initialValues.filteredReviews
   );
+
+  const [filteredByUserAndMessage, setFilteredByUserAndMessage] = useState([]);
+
+  const filterReviewsByUserAndMessage = (reviews, searchTerm) => {
+    return reviews.filter(
+      ({ reviews, users }) =>
+        users.nickname.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        reviews.message.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  };
+
+  const handleFilter = (searchTerm) => {
+    console.log(searchTerm);
+    if (!searchTerm) {
+      setFilteredByUserAndMessage(filteredReviews);
+      return;
+    }
+
+    const filtered = filterReviewsByUserAndMessage(filteredReviews, searchTerm);
+    setFilteredByUserAndMessage(filtered);
+  };
+
   /**
    * Display a toast notification for review-related actions.
    * @param {string} type - The type of alert ("success" or "error").
@@ -209,6 +231,27 @@ const ReviewsProvider = ({ children }) => {
     } finally {
       // Reset loading state
       setIsLoadingReviews(initialValues.isLoadingReviews);
+    }
+  };
+
+  const deleteUserReview = async (reviewId) => {
+    try {
+      const { data, error } = await supabaseConnection
+        .from("reviews")
+        .delete()
+        .eq("id", reviewId)
+        .select();
+
+      if (error) throw error;
+
+      // Display a success alert and reset the deletingReview state
+      sendReviewAlert("success", "Review deleted successfully!");
+      setDeletingReview(initialValues.deletingReview);
+    } catch (error) {
+      // Display an error alert if something goes wrong
+      sendReviewAlert("error", "The review could not be deleted!");
+    } finally {
+      getAllReviews();
     }
   };
 
@@ -368,6 +411,7 @@ const ReviewsProvider = ({ children }) => {
 
       getUserReview();
       getReviewsByGame();
+      refreshGames();
     } catch (error) {
       console.log(error);
     }
@@ -428,6 +472,7 @@ const ReviewsProvider = ({ children }) => {
       sendReviewAlert("success", "Review updated successfully!");
       getUserReview(game.id);
       getReviewsByGame(game.id);
+      refreshGames();
 
       // Close the review form modal
       setIsReviewFormModalOpen(initialValues.isReviewFormModalOpen);
@@ -459,6 +504,7 @@ const ReviewsProvider = ({ children }) => {
       // Display a success alert and reset the deletingReview state
       sendReviewAlert("success", "Review deleted successfully!");
       setDeletingReview(initialValues.deletingReview);
+      refreshGames();
     } catch (error) {
       // Display an error alert if something goes wrong
       sendReviewAlert("error", "The review could not be deleted!");
@@ -656,21 +702,9 @@ const ReviewsProvider = ({ children }) => {
     setFilteredReviews(sortedReviews);
   };
 
-  /*   useEffect(() => {
-    if (validateArray(reviews)) {
-      let array = [];
-
-      reviews.forEach(async (review) => {
-        const likes = await getReviewLikes(review.review_id);
-        const reviewWithLikes = { ...review, likes };
-        array.push(reviewWithLikes); 
-      });
-
-      console.log(array)
-      console.log(array.length)
-      setReviewsWithLikes(array)
-    }
-  }, [reviews]) */
+  useEffect(() => {
+    setFilteredByUserAndMessage(filteredReviews);
+  }, [filteredReviews]);
 
   useEffect(() => {
     setFilteredReviews(reviewsWithLikes);
@@ -735,6 +769,9 @@ const ReviewsProvider = ({ children }) => {
     getAllReviews,
     filteredReviews,
     filterReviews,
+    deleteUserReview,
+    filteredByUserAndMessage,
+    handleFilter,
   };
 
   return (
