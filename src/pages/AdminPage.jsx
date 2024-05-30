@@ -21,7 +21,14 @@ const AdminPage = () => {
     selectedGame,
   } = useGames();
 
-  const { getAllReviews, isLoadingReviews } = useReviews();
+  const {
+    getAllReviews,
+    isLoadingReviews,
+    deletingReview,
+    hideReviewDeleteModal,
+    handleReviewSubmit,
+    reviewForm,
+  } = useReviews();
 
   useEffect(() => {
     getAllReviews();
@@ -69,6 +76,26 @@ const AdminPage = () => {
             </DeleteModal>
           </CustomModal>
         </>
+      )}
+      {deletingReview && (
+        <CustomModal isOpen={deletingReview}>
+          <DeleteModal
+            title={"DELETE REVIEW"}
+            hideFunction={hideReviewDeleteModal}
+            deleteFunction={handleReviewSubmit}
+          >
+            <h1 className="text-xl font-bold text-center">
+              ARE YOU SURE YOU WANT TO{" "}
+              <span className="text-red-600">DELETE</span> THIS REVIEW?
+            </h1>
+            <InformativeTable
+              object={{
+                user: reviewForm.users.nickname,
+                message: reviewForm.reviews.message,
+              }}
+            />
+          </DeleteModal>
+        </CustomModal>
       )}
     </>
   );
