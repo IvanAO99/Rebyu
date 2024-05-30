@@ -6,7 +6,7 @@ import { ToastContainer } from "react-toastify";
 import AlertIcon from "./AlertIcon.jsx";
 
 import "react-toastify/dist/ReactToastify.css";
-import "../customAlert.css";
+import "../assets/css/customAlert.css";
 import AlertCloseIcon from "./AlertCloseIcon.jsx";
 
 const Alert = () => {
