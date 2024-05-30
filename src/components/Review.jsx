@@ -13,7 +13,7 @@ import useUsers from "../hooks/useUsers";
 const Review = ({ review, onSlide = false, ownReview = false }) => {
   const { users, reviews, likes, review_id } = review;
 
-  const { handleLikes, deleteUserReview } = useReviews();
+  const { handleLikes, showReviewDeleteModal } = useReviews();
 
   const [isSpoiler, setIsSpoiler] = useState(
     ownReview ? false : reviews.spoiler
@@ -101,7 +101,7 @@ const Review = ({ review, onSlide = false, ownReview = false }) => {
               <FaTrash
                 size={24}
                 onClick={() => {
-                  deleteUserReview(review_id);
+                  showReviewDeleteModal(review_id);
                 }}
               />
             </div>
