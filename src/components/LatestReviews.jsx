@@ -32,7 +32,7 @@ const LatestReviews = () => {
     if (validateArray(lastReviews)) {
       setFirstSlide(lastReviews.slice(0, 8));
       setSecondSlide(lastReviews.slice(8, 16));
-      setThirdSlide(lastReviews.slice(16, 24));
+      //setThirdSlide(lastReviews.slice(16, 24));
     }
   }, [lastReviews]);
 

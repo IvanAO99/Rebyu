@@ -293,12 +293,22 @@ const GamesProvider = ({ children }) => {
 
       //console.log(data);
 
-      if (error)
-        throw new Error(
-          "Error loading the game. Please reload the page and try again."
-        );
+      const { data: scoreData, error: scoreError } = await supabaseConnection
+        .from("top_games")
+        .select("id, average_score")
+        .eq("id", gameID);
 
-      setGame(data[0]);
+      console.log(scoreData)
+
+      if (error || scoreError) {
+        console.log(error);
+        console.log(scoreError);
+        throw new Error(
+          "Error loading games. Please reload the page and try again."
+        );
+      }
+
+      setGame(validateArray(scoreData) ? {...data[0], average_score: scoreData[0].average_score} : data[0])
     } catch (error) {
       console.log(error);
     } finally {
@@ -899,6 +909,11 @@ const GamesProvider = ({ children }) => {
     setGameFilter(initialValues.gameFilter);
   };
 
+  const refreshGames = () => {
+    getGames();
+    getGame(game.id);
+  }
+
   /*   useEffect(()=>{
     if(gameAdded){
       getGames();
@@ -958,6 +973,7 @@ const GamesProvider = ({ children }) => {
     hideGameFormModal,
     showGameDeleteModal,
     hideGameDeleteModal,
+    refreshGames
   };
 
   return (

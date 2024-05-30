@@ -67,4 +67,20 @@ const formatDateString = (dateString) => {
   return `${month}-${day}-${year} at ${hour}:${minute}`;
 };
 
-export { calculateAverageScore, calculateTopGames, formatDateString };
+const formatScore = (score) => {
+  let formattedScore = "";
+
+  if (score === null || score === undefined) {
+    formattedScore = "-";
+  } else {
+    const scaledScore = score * 2;
+    formattedScore = Number.isInteger(scaledScore)
+      ? scaledScore.toString()
+      : scaledScore.toFixed(1);
+    formattedScore += "/10";
+  }
+
+  return formattedScore;
+};
+
+export { calculateAverageScore, calculateTopGames, formatDateString, formatScore};
