@@ -25,8 +25,8 @@ const Review = ({ review, onSlide = false, ownReview = false }) => {
     <Fragment>
       <div
         className={` ${
-          onSlide && "w-[400px]"
-        } rounded-3xl shadow px-5 py-2 bg-gray-100 dark:bg-gray-800 w-[400px] md:w-[800px]`}
+          onSlide ? "w-[400px]" : "w-[400px] md:w-[800px]"
+        } rounded-3xl shadow px-5 py-2 bg-gray-100 dark:bg-gray-800`}
       >
         <div className="flex flex-row justify-between items-center gap-5">
           <div className="flex flex-row justify-center items-center gap-1">
