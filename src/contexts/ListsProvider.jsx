@@ -1,6 +1,10 @@
 import React, { createContext, useEffect, useState } from "react";
+import { toast, Slide } from "react-toastify";
 import useUsers from "../hooks/useUsers";
 import { supabaseConnection } from "../.config/supabase.js";
+
+import AlertIcon from "../components/AlertIcon.jsx";
+
 import { validateArray, validateObject } from "../libraries/validateData.js";
 
 const ListsContext = createContext();
@@ -54,6 +58,46 @@ const ListsProvider = ({ children }) => {
   );
 
   /* FUNCTIONS */
+
+  const sendListAlert = (type, message) => {
+    const notify = () => {
+      switch (type) {
+        case "success":
+          toast.success(message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            icon: AlertIcon,
+            transition: Slide,
+          });
+          break;
+        case "error":
+          toast.error(message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            icon: AlertIcon,
+            transition: Slide,
+          });
+          break;
+        default:
+          break;
+      }
+    };
+
+    notify();
+  };
+
   const createDefaultList = async (userID) => {
     try {
       const { data, error } = await supabaseConnection
@@ -82,13 +126,14 @@ const ListsProvider = ({ children }) => {
       setUserLists(data);
 
       /*PRUEBA*/
-      const favouritesList = data.find(list => list.name.toUpperCase() === "FAVOURITES");
+      const favouritesList = data.find(
+        (list) => list.name.toUpperCase() === "FAVOURITES"
+      );
 
       // Si se encuentra la lista de favoritos, establecerla como selectedList
       if (favouritesList) {
         setSelectedList(favouritesList);
       }
-      
     } catch (error) {
       console.log(error);
     }
@@ -105,13 +150,17 @@ const ListsProvider = ({ children }) => {
           })
           .select();
 
-        console.log(data);
         if (error) throw error;
 
         getListsFromUser();
         setGameAdded(true);
+
+        sendListAlert("success", "Game added to list successfully!");
       } catch (error) {
-        console.log(error);
+        sendListAlert(
+          "error",
+          "Something went wrong, the game could not be added to list."
+        );
       }
     }
   };
@@ -128,8 +177,13 @@ const ListsProvider = ({ children }) => {
         if (error) throw new Error(`The game could not be deleted.`);
 
         getListsFromUser();
+
+        sendListAlert("success", "Game removed from list successfully!");
       } catch (error) {
-        console.log(error);
+        sendListAlert(
+          "error",
+          "Something went wrong, the game could not be removed from list."
+        );
       }
     }
   };
@@ -175,8 +229,13 @@ const ListsProvider = ({ children }) => {
 
       setUpdatingList(initialValues.updatingList);
       setIsListFormModalOpen(initialValues.isListModalOpen);
+
+      sendListAlert("success", "List updated successfully!");
     } catch (error) {
-      console.log(error);
+      sendListAlert(
+        "error",
+        "Something went wrong, the list could not be updated."
+      );
     }
   };
 
@@ -193,8 +252,13 @@ const ListsProvider = ({ children }) => {
 
       setListToDelete({});
       setIsDeleteListModalOpen(initialValues.isListModalOpen);
+
+      sendListAlert("success", "List deleted successfully!");
     } catch (error) {
-      console.log(error);
+      sendListAlert(
+        "error",
+        "Something went wrong, the list could not be deleted."
+      );
     }
   };
 
@@ -212,8 +276,13 @@ const ListsProvider = ({ children }) => {
 
       getListsFromUser();
       hideListFormModal();
+
+      sendListAlert("success", "List created successfully!");
     } catch (error) {
-      console.log(error);
+      sendListAlert(
+        "error",
+        "Something went wrong, the list could not be created."
+      );
     }
   };
 
@@ -297,11 +366,11 @@ const ListsProvider = ({ children }) => {
     }
   };
 
-  useEffect(()=>{
-    if (validateArray(userLists) & validateObject(selectedList)){
+  useEffect(() => {
+    if (validateArray(userLists) & validateObject(selectedList)) {
       changeActiveList(selectedList.id);
     }
-  }, [userLists])
+  }, [userLists]);
 
   useEffect(() => {
     if (userCreation) {

@@ -7,10 +7,10 @@ import Review from "./Review.jsx";
 
 import { validateArray } from "../libraries/validateData.js";
 
-const Reviews = ({loading, reviews}) => {
+const Reviews = ({ loading, reviews }) => {
   return (
     <>
-      <div>
+      <div className="p-5">
         {loading ? (
           <>
             <div className="flex flex-col justify-center items-center px-5 py-2">

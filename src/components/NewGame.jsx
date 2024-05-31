@@ -12,7 +12,7 @@ const NewGame = ({ game }) => {
         <img
           src={wallpaper || ""}
           alt=""
-          srcset=""
+          srcSet=""
           className="object-cover h-full w-full"
         />
         <div className="absolute top-0 h-full w-full gap-5 p-20">

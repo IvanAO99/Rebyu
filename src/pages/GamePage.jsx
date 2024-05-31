@@ -26,7 +26,8 @@ const GamePage = () => {
     handleReviewSubmit,
     isLoadingReviews,
     reviewsWithLikes,
-    filteredReviews
+    filteredReviews,
+    reviewForm,
   } = useReviews();
 
   const { user, isAdmin } = useUsers();
@@ -83,7 +84,11 @@ const GamePage = () => {
                   <ReviewForm />
                 </>
               ) : (
-                <p>{isAdmin ? "Admins can't review gamea!" : "Log in to review this game!"}</p>
+                <p>
+                  {isAdmin
+                    ? "Admins can't review games!"
+                    : "Log in to review this game!"}
+                </p>
               )}
               {/* <div className="border-y-2 border-gray-100 dark:border-gray-800"></div> */}
               <ReviewsFilter />
@@ -110,9 +115,16 @@ const GamePage = () => {
             hideFunction={hideReviewDeleteModal}
             deleteFunction={handleReviewSubmit}
           >
-            <h1 className="text-3xl font-bold text-center">
-              ARE YOU SURE YOU WANT TO DELETE THIS REVIEW?
+            <h1 className="text-xl font-bold text-center">
+              ARE YOU SURE YOU WANT TO{" "}
+              <span className="text-red-600">DELETE</span> THIS REVIEW?
             </h1>
+            <InformativeTable
+              object={{
+                user: reviewForm.users.nickname,
+                message: reviewForm.reviews.message,
+              }}
+            />
           </DeleteModal>
         </CustomModal>
       )}

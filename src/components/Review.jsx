@@ -13,7 +13,7 @@ import useUsers from "../hooks/useUsers";
 const Review = ({ review, onSlide = false, ownReview = false }) => {
   const { users, reviews, likes, review_id } = review;
 
-  const { handleLikes, deleteUserReview } = useReviews();
+  const { handleLikes, showReviewDeleteModal } = useReviews();
 
   const [isSpoiler, setIsSpoiler] = useState(
     ownReview ? false : reviews.spoiler
@@ -25,8 +25,8 @@ const Review = ({ review, onSlide = false, ownReview = false }) => {
     <Fragment>
       <div
         className={` ${
-          onSlide && "w-[400px]"
-        } rounded-3xl shadow px-5 py-2 bg-gray-100 dark:bg-gray-800 w-[400px] md:w-[800px]`}
+          onSlide ? "w-[400px]" : "w-[400px] md:w-[800px]"
+        } rounded-3xl shadow px-5 py-2 bg-gray-100 dark:bg-gray-800`}
       >
         <div className="flex flex-row justify-between items-center gap-5">
           <div className="flex flex-row justify-center items-center gap-1">
@@ -97,11 +97,11 @@ const Review = ({ review, onSlide = false, ownReview = false }) => {
             </div>
           )}
           {isAdmin && (
-            <div className="rounded-full p-2 text-red-600 hover:text-red-400 shadow-2xl cursor-pointer">
+            <div className="cursor-pointer shadow rounded-full p-2 text-red-600 hover:text-red-400">
               <FaTrash
                 size={24}
                 onClick={() => {
-                  deleteUserReview(review_id);
+                  showReviewDeleteModal(review_id);
                 }}
               />
             </div>

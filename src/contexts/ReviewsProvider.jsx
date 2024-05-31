@@ -17,7 +17,7 @@ import AlertIcon from "../components/AlertIcon.jsx";
 const ReviewsContext = createContext();
 
 const ReviewsProvider = ({ children }) => {
-  const { user, isSessionUp } = useUsers();
+  const { isSessionUp, user, isAdmin } = useUsers();
   const { game, refreshGames } = useGames();
 
   /* INITIAL STATES VALUES */
@@ -533,7 +533,12 @@ const ReviewsProvider = ({ children }) => {
         (review) => review.review_id === id
       );
       console.log(wantedReview);
-      setReviewForm(wantedReview.reviews);
+
+      if (isSessionUp && validateObject(user) && isAdmin) {
+        setReviewForm(wantedReview);
+      } else {
+        setReviewForm(wantedReview.reviews);
+      }
     }
   };
 
@@ -652,7 +657,14 @@ const ReviewsProvider = ({ children }) => {
      */
     const validationErrors = validateReviewForm();
 
-    if (validateObject(validationErrors)) {
+    if (
+      isSessionUp &&
+      validateObject(user) &&
+      isAdmin &&
+      validateObject(reviewForm)
+    ) {
+      deleteUserReview(reviewForm.reviews.id);
+    } else if (validateObject(validationErrors)) {
       setReviewFormErrors(validationErrors);
     } else {
       setReviewFormErrors(initialValues.reviewFormErrors);
