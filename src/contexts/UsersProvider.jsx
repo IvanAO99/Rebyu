@@ -291,10 +291,14 @@ const UsersProvider = ({ children }) => {
 
       if (error) throw error;
     } catch (error) {
+      setIsLoadingUser(initialValues.isLoadingUser);
+
       setSignInFormErrors({
         email: "Invalid sign-in credentials",
         password: "Invalid sign-in credentials",
       });
+
+      sendUserAlert("error", error.message);
     } finally {
       setSignInForm(initialValues.signInForm);
       setSignInFormErrors(initialValues.signInFormErrors);
