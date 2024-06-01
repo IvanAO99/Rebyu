@@ -9,8 +9,6 @@ import { validateObject } from "../libraries/validateData.js";
 const Header = () => {
   const { isSessionUp, user, signOut, isAdmin } = useUsers();
 
-  //console.log(user);
-
   const [theme, setTheme] = useState("light");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 

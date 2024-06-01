@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import { supabaseConnection } from "../.config/supabase.js";
-import { validateArray, validateObject } from "../libraries/validateData.js";
+import { isValidURL, validateArray, validateObject } from "../libraries/validateData.js";
 
 import regex from "../jsons/regex.json";
 import { useNavigate } from "react-router-dom";
@@ -178,8 +178,6 @@ const GamesProvider = ({ children }) => {
         .order("id");
 
       if (error || scoreError) {
-        console.log(error);
-        console.log(scoreError);
         throw new Error(
           "Error loading games. Please reload the page and try again."
         );
@@ -255,8 +253,6 @@ const GamesProvider = ({ children }) => {
         .select("*")
         .range(0, 10);
 
-      console.log(data);
-
       if (error) throw error;
 
       setTopGames(data);
@@ -291,18 +287,12 @@ const GamesProvider = ({ children }) => {
         )
         .eq("id", gameID);
 
-      //console.log(data);
-
       const { data: scoreData, error: scoreError } = await supabaseConnection
         .from("top_games")
         .select("id, average_score")
         .eq("id", gameID);
 
-      console.log(scoreData)
-
       if (error || scoreError) {
-        console.log(error);
-        console.log(scoreError);
         throw new Error(
           "Error loading games. Please reload the page and try again."
         );
@@ -424,19 +414,6 @@ const GamesProvider = ({ children }) => {
     setGameRegisterErrors({ ...gameRegisterErrors, [name]: null });
   };
 
-  /**
-   * Checks if the given URL is valid.
-   * @param {string} url - The URL to validate.
-   * @returns {boolean} - True if the URL is valid, otherwise false.
-   */
-  const isValidURL = (url) => {
-    try {
-      new URL(url);
-      return true;
-    } catch (error) {
-      return false;
-    }
-  };
 
   /**
    * Checks if all options selected are valid by comparing them with an array of valid options.
@@ -722,7 +699,6 @@ const GamesProvider = ({ children }) => {
    * Updates an existing game in the database and associated intermediary tables.
    */
   const updateGame = async () => {
-    console.log(selectedGame);
     try {
       const { data, error } = await supabaseConnection
         .from("games")
@@ -832,7 +808,6 @@ const GamesProvider = ({ children }) => {
    * Deletes the selected game from the database.
    */
   const deleteGame = async () => {
-    console.log("entroo");
     try {
       const { error } = await supabaseConnection
         .from("games")

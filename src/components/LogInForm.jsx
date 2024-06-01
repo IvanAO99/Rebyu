@@ -14,8 +14,6 @@ function LogInForm() {
           <h1 className="text-6xl font-bold text-center">LOG IN</h1>
           <h2 className="text-3xl text-center">Access your account</h2>
         </div>
-        <pre>{JSON.stringify(signInFormErrors)}</pre>
-        <pre>{JSON.stringify(signInForm)}</pre>
         <div className="flex flex-col gap-5">
           <form
             className="flex flex-col gap-5"
@@ -42,6 +40,9 @@ function LogInForm() {
                 } rounded-3xl bg-gray-100 dark:bg-gray-800 px-5 py-2 caret-purple-600 shadow`}
                 onChange={(e) => updateSignInForm(e.target)}
               />
+              {signInFormErrors.email && (
+                <p className="text-red-400">{signInFormErrors.email}</p>
+              )}
             </div>
             <div className="flex flex-col gap-5">
               <label
@@ -63,6 +64,9 @@ function LogInForm() {
                 } rounded-3xl bg-gray-100 dark:bg-gray-800 px-5 py-2 caret-purple-600 shadow`}
                 onChange={(e) => updateSignInForm(e.target)}
               />
+              {signInFormErrors.password && (
+                <p className="text-red-400">{signInFormErrors.password}</p>
+              )}
             </div>
             <div className="self-center">
               <button

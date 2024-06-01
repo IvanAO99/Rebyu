@@ -54,14 +54,18 @@ const TopGames = () => {
             {/*             <div>
               <p>{JSON.stringify(topGames)}</p>
             </div> */}
-            <div className="flex flex-col gap-5">
+            {!validateArray(topGames) ? (
+              <p className="text-center text-purple-400 font-bold py-5 px-2 text-lg">No top games yet!</p>
+            ) : (
+              <div className="flex flex-col gap-5">
               <Slider {...settings}>
                 {validateArray(topGames) &&
                   topGames.map((game, index) => (
-                    <Game key={crypto.randomUUID()} game={game} />
+                    <Game key={crypto.randomUUID()} game={game} onSlide = {true} />
                   ))}
               </Slider>
             </div>
+            )}
           </>
         )}
       </div>

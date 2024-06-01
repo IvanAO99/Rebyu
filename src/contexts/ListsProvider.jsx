@@ -152,7 +152,7 @@ const ListsProvider = ({ children }) => {
 
         if (error) throw error;
 
-        getListsFromUser();
+//        getListsFromUser();
         setGameAdded(true);
 
         sendListAlert("success", "Game added to list successfully!");
@@ -164,6 +164,10 @@ const ListsProvider = ({ children }) => {
       }
     }
   };
+
+  const refreshListsFromUser = () => {
+      getListsFromUser();
+  }
 
   const removeGameFromList = async (gameID, listID) => {
     if (user.id) {
@@ -236,6 +240,8 @@ const ListsProvider = ({ children }) => {
         "error",
         "Something went wrong, the list could not be updated."
       );
+    } finally {
+      setListToUpdate(initialValues.listToUpdate)
     }
   };
 
@@ -283,6 +289,8 @@ const ListsProvider = ({ children }) => {
         "error",
         "Something went wrong, the list could not be created."
       );
+    } finally {
+      setNewList(initialValues.newList)
     }
   };
 
@@ -367,7 +375,7 @@ const ListsProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (validateArray(userLists) & validateObject(selectedList)) {
+    if (!validateObject(selectedList) && validateArray(userLists)) {
       changeActiveList(selectedList.id);
     }
   }, [userLists]);
@@ -413,6 +421,7 @@ const ListsProvider = ({ children }) => {
     hideListDeleteModal,
     handleListCreation,
     listFormErrors,
+    refreshListsFromUser
   };
 
   return (

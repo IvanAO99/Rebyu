@@ -42,14 +42,24 @@ const LatestGames = () => {
           </>
         ) : (
           <>
-            <div className="flex flex-col gap-5">
-              <Slider {...settings}>
-                {validateArray(latestGames) &&
-                  latestGames.map((game, index) => (
-                    <Game key={crypto.randomUUID()} game={game} />
-                  ))}
-              </Slider>
-            </div>
+            {!validateArray(latestGames) ? (
+              <p className="text-center text-purple-400 font-bold py-5 px-2 text-lg">
+                No games were found!
+              </p>
+            ) : (
+              <div className="flex flex-col gap-5">
+                <Slider {...settings}>
+                  {validateArray(latestGames) &&
+                    latestGames.map((game, index) => (
+                      <Game
+                        key={crypto.randomUUID()}
+                        game={game}
+                        onSlide={true}
+                      />
+                    ))}
+                </Slider>
+              </div>
+            )}
           </>
         )}
       </div>

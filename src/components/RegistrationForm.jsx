@@ -20,6 +20,7 @@ function RegistrationForm() {
           <form
             className="md:w-full flex flex-col justify-center md:flex-row"
             onSubmit={(e) => e.preventDefault()}
+            noValidate
           >
             <div className="md:w-1/3 flex flex-col gap-5 md:pr-5 md:border-r">
               <div className="flex flex-col gap-1">
@@ -45,6 +46,9 @@ function RegistrationForm() {
                     updateSignUpForm(event.target);
                   }}
                 />
+                {signUpFormErrors.nickname && (
+                  <p className="text-red-400">{signUpFormErrors.nickname}</p>
+                )}
               </div>
               <div className="flex flex-col gap-1">
                 <label
@@ -68,6 +72,9 @@ function RegistrationForm() {
                     updateSignUpForm(event.target);
                   }}
                 />
+                {signUpFormErrors.email && (
+                  <p className="text-red-400">{signUpFormErrors.email}</p>
+                )}
               </div>
               <div className="flex flex-col gap-1">
                 <label
@@ -91,6 +98,9 @@ function RegistrationForm() {
                     updateSignUpForm(event.target);
                   }}
                 />
+                {signUpFormErrors.password && (
+                  <p className="text-red-400">{signUpFormErrors.password}</p>
+                )}
               </div>
               <div className="flex flex-col gap-1">
                 <label
@@ -114,6 +124,11 @@ function RegistrationForm() {
                     updateSignUpForm(event.target);
                   }}
                 />
+                {signUpFormErrors.repeated_password && (
+                  <p className="text-red-400">
+                    {signUpFormErrors.repeated_password}
+                  </p>
+                )}
               </div>
             </div>
             <div className="md:w-1/3 flex flex-col gap-5 md:pl-5">
@@ -139,6 +154,9 @@ function RegistrationForm() {
                     updateSignUpForm(event.target);
                   }}
                 />
+                {signUpFormErrors.name && (
+                  <p className="text-red-400">{signUpFormErrors.name}</p>
+                )}
               </div>
               <div className="flex flex-col gap-1">
                 <label
@@ -161,6 +179,9 @@ function RegistrationForm() {
                     updateSignUpForm(event.target);
                   }}
                 />
+                {signUpFormErrors.birth_date && (
+                  <p className="text-red-400">{signUpFormErrors.birth_date}</p>
+                )}
               </div>
               <div className="flex flex-col gap-1">
                 <label
@@ -170,9 +191,10 @@ function RegistrationForm() {
                   Profile Picture
                 </label>
                 <input
-                  type="file"
-                  id="profile_photo"
+                  type="url"
                   name="profile_photo"
+                  placeholder="Enter profile url..."
+                  id="profile_photo"
                   className={`w-full border-none focus:outline-none ${
                     signUpFormErrors.profile_photo
                       ? "ring-2 ring-red-600 focus:ring-red-600 placeholder-red-600"
@@ -183,6 +205,11 @@ function RegistrationForm() {
                     updateSignUpForm(event.target);
                   }}
                 />
+                {signUpFormErrors.profile_photo && (
+                  <p className="text-red-400">
+                    {signUpFormErrors.profile_photo}
+                  </p>
+                )}
               </div>
               <div>
                 <input

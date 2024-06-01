@@ -18,7 +18,7 @@ const ReviewsContext = createContext();
 
 const ReviewsProvider = ({ children }) => {
   const { isSessionUp, user, isAdmin } = useUsers();
-  const { game, refreshGames } = useGames();
+  const { game, refreshGames, getTopGames } = useGames();
 
   /* INITIAL STATES VALUES */
 
@@ -92,7 +92,6 @@ const ReviewsProvider = ({ children }) => {
   };
 
   const handleFilter = (searchTerm) => {
-    console.log(searchTerm);
     if (!searchTerm) {
       setFilteredByUserAndMessage(filteredReviews);
       return;
@@ -325,8 +324,6 @@ const ReviewsProvider = ({ children }) => {
         .order("reviews(date_time)", { ascending: false })
         .range(0, 24);
 
-      console.log(data);
-
       if (error) throw error;
 
       // Update last reviews state with fetched data
@@ -350,11 +347,8 @@ const ReviewsProvider = ({ children }) => {
         .select("count")
         .eq("review_id", reviewID);
 
-      //console.log(data)
-
       if (error) throw error;
 
-      //console.log(data[0].count)
       return data[0].count;
     } catch (error) {
       return 0;
@@ -380,7 +374,6 @@ const ReviewsProvider = ({ children }) => {
         .eq("game_id", game.id);
 
       if (error) throw error;
-      console.log(data);
       // Update reviews state with fetched data
       setReviews(data);
     } catch (error) {
@@ -412,6 +405,8 @@ const ReviewsProvider = ({ children }) => {
       getUserReview();
       getReviewsByGame();
       refreshGames();
+/*       getTopGames();
+      getLastReviews(); */
     } catch (error) {
       console.log(error);
     }
@@ -505,6 +500,8 @@ const ReviewsProvider = ({ children }) => {
       sendReviewAlert("success", "Review deleted successfully!");
       setDeletingReview(initialValues.deletingReview);
       refreshGames();
+/*       getTopGames();
+      getLastReviews(); */
     } catch (error) {
       // Display an error alert if something goes wrong
       sendReviewAlert("error", "The review could not be deleted!");
@@ -532,7 +529,6 @@ const ReviewsProvider = ({ children }) => {
       const wantedReview = reviewsWithLikes.find(
         (review) => review.review_id === id
       );
-      console.log(wantedReview);
 
       if (isSessionUp && validateObject(user) && isAdmin) {
         setReviewForm(wantedReview);

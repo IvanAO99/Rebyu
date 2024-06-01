@@ -10,8 +10,6 @@ const Profile = () => {
   const navigate = useNavigate();
   const { isSessionUp, user } = useUsers();
 
-  const [isHidden, setIsHidden] = useState(true);
-
   return (
     <Fragment>
       <div>
@@ -35,22 +33,6 @@ const Profile = () => {
             <div className="px-5">
               <p className="text-xl font-bold text-purple-600">EMAIL</p>
               <p className="">{user.email}</p>
-            </div>
-            <div className="border"></div>
-            <div className="px-5">
-              <div className="flex flex-row justify-stretch items-center gap-1">
-                <p className="text-xl font-bold text-purple-600">PASSWORD</p>
-                <button
-                  type="button"
-                  className="font-bold text-purple-600 hover:text-purple-400 transition-all duration-300"
-                  onClick={() => setIsHidden(!isHidden)}
-                >
-                  {isHidden ? <FaEyeSlash size={24} /> : <FaEye size={24} />}
-                </button>
-              </div>
-              <p className="">
-                {isHidden ? "****************" : user.password}
-              </p>
             </div>
             <div className="border"></div>
             <div className="px-5">

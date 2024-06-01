@@ -12,9 +12,6 @@ const List = ({ list }) => {
   const {
     showListFormModal,
     removeGameFromList,
-    selectListToUpdate,
-    deleteList,
-    possibleDelete,
     showListDeleteModal,
   } = useLists();
   const { getGame } = useGames();
