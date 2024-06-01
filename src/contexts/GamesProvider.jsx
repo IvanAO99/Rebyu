@@ -161,6 +161,16 @@ const GamesProvider = ({ children }) => {
     setIsGameDeleteModalOpen(initialValues.isGameDeleteModalOpen);
   };
 
+  const mergeGamesWithScores = (games, scores) => {
+    return games.map((game) => {
+      const matchingScore = scores.find((score) => score.id === game.id);
+
+      return matchingScore
+        ? { ...game, average_score: matchingScore.average_score }
+        : game;
+    });
+  };
+
   /**
    * Retrieves all games from the database, including associated genres, platforms, and developers.
    * Games are ordered by their ID.
@@ -190,20 +200,7 @@ const GamesProvider = ({ children }) => {
         );
       }
 
-      const gamesWithScore = data.map((dataGame) => {
-        const matchingGame = scoreData.find(
-          (gameScore) => gameScore.id === dataGame.id
-        );
-
-        if (matchingGame) {
-          return {
-            ...dataGame,
-            average_score: matchingGame.average_score,
-          };
-        }
-
-        return dataGame;
-      });
+      const gamesWithScore = mergeGamesWithScores(data, scoreData);
 
       setGames(gamesWithScore);
     } catch (error) {
@@ -904,13 +901,6 @@ const GamesProvider = ({ children }) => {
     getGames();
     getGame(game.id);
   };
-
-  /*   useEffect(()=>{
-    if(gameAdded){
-      getGames();
-      cancelGameAdded();
-    }
-  }, [gameAdded]) */
 
   useEffect(() => {
     const filteredGames = filterGameList(games, gameFilter);
