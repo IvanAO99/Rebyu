@@ -21,7 +21,6 @@ const ListsProvider = ({ children }) => {
     },
     userLists: [],
     selectedList: {},
-    gameAdded: false,
     listToUpdate: {
       name: "",
       type: "public",
@@ -51,11 +50,11 @@ const ListsProvider = ({ children }) => {
     initialValues.isListModalOpen
   );
 
-  const [gameAdded, setGameAdded] = useState(initialValues.gameAdded);
-
   const [listFormErrors, setListFormErrors] = useState(
     initialValues.listFormErrors
   );
+
+  const [gameAdded, setGameAdded] = useState(false);
 
   /* FUNCTIONS */
 
@@ -120,20 +119,22 @@ const ListsProvider = ({ children }) => {
         .from("lists")
         .select("*, games_on_list(games(*))")
         .eq("creator_id", user.id);
-
+  
       if (error) throw error;
-
+  
       setUserLists(data);
-
-      /*PRUEBA*/
+  
       const favouritesList = data.find(
         (list) => list.name.toUpperCase() === "FAVOURITES"
       );
-
-      // Si se encuentra la lista de favoritos, establecerla como selectedList
-      if (favouritesList) {
+  
+      if (!validateObject(selectedList) && favouritesList) {
         setSelectedList(favouritesList);
+      } else if (selectedList.id) {
+        const updatedList = data.find(list => list.id === selectedList.id);
+        setSelectedList(updatedList);
       }
+  
     } catch (error) {
       console.log(error);
     }
@@ -149,12 +150,14 @@ const ListsProvider = ({ children }) => {
             list_id: selectedList.id,
           })
           .select();
-
+  
         if (error) throw error;
-
-        //        getListsFromUser();
+  
+        await getListsFromUser();
+        const updatedList = userLists.find(list => list.id === selectedList.id);
+        setSelectedList(updatedList);
+  
         setGameAdded(true);
-
         sendListAlert("success", "Game added to list successfully!");
       } catch (error) {
         sendListAlert(
@@ -203,16 +206,12 @@ const ListsProvider = ({ children }) => {
   };
 
   const checkGameInList = (gameID) => {
+    let gameInList = false;
     if (selectedList && validateArray(selectedList.games_on_list)) {
-      return selectedList.games_on_list.some(
-        (game) => game.games.id === gameID
-      );
+      const gameIDsOnList = selectedList.games_on_list.map((item) => item.games.id);
+      if (gameIDsOnList.includes(gameID)) gameInList = true;
     }
-    return false;
-  };
-
-  const cancelGameAdded = () => {
-    setGameAdded(false);
+    return gameInList;
   };
 
   const selectListToUpdate = (list) => {
@@ -377,10 +376,12 @@ const ListsProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (!validateObject(selectedList) && validateArray(userLists)) {
-      changeActiveList(selectedList.id);
+    if (gameAdded) {
+      const updatedList = userLists.find(list => list.id === selectedList.id);
+      setSelectedList(updatedList);  // Asegurarte de que selectedList se actualice
+      setGameAdded(false);
     }
-  }, [userLists]);
+  }, [gameAdded, userLists]);
 
   useEffect(() => {
     if (userCreation) {
@@ -403,8 +404,6 @@ const ListsProvider = ({ children }) => {
     selectedList,
     changeActiveList,
     checkGameInList,
-    gameAdded,
-    cancelGameAdded,
     listToUpdate,
     listToDelete,
     selectListToUpdate,

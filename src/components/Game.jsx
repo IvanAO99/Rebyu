@@ -12,18 +12,10 @@ const Game = ({ game, onList = false, onSlide = false }) => {
   const { isSessionUp, user, isAdmin } = useUsers();
   const { showGameFormModal, updateSelectedGame, showGameDeleteModal } =
     useGames();
-  /* const { checkGameInList } = useLists();
-
-  const inList = checkGameInList(id); */
 
   const handleGameActions = (id, action) => {
     updateSelectedGame(id);
-
-    /*MOSTRAR MODAL EN CASO DE UPDATE*/
     if (action === "update-game") showGameFormModal("update");
-
-    /*MOSTRAR MODAL EN CASO DE BORRADO*/
-    /*Si no va es porque llama a deleteGame antes de seleccionarlo*/
     if (action === "delete-game") showGameDeleteModal();
   };
 
@@ -55,6 +47,7 @@ const Game = ({ game, onList = false, onSlide = false }) => {
               <div
                 className="z-10 absolute top-0 right-0 m-5 flex flex-row gap-2"
                 onClick={(e) => {
+                  e.stopPropagation();
                   handleGameActions(id, e.target.parentNode.id);
                 }}
               >

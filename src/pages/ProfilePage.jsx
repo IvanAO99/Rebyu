@@ -18,11 +18,6 @@ const ProfilePage = () => {
     deleteList,
   } = useLists();
 
-  const { refreshListsFromUser } = useLists();
-
-  useEffect(() => {
-    refreshListsFromUser();
-  }, []);
   return (
     <Fragment>
       <div>
