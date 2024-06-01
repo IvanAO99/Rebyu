@@ -7,6 +7,8 @@ import useGames from "../hooks/useGames.js";
 import GameVideo from "./GameVideo.jsx";
 import useReviews from "../hooks/useReviews.js";
 import { formatScore } from "../libraries/manipulateData.js";
+import { FaExclamation } from "react-icons/fa6";
+import GameVideoError from "./GameVideoError.jsx";
 
 const GameData = () => {
   const { game } = useGames();
@@ -18,16 +20,29 @@ const GameData = () => {
           <h2 className="text-8xl font-bold text-purple-600">{game.title}</h2>
         </div>
         <div className="flex flex-row gap-5">
-          <ReactPlayer
-            url={game.trailer}
-            controls={true}
-            wrapper={GameVideo}
-            width={"100%"}
-            height={"100%"}
-          />
+          {game.trailer ? (
+            <>
+              <ReactPlayer
+                url={game.trailer}
+                controls={true}
+                wrapper={GameVideo}
+                width={"100%"}
+                height={"100%"}
+              />
+            </>
+          ) : (
+            <>
+              <div className="w-9/12 h-[560px] overflow-hidden rounded-3xl shadow">
+                <GameVideoError />
+              </div>
+            </>
+          )}
+
           <div className="flex-grow flex flex-col gap-5">
             <div className="self-center rounded-full bg-purple-600 text-gray-50 p-5">
-              <p className="text-5xl font-bold">{formatScore(game.average_score)}</p>
+              <p className="text-5xl font-bold">
+                {formatScore(game.average_score)}
+              </p>
             </div>
             <div>
               <p className="text-6xl">
