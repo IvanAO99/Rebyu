@@ -47,9 +47,10 @@ const Profile = () => {
               <p className="text-xl font-bold text-purple-600">USER SINCE</p>
               <p>{formatDateString(user.created_at)}</p>
             </div>
-            <div className="border"></div>
+
             {user.affiliate_start_date ? (
               <>
+                <div className="border"></div>
                 <div className="px-5">
                   <p className="text-xl font-bold text-purple-600">
                     AFFILIATE SINCE
@@ -77,7 +78,7 @@ const Profile = () => {
               </>
             )}
           </div>
-{/*           <div>
+          {/*           <div>
             <button
               type="button"
               className="mr-5 rounded-3xl bg-purple-600 hover:bg-purple-400 text-gray-50 px-5 py-2 shadow transition-all duration-300"
