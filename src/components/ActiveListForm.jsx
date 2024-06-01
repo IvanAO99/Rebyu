@@ -37,7 +37,7 @@ const ActiveListForm = ({ onProfile = true }) => {
           {validateArray(userLists) ? (
             userLists.map((list, index) => (
               <option key={index} value={list.id}>
-                {list.name}
+                {list.name.toUpperCase()}
               </option>
             ))
           ) : (
