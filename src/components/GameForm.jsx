@@ -19,12 +19,9 @@ function GameForm({ creationMode }) {
     <div>
       {/* <pre>{JSON.stringify(actualGame.title)}</pre>
       <pre>{JSON.stringify(selectedGame.title)}</pre> */}
-      <form
-        className="md:w-full flex flex-col justify-center"
-        onSubmit={(e) => e.preventDefault()}
-      >
-        <div className="md:w-full flex flex-col gap-5 md:pr-5 items-center">
-          <div className="flex flex-col gap-1 w-full max-w-md">
+      <form className="flex flex-row" onSubmit={(e) => e.preventDefault()}>
+        <div className="flex flex-col justify-center items-center gap-5 border-r-2 border-gray-100 dark:border-gray-800 p-5">
+          <div className="w-[448px] flex flex-col gap-2">
             <label
               htmlFor="title"
               className="block text-xl font-bold text-purple-600"
@@ -49,7 +46,9 @@ function GameForm({ creationMode }) {
             />
 
             {gameRegisterErrors.title && (
-              <p className="text-red-400">{gameRegisterErrors.title}</p>
+              <p className="font-bold text-red-600">
+                {gameRegisterErrors.title}
+              </p>
             )}
           </div>
           <div className="flex flex-col gap-1 w-full max-w-md">
@@ -74,7 +73,9 @@ function GameForm({ creationMode }) {
               }}
             />
             {gameRegisterErrors.release_date && (
-              <p className="text-red-400">{gameRegisterErrors.release_date}</p>
+              <p className="font-bold text-red-600">
+                {gameRegisterErrors.release_date}
+              </p>
             )}
           </div>
           <div className="flex flex-col gap-1 w-full max-w-md">
@@ -100,7 +101,9 @@ function GameForm({ creationMode }) {
               }}
             />
             {gameRegisterErrors.cover_pic && (
-              <p className="text-red-400">{gameRegisterErrors.cover_pic}</p>
+              <p className="font-bold text-red-600">
+                {gameRegisterErrors.cover_pic}
+              </p>
             )}
           </div>
           <div className="flex flex-col gap-1 w-full max-w-md">
@@ -126,7 +129,9 @@ function GameForm({ creationMode }) {
               }}
             />
             {gameRegisterErrors.trailer && (
-              <p className="text-red-400">{gameRegisterErrors.trailer}</p>
+              <p className="font-bold text-red-600">
+                {gameRegisterErrors.trailer}
+              </p>
             )}
           </div>
           <div className="flex flex-col gap-1 w-full max-w-md">
@@ -151,12 +156,14 @@ function GameForm({ creationMode }) {
               }}
             />
             {gameRegisterErrors.synopsis && (
-              <p className="text-red-400">{gameRegisterErrors.synopsis}</p>
+              <p className="font-bold text-red-600">
+                {gameRegisterErrors.synopsis}
+              </p>
             )}
           </div>
         </div>
-        <div className="md:w-full flex flex-col md:flex-row md:pl-5 items-center justify-center gap-24 my-10">
-          <div className="flex flex-col gap-1 w-fit">
+        <div className="w-[448px] flex flex-col justify-center items-start gap-5 p-5">
+          <div className="flex flex-col gap-2 w-fit">
             <label
               htmlFor="genre"
               className="block text-xl font-bold text-purple-600"
@@ -164,7 +171,9 @@ function GameForm({ creationMode }) {
               Genre
             </label>
             {gameRegisterErrors.game_genre && (
-              <p className="text-red-400">{gameRegisterErrors.game_genre}</p>
+              <p className="font-bold text-red-600">
+                {gameRegisterErrors.game_genre}
+              </p>
             )}
             {genres ? (
               genres.map((genre) => (
@@ -176,9 +185,16 @@ function GameForm({ creationMode }) {
                     value={genre.id}
                     checked={actualGame.game_genre.includes(genre.id)}
                     onChange={(e) => handleCheckboxChange(e, creationMode)}
-                    className="mr-2"
+                    className={`cursor-pointer border-none focus:outline-none ${
+                      gameRegisterErrors.game_genre
+                        ? "ring-2 ring-red-600 focus:ring-red-600 placeholder-red-600"
+                        : "focus:ring-2 focus:ring-purple-600"
+                    } rounded-3xl bg-gray-100 dark:bg-gray-800 px-5 py-2 accent-purple-600 hover:accent-purple-400 shadow`}
                   />
-                  <label htmlFor={`game-register-genre-${genre.id}`}>
+                  <label
+                    htmlFor={`game-register-genre-${genre.id}`}
+                    className="ml-2"
+                  >
                     {genre.name}
                   </label>
                 </div>
@@ -187,7 +203,7 @@ function GameForm({ creationMode }) {
               <div>Error. Reload the page</div>
             )}
           </div>
-          <div className="flex flex-col gap-1 w-fit">
+          <div className="flex flex-col gap-2 w-fit">
             <label
               htmlFor="developer"
               className="block text-xl font-bold text-purple-600"
@@ -195,7 +211,7 @@ function GameForm({ creationMode }) {
               Developer
             </label>
             {gameRegisterErrors.game_developer && (
-              <p className="text-red-400">
+              <p className="font-bold text-red-600">
                 {gameRegisterErrors.game_developer}
               </p>
             )}
@@ -209,9 +225,16 @@ function GameForm({ creationMode }) {
                     value={developer.id}
                     checked={actualGame.game_developer.includes(developer.id)}
                     onChange={(e) => handleCheckboxChange(e, creationMode)}
-                    className="mr-2"
+                    className={`cursor-pointer border-none focus:outline-none ${
+                      gameRegisterErrors.game_developer
+                        ? "ring-2 ring-red-600 focus:ring-red-600 placeholder-red-600"
+                        : "focus:ring-2 focus:ring-purple-600"
+                    } rounded-3xl bg-gray-100 dark:bg-gray-800 px-5 py-2 accent-purple-600 hover:accent-purple-400 shadow`}
                   />
-                  <label htmlFor={`game-register-developer-${developer.id}`}>
+                  <label
+                    htmlFor={`game-register-developer-${developer.id}`}
+                    className="ml-2"
+                  >
                     {developer.name}
                   </label>
                 </div>
@@ -220,7 +243,7 @@ function GameForm({ creationMode }) {
               <div>Error. Reload the page</div>
             )}
           </div>
-          <div className=" flex flex-col gap-1 w-fit">
+          <div className=" flex flex-col gap-2 w-fit">
             <label
               htmlFor="platform"
               className="block text-xl font-bold text-purple-600"
@@ -228,7 +251,9 @@ function GameForm({ creationMode }) {
               Platform
             </label>
             {gameRegisterErrors.game_platform && (
-              <p className="text-red-400">{gameRegisterErrors.game_platform}</p>
+              <p className="font-bold text-red-600">
+                {gameRegisterErrors.game_platform}
+              </p>
             )}
             {platforms ? (
               platforms.map((platform) => (
@@ -240,9 +265,16 @@ function GameForm({ creationMode }) {
                     value={platform.id}
                     checked={actualGame.game_platform.includes(platform.id)}
                     onChange={(e) => handleCheckboxChange(e, creationMode)}
-                    className="mr-2"
+                    className={`cursor-pointer border-none focus:outline-none ${
+                      gameRegisterErrors.game_platform
+                        ? "ring-2 ring-red-600 focus:ring-red-600 placeholder-red-600"
+                        : "focus:ring-2 focus:ring-purple-600"
+                    } rounded-3xl bg-gray-100 dark:bg-gray-800 px-5 py-2 accent-purple-600 hover:accent-purple-400 shadow`}
                   />
-                  <label htmlFor={`game-register-platform-${platform.id}`}>
+                  <label
+                    htmlFor={`game-register-platform-${platform.id}`}
+                    className="ml-2"
+                  >
                     {platform.name}
                   </label>
                 </div>
