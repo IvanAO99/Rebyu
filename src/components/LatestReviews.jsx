@@ -32,7 +32,7 @@ const LatestReviews = () => {
     if (validateArray(lastReviews)) {
       setFirstSlide(lastReviews.slice(0, 8));
       setSecondSlide(lastReviews.slice(8, 16));
-      //setThirdSlide(lastReviews.slice(16, 24));
+      setThirdSlide(lastReviews.slice(16, 24));
     }
   }, [lastReviews]);
 
@@ -57,38 +57,42 @@ const LatestReviews = () => {
           </>
         ) : (
           <>
-            <div className="flex flex-col gap-5">
-              <Slider {...settings}>
-                {validateArray(firstSlide) &&
-                  firstSlide.map((review, index) => (
-                    <Review
-                      key={crypto.randomUUID()}
-                      review={review}
-                      onSlide={true}
-                    />
-                  ))}
-              </Slider>
-              <Slider {...settings} rtl={true}>
-                {validateArray(secondSlide) &&
-                  secondSlide.map((review, index) => (
-                    <Review
-                      key={crypto.randomUUID()}
-                      review={review}
-                      onSlide={true}
-                    />
-                  ))}
-              </Slider>
-              <Slider {...settings}>
-                {validateArray(thirdSlide) &&
-                  thirdSlide.map((review, index) => (
-                    <Review
-                      key={crypto.randomUUID()}
-                      review={review}
-                      onSlide={true}
-                    />
-                  ))}
-              </Slider>
-            </div>
+            {!validateArray(lastReviews) ?  (
+              <p className="text-center text-purple-400 font-bold py-5 px-2 text-lg">Be our first reviewer!</p>
+            ) : (
+              <div className="flex flex-col gap-5">
+                <Slider {...settings}>
+                  {validateArray(firstSlide) &&
+                    firstSlide.map((review, index) => (
+                      <Review
+                        key={crypto.randomUUID()}
+                        review={review}
+                        onSlide={true}
+                      />
+                    ))}
+                </Slider>
+                <Slider {...settings} rtl={true}>
+                  {validateArray(secondSlide) &&
+                    secondSlide.map((review, index) => (
+                      <Review
+                        key={crypto.randomUUID()}
+                        review={review}
+                        onSlide={true}
+                      />
+                    ))}
+                </Slider>
+                <Slider {...settings}>
+                  {validateArray(thirdSlide) &&
+                    thirdSlide.map((review, index) => (
+                      <Review
+                        key={crypto.randomUUID()}
+                        review={review}
+                        onSlide={true}
+                      />
+                    ))}
+                </Slider>
+              </div>
+            )}
           </>
         )}
       </div>

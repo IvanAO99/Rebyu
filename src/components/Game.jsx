@@ -6,7 +6,7 @@ import { validateObject } from "../libraries/validateData";
 import useGames from "../hooks/useGames";
 import { formatScore } from "../libraries/manipulateData";
 
-const Game = ({ game, onList = false }) => {
+const Game = ({ game, onList = false, onSlide = false }) => {
   const { id, synopsis, title, cover_pic } = game;
   const [isHovered, setIsHovered] = useState(false);
   const { isSessionUp, user, isAdmin } = useUsers();
@@ -72,13 +72,15 @@ const Game = ({ game, onList = false }) => {
                 </button>
               </div>
             ) : (
-              <button
-                type="button"
-                id={`likeHeart~${id}`}
-                className="z-10 absolute top-0 right-0 m-5 rounded-full text-gray-600 hover:text-purple-600 shadow transition-all duration-300 cursor-pointer"
-              >
-                <FaHeart size={24} />
-              </button>
+              !onSlide && (
+                <button
+                  type="button"
+                  id={`likeHeart~${id}`}
+                  className="z-10 absolute top-0 right-0 m-5 rounded-full text-gray-600 hover:text-purple-600 shadow transition-all duration-300 cursor-pointer"
+                >
+                  <FaHeart size={24} />
+                </button>
+              )
             ))
           )}
           <img
@@ -96,13 +98,15 @@ const Game = ({ game, onList = false }) => {
           <p className="w-full h-32 px-5 py-2 text-center text-gray-50 line-clamp-5">
             {synopsis}
           </p>
-          <button
-            type="button"
-            id={`game-card-${id}`}
-            className="rounded-3xl bg-purple-600 hover:bg-purple-400 px-5 py-2 text-gray-50 shadow transition-all duration-300"
-          >
-            See more
-          </button>
+          {!onSlide && (
+            <button
+              type="button"
+              id={`game-card-${id}`}
+              className="rounded-3xl bg-purple-600 hover:bg-purple-400 px-5 py-2 text-gray-50 shadow transition-all duration-300"
+            >
+              See more
+            </button>
+          )}
         </div>
       </div>
     </Fragment>

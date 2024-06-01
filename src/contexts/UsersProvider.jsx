@@ -5,7 +5,7 @@ import { toast, Slide } from "react-toastify";
 
 import { supabaseConnection } from "../.config/supabase.js";
 
-import { validateObject } from "../libraries/validateData.js";
+import { isValidURL, validateObject } from "../libraries/validateData.js";
 import AlertIcon from "../components/AlertIcon.jsx";
 
 const UsersContext = createContext();
@@ -211,7 +211,7 @@ const UsersProvider = ({ children }) => {
     } else if (!passwdRegex.test(signUpForm.password)) {
       validationErrors = {
         ...validationErrors,
-        password: "The password is invalid.",
+        password: "Password must be at least 8 characters long, and include at least one lowercase letter, one uppercase letter, one number, and one special character.",
       };
     }
 
@@ -231,6 +231,13 @@ const UsersProvider = ({ children }) => {
       validationErrors = {
         ...validationErrors,
         name: "The name field is required.",
+      };
+    }
+
+    if (signUpForm.profile_photo && !isValidURL(signUpForm.profile_photo)) {
+      validationErrors = {
+        ...validationErrors,
+        profile_photo: "The URL doesn't exist.",
       };
     }
 
@@ -264,7 +271,6 @@ const UsersProvider = ({ children }) => {
    */
   const handleSignUp = () => {
     const validationErrors = validateSignUp();
-    /* console.log(validationErrors) */
     if (validateObject(validationErrors)) {
       setSignUpFormErrors(validationErrors);
     } else {
@@ -316,9 +322,8 @@ const UsersProvider = ({ children }) => {
       if (error) throw error;
 
       setUser({ ...authUser, ...users[0] });
-      sendUserAlert("info", `Welcome! ${users[0].nickname}`);
+      //sendUserAlert("info", `Welcome! ${users[0].nickname}`);
 
-      //console.log(user);
       navigate("/");
     } catch (error) {
       sendUserAlert("error", "Something went wrong, please try again.");
@@ -475,10 +480,6 @@ const UsersProvider = ({ children }) => {
       }
     );
   }, []);
-
-  useEffect(() => {
-    console.log(allUsers);
-  }, [allUsers]);
 
   /* CONTEXT DATA */
 

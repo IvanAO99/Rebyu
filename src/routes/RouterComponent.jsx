@@ -40,6 +40,7 @@ const RouterComponent = () => {
           <>
             <Route path="profile" element={<ProfilePage />} />
             <Route path="profile/lists" element={<ProfilePage />} />
+            <Route path="affiliate" element={<AffiliatePage />} />
           </>
         )}
         {!isSessionUp && !validateObject(user) && (
@@ -49,7 +50,6 @@ const RouterComponent = () => {
           </>
         )}
         <Route path="game" element={<GamePage />} />
-        <Route path="affiliate" element={<AffiliatePage />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </Fragment>

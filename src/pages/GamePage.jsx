@@ -13,6 +13,7 @@ import ReviewFormModal from "../components/ReviewFormModal";
 import DeleteModal from "../components/DeleteModal";
 import useUsers from "../hooks/useUsers";
 import ReviewsFilter from "../components/ReviewsFilter";
+import InformativeTable from "../components/InformativeTable";
 
 const GamePage = () => {
   const { isLoadingGame, game } = useGames();
@@ -119,12 +120,14 @@ const GamePage = () => {
               ARE YOU SURE YOU WANT TO{" "}
               <span className="text-red-600">DELETE</span> THIS REVIEW?
             </h1>
-            <InformativeTable
-              object={{
-                user: reviewForm.users.nickname,
-                message: reviewForm.reviews.message,
-              }}
-            />
+            {isAdmin && (
+              <InformativeTable
+                object={{
+                  user: reviewForm.users.nickname,
+                  message: reviewForm.reviews.message,
+                }}
+              />
+            )}
           </DeleteModal>
         </CustomModal>
       )}

@@ -22,4 +22,18 @@ const validateObject = (object) => {
   return Object.keys(object).length > 0;
 };
 
-export { validateArray, validateObject };
+/**
+ * Checks if the given URL is valid.
+ * @param {string} url - The URL to validate.
+ * @returns {boolean} - True if the URL is valid, otherwise false.
+ */
+const isValidURL = (url) => {
+  try {
+    new URL(url);
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
+export { validateArray, validateObject, isValidURL };

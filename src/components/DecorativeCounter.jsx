@@ -1,11 +1,14 @@
-import React from "react";
+import React, { Fragment } from "react";
 import CountUp from "react-countup";
 import { useInView } from "react-intersection-observer";
 import { Link } from "react-router-dom";
 import useGames from "../hooks/useGames";
+import useUsers from "../hooks/useUsers";
+import { validateObject } from "../libraries/validateData";
 
 function DecorativeCounter() {
-  const {filteredGames} = useGames();
+  const { filteredGames } = useGames();
+  const { user, isSessionUp } = useUsers();
 
   const registeredGames = filteredGames.length;
   const affiliates = 232;
@@ -74,9 +77,25 @@ function DecorativeCounter() {
         <p className="text-lg text-gray-800 dark:text-gray-200">
           What are you waiting for?
         </p>
-        <Link to="/affiliate" className="text-purple-500 dark:text-purple-400 hover:underline text-2xl">
-        Become a member and support the project!
-        </Link>
+        {isSessionUp && validateObject(user) ? (
+          <>
+            <Link
+              to="/affiliate"
+              className="text-purple-500 dark:text-purple-400 hover:underline text-2xl"
+            >
+              Become a member and support the project!
+            </Link>
+          </>
+        ) : (
+          <>
+            <Link
+              to="/login"
+              className="text-purple-500 dark:text-purple-400 hover:underline text-2xl"
+            >
+              Log in and discover our advantages!
+            </Link>
+          </>
+        )}
       </div>
     </div>
   );

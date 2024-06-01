@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 
 import Profile from "../components/Profile.jsx";
 import Lists from "../components/Lists.jsx";
@@ -17,6 +17,12 @@ const ProfilePage = () => {
     hideListDeleteModal,
     deleteList,
   } = useLists();
+
+  const { refreshListsFromUser } = useLists();
+
+  useEffect(()=>{
+    refreshListsFromUser();
+  }, [])
   return (
     <Fragment>
       <div>

@@ -103,9 +103,7 @@ function AffiliateForm() {
                   } rounded-3xl bg-gray-100 dark:bg-gray-800 px-5 py-2 accent-purple-600 hover:accent-purple-400 shadow`}
                   value={"accepted"}
                   checked={errors ? true : false}
-                  onChange={(event) => {
-                    updateSignUpForm(event.target);
-                  }}
+                  readOnly
                 />
                 <label
                   htmlFor="terms"
