@@ -1,6 +1,10 @@
 import React, { createContext, useEffect, useState } from "react";
 import { supabaseConnection } from "../.config/supabase.js";
-import { isValidURL, validateArray, validateObject } from "../libraries/validateData.js";
+import {
+  isValidURL,
+  validateArray,
+  validateObject,
+} from "../libraries/validateData.js";
 
 import regex from "../jsons/regex.json";
 import { useNavigate } from "react-router-dom";
@@ -14,8 +18,6 @@ const GamesContext = createContext();
 
 const GamesProvider = ({ children }) => {
   const navigate = useNavigate();
-
-  const { gameAdded, cancelGameAdded } = useLists();
 
   /* INITIAL STATES VALUES */
   const initialValues = {
@@ -154,6 +156,16 @@ const GamesProvider = ({ children }) => {
     setIsGameDeleteModalOpen(initialValues.isGameDeleteModalOpen);
   };
 
+  const mergeGamesWithScores = (games, scores) => {
+    return games.map((game) => {
+      const matchingScore = scores.find((score) => score.id === game.id);
+
+      return matchingScore
+        ? { ...game, average_score: matchingScore.average_score }
+        : game;
+    });
+  };
+
   /**
    * Retrieves all games from the database, including associated genres, platforms, and developers.
    * Games are ordered by their ID.
@@ -183,20 +195,7 @@ const GamesProvider = ({ children }) => {
         );
       }
 
-      const gamesWithScore = data.map((dataGame) => {
-        const matchingGame = scoreData.find(
-          (gameScore) => gameScore.id === dataGame.id
-        );
-
-        if (matchingGame) {
-          return {
-            ...dataGame,
-            average_score: matchingGame.average_score,
-          };
-        }
-
-        return dataGame;
-      });
+      const gamesWithScore = mergeGamesWithScores(data, scoreData);
 
       setGames(gamesWithScore);
     } catch (error) {
@@ -298,7 +297,11 @@ const GamesProvider = ({ children }) => {
         );
       }
 
-      setGame(validateArray(scoreData) ? {...data[0], average_score: scoreData[0].average_score} : data[0])
+      setGame(
+        validateArray(scoreData)
+          ? { ...data[0], average_score: scoreData[0].average_score }
+          : data[0]
+      );
     } catch (error) {
       console.log(error);
     } finally {
@@ -413,7 +416,6 @@ const GamesProvider = ({ children }) => {
     }
     setGameRegisterErrors({ ...gameRegisterErrors, [name]: null });
   };
-
 
   /**
    * Checks if all options selected are valid by comparing them with an array of valid options.
@@ -887,14 +889,7 @@ const GamesProvider = ({ children }) => {
   const refreshGames = () => {
     getGames();
     getGame(game.id);
-  }
-
-  /*   useEffect(()=>{
-    if(gameAdded){
-      getGames();
-      cancelGameAdded();
-    }
-  }, [gameAdded]) */
+  };
 
   useEffect(() => {
     const filteredGames = filterGameList(games, gameFilter);
@@ -948,7 +943,7 @@ const GamesProvider = ({ children }) => {
     hideGameFormModal,
     showGameDeleteModal,
     hideGameDeleteModal,
-    refreshGames
+    refreshGames,
   };
 
   return (

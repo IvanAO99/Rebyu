@@ -14,7 +14,7 @@ const List = ({ list }) => {
     removeGameFromList,
     showListDeleteModal,
   } = useLists();
-  const { getGame } = useGames();
+  const { getGame, filteredGames } = useGames();
 
   const handleGameClick = (event) => {
     event.preventDefault();
@@ -29,6 +29,11 @@ const List = ({ list }) => {
     }
   };
 
+  const gameIDsOnList = games_on_list.map((item) => item.games.id);
+  const filteredGamesOnList = filteredGames.filter((game) =>
+    gameIDsOnList.includes(game.id)
+  );
+  
   return (
     <Fragment>
       <div className="[&:not(:last-child)]:border-b-2 py-4">
@@ -102,10 +107,10 @@ const List = ({ list }) => {
               }
             }}
           >
-            {validateArray(games_on_list) ? (
-              games_on_list.map((game, index) => (
+            {validateArray(filteredGamesOnList) ? (
+              filteredGamesOnList.map((game, index) => (
                 <Fragment key={index}>
-                  <Game game={game.games} onList={true} />
+                  <Game game={game} onList={true} />
                 </Fragment>
               ))
             ) : (
