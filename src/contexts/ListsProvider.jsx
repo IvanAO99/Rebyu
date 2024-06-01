@@ -166,10 +166,7 @@ const ListsProvider = ({ children }) => {
         );
       }
     } else {
-      sendListAlert(
-        "error",
-        "This game is already in the list!"
-      );
+      sendListAlert("error", "The game is already on the active list!");
     }
   };
 

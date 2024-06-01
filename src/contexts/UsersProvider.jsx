@@ -211,7 +211,8 @@ const UsersProvider = ({ children }) => {
     } else if (!passwdRegex.test(signUpForm.password)) {
       validationErrors = {
         ...validationErrors,
-        password: "Password must be at least 8 characters long, and include at least one lowercase letter, one uppercase letter, one number, and one special character.",
+        password:
+          "Password must be at least 8 characters long, and include at least one lowercase letter, one uppercase letter, one number, and one special character.",
       };
     }
 
@@ -328,7 +329,7 @@ const UsersProvider = ({ children }) => {
       setUser({ ...authUser, ...users[0] });
       //sendUserAlert("info", `Welcome! ${users[0].nickname}`);
 
-      navigate("/");
+      //navigate("/");
     } catch (error) {
       sendUserAlert("error", "Something went wrong, please try again.");
     } finally {

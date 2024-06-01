@@ -23,8 +23,8 @@ const Lists = () => {
           </button>
           <div className="flex-grow border-y-2 border-purple-600"></div>
         </div>
-          <ActiveListForm />
-        <div className="rounded-3xl shadow">
+        <ActiveListForm />
+        <div className="shadow m-5 overflow-hidden rounded-3xl">
           {validateArray(userLists) ? (
             userLists.map((list, index) => (
               <Fragment key={index}>

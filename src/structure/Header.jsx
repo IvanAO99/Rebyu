@@ -115,7 +115,7 @@ const Header = () => {
                           "src/assets/profile-photo-default.jpg"
                         }
                         alt="User"
-                        className="h-10 w-10 rounded-full cursor-pointer hover:opacity-75"
+                        className="object-cover h-10 w-10 rounded-full cursor-pointer hover:opacity-75"
                         onClick={toggleMenu}
                       />
                       {isMenuOpen && (

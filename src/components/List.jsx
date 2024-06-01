@@ -9,6 +9,7 @@ const List = ({ list }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const { id, name, type, games_on_list } = list;
+
   const {
     showListFormModal,
     removeGameFromList,
@@ -36,7 +37,7 @@ const List = ({ list }) => {
   
   return (
     <Fragment>
-      <div className="[&:not(:last-child)]:border-b-2 py-4">
+      <div className="[&:not(:last-child)]:border-b-2 border-gray-100 dark:border-gray-800">
         <div
           className={`flex flex-row justify-between items-center ${
             isOpen && "bg-gray-100 dark:bg-gray-800"
@@ -85,7 +86,7 @@ const List = ({ list }) => {
         <div
           className={`${
             isOpen ? "block" : "hidden"
-          } border-t-2 bg-gray-100 dark:bg-gray-800/50 px-5 py-2`}
+          } bg-gray-100 dark:bg-gray-800/50 px-5 py-2`}
         >
           <div
             className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 place-items-center gap-5 p-5"
