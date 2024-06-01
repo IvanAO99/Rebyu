@@ -38,7 +38,7 @@ const AdminPage = () => {
     <>
       {isSessionUp && validateObject(user) && isAdmin ? (
         <>
-          <div className="container min-h-screen flex flex-col mx-auto p-5">
+          <div className="container min-h-full flex flex-col mx-auto p-5">
             {<Outlet />}
           </div>
         </>

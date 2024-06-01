@@ -16,6 +16,7 @@ import Reviews from "../components/Reviews.jsx";
 import AdminWelcome from "../components/AdminWelcome.jsx";
 import useReviews from "../hooks/useReviews.js";
 import ReviewAdministration from "../components/ReviewAdministration.jsx";
+import GamesAdministration from "../components/GamesAdministration.jsx";
 
 const RouterComponent = () => {
   const { isSessionUp, user, isAdmin } = useUsers();
@@ -27,7 +28,10 @@ const RouterComponent = () => {
           <>
             <Route path="/" element={<AdminPage />}>
               <Route index element={<AdminWelcome />} />
-              <Route path="/games" element={<Games />} />
+              <Route path="/games" element={<GamesAdministration />}>
+                <Route index path="/games" element={<Games />} />
+                <Route index path="/games/game" element={<GamePage />} />
+              </Route>
               <Route path="/reviews" element={<ReviewAdministration />} />
             </Route>
           </>

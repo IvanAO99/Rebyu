@@ -14,6 +14,8 @@ import DeleteModal from "../components/DeleteModal";
 import useUsers from "../hooks/useUsers";
 import ReviewsFilter from "../components/ReviewsFilter";
 import InformativeTable from "../components/InformativeTable";
+import { Link } from "react-router-dom";
+import { FaAngleLeft } from "react-icons/fa6";
 
 const GamePage = () => {
   const { isLoadingGame, game } = useGames();
@@ -31,74 +33,88 @@ const GamePage = () => {
     reviewForm,
   } = useReviews();
 
-  const { user, isAdmin } = useUsers();
+  const { isSessionUp, user, isAdmin } = useUsers();
 
   return (
     <>
-      <div className="h-full flex flex-col gap-5">
+      <div className="flex-grow flex flex-col gap-5">
         {isLoadingGame ? (
           <>
-            <div className="h-full flex flex-col justify-center items-center">
-              <Loading />
-              <p className="px-5 py-2 text-purple-600 font-bold">
-                Loading game data...
-              </p>
+            <div className="flex-grow flex flex-col justify-center items-center gap-5">
+              <div className="flex flex-col justify-center items-center">
+                <Loading />
+                <p className="px-5 py-2 text-purple-600 font-bold">
+                  Loading game data...
+                </p>
+              </div>
             </div>
           </>
         ) : validateObject(game) ? (
           <>
-            <GameData />
-            <div className="flex flex-col gap-5">
-              <div className="flex flex-row justify-stretch items-center gap-1 py-2">
-                <div className="flex-grow border-y-2 border-purple-600"></div>
-                <h2 className="text-6xl font-bold">REVIEWS</h2>
-                <div className="flex-grow border-y-2 border-purple-600"></div>
-              </div>
-              {validateObject(userReview) ? (
+            <div className="h-full flex flex-col gap-5">
+              {isSessionUp && validateObject(user) && isAdmin && (
                 <>
-                  <div className="flex flex-row gap-5">
-                    <Review review={userReview} ownReview={true} />
-                    <div className="flex flex-col justify-start items-stretch gap-5">
-                      <button
-                        type="button"
-                        className="border-none rounded-3xl bg-purple-600 text-white px-5 py-2"
-                        onClick={() =>
-                          showReviewFormModal(true, userReview.review_id)
-                        }
-                      >
-                        Update
-                      </button>
-                      <button
-                        type="button"
-                        className="border-none rounded-3xl bg-red-600 text-white px-5 py-2"
-                        onClick={() => {
-                          showReviewDeleteModal(userReview.review_id);
-                        }}
-                      >
-                        Delete
-                      </button>
-                    </div>
+                  <div className="self-start flex flex-row gap-2 hover:shadow rounded-3xl hover:bg-gray-100 hover:dark:bg-gray-800 px-5 py-2 transition-all duration-300">
+                    <FaAngleLeft size={24} />
+                    <Link to="/games" className="font-bold">
+                      Back to games
+                    </Link>
                   </div>
                 </>
-              ) : validateObject(user) && !isAdmin ? (
-                <>
-                  <ReviewForm />
-                </>
-              ) : (
-                <p>
-                  {isAdmin
-                    ? "Admins can't review games!"
-                    : "Log in to review this game!"}
-                </p>
               )}
-              {/* <div className="border-y-2 border-gray-100 dark:border-gray-800"></div> */}
-              <ReviewsFilter />
-              <Reviews loading={isLoadingReviews} reviews={filteredReviews} />
+              <GameData />
+              <div className="flex flex-col gap-5">
+                <div className="flex flex-row justify-stretch items-center gap-1 py-2">
+                  <div className="flex-grow border-y-2 border-purple-600"></div>
+                  <h2 className="text-6xl font-bold">REVIEWS</h2>
+                  <div className="flex-grow border-y-2 border-purple-600"></div>
+                </div>
+                {validateObject(userReview) ? (
+                  <>
+                    <div className="flex flex-row gap-5">
+                      <Review review={userReview} ownReview={true} />
+                      <div className="flex flex-col justify-start items-stretch gap-5">
+                        <button
+                          type="button"
+                          className="border-none rounded-3xl bg-purple-600 text-white px-5 py-2"
+                          onClick={() =>
+                            showReviewFormModal(true, userReview.review_id)
+                          }
+                        >
+                          Update
+                        </button>
+                        <button
+                          type="button"
+                          className="border-none rounded-3xl bg-red-600 text-white px-5 py-2"
+                          onClick={() => {
+                            showReviewDeleteModal(userReview.review_id);
+                          }}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                  </>
+                ) : validateObject(user) && !isAdmin ? (
+                  <>
+                    <ReviewForm />
+                  </>
+                ) : (
+                  <p>
+                    {isAdmin
+                      ? "Admins can't review games!"
+                      : "Log in to review this game!"}
+                  </p>
+                )}
+                {/* <div className="border-y-2 border-gray-100 dark:border-gray-800"></div> */}
+                <ReviewsFilter />
+                <Reviews loading={isLoadingReviews} reviews={filteredReviews} />
+              </div>
             </div>
           </>
         ) : (
           <>
-            <div>
+            <div className="h-full flex flex-col justify-center items-center gap-5">
               <p>ERROR. No game found.</p>
             </div>
           </>

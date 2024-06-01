@@ -1,6 +1,10 @@
 import React, { createContext, useEffect, useState } from "react";
 import { supabaseConnection } from "../.config/supabase.js";
-import { isValidURL, validateArray, validateObject } from "../libraries/validateData.js";
+import {
+  isValidURL,
+  validateArray,
+  validateObject,
+} from "../libraries/validateData.js";
 
 import regex from "../jsons/regex.json";
 import { useNavigate } from "react-router-dom";
@@ -9,12 +13,14 @@ import { calculateTopGames } from "../libraries/manipulateData.js";
 import { toast, Slide } from "react-toastify";
 import useLists from "../hooks/useLists.js";
 import AlertIcon from "../components/AlertIcon.jsx";
+import useUsers from "../hooks/useUsers.js";
 
 const GamesContext = createContext();
 
 const GamesProvider = ({ children }) => {
   const navigate = useNavigate();
 
+  const { isSessionUp, user, isAdmin } = useUsers();
   const { gameAdded, cancelGameAdded } = useLists();
 
   /* INITIAL STATES VALUES */
@@ -139,6 +145,7 @@ const GamesProvider = ({ children }) => {
   const showGameFormModal = (formMode) => {
     setCreationMode(formMode === "create");
 
+    setGameRegisterErrors(initialValues.gameRegisterErrors);
     setIsGameFormModalOpen(true);
   };
 
@@ -278,7 +285,11 @@ const GamesProvider = ({ children }) => {
     try {
       setIsLoadingGame(true);
 
-      navigate("/game");
+      if (isSessionUp && validateObject(user) && isAdmin) {
+        navigate("/games/game");
+      } else {
+        navigate("/game");
+      }
 
       const { data, error } = await supabaseConnection
         .from("games")
@@ -298,7 +309,11 @@ const GamesProvider = ({ children }) => {
         );
       }
 
-      setGame(validateArray(scoreData) ? {...data[0], average_score: scoreData[0].average_score} : data[0])
+      setGame(
+        validateArray(scoreData)
+          ? { ...data[0], average_score: scoreData[0].average_score }
+          : data[0]
+      );
     } catch (error) {
       console.log(error);
     } finally {
@@ -396,6 +411,8 @@ const GamesProvider = ({ children }) => {
           : [...selectedGame[name], value],
       });
     }
+
+    setGameRegisterErrors({ ...gameRegisterErrors, [name]: null });
   };
 
   /**
@@ -413,7 +430,6 @@ const GamesProvider = ({ children }) => {
     }
     setGameRegisterErrors({ ...gameRegisterErrors, [name]: null });
   };
-
 
   /**
    * Checks if all options selected are valid by comparing them with an array of valid options.
@@ -887,7 +903,7 @@ const GamesProvider = ({ children }) => {
   const refreshGames = () => {
     getGames();
     getGame(game.id);
-  }
+  };
 
   /*   useEffect(()=>{
     if(gameAdded){
@@ -919,6 +935,7 @@ const GamesProvider = ({ children }) => {
     newGames,
     games,
     isLoadingGames,
+    isLoadingGame,
     latestGames,
     isLoadingLatestGames,
     topGames,
@@ -948,7 +965,7 @@ const GamesProvider = ({ children }) => {
     hideGameFormModal,
     showGameDeleteModal,
     hideGameDeleteModal,
-    refreshGames
+    refreshGames,
   };
 
   return (
