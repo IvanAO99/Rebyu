@@ -19,7 +19,7 @@ const HomePage = () => {
     <Fragment>
       <div>
         <NewGames />
-        {isSessionUp && <ActiveListForm />}
+        {isSessionUp && <ActiveListForm onProfile={false} />}
         <Games />
         <TopGames />
         <LatestGames />
