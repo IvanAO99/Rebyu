@@ -152,7 +152,7 @@ const ListsProvider = ({ children }) => {
 
         if (error) throw error;
 
-//        getListsFromUser();
+        //        getListsFromUser();
         setGameAdded(true);
 
         sendListAlert("success", "Game added to list successfully!");
@@ -162,12 +162,14 @@ const ListsProvider = ({ children }) => {
           "Something went wrong, the game could not be added to list."
         );
       }
+    } else {
+      sendListAlert("error", "The game is already on the active list!");
     }
   };
 
   const refreshListsFromUser = () => {
-      getListsFromUser();
-  }
+    getListsFromUser();
+  };
 
   const removeGameFromList = async (gameID, listID) => {
     if (user.id) {
@@ -241,7 +243,7 @@ const ListsProvider = ({ children }) => {
         "Something went wrong, the list could not be updated."
       );
     } finally {
-      setListToUpdate(initialValues.listToUpdate)
+      setListToUpdate(initialValues.listToUpdate);
     }
   };
 
@@ -290,7 +292,7 @@ const ListsProvider = ({ children }) => {
         "Something went wrong, the list could not be created."
       );
     } finally {
-      setNewList(initialValues.newList)
+      setNewList(initialValues.newList);
     }
   };
 
@@ -421,7 +423,7 @@ const ListsProvider = ({ children }) => {
     hideListDeleteModal,
     handleListCreation,
     listFormErrors,
-    refreshListsFromUser
+    refreshListsFromUser,
   };
 
   return (
