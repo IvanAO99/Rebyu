@@ -20,9 +20,9 @@ const ProfilePage = () => {
 
   const { refreshListsFromUser } = useLists();
 
-  useEffect(()=>{
+  useEffect(() => {
     refreshListsFromUser();
-  }, [])
+  }, []);
   return (
     <Fragment>
       <div>
@@ -33,34 +33,28 @@ const ProfilePage = () => {
         <ListForm /> */}
         <Lists />
       </div>
-      {isListFormModalOpen && (
-        <>
-          <CustomModal isOpen={isListFormModalOpen}>
-            <ListFormModal />
-          </CustomModal>
-        </>
-      )}
-      {isDeleteListModalOpen && (
-        <CustomModal isOpen={isDeleteListModalOpen}>
-          <DeleteModal
-            title={"DELETE LIST"}
-            hideFunction={hideListDeleteModal}
-            deleteFunction={deleteList}
-          >
-            <h1 className="text-xl font-bold text-center">
-              ARE YOU SURE YOU WANT TO{" "}
-              <span className="text-red-600">DELETE</span> THIS LIST?
-            </h1>
-            <InformativeTable
-              object={{
-                name: listToDelete.name,
-                type: listToDelete.type,
-                total_games: listToDelete.games_on_list.length,
-              }}
-            />
-          </DeleteModal>
-        </CustomModal>
-      )}
+      <CustomModal isOpen={isListFormModalOpen}>
+        <ListFormModal />
+      </CustomModal>
+      <CustomModal isOpen={isDeleteListModalOpen}>
+        <DeleteModal
+          title={"DELETE LIST"}
+          hideFunction={hideListDeleteModal}
+          deleteFunction={deleteList}
+        >
+          <h1 className="text-xl font-bold text-center">
+            ARE YOU SURE YOU WANT TO{" "}
+            <span className="text-red-600">DELETE</span> THIS LIST?
+          </h1>
+          <InformativeTable
+            object={{
+              name: listToDelete.name,
+              type: listToDelete.type,
+              total_games: listToDelete.games_on_list.length,
+            }}
+          />
+        </DeleteModal>
+      </CustomModal>
     </Fragment>
   );
 };
