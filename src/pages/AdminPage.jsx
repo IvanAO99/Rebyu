@@ -49,54 +49,44 @@ const AdminPage = () => {
           </div>
         </>
       )}
-      {isGameFormModalOpen && (
-        <>
-          <CustomModal isOpen={isGameFormModalOpen}>
-            <GameFormModal creationMode={creationMode} />
-          </CustomModal>
-        </>
-      )}
-      {isGameDeleteModalOpen && (
-        <>
-          <CustomModal isOpen={isGameDeleteModalOpen}>
-            <DeleteModal
-              title={"DELETE GAME"}
-              hideFunction={hideGameDeleteModal}
-              deleteFunction={deleteGame}
-            >
-              <h1 className="text-xl font-bold text-center">
-                ARE YOU SURE YOU WANT TO{" "}
-                <span className="text-red-600">DELETE</span> THIS GAME?
-              </h1>
-              <InformativeTable
-                object={{
-                  name: selectedGame.title,
-                }}
-              />
-            </DeleteModal>
-          </CustomModal>
-        </>
-      )}
-      {deletingReview && (
-        <CustomModal isOpen={deletingReview}>
-          <DeleteModal
-            title={"DELETE REVIEW"}
-            hideFunction={hideReviewDeleteModal}
-            deleteFunction={handleReviewSubmit}
-          >
-            <h1 className="text-xl font-bold text-center">
-              ARE YOU SURE YOU WANT TO{" "}
-              <span className="text-red-600">DELETE</span> THIS REVIEW?
-            </h1>
-            <InformativeTable
-              object={{
-                user: reviewForm.users.nickname,
-                message: reviewForm.reviews.message,
-              }}
-            />
-          </DeleteModal>
-        </CustomModal>
-      )}
+      <CustomModal isOpen={isGameFormModalOpen}>
+        <GameFormModal creationMode={creationMode} />
+      </CustomModal>
+      <CustomModal isOpen={isGameDeleteModalOpen}>
+        <DeleteModal
+          title={"DELETE GAME"}
+          hideFunction={hideGameDeleteModal}
+          deleteFunction={deleteGame}
+        >
+          <h1 className="text-xl font-bold text-center">
+            ARE YOU SURE YOU WANT TO{" "}
+            <span className="text-red-600">DELETE</span> THIS GAME?
+          </h1>
+          <InformativeTable
+            object={{
+              name: selectedGame.title,
+            }}
+          />
+        </DeleteModal>
+      </CustomModal>
+      <CustomModal isOpen={deletingReview}>
+        <DeleteModal
+          title={"DELETE REVIEW"}
+          hideFunction={hideReviewDeleteModal}
+          deleteFunction={handleReviewSubmit}
+        >
+          <h1 className="text-xl font-bold text-center">
+            ARE YOU SURE YOU WANT TO{" "}
+            <span className="text-red-600">DELETE</span> THIS REVIEW?
+          </h1>
+          <InformativeTable
+            object={{
+              user: reviewForm.users.nickname,
+              message: reviewForm.reviews.message,
+            }}
+          />
+        </DeleteModal>
+      </CustomModal>
     </>
   );
 };

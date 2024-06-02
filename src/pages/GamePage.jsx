@@ -120,33 +120,29 @@ const GamePage = () => {
           </>
         )}
       </div>
-      {isReviewFormModalOpen && (
-        <CustomModal isOpen={isReviewFormModalOpen}>
-          <ReviewFormModal />
-        </CustomModal>
-      )}
-      {deletingReview && (
-        <CustomModal isOpen={deletingReview}>
-          <DeleteModal
-            title={"DELETE REVIEW"}
-            hideFunction={hideReviewDeleteModal}
-            deleteFunction={handleReviewSubmit}
-          >
-            <h1 className="text-xl font-bold text-center">
-              ARE YOU SURE YOU WANT TO{" "}
-              <span className="text-red-600">DELETE</span> THIS REVIEW?
-            </h1>
-            {isAdmin && (
-              <InformativeTable
-                object={{
-                  user: reviewForm.users.nickname,
-                  message: reviewForm.reviews.message,
-                }}
-              />
-            )}
-          </DeleteModal>
-        </CustomModal>
-      )}
+      <CustomModal isOpen={isReviewFormModalOpen}>
+        <ReviewFormModal />
+      </CustomModal>
+      <CustomModal isOpen={deletingReview}>
+        <DeleteModal
+          title={"DELETE REVIEW"}
+          hideFunction={hideReviewDeleteModal}
+          deleteFunction={handleReviewSubmit}
+        >
+          <h1 className="text-xl font-bold text-center">
+            ARE YOU SURE YOU WANT TO{" "}
+            <span className="text-red-600">DELETE</span> THIS REVIEW?
+          </h1>
+          {isAdmin && (
+            <InformativeTable
+              object={{
+                user: reviewForm.users.nickname,
+                message: reviewForm.reviews.message,
+              }}
+            />
+          )}
+        </DeleteModal>
+      </CustomModal>
     </>
   );
 };
