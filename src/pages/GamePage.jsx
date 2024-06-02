@@ -136,8 +136,8 @@ const GamePage = () => {
           {isAdmin && (
             <InformativeTable
               object={{
-                user: reviewForm.users.nickname,
-                message: reviewForm.reviews.message,
+                user: reviewForm?.users?.nickname,
+                message: reviewForm?.reviews?.message,
               }}
             />
           )}

@@ -236,7 +236,7 @@ const GamesProvider = ({ children }) => {
           "*, game_genre(genres(*)), game_platform(platforms(*)), game_developer(developers(*))"
         )
         .order("release_date", { ascending: false })
-        .range(0, 10);
+        .range(0, 9);
 
       if (error) throw error;
 
@@ -255,7 +255,7 @@ const GamesProvider = ({ children }) => {
       const { data, error } = await supabaseConnection
         .from("top_games")
         .select("*")
-        .range(0, 10);
+        .range(0, 9);
 
       if (error) throw error;
 
