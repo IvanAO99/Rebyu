@@ -1,7 +1,9 @@
 import React from "react";
-import ReviewsFilter from "./ReviewsFilter";
-import Reviews from "./Reviews";
-import useReviews from "../hooks/useReviews";
+
+import useReviews from "../hooks/useReviews.js";
+
+import ReviewsFilter from "./ReviewsFilter.jsx";
+import Reviews from "./Reviews.jsx";
 
 function ReviewAdministration() {
   const { handleFilter, isLoadingReviews, filteredByUserAndMessage } =

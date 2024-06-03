@@ -119,7 +119,6 @@ function AffiliateForm() {
               </div>
             </form>
           </div>
-          {/* Right Column */}
           <div className="md:w-1/3 self-center md:pl-5 text-center">
             <div className="flex flex-col gap-5">
               <h3 className="text-xl md:text-3xl font-bold text-purple-600">

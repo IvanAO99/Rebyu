@@ -3,16 +3,17 @@ import React, { Fragment } from "react";
 import ReactPlayer from "react-player";
 
 import useGames from "../hooks/useGames.js";
+import useReviews from "../hooks/useReviews.js";
 
 import GameVideo from "./GameVideo.jsx";
-import useReviews from "../hooks/useReviews.js";
-import { formatScore } from "../libraries/manipulateData.js";
-import { FaExclamation } from "react-icons/fa6";
 import GameVideoError from "./GameVideoError.jsx";
+
+import { formatScore } from "../libraries/manipulateData.js";
 
 const GameData = () => {
   const { game } = useGames();
   const { reviewsWithLikes } = useReviews();
+
   return (
     <>
       <div className="flex flex-col gap-5">

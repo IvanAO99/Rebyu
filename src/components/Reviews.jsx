@@ -1,7 +1,5 @@
 import React, { Fragment } from "react";
 
-import useReviews from "../hooks/useReviews.js";
-
 import Loading from "./Loading.jsx";
 import Review from "./Review.jsx";
 

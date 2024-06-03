@@ -1,9 +1,14 @@
 import React, { Fragment } from "react";
-import List from "./List.jsx";
+
 import { FaPlus } from "react-icons/fa6";
+
 import useLists from "../hooks/useLists.js";
-import { validateArray } from "../libraries/validateData.js";
+
 import ActiveListForm from "./ActiveListForm.jsx";
+import List from "./List.jsx";
+
+import { validateArray } from "../libraries/validateData.js";
+
 const Lists = () => {
   const { userLists, showListFormModal } = useLists();
   return (

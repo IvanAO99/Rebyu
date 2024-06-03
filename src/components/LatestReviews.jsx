@@ -1,10 +1,11 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+
 import Slider from "react-slick";
 
 import useReviews from "../hooks/useReviews.js";
 
 import Loading from "./Loading.jsx";
-import Review from "./Review";
+import Review from "./Review.jsx";
 
 import { validateArray } from "../libraries/validateData.js";
 
@@ -62,10 +63,8 @@ const LatestReviews = () => {
           <h2 className="text-6xl font-bold">LATEST REVIEWS</h2>
           <div className="flex-grow border-y-2 border-purple-600"></div>
         </div>
-        {/* Display loading spinner while top games are being loaded */}
         {isLoadingLastReviews ? (
           <>
-            {/* <Loading variant="primary" /> */}
             <div className="flex flex-col justify-center items-center px-5 py-2">
               <Loading />
               <p className="px-5 py-2 text-purple-600 font-bold">

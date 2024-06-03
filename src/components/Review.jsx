@@ -1,25 +1,21 @@
 import React, { Fragment, useState } from "react";
-import {
-  FaHeart,
-  FaRegStar,
-  FaRegStarHalfStroke,
-  FaStar,
-  FaTrash,
-} from "react-icons/fa6";
-import { formatDateString } from "../libraries/manipulateData";
-import useReviews from "../hooks/useReviews";
+
+import { FaHeart, FaStar, FaTrash } from "react-icons/fa6";
+
 import useUsers from "../hooks/useUsers";
+import useReviews from "../hooks/useReviews";
+
+import { formatDateString } from "../libraries/manipulateData.js";
 
 const Review = ({ review, onSlide = false, ownReview = false }) => {
   const { users, reviews, likes, review_id } = review;
 
+  const { isAdmin } = useUsers();
   const { handleLikes, showReviewDeleteModal } = useReviews();
 
   const [isSpoiler, setIsSpoiler] = useState(
     ownReview ? false : reviews.spoiler
   );
-
-  const { isAdmin } = useUsers();
 
   return (
     <Fragment>
@@ -61,7 +57,6 @@ const Review = ({ review, onSlide = false, ownReview = false }) => {
             {[...Array(5)].map((star, i) => {
               return (
                 <Fragment key={crypto.randomUUID()}>
-                  {/* Render the Star component with customized color and size */}
                   <FaStar
                     size={24}
                     color={

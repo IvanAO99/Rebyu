@@ -1,12 +1,16 @@
 import React, { Fragment } from "react";
+
 import { FaPlus } from "react-icons/fa6";
-import GamesFilters from "./GameFilters";
-import useGames from "../hooks/useGames";
-import useLists from "../hooks/useLists.js";
-import { validateArray, validateObject } from "../libraries/validateData";
-import Game from "./Game.jsx";
+
 import useUsers from "../hooks/useUsers.js";
+import useGames from "../hooks/useGames.js";
+import useLists from "../hooks/useLists.js";
+
 import Loading from "./Loading.jsx";
+import GamesFilters from "./GameFilters.jsx";
+import Game from "./Game.jsx";
+
+import { validateArray, validateObject } from "../libraries/validateData.js";
 
 function Games({ onAdminPage = false }) {
   const { isSessionUp, user, isAdmin } = useUsers();
@@ -90,7 +94,6 @@ function Games({ onAdminPage = false }) {
               }}
             >
               {validateArray(filteredGames) ? (
-                // Displaying the list of games
                 filteredGames.map((value, index) => {
                   return (
                     <Fragment key={index}>
@@ -99,7 +102,6 @@ function Games({ onAdminPage = false }) {
                   );
                 })
               ) : (
-                // Message when no games are found
                 <>
                   <p>No games found.</p>
                 </>

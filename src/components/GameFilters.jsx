@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 
-import useGames from "../hooks/useGames.js";
 import useUsers from "../hooks/useUsers.js";
+import useGames from "../hooks/useGames.js";
 
 /**
  * A React component for displaying filters to refine game search.
@@ -9,6 +9,7 @@ import useUsers from "../hooks/useUsers.js";
  * @returns {JSX.Element} The rendered component.
  */
 const GamesFilters = () => {
+  const { isAdmin } = useUsers();
   const {
     genres,
     developers,
@@ -17,8 +18,6 @@ const GamesFilters = () => {
     resetGameFilter,
     gameFilter,
   } = useGames();
-
-  const { isAdmin } = useUsers();
 
   return (
     <Fragment>

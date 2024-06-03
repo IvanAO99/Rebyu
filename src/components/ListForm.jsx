@@ -3,20 +3,7 @@ import React from "react";
 import useLists from "../hooks/useLists.js";
 
 const ListForm = ({ creationMode = false }) => {
-  const {
-    listToUpdate,
-    updateData,
-    updateList,
-    newList,
-    createList,
-    listFormErrors,
-    handleListCreation,
-  } = useLists();
-
-  const errors = {
-    name: true,
-    type: false,
-  };
+  const { listToUpdate, updateData, newList, listFormErrors } = useLists();
 
   return (
     <>

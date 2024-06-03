@@ -1,6 +1,6 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
+
 import { useNavigate } from "react-router-dom";
-import { FaEye, FaEyeSlash } from "react-icons/fa6";
 
 import useUsers from "../hooks/useUsers.js";
 
@@ -8,7 +8,8 @@ import { formatDateString } from "../libraries/manipulateData.js";
 
 const Profile = () => {
   const navigate = useNavigate();
-  const { isSessionUp, user } = useUsers();
+
+  const { user } = useUsers();
 
   return (
     <Fragment>

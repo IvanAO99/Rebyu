@@ -1,12 +1,12 @@
 import React, { createContext, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-
-import { toast, Slide } from "react-toastify";
 
 import { supabaseConnection } from "../.config/supabase.js";
+import { useNavigate } from "react-router-dom";
+import { toast, Slide } from "react-toastify";
+
+import AlertIcon from "../components/AlertIcon.jsx";
 
 import { isValidURL, validateObject } from "../libraries/validateData.js";
-import AlertIcon from "../components/AlertIcon.jsx";
 
 const UsersContext = createContext();
 

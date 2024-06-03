@@ -1,6 +1,6 @@
 import React from "react";
+
 import Modal from "react-modal";
-import { FaX } from "react-icons/fa6";
 
 Modal.setAppElement("#modal-root");
 

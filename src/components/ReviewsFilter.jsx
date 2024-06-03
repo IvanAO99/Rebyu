@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import useReviews from "../hooks/useReviews";
+
+import useReviews from "../hooks/useReviews.js";
 
 const ReviewsFilter = () => {
   const initialActiveOption = "all";
 
-  const [activeOption, setActiveOption] = useState(initialActiveOption);
-
   const { filterReviews } = useReviews();
+
+  const [activeOption, setActiveOption] = useState(initialActiveOption);
 
   const handleClick = (filterType) => {
     filterReviews(filterType);

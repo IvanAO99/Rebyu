@@ -1,4 +1,5 @@
 import React from "react";
+
 import Slider from "react-slick";
 
 import useGames from "../hooks/useGames.js";
@@ -56,10 +57,8 @@ const TopGames = () => {
           <h2 className="text-3xl md:text-6xl font-bold">TOP GAMES</h2>
           <div className="flex-grow border-y-2 border-purple-600"></div>
         </div>
-        {/* Display loading spinner while top games are being loaded */}
         {isLoadingTopGames ? (
           <>
-            {/* <Loading variant="primary" /> */}
             <div className="flex flex-col justify-center items-center px-5 py-2">
               <Loading />
               <p className="px-5 py-2 text-purple-600 font-bold">
@@ -69,9 +68,6 @@ const TopGames = () => {
           </>
         ) : (
           <>
-            {/*             <div>
-              <p>{JSON.stringify(topGames)}</p>
-            </div> */}
             {!validateArray(topGames) ? (
               <p className="text-center text-purple-400 font-bold py-5 px-2 text-lg">
                 No top games yet!

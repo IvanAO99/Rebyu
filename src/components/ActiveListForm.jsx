@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
-import useLists from "../hooks/useLists";
-import { validateArray } from "../libraries/validateData";
+
+import useLists from "../hooks/useLists.js";
+
+import { validateArray } from "../libraries/validateData.js";
 
 const ActiveListForm = ({ onProfile = true }) => {
   const { userLists, changeActiveList, selectedList } = useLists();

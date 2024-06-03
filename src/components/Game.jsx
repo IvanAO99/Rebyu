@@ -1,17 +1,21 @@
 import React, { Fragment, useState } from "react";
+
 import { FaHeart, FaHeartCrack, FaTrash, FaPen } from "react-icons/fa6";
-import useLists from "../hooks/useLists";
-import useUsers from "../hooks/useUsers";
-import { validateObject } from "../libraries/validateData";
-import useGames from "../hooks/useGames";
-import { formatScore } from "../libraries/manipulateData";
+
+import useUsers from "../hooks/useUsers.js";
+import useGames from "../hooks/useGames.js";
+
+import { validateObject } from "../libraries/validateData.js";
+import { formatScore } from "../libraries/manipulateData.js";
 
 const Game = ({ game, onList = false, onSlide = false }) => {
   const { id, synopsis, title, cover_pic } = game;
-  const [isHovered, setIsHovered] = useState(false);
+
   const { isSessionUp, user, isAdmin } = useUsers();
   const { showGameFormModal, updateSelectedGame, showGameDeleteModal } =
     useGames();
+
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleGameActions = (id, action) => {
     updateSelectedGame(id);

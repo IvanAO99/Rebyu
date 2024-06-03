@@ -1,4 +1,5 @@
 import React from "react";
+
 import { FaX } from "react-icons/fa6";
 
 import useLists from "../hooks/useLists.js";
@@ -6,8 +7,7 @@ import useLists from "../hooks/useLists.js";
 import ListForm from "./ListForm.jsx";
 
 const ListFormModal = () => {
-  const { updatingList, hideListFormModal, createList, updateList, handleListCreation } =
-    useLists();
+  const { updatingList, hideListFormModal, handleListCreation } = useLists();
 
   return (
     <>

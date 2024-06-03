@@ -1,6 +1,8 @@
 import React, { Fragment } from "react";
-import useReviews from "../hooks/useReviews";
+
 import { FaStar } from "react-icons/fa6";
+
+import useReviews from "../hooks/useReviews.js";
 
 const ReviewForm = ({ isUpdating = false }) => {
   const { reviewForm, reviewFormErrors, updateReviewForm, handleReviewSubmit } =

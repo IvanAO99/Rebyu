@@ -1,5 +1,6 @@
 import React from "react";
-import useGames from "../hooks/useGames";
+
+import useGames from "../hooks/useGames.js";
 
 const NewGame = ({ game }) => {
   const { wallpaper, title, synopsis, id } = game;

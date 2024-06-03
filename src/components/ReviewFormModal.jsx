@@ -1,17 +1,13 @@
 import React from "react";
+
 import { FaX } from "react-icons/fa6";
 
 import useReviews from "../hooks/useReviews.js";
+
 import ReviewForm from "./ReviewForm.jsx";
 
 const ReviewFormModal = () => {
-  const {
-    reviewForm,
-    reviewFormErrors,
-    updateReviewForm,
-    hideReviewFormModal,
-    handleReviewSubmit,
-  } = useReviews();
+  const { hideReviewFormModal, handleReviewSubmit } = useReviews();
 
   return (
     <>
