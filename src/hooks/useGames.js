@@ -3,8 +3,11 @@ import { useContext } from "react";
 import { GamesContext } from "../contexts/GamesProvider.jsx";
 
 /**
- * A custom React hook for accessing the GamesContext.
- * @returns {Object} The GamesContext object.
+ * Hook useGames
+ *
+ * Este hook permite acceder al contexto proporcionado por GamesProvider.
+ * Proporciona acceso a los estados y funciones relacionadas con los juegos.
+ *
  */
 const useGames = () => {
   const context = useContext(GamesContext);

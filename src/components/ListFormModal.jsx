@@ -1,13 +1,20 @@
 import React from "react";
+
 import { FaX } from "react-icons/fa6";
 
 import useLists from "../hooks/useLists.js";
 
 import ListForm from "./ListForm.jsx";
 
+/**
+ * Componente ListFormModal
+ *
+ * Este componente muestra un modal para crear o actualizar una lista de juegos.
+ * Utiliza el hook useLists para manejar la lógica relacionada con las listas de juegos.
+ *
+ */
 const ListFormModal = () => {
-  const { updatingList, hideListFormModal, createList, updateList, handleListCreation } =
-    useLists();
+  const { updatingList, hideListFormModal, handleListCreation } = useLists();
 
   return (
     <>

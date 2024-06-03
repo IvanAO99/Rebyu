@@ -1,10 +1,22 @@
 import React from "react";
+
 import { FaX } from "react-icons/fa6";
 
 import useGames from "../hooks/useGames.js";
 
 import GameForm from "./GameForm.jsx";
 
+/**
+ * Componente GameFormModal
+ *
+ * Este componente muestra un modal para crear o actualizar un juego.
+ * Utiliza el hook useGames para manejar la apertura y cierre del modal, así como para manejar las acciones de creación o actualización del juego.
+ * El modal contiene el componente GameForm para ingresar los datos del juego.
+ *
+ * Props:
+ * @param {boolean} creationMode - Booleano que indica si el modal está en modo de creación (true) o actualización (false).
+ *
+ */
 const GameFormModal = ({ creationMode }) => {
   const { hideGameFormModal, handleGameForm } = useGames();
 

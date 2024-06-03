@@ -1,17 +1,20 @@
 import React from "react";
+
 import { FaX } from "react-icons/fa6";
 
 import useReviews from "../hooks/useReviews.js";
+
 import ReviewForm from "./ReviewForm.jsx";
 
+/**
+ * Componente ReviewFormModal
+ *
+ * Este componente representa un modal para actualizar una revisión existente.
+ * Contiene un formulario para editar la revisión y botones para actualizar o cancelar la acción.
+ *
+ */
 const ReviewFormModal = () => {
-  const {
-    reviewForm,
-    reviewFormErrors,
-    updateReviewForm,
-    hideReviewFormModal,
-    handleReviewSubmit,
-  } = useReviews();
+  const { hideReviewFormModal, handleReviewSubmit } = useReviews();
 
   return (
     <>

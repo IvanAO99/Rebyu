@@ -1,9 +1,22 @@
 import React from "react";
-import useGames from "../hooks/useGames";
-import Game from "./Game";
-import Loading from "./Loading";
+
 import Slider from "react-slick";
-import { validateArray } from "../libraries/validateData";
+
+import useGames from "../hooks/useGames.js";
+
+import Loading from "./Loading.jsx";
+import Game from "./Game.jsx";
+
+import { validateArray } from "../libraries/validateData.js";
+
+/**
+ * Componente LatestGames
+ *
+ * Este componente muestra una lista de los últimos juegos agregados.
+ * Utiliza el hook useGames para obtener los últimos juegos y el estado de carga.
+ * Utiliza el componente Game para representar cada juego en la lista.
+ *
+ */
 
 const LatestGames = () => {
   const { latestGames, isLoadingLatestGames } = useGames();
@@ -47,10 +60,8 @@ const LatestGames = () => {
           <h2 className="text-6xl font-bold">LATEST GAMES</h2>
           <div className="flex-grow border-y-2 border-purple-600"></div>
         </div>
-        {/* Display loading spinner while top games are being loaded */}
         {isLoadingLatestGames ? (
           <>
-            {/* <Loading variant="primary" /> */}
             <div className="flex flex-col justify-center items-center px-5 py-2">
               <Loading />
               <p className="px-5 py-2 text-purple-600 font-bold">

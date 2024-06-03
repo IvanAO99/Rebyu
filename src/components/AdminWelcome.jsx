@@ -1,8 +1,17 @@
 import React from "react";
+
 import { Link } from "react-router-dom";
 
 import useUsers from "../hooks/useUsers.js";
 
+/**
+ * Componente AdminWelcome
+ *
+ * Este componente muestra un mensaje de bienvenida al administrador, incluyendo el nombre del usuario
+ * actualmente autenticado. Proporciona enlaces a las secciones de gestión de juegos y reseñas a través de
+ * React Router.
+ *
+ */
 const AdminWelcome = () => {
   const { user } = useUsers();
 

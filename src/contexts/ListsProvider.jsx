@@ -1,7 +1,9 @@
 import React, { createContext, useEffect, useState } from "react";
-import { toast, Slide } from "react-toastify";
-import useUsers from "../hooks/useUsers";
+
 import { supabaseConnection } from "../.config/supabase.js";
+import { toast, Slide } from "react-toastify";
+
+import useUsers from "../hooks/useUsers.js";
 
 import AlertIcon from "../components/AlertIcon.jsx";
 
@@ -109,7 +111,7 @@ const ListsProvider = ({ children }) => {
 
       if (error) throw error;
     } catch (error) {
-      console.log(error);
+      sendListAlert("error", "Something went wrong!");
     }
   };
 
@@ -119,24 +121,23 @@ const ListsProvider = ({ children }) => {
         .from("lists")
         .select("*, games_on_list(games(*))")
         .eq("creator_id", user.id);
-  
+
       if (error) throw error;
-  
+
       setUserLists(data);
-  
+
       const favouritesList = data.find(
         (list) => list.name.toUpperCase() === "FAVOURITES"
       );
-  
+
       if (!validateObject(selectedList) && favouritesList) {
         setSelectedList(favouritesList);
       } else if (selectedList.id) {
-        const updatedList = data.find(list => list.id === selectedList.id);
+        const updatedList = data.find((list) => list.id === selectedList.id);
         setSelectedList(updatedList);
       }
-  
     } catch (error) {
-      console.log(error);
+      sendListAlert("error", "Something went wrong!");
     }
   };
 
@@ -150,13 +151,15 @@ const ListsProvider = ({ children }) => {
             list_id: selectedList.id,
           })
           .select();
-  
+
         if (error) throw error;
-  
+
         await getListsFromUser();
-        const updatedList = userLists.find(list => list.id === selectedList.id);
+        const updatedList = userLists.find(
+          (list) => list.id === selectedList.id
+        );
         setSelectedList(updatedList);
-  
+
         setGameAdded(true);
         sendListAlert("success", "Game added to list successfully!");
       } catch (error) {
@@ -208,7 +211,9 @@ const ListsProvider = ({ children }) => {
   const checkGameInList = (gameID) => {
     let gameInList = false;
     if (selectedList && validateArray(selectedList.games_on_list)) {
-      const gameIDsOnList = selectedList.games_on_list.map((item) => item.games.id);
+      const gameIDsOnList = selectedList.games_on_list.map(
+        (item) => item.games.id
+      );
       if (gameIDsOnList.includes(gameID)) gameInList = true;
     }
     return gameInList;
@@ -377,8 +382,8 @@ const ListsProvider = ({ children }) => {
 
   useEffect(() => {
     if (gameAdded) {
-      const updatedList = userLists.find(list => list.id === selectedList.id);
-      setSelectedList(updatedList);  // Asegurarte de que selectedList se actualice
+      const updatedList = userLists.find((list) => list.id === selectedList.id);
+      setSelectedList(updatedList); // Asegurarte de que selectedList se actualice
       setGameAdded(false);
     }
   }, [gameAdded, userLists]);

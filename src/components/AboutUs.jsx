@@ -1,6 +1,15 @@
 import React from "react";
+
 import { useInView } from "react-intersection-observer";
 
+/**
+ * Componente AboutUs
+ *
+ * Este componente presenta información sobre los fundadores de la empresa y su objetivo, utilizando animaciones
+ * para una experiencia de usuario dinámica y atractiva. Utiliza `react-intersection-observer` para detectar
+ * cuándo los elementos están en la vista y aplicar las animaciones correspondientes.
+ *
+ */
 function AboutUs() {
   const { ref: firstRowRef, inView: firstRowInView } = useInView({
     triggerOnce: true,
@@ -19,7 +28,6 @@ function AboutUs() {
       </div>
       <div className="shadow rounded-3xl bg-gray-100 dark:bg-gray-800 py-5 overflow-x-hidden">
         <div className="container mx-auto text-center w-3/4">
-          {/* Primera fila */}
           <div
             ref={firstRowRef}
             className={`flex flex-col md:flex-row mb-5 items-center transition-all duration-1000 transform ${
@@ -46,7 +54,6 @@ function AboutUs() {
               </p>
             </div>
           </div>
-          {/* Segunda fila */}
           <div
             ref={secondRowRef}
             className={`flex flex-col md:flex-row mb-5 items-center transition-all duration-1000 transform ${
@@ -73,7 +80,6 @@ function AboutUs() {
               />
             </div>
           </div>
-          {/* Subtítulo y párrafo */}
           <div>
             <h2 className="text-3xl font-bold mb-5 text-purple-600">
               What Is Our Goal?

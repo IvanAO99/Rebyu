@@ -1,14 +1,19 @@
 import React, { Fragment } from "react";
 
-import useGames from "../hooks/useGames.js";
 import useUsers from "../hooks/useUsers.js";
+import useGames from "../hooks/useGames.js";
 
 /**
- * A React component for displaying filters to refine game search.
- * @function GamesFilters
- * @returns {JSX.Element} The rendered component.
+ * Componente GamesFilters
+ *
+ * Este componente muestra filtros para buscar juegos por género, plataforma, desarrollador y nombre.
+ * Utiliza los hooks useUsers y useGames para obtener la información necesaria y realizar las operaciones de filtrado.
+ * Los filtros incluyen opciones desplegables para género, plataforma y desarrollador, así como un campo de búsqueda
+ * para el nombre del juego. También incluye un botón para restablecer los filtros.
+ *
  */
 const GamesFilters = () => {
+  const { isAdmin } = useUsers();
   const {
     genres,
     developers,
@@ -17,8 +22,6 @@ const GamesFilters = () => {
     resetGameFilter,
     gameFilter,
   } = useGames();
-
-  const { isAdmin } = useUsers();
 
   return (
     <Fragment>

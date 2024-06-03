@@ -1,8 +1,20 @@
 import React from "react";
+
 import { Link } from "react-router-dom";
 
 import useUsers from "../hooks/useUsers.js";
 
+/**
+ * Componente RegistrationForm
+ *
+ * Este componente renderiza un formulario de registro para nuevos usuarios.
+ * Utiliza el hook useUsers para gestionar el estado del formulario y las funciones de manejo.
+ * El formulario solicita al usuario su apodo, correo electrónico, contraseña,
+ * confirmación de contraseña, nombre, fecha de nacimiento, foto de perfil y aceptación de términos y condiciones.
+ * El componente maneja la validación de los campos y muestra mensajes de error si es necesario.
+ * Permite al usuario registrarse con un botón "Register" y también proporciona un enlace para iniciar sesión si ya tiene una cuenta.
+ *
+ */
 function RegistrationForm() {
   const { signUpForm, signUpFormErrors, updateSignUpForm, handleSignUp } =
     useUsers();

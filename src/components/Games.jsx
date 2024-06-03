@@ -1,13 +1,28 @@
 import React, { Fragment } from "react";
-import { FaPlus } from "react-icons/fa6";
-import GamesFilters from "./GameFilters";
-import useGames from "../hooks/useGames";
-import useLists from "../hooks/useLists.js";
-import { validateArray, validateObject } from "../libraries/validateData";
-import Game from "./Game.jsx";
-import useUsers from "../hooks/useUsers.js";
-import Loading from "./Loading.jsx";
 
+import { FaPlus } from "react-icons/fa6";
+
+import useUsers from "../hooks/useUsers.js";
+import useGames from "../hooks/useGames.js";
+import useLists from "../hooks/useLists.js";
+
+import Loading from "./Loading.jsx";
+import GamesFilters from "./GameFilters.jsx";
+import Game from "./Game.jsx";
+
+import { validateArray, validateObject } from "../libraries/validateData.js";
+
+/**
+ * Componente Games
+ *
+ * Este componente muestra una lista de juegos. Puede mostrar todos los juegos o solo los juegos filtrados.
+ * Los juegos pueden ser mostrados en diferentes disposiciones según el estado de la página de administrador.
+ * Utiliza los hooks useUsers, useGames y useLists para manejar la sesión del usuario, obtener los juegos y agregar juegos a listas.
+ *
+ * Props:
+ * @param {boolean} onAdminPage - Booleano que indica si la página está en modo de administrador (true) o no (false).
+ *
+ */
 function Games({ onAdminPage = false }) {
   const { isSessionUp, user, isAdmin } = useUsers();
   const { isLoadingGames, filteredGames, getGame, showGameFormModal } =
@@ -90,7 +105,6 @@ function Games({ onAdminPage = false }) {
               }}
             >
               {validateArray(filteredGames) ? (
-                // Displaying the list of games
                 filteredGames.map((value, index) => {
                   return (
                     <Fragment key={index}>
@@ -99,7 +113,6 @@ function Games({ onAdminPage = false }) {
                   );
                 })
               ) : (
-                // Message when no games are found
                 <>
                   <p>No games found.</p>
                 </>

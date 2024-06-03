@@ -1,9 +1,21 @@
 import React from "react";
+
 import Modal from "react-modal";
-import { FaX } from "react-icons/fa6";
 
 Modal.setAppElement("#modal-root");
 
+/**
+ * Componente CustomModal
+ *
+ * Este componente representa un modal personalizado utilizando la biblioteca react-modal. Configura el elemento
+ * raíz de la aplicación para el modal y proporciona estilos personalizados para el overlay y el contenido del
+ * modal. El modal puede estar abierto o cerrado según el valor de la prop isOpen.
+ *
+ * Props:
+ * @param {boolean} isOpen - Indica si el modal está abierto o cerrado.
+ * @param {ReactNode} children - Contenido del modal.
+ *
+ */
 const CustomModal = ({ children, isOpen }) => {
   return (
     <>
