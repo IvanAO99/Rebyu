@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 
 import useGames from "../hooks/useGames.js";
+import useUsers from "../hooks/useUsers.js";
 
 /**
  * A React component for displaying filters to refine game search.
@@ -17,10 +18,16 @@ const GamesFilters = () => {
     gameFilter,
   } = useGames();
 
+  const { isAdmin } = useUsers();
+
   return (
     <Fragment>
       <div className="flex justify-center items-center p-5">
-        <form className="flex flex-col lg:flex-row justify-between items-center gap-5">
+        <form
+          className={` flex flex-col ${
+            isAdmin ? "xl:flex-row" : "lg:flex-row"
+          }  justify-between items-center gap-5 `}
+        >
           <select
             aria-label="Genre select"
             name="genre"

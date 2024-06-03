@@ -17,7 +17,7 @@ const HomePage = () => {
   const { isSessionUp } = useUsers();
   return (
     <Fragment>
-      <div>
+      <div className="flex flex-col gap-5">
         <NewGames />
         {isSessionUp && <ActiveListForm onProfile={false} />}
         <Games />

@@ -17,11 +17,12 @@ function GameForm({ creationMode }) {
 
   return (
     <div>
-      {/* <pre>{JSON.stringify(actualGame.title)}</pre>
-      <pre>{JSON.stringify(selectedGame.title)}</pre> */}
-      <form className="flex flex-row" onSubmit={(e) => e.preventDefault()}>
-        <div className="flex flex-col justify-center items-center gap-5 border-r-2 border-gray-100 dark:border-gray-800 p-5">
-          <div className="w-[448px] flex flex-col gap-2">
+      <form
+        className="h-[500px] lg:h-auto flex flex-col lg:flex-row overflow-y-scroll lg:overflow-auto"
+        onSubmit={(e) => e.preventDefault()}
+      >
+        <div className="flex flex-col justify-center items-center gap-5 border-none lg:border-r-2 border-gray-100 dark:border-gray-800 p-5">
+          <div className="flex flex-col gap-2">
             <label
               htmlFor="title"
               className="block text-xl font-bold text-purple-600"
@@ -162,7 +163,7 @@ function GameForm({ creationMode }) {
             )}
           </div>
         </div>
-        <div className="w-[448px] flex flex-col justify-center items-start gap-5 p-5">
+        <div className="flex flex-col justify-center items-start gap-5 p-5">
           <div className="flex flex-col gap-2 w-fit">
             <label
               htmlFor="genre"

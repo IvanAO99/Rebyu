@@ -9,9 +9,8 @@ const Lists = () => {
   return (
     <Fragment>
       <div id="lists">
-        <div className="flex flex-row justify-stretch items-center gap-5 py-2">
-          <div className="border-y-2 border-purple-600"></div>
-          <h2 className="text-5xl font-bold">LISTS</h2>
+        <div className="flex flex-row justify-between sm:justify-stretch items-center gap-5 py-2">
+          <h2 className="text-6xl font-bold">LISTS</h2>
           <button
             type="button"
             className="rounded-full bg-purple-600 hover:bg-purple-400 text-gray-50 p-2 transition-all duration-300"
@@ -21,7 +20,7 @@ const Lists = () => {
           >
             <FaPlus size={24} />
           </button>
-          <div className="flex-grow border-y-2 border-purple-600"></div>
+          <div className="hidden sm:block flex-grow border-y-2 border-purple-600"></div>
         </div>
         <ActiveListForm />
         <div className="shadow m-5 overflow-hidden rounded-3xl">

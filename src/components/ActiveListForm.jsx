@@ -20,10 +20,15 @@ const ActiveListForm = ({ onProfile = true }) => {
     <>
       <div
         className={` ${
-          onProfile ? "w-max mx-auto" : "fixed bottom-0 left-0 z-50 m-5"
-        } flex flex-row justify-between items-center gap-2 shadow rounded-3xl bg-gray-100 dark:bg-gray-800 px-5 py-2`}
+          onProfile
+            ? "w-max flex flex-col sm:flex-row justify-between items-start sm:items-center mx-auto"
+            : "fixed bottom-0 left-0 z-50 shadow-2xl flex flex-row justify-between items-center m-5"
+        }  gap-2 shadow rounded-3xl bg-gray-100 dark:bg-gray-800 px-5 py-2`}
       >
-        <label htmlFor="active-list">
+        <label
+          htmlFor="active-list"
+          className={`${onProfile ? "block" : "hidden md:block"}`}
+        >
           Select your list to add to favorites!
         </label>
         <select

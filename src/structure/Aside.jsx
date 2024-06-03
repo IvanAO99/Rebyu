@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import useUsers from "../hooks/useUsers";
 import { NavLink } from "react-router-dom";
 import ThemeToggler from "../components/ThemeToggler";
+import { FaBars, FaX } from "react-icons/fa6";
 
 const Aside = () => {
   const { user, signOut } = useUsers();
+
+  const [isAsideOpen, setIsAsideOpen] = useState();
+
+  const toggleAside = () => {
+    setIsAsideOpen(!isAsideOpen);
+  };
 
   return (
     <>
@@ -15,11 +22,36 @@ const Aside = () => {
               <img
                 src="./src/assets/logo.svg"
                 alt="Logo"
-                className="h-32 w-32"
+                className={` ${
+                  isAsideOpen ? "block" : "hidden xl:block "
+                } h-32 w-32`}
               />
-              <span className="font-bold text-4xl tracking-widest">REBYU</span>
+              <span className="hidden xl:block font-bold text-4xl tracking-widest">
+                REBYU
+              </span>
+              <div className="block xl:hidden">
+                <button
+                  type="button"
+                  className="rounded-full act p-2 text-gray-900 dark:text-gray-50 hover:shadow transition-all duration-500"
+                  onClick={() => toggleAside()}
+                >
+                  {isAsideOpen ? (
+                    <>
+                      <FaX size={48} />
+                    </>
+                  ) : (
+                    <>
+                      <FaBars size={48} />
+                    </>
+                  )}
+                </button>
+              </div>
             </div>
-            <div className="flex flex-row justify-between items-center gap-5">
+            <div
+              className={` ${
+                isAsideOpen ? "flex" : "hidden xl:flex"
+              } flex-row justify-between items-center gap-5 `}
+            >
               <div className="flex flex-row justify-center items-center gap-2">
                 <img
                   src={
@@ -36,12 +68,12 @@ const Aside = () => {
               </div>
               <ThemeToggler />
             </div>
-            {/*           <h1 className="text-6xl font-bold">
-            Welcome, <span className="text-purple-600">{user.name}</span>
-          </h1>
-          <p className="italic">What do you want to manage today?</p> */}
           </div>
-          <div className="flex-grow flex flex-col gap-5 ml-5 pb-5">
+          <div
+            className={` ${
+              isAsideOpen ? "flex" : "hidden xl:flex"
+            } flex-grow flex-col gap-5 ml-5 pb-5 `}
+          >
             <nav>
               <ul className="flex flex-col text-center">
                 <li className="w-full">

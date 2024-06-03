@@ -7,10 +7,10 @@ function AffiliateForm() {
     <>
       <div className="flex flex-col justify-center gap-5">
         <div className="flex flex-col gap-1">
-          <h1 className="text-6xl font-bold text-center">
+          <h1 className="text-3xl md:text-6xl font-bold text-center">
             BECOME AN AFFILIATE
           </h1>
-          <h2 className="text-3xl text-center">
+          <h2 className="text-xl md:text-3xl text-center">
             And help us continue growing together
           </h2>
         </div>
@@ -23,7 +23,7 @@ function AffiliateForm() {
               <div className="flex flex-col gap-1">
                 <label
                   htmlFor="account"
-                  className="block text-xl font-bold text-purple-600"
+                  className="block text-lg md:text-xl font-bold text-purple-600"
                 >
                   Account
                 </label>
@@ -41,7 +41,7 @@ function AffiliateForm() {
               <div className="flex flex-col gap-1">
                 <label
                   htmlFor="expiration"
-                  className="block text-xl font-bold text-purple-600"
+                  className="block text-lg md:text-xl font-bold text-purple-600"
                 >
                   Expiration
                 </label>
@@ -58,7 +58,7 @@ function AffiliateForm() {
               <div className="flex flex-col gap-1">
                 <label
                   htmlFor="cvc"
-                  className="block text-xl font-bold text-purple-600"
+                  className="block text-lg md:text-xl font-bold text-purple-600"
                 >
                   CVC
                 </label>
@@ -76,7 +76,7 @@ function AffiliateForm() {
               <div className="flex flex-col gap-1">
                 <label
                   htmlFor="billingAddress"
-                  className="block text-xl font-bold text-purple-600"
+                  className="block text-lg md:text-xl font-bold text-purple-600"
                 >
                   Billing Address
                 </label>
@@ -122,15 +122,15 @@ function AffiliateForm() {
           {/* Right Column */}
           <div className="md:w-1/3 self-center md:pl-5 text-center">
             <div className="flex flex-col gap-5">
-              <h3 className="text-3xl font-bold text-purple-600">
+              <h3 className="text-xl md:text-3xl font-bold text-purple-600">
                 Discover Our Advantages
               </h3>
-              <ul className="self-center list-disc list-inside flex flex-col gap-5 text-xl text-justify">
+              <ul className="self-center list-disc list-inside flex flex-col gap-5 text-lg md:text-xl text-justify">
                 <li>Create more lists</li>
                 <li>Ad-free experience</li>
                 <li>Support creators</li>
               </ul>
-              <p className="text-xl font-bold">
+              <p className="text-lg md:text-xl font-bold">
                 <span className="text-9xl font-bold text-purple-600">7</span>
                 €/month
               </p>

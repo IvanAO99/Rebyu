@@ -17,7 +17,7 @@ const Profile = () => {
           <img
             src={user.profile_photo || "./src/assets/profile-photo-default.jpg"}
             alt="User Profile Photo"
-            className="self-center rounded-full w-96 h-96 md:h-40 lg:h-96 object-cover"
+            className="self-center rounded-full w-96 h-96 object-cover"
           />
           <div className="flex-grow flex flex-col justify-between items-stretch gap-5">
             <div className="px-5">
@@ -78,20 +78,6 @@ const Profile = () => {
               </>
             )}
           </div>
-          {/*           <div>
-            <button
-              type="button"
-              className="mr-5 rounded-3xl bg-purple-600 hover:bg-purple-400 text-gray-50 px-5 py-2 shadow transition-all duration-300"
-            >
-              Update profile
-            </button>
-            <button
-              type="button"
-              className="rounded-3xl bg-red-600 hover:bg-red-400 text-gray-50 px-5 py-2 shadow transition-all duration-300"
-            >
-              Delete account
-            </button>
-          </div> */}
         </div>
       </div>
     </Fragment>
