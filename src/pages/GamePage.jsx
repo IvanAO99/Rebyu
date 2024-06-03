@@ -66,7 +66,9 @@ const GamePage = () => {
               <div className="flex flex-col gap-5">
                 <div className="flex flex-row justify-stretch items-center gap-1 py-2">
                   <div className="flex-grow border-y-2 border-purple-600"></div>
-                  <h2 className="text-6xl font-bold">REVIEWS</h2>
+                  <h2 className="text-xl lg:text-3xl xl:text-6xl font-bold">
+                    REVIEWS
+                  </h2>
                   <div className="flex-grow border-y-2 border-purple-600"></div>
                 </div>
                 {validateObject(userReview) ? (

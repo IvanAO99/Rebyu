@@ -17,7 +17,7 @@ function Footer() {
         <></>
       ) : (
         <>
-          <footer className="bg-gray-800 text-gray-50 py-8">
+          <footer className="shadow-2xl bg-gray-950 p-5 text-gray-50">
             <div className="container mx-auto flex flex-col justify-center items-center">
               {/* Redes sociales */}
               <div className="flex items-center mb-6">

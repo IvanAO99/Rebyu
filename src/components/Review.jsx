@@ -25,7 +25,13 @@ const Review = ({ review, onSlide = false, ownReview = false }) => {
     <Fragment>
       <div
         className={` ${
-          onSlide ? "w-[400px]" : "w-[400px] md:w-[800px]"
+          onSlide
+            ? "w-[400px]"
+            : `${
+                isAdmin
+                  ? "w-[280px] md:w-[400px] lg:w-[800px]"
+                  : "w-[280px] sm:w-[400px] md:w-[800px]"
+              }`
         } rounded-3xl shadow px-5 py-2 bg-gray-100 dark:bg-gray-800`}
       >
         <div className="flex flex-row justify-between items-center gap-5">
@@ -39,7 +45,9 @@ const Review = ({ review, onSlide = false, ownReview = false }) => {
             />
             <p
               className={`w-auto ${
-                onSlide ? "block" : "hidden sm:block"
+                onSlide
+                  ? "block"
+                  : `${isAdmin ? "hidden md:block" : "hidden sm:block"}`
               } font-bold text-purple-600 italic truncate`}
             >
               <span>@</span>

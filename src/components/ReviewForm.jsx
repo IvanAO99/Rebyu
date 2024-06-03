@@ -67,10 +67,8 @@ const ReviewForm = ({ isUpdating = false }) => {
       ) : (
         <>
           <div>
-            <pre>{JSON.stringify(reviewForm)}</pre>
-            <pre>{JSON.stringify(reviewFormErrors)}</pre>
             <form className="flex flex-col gap-5">
-              <div className="flex gap-5">
+              <div className="flex flex-col md:flex-row gap-5">
                 <div className="flex flex-col gap-5">
                   <div className="flex flex-row justify-center items-center gap-1">
                     {[...Array(5)].map((e, i) => (
@@ -89,20 +87,6 @@ const ReviewForm = ({ isUpdating = false }) => {
                       </Fragment>
                     ))}
                   </div>
-                  {/*               <div>
-                <input
-                  type="range"
-                  name="score"
-                  value={reviewForm.score || 0}
-                  min={0}
-                  max={5}
-                  id="score"
-                  className="appearance-none w-full h-6 p-0 focus:outline-none focus:ring-0"
-                  onChange={(event) => {
-                    updateReviewForm(event.target);
-                  }}
-                />
-              </div> */}
                   <div>
                     <input
                       type="checkbox"
@@ -117,7 +101,7 @@ const ReviewForm = ({ isUpdating = false }) => {
                       Check if the review contains spoilers.
                     </label>
                   </div>
-                  <div>
+                  <div className="hidden md:block">
                     <button
                       type="button"
                       className="self-start rounded-3xl bg-purple-600 hover:bg-purple-400 px-5 py-2 text-gray-50 shadow transition-all duration-300"
@@ -144,7 +128,7 @@ const ReviewForm = ({ isUpdating = false }) => {
                   ></textarea>
                 </div>
               </div>
-              <div className="hidden">
+              <div className="block md:hidden">
                 <button
                   type="button"
                   className="self-start rounded-3xl bg-purple-600 hover:bg-purple-400 px-5 py-2 text-gray-50 shadow transition-all duration-300"

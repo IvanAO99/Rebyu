@@ -8,7 +8,7 @@ import Game from "./Game.jsx";
 import useUsers from "../hooks/useUsers.js";
 import Loading from "./Loading.jsx";
 
-function Games() {
+function Games({ onAdminPage = false }) {
   const { isSessionUp, user, isAdmin } = useUsers();
   const { isLoadingGames, filteredGames, getGame, showGameFormModal } =
     useGames();
@@ -36,7 +36,7 @@ function Games() {
       <div>
         <div className="flex flex-row justify-stretch items-center gap-2 py-2">
           <div className="flex-grow border-y-2 border-purple-600"></div>
-          <h2 className="text-6xl font-bold">
+          <h2 className="text-3xl md:text-6xl font-bold">
             {isSessionUp && validateObject(user) && isAdmin
               ? "GAMES"
               : "CHECK ALL OUR GAMES!"}
@@ -67,7 +67,11 @@ function Games() {
         ) : (
           <>
             <div
-              className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 place-items-center gap-5 p-5"
+              className={` ${
+                onAdminPage
+                  ? "flex flex-row flex-wrap justify-center items-center gap-5 p-5"
+                  : "grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 place-items-center gap-5 p-5"
+              } `}
               onClick={(event) => {
                 handleGameClick(event);
 

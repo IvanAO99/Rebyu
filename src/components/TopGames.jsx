@@ -28,14 +28,32 @@ const TopGames = () => {
     speed: 50000,
     cssEase: "linear",
     variableWidth: true,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          speed: 25000,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          speed: 10000,
+        },
+      },
+    ],
   };
 
   return (
     <>
       <div>
-        <div className="flex flex-row justify-stretch items-center gap-1 py-2">
+        <div className="flex flex-row justify-stretch items-center gap-2 mb-5 py-2">
           <div className="flex-grow border-y-2 border-purple-600"></div>
-          <h2 className="text-6xl font-bold">TOP GAMES</h2>
+          <h2 className="text-3xl md:text-6xl font-bold">TOP GAMES</h2>
           <div className="flex-grow border-y-2 border-purple-600"></div>
         </div>
         {/* Display loading spinner while top games are being loaded */}
