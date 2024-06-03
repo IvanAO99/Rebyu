@@ -20,12 +20,8 @@ const ProfilePage = () => {
 
   return (
     <Fragment>
-      <div>
+      <div className="flex flex-col gap-5">
         <Profile />
-        {/*         <h3>CREAR LISTA</h3>
-        <ListForm creationMode={true} />
-        <h3>MODIFICAR LISTA</h3>
-        <ListForm /> */}
         <Lists />
       </div>
       <CustomModal isOpen={isListFormModalOpen}>
@@ -45,7 +41,7 @@ const ProfilePage = () => {
             object={{
               name: listToDelete.name,
               type: listToDelete.type,
-              total_games: listToDelete.games_on_list.length,
+              total_games: listToDelete?.games_on_list?.length,
             }}
           />
         </DeleteModal>
