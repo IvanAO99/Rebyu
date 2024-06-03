@@ -1,26 +1,39 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
+
 import { Route, Routes } from "react-router-dom";
 
+import useUsers from "../hooks/useUsers.js";
+
+import AdminPage from "../pages/AdminPage.jsx";
 import HomePage from "../pages/HomePage.jsx";
 import ProfilePage from "../pages/ProfilePage.jsx";
-import ErrorPage from "../pages/ErrorPage.jsx";
+import AffiliatePage from "../pages/AffiliatePage.jsx";
 import LogInPage from "../pages/LogInPage.jsx";
 import RegistrationPage from "../pages/RegistrationPage.jsx";
-import AffiliatePage from "../pages/AffiliatePage.jsx";
 import GamePage from "../pages/GamePage.jsx";
-import useUsers from "../hooks/useUsers.js";
-import AdminPage from "../pages/AdminPage.jsx";
-import { validateObject } from "../libraries/validateData.js";
-import Games from "../components/Games.jsx";
-import Reviews from "../components/Reviews.jsx";
+import ErrorPage from "../pages/ErrorPage.jsx";
+
 import AdminWelcome from "../components/AdminWelcome.jsx";
-import useReviews from "../hooks/useReviews.js";
-import ReviewAdministration from "../components/ReviewAdministration.jsx";
 import GamesAdministration from "../components/GamesAdministration.jsx";
+import Games from "../components/Games.jsx";
+import ReviewAdministration from "../components/ReviewAdministration.jsx";
+
+import { validateObject } from "../libraries/validateData.js";
+
+/**
+ * Componente RouterComponent
+ *
+ * Este componente maneja el enrutamiento de la aplicación, determinando qué página mostrar según la sesión del usuario y su rol.
+ * Si el usuario está autenticado y es administrador, se mostrarán las páginas de administración.
+ * Si el usuario está autenticado pero no es administrador, se mostrarán las páginas de perfil y afiliación.
+ * Si el usuario no está autenticado, se mostrarán las páginas de inicio de sesión y registro.
+ * También maneja la visualización de la página de error para rutas no encontradas.
+ *
+ */
 
 const RouterComponent = () => {
   const { isSessionUp, user, isAdmin } = useUsers();
-  const { filteredReviews } = useReviews();
+
   return (
     <Fragment>
       <Routes>

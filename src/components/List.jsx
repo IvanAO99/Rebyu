@@ -1,18 +1,40 @@
 import React, { Fragment, useState } from "react";
+
 import { FaAngleDown, FaAngleRight, FaPen, FaTrash } from "react-icons/fa6";
-import Game from "./Game";
-import { validateArray } from "../libraries/validateData";
-import useLists from "../hooks/useLists";
-import useGames from "../hooks/useGames";
 
+import useGames from "../hooks/useGames.js";
+import useLists from "../hooks/useLists.js";
+
+import Game from "./Game.jsx";
+
+import { validateArray } from "../libraries/validateData.js";
+
+/**
+ * Componente List
+ *
+ * Este componente representa una lista de juegos guardada por el usuario.
+ * Muestra el nombre de la lista, el número de juegos guardados y el tipo de lista.
+ * Permite expandir y contraer la lista para mostrar u ocultar los juegos.
+ * Utiliza los hooks useGames y useLists para obtener los juegos y gestionar las listas de juegos.
+ * Utiliza el componente Game para mostrar cada juego en la lista.
+ *
+ * Props:
+ * @param {object} list - Objeto que contiene la información de la lista.
+ *
+ */
 const List = ({ list }) => {
-  const [isOpen, setIsOpen] = useState(false);
-
   const { id, name, type, games_on_list } = list;
 
+  const { getGame, filteredGames } = useGames();
   const { showListFormModal, removeGameFromList, showListDeleteModal } =
     useLists();
-  const { getGame, filteredGames } = useGames();
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const gameIDsOnList = games_on_list.map((item) => item.games.id);
+  const filteredGamesOnList = filteredGames.filter((game) =>
+    gameIDsOnList.includes(game.id)
+  );
 
   const handleGameClick = (event) => {
     event.preventDefault();
@@ -26,11 +48,6 @@ const List = ({ list }) => {
       getGame(gameID);
     }
   };
-
-  const gameIDsOnList = games_on_list.map((item) => item.games.id);
-  const filteredGamesOnList = filteredGames.filter((game) =>
-    gameIDsOnList.includes(game.id)
-  );
 
   return (
     <Fragment>

@@ -2,8 +2,8 @@ import { ChatCohere } from "@langchain/cohere";
 import { ChatPromptTemplate } from "@langchain/core/prompts";
 
 const MODEL = new ChatCohere({
-  apiKey: import.meta.env.VITE_API_KEY, 
-  model: "command-r", 
+  apiKey: import.meta.env.VITE_API_KEY,
+  model: "command-r",
 });
 
 const INSTRUCTIONS = `
@@ -32,7 +32,7 @@ const score_review = async (reviewMessage) => {
       ["ai", INSTRUCTIONS],
       ["human", "{input}"],
     ]);
-    
+
     const chain = prompt.pipe(MODEL);
     const response = await chain.invoke({
       input: reviewMessage,

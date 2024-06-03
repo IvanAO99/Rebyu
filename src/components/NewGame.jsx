@@ -1,6 +1,17 @@
 import React from "react";
-import useGames from "../hooks/useGames";
 
+import useGames from "../hooks/useGames.js";
+
+/**
+ * Componente NewGame
+ *
+ * Este componente muestra la información básica de un nuevo juego, incluyendo su imagen de fondo,
+ * título y sinopsis. También proporciona un botón para ver más detalles del juego.
+ *
+ * Props:
+ * @param {Object} game - Objeto que contiene la información del juego, incluyendo wallpaper, title, synopsis e id.
+ *
+ */
 const NewGame = ({ game }) => {
   const { wallpaper, title, synopsis, id } = game;
 

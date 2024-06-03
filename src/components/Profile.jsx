@@ -1,14 +1,26 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
+
 import { useNavigate } from "react-router-dom";
-import { FaEye, FaEyeSlash } from "react-icons/fa6";
 
 import useUsers from "../hooks/useUsers.js";
 
 import { formatDateString } from "../libraries/manipulateData.js";
 
+/**
+ * Componente Profile
+ *
+ * Este componente muestra el perfil del usuario actual.
+ * Utiliza el hook useUsers para obtener la información del usuario.
+ * El perfil incluye el apodo, nombre, correo electrónico, fecha de nacimiento,
+ * fecha de registro y, si el usuario es afiliado, la fecha de inicio de afiliación.
+ * Permite al usuario cancelar su suscripción si es afiliado, o convertirse en afiliado si no lo es.
+ * Utiliza la función formatDateString del archivo manipulateData.js para formatear las fechas.
+ *
+ */
 const Profile = () => {
   const navigate = useNavigate();
-  const { isSessionUp, user } = useUsers();
+
+  const { user } = useUsers();
 
   return (
     <Fragment>

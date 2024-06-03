@@ -1,18 +1,18 @@
 import React, { createContext, useEffect, useState } from "react";
 
 import { supabaseConnection } from "../.config/supabase.js";
-
 import { toast, Slide } from "react-toastify";
 
 import useUsers from "../hooks/useUsers.js";
 import useGames from "../hooks/useGames.js";
 
+import AlertIcon from "../components/AlertIcon.jsx";
+
 import regex from "../jsons/regex.json";
 
-import { validateArray, validateObject } from "../libraries/validateData.js";
-
 import score_review from "../model/CohereModel.js";
-import AlertIcon from "../components/AlertIcon.jsx";
+
+import { validateArray, validateObject } from "../libraries/validateData.js";
 
 const ReviewsContext = createContext();
 
@@ -170,7 +170,7 @@ const ReviewsProvider = ({ children }) => {
           await likeAReview(reviewId);
         }
       } catch (error) {
-        console.log(error);
+        sendReviewAlert("error", "Something went wrong!");
       }
     }
   };
@@ -191,7 +191,7 @@ const ReviewsProvider = ({ children }) => {
       // Actualizar las reviews después de dar like
       getReviewsByGame();
     } catch (error) {
-      console.log(error);
+      sendReviewAlert("error", "Something went wrong!");
     }
   };
 
@@ -209,7 +209,7 @@ const ReviewsProvider = ({ children }) => {
       // Actualizar las reviews después de quitar el like
       getReviewsByGame();
     } catch (error) {
-      console.log(error);
+      sendReviewAlert("error", "Something went wrong!");
     }
   };
 
@@ -268,7 +268,7 @@ const ReviewsProvider = ({ children }) => {
         setUserReview(initialValues.userReview);
       }
     } catch (error) {
-      console.log(error);
+      sendReviewAlert("error", "Something went wrong!");
     }
   };
 
@@ -405,10 +405,10 @@ const ReviewsProvider = ({ children }) => {
       getUserReview();
       getReviewsByGame();
       refreshGames();
-/*       getTopGames();
+      /*       getTopGames();
       getLastReviews(); */
     } catch (error) {
-      console.log(error);
+      sendReviewAlert("error", "Something went wrong!");
     }
   };
 
@@ -500,7 +500,7 @@ const ReviewsProvider = ({ children }) => {
       sendReviewAlert("success", "Review deleted successfully!");
       setDeletingReview(initialValues.deletingReview);
       refreshGames();
-/*       getTopGames();
+      /*       getTopGames();
       getLastReviews(); */
     } catch (error) {
       // Display an error alert if something goes wrong

@@ -1,27 +1,38 @@
-import React, { Fragment } from "react";
+import React from "react";
+
 import CountUp from "react-countup";
 import { useInView } from "react-intersection-observer";
 import { Link } from "react-router-dom";
-import useGames from "../hooks/useGames";
-import useUsers from "../hooks/useUsers";
-import { validateObject } from "../libraries/validateData";
 
+import useGames from "../hooks/useGames.js";
+import useUsers from "../hooks/useUsers.js";
+
+import { validateObject } from "../libraries/validateData.js";
+
+/**
+ * Componente DecorativeCounter
+ *
+ * Este componente muestra un contador decorativo con el número de juegos registrados y el número de personas
+ * afiliadas. Utiliza la biblioteca react-countup para animar los números cuando entran en la vista. También
+ * proporciona enlaces para que los usuarios se registren o inicien sesión, dependiendo de si están autenticados
+ * o no.
+ *
+ */
 function DecorativeCounter() {
-  const { filteredGames } = useGames();
   const { user, isSessionUp } = useUsers();
-
-  const registeredGames = filteredGames.length;
-  const affiliates = 232;
+  const { filteredGames } = useGames();
 
   const [registeredGamesInViewRef, registeredGamesInView] = useInView({
     threshold: 0.5,
     triggerOnce: true,
   });
-
   const [affiliatesInViewRef, affiliatesInView] = useInView({
     threshold: 0.5,
     triggerOnce: true,
   });
+
+  const registeredGames = filteredGames.length;
+  const affiliates = 232;
 
   return (
     <div className="flex flex-col items-center justify-center bg-cover">

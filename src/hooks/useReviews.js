@@ -3,8 +3,11 @@ import { useContext } from "react";
 import { ReviewsContext } from "../contexts/ReviewsProvider";
 
 /**
- * A custom React hook for accessing the ReviewsContext.
- * @returns {Object} The ReviewsContext object.
+ * Hook useReviews
+ *
+ * Este hook permite acceder al contexto proporcionado por ReviewsProvider.
+ * Proporciona acceso a los estados y funciones relacionadas con las reseñas.
+ *
  */
 const useReviews = () => {
   const reviewsContext = useContext(ReviewsContext);

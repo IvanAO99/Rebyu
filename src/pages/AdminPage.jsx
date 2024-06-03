@@ -1,17 +1,27 @@
-import React, { useEffect, useState } from "react";
-import useUsers from "../hooks/useUsers";
-import GameForm from "../components/GameForm";
-import useReviews from "../hooks/useReviews";
-import { validateObject } from "../libraries/validateData";
-import { Outlet } from "react-router-dom";
-import CustomModal from "../components/CustomModal";
-import GameFormModal from "../components/GameFormModal";
-import useGames from "../hooks/useGames";
-import DeleteModal from "../components/DeleteModal";
-import InformativeTable from "../components/InformativeTable";
+import React, { useEffect } from "react";
 
+import { Outlet } from "react-router-dom";
+
+import useUsers from "../hooks/useUsers.js";
+import useGames from "../hooks/useGames.js";
+import useReviews from "../hooks/useReviews.js";
+
+import CustomModal from "../components/CustomModal.jsx";
+import GameFormModal from "../components/GameFormModal.jsx";
+import DeleteModal from "../components/DeleteModal.jsx";
+import InformativeTable from "../components/InformativeTable.jsx";
+
+import { validateObject } from "../libraries/validateData.js";
+
+/**
+ * Componente AdminPage
+ *
+ * Página de administración del sistema que permite a los administradores gestionar usuarios, juegos y reseñas.
+ * Incluye opciones para crear, editar o eliminar juegos y reseñas, así como una lista de usuarios.
+ *
+ */
 const AdminPage = () => {
-  const { isSessionUp, user, isAdmin, getAllUsers, allUsers } = useUsers();
+  const { isSessionUp, user, isAdmin } = useUsers();
   const {
     isGameFormModalOpen,
     creationMode,
@@ -20,10 +30,8 @@ const AdminPage = () => {
     deleteGame,
     selectedGame,
   } = useGames();
-
   const {
     getAllReviews,
-    isLoadingReviews,
     deletingReview,
     hideReviewDeleteModal,
     handleReviewSubmit,

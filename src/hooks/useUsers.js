@@ -3,8 +3,11 @@ import { useContext } from "react";
 import { UsersContext } from "../contexts/UsersProvider.jsx";
 
 /**
- * A custom React hook for accessing the UsersContext.
- * @returns {Object} The UsersContext object.
+ * Hook useUsers
+ *
+ * Este hook permite acceder al contexto proporcionado por UsersProvider.
+ * Proporciona acceso a los estados y funciones relacionadas con los usuarios.
+ *
  */
 const useUsers = () => {
   const context = useContext(UsersContext);

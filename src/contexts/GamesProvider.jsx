@@ -1,19 +1,21 @@
 import React, { createContext, useEffect, useState } from "react";
+
 import { supabaseConnection } from "../.config/supabase.js";
+import { useNavigate } from "react-router-dom";
+import { toast, Slide } from "react-toastify";
+
+import useUsers from "../hooks/useUsers.js";
+import useLists from "../hooks/useLists.js";
+
+import regex from "../jsons/regex.json";
+
+import AlertIcon from "../components/AlertIcon.jsx";
+
 import {
   isValidURL,
   validateArray,
   validateObject,
 } from "../libraries/validateData.js";
-
-import regex from "../jsons/regex.json";
-import { useNavigate } from "react-router-dom";
-import { calculateTopGames } from "../libraries/manipulateData.js";
-
-import { toast, Slide } from "react-toastify";
-import useLists from "../hooks/useLists.js";
-import AlertIcon from "../components/AlertIcon.jsx";
-import useUsers from "../hooks/useUsers.js";
 
 const GamesContext = createContext();
 
@@ -204,7 +206,7 @@ const GamesProvider = ({ children }) => {
 
       setGames(gamesWithScore);
     } catch (error) {
-      console.log(error.message);
+      sendGameAlert("error", "Something went wrong!");
     } finally {
       setIsLoadingGames(false);
     }
@@ -223,7 +225,9 @@ const GamesProvider = ({ children }) => {
       if (error) throw error;
 
       setNewGames(data);
-    } catch (error) {}
+    } catch (error) {
+      sendGameAlert("error", "Something went wrong!");
+    }
   };
 
   const getLatestGames = async () => {
@@ -242,7 +246,7 @@ const GamesProvider = ({ children }) => {
 
       setLatestGames(data);
     } catch (error) {
-      console.log(error);
+      sendGameAlert("error", "Something went wrong!");
     } finally {
       setIsLoadingLatestGames(false);
     }
@@ -260,12 +264,8 @@ const GamesProvider = ({ children }) => {
       if (error) throw error;
 
       setTopGames(data);
-
-      //const calculatedTopGames = calculateTopGames(data);
-
-      //setTopGames(calculatedTopGames);
     } catch (error) {
-      console.log(error);
+      sendGameAlert("error", "Something went wrong!");
     } finally {
       setIsLoadingTopGames(false);
     }
@@ -312,7 +312,7 @@ const GamesProvider = ({ children }) => {
           : data[0]
       );
     } catch (error) {
-      console.log(error);
+      sendGameAlert("error", "Something went wrong!");
     } finally {
       setIsLoadingGame(false);
     }
@@ -336,7 +336,7 @@ const GamesProvider = ({ children }) => {
         );
       setGenres(data);
     } catch (error) {
-      console.log(error.message);
+      sendGameAlert("error", "Something went wrong!");
     }
   };
 
@@ -358,7 +358,7 @@ const GamesProvider = ({ children }) => {
         );
       setDevelopers(data);
     } catch (error) {
-      console.log(error.message);
+      sendGameAlert("error", "Something went wrong!");
     }
   };
 
@@ -380,7 +380,7 @@ const GamesProvider = ({ children }) => {
         );
       setPlatforms(data);
     } catch (error) {
-      console.log(error.message);
+      sendGameAlert("error", "Something went wrong!");
     }
   };
 
@@ -579,7 +579,7 @@ const GamesProvider = ({ children }) => {
 
       if (error) throw error;
     } catch (error) {
-      //console.log(error.message);
+      sendGameAlert("error", "Something went wrong!");
     }
   };
 
@@ -645,7 +645,7 @@ const GamesProvider = ({ children }) => {
         }
       }
     } catch (error) {
-      //console.log(error.message);
+      sendGameAlert("error", "Something went wrong!");
     }
   };
 
@@ -813,7 +813,7 @@ const GamesProvider = ({ children }) => {
 
       if (error) throw error;
     } catch (error) {
-      console.log(error.message);
+      sendGameAlert("error", "Something went wrong!");
     }
   };
 

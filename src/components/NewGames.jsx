@@ -1,21 +1,28 @@
 import React, { Fragment, useRef } from "react";
-import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 
+import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
-
-// Import Swiper styles
-import "swiper/css";
-/* import "swiper/css/navigation";
-import "swiper/css/pagination"; */
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
-import NewGame from "./NewGame";
-import useGames from "../hooks/useGames";
-import { validateArray } from "../libraries/validateData";
 
+import useGames from "../hooks/useGames.js";
+
+import NewGame from "./NewGame.jsx";
+
+import { validateArray } from "../libraries/validateData.js";
+
+import "swiper/css";
+
+/**
+ * Componente NewGames
+ *
+ * Este componente muestra una lista de nuevos juegos en un carrusel deslizante.
+ * Utiliza el hook useGames para obtener la lista de nuevos juegos.
+ *
+ */
 const NewGames = () => {
-  const swiperRef = useRef();
-
   const { newGames } = useGames();
+
+  const swiperRef = useRef();
 
   const pagination = {
     el: "#swiper-pagination",
@@ -24,12 +31,6 @@ const NewGames = () => {
       return `<button class="${className} custom-bullet"></button>`;
     },
   };
-
-  const urls = [
-    "https://xexkwbqgwmfjmghirwgq.supabase.co/storage/v1/object/public/images/games/wallpapers/cod.png",
-    "https://xexkwbqgwmfjmghirwgq.supabase.co/storage/v1/object/public/images/games/wallpapers/tlou.jpg",
-    "https://xexkwbqgwmfjmghirwgq.supabase.co/storage/v1/object/public/images/games/wallpapers/uncharted.jpg",
-  ];
 
   return (
     <>

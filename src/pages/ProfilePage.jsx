@@ -1,14 +1,22 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment } from "react";
+
+import useLists from "../hooks/useLists.js";
 
 import Profile from "../components/Profile.jsx";
 import Lists from "../components/Lists.jsx";
-import ListForm from "../components/ListForm.jsx";
-import useLists from "../hooks/useLists.js";
 import CustomModal from "../components/CustomModal.jsx";
 import ListFormModal from "../components/ListFormModal.jsx";
 import DeleteModal from "../components/DeleteModal.jsx";
 import InformativeTable from "../components/InformativeTable.jsx";
 
+/**
+ * Página de Perfil
+ *
+ * Esta página representa el perfil de un usuario. Muestra la información del perfil del usuario, como su nombre,
+ * imagen de perfil y listas creadas por el usuario. Permite al usuario interactuar con sus listas, como crear nuevas listas,
+ * ver y editar listas existentes, y eliminar listas.
+ *
+ */
 const ProfilePage = () => {
   const {
     listToDelete,

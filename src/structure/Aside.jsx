@@ -1,9 +1,19 @@
 import React, { useState } from "react";
-import useUsers from "../hooks/useUsers";
+
 import { NavLink } from "react-router-dom";
-import ThemeToggler from "../components/ThemeToggler";
 import { FaBars, FaX } from "react-icons/fa6";
 
+import useUsers from "../hooks/useUsers.js";
+
+import ThemeToggler from "../components/ThemeToggler.jsx";
+
+/**
+ * Componente Aside
+ *
+ * Este componente representa el menú lateral de la aplicación, que contiene información del usuario autenticado,
+ * opciones de navegación y un botón para cambiar el tema de la aplicación. También incluye un botón para cerrar sesión.
+ *
+ */
 const Aside = () => {
   const { user, signOut } = useUsers();
 
