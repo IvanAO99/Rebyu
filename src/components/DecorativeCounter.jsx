@@ -34,7 +34,7 @@ function DecorativeCounter() {
           alt="Decorative Image"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-fade-edge"></div>
+        <div className="absolute inset-0 bg-fade-edge dark:bg-fade-edge-dark"></div>
       </div>
       <div className="flex flex-col md:flex-row justify-evenly w-full px-8 my-10">
         <div

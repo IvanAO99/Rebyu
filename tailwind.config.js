@@ -7,7 +7,9 @@ export default {
       /* Custom class for DecorativeCounter image component -> Change white for the bg color*/
       backgroundImage: (theme) => ({
         "fade-edge":
-          "linear-gradient(to right, white 1%, transparent, white 99%)",
+          "linear-gradient(to right, gray 1%, transparent, white 99%)",
+        "fade-edge-dark":
+          "linear-gradient(to right, black 1%, transparent, black 99%)",
       }),
     },
   },
