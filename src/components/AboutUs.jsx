@@ -2,6 +2,14 @@ import React from "react";
 
 import { useInView } from "react-intersection-observer";
 
+/**
+ * Componente AboutUs
+ *
+ * Este componente presenta información sobre los fundadores de la empresa y su objetivo, utilizando animaciones
+ * para una experiencia de usuario dinámica y atractiva. Utiliza `react-intersection-observer` para detectar
+ * cuándo los elementos están en la vista y aplicar las animaciones correspondientes.
+ *
+ */
 function AboutUs() {
   const { ref: firstRowRef, inView: firstRowInView } = useInView({
     triggerOnce: true,

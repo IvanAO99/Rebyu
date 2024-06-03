@@ -6,6 +6,13 @@ import useLists from "../hooks/useLists.js";
 
 import ListForm from "./ListForm.jsx";
 
+/**
+ * Componente ListFormModal
+ *
+ * Este componente muestra un modal para crear o actualizar una lista de juegos.
+ * Utiliza el hook useLists para manejar la lógica relacionada con las listas de juegos.
+ *
+ */
 const ListFormModal = () => {
   const { updatingList, hideListFormModal, handleListCreation } = useLists();
 

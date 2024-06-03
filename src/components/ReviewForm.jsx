@@ -4,6 +4,17 @@ import { FaStar } from "react-icons/fa6";
 
 import useReviews from "../hooks/useReviews.js";
 
+/**
+ * Componente ReviewForm
+ *
+ * Este componente representa el formulario para crear o actualizar una revisión.
+ * Permite a los usuarios seleccionar una calificación y escribir un mensaje.
+ * También proporciona la funcionalidad para marcar una revisión como spoiler.
+ *
+ * Props:
+ * @param {boolean} isUpdating - Un booleano que indica si el formulario se está utilizando para actualizar una revisión existente.
+ *
+ */
 const ReviewForm = ({ isUpdating = false }) => {
   const { reviewForm, reviewFormErrors, updateReviewForm, handleReviewSubmit } =
     useReviews();

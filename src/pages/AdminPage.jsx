@@ -13,6 +13,13 @@ import InformativeTable from "../components/InformativeTable.jsx";
 
 import { validateObject } from "../libraries/validateData.js";
 
+/**
+ * Componente AdminPage
+ *
+ * Página de administración del sistema que permite a los administradores gestionar usuarios, juegos y reseñas.
+ * Incluye opciones para crear, editar o eliminar juegos y reseñas, así como una lista de usuarios.
+ *
+ */
 const AdminPage = () => {
   const { isSessionUp, user, isAdmin } = useUsers();
   const {

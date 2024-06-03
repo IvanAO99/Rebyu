@@ -7,6 +7,21 @@ import useReviews from "../hooks/useReviews";
 
 import { formatDateString } from "../libraries/manipulateData.js";
 
+/**
+ * Componente Review
+ *
+ * Este componente renderiza un elemento de revisión de usuario.
+ * Recibe props que incluyen la información de la revisión, como el usuario que la realizó,
+ * la revisión en sí misma, el número de likes, etc.
+ * Permite a los usuarios ver la revisión, indicar si contiene spoilers y dar likes.
+ * Además, los administradores tienen la capacidad de eliminar la revisión.
+ *
+ * Props:
+ * @param {Object} review - objeto que contiene la información de la revisión, incluyendo el usuario que la realizó, la revisión, etc.
+ * @param {boolean} onSlide - (opcional) booleano que indica si la revisión se muestra en un carrusel de deslizamiento.
+ * @param {boolean} ownReview - (opcional) booleano que indica si la revisión pertenece al usuario actual.
+ *
+ */
 const Review = ({ review, onSlide = false, ownReview = false }) => {
   const { users, reviews, likes, review_id } = review;
 

@@ -11,6 +11,15 @@ import LatestReviews from "../components/LatestReviews.jsx";
 import AboutUs from "../components/AboutUs";
 import DecorativeCounter from "../components/DecorativeCounter";
 
+/**
+ * Página de Inicio
+ *
+ * Esta página representa la página principal de la aplicación. Muestra una variedad de componentes,
+ * incluyendo los juegos más recientes, juegos destacados, últimas revisiones, información sobre la empresa, etc.
+ * Dependiendo de si hay una sesión activa, también puede mostrar un formulario para agregar juegos a la lista activa del usuario.
+ *
+ */
+
 const HomePage = () => {
   const { isSessionUp } = useUsers();
 

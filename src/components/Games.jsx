@@ -12,6 +12,17 @@ import Game from "./Game.jsx";
 
 import { validateArray, validateObject } from "../libraries/validateData.js";
 
+/**
+ * Componente Games
+ *
+ * Este componente muestra una lista de juegos. Puede mostrar todos los juegos o solo los juegos filtrados.
+ * Los juegos pueden ser mostrados en diferentes disposiciones según el estado de la página de administrador.
+ * Utiliza los hooks useUsers, useGames y useLists para manejar la sesión del usuario, obtener los juegos y agregar juegos a listas.
+ *
+ * Props:
+ * @param {boolean} onAdminPage - Booleano que indica si la página está en modo de administrador (true) o no (false).
+ *
+ */
 function Games({ onAdminPage = false }) {
   const { isSessionUp, user, isAdmin } = useUsers();
   const { isLoadingGames, filteredGames, getGame, showGameFormModal } =

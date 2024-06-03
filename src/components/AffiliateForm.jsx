@@ -1,5 +1,13 @@
 import React from "react";
 
+/**
+ * Componente AffiliateForm
+ *
+ * Este componente muestra un formulario para que los usuarios se conviertan en afiliados. Permite a los usuarios
+ * ingresar su información de cuenta y aceptar los términos y condiciones. Proporciona una lista de ventajas y el
+ * costo mensual del servicio. El formulario incluye validación de errores para resaltar campos incorrectos.
+ *
+ */
 function AffiliateForm() {
   const errors = false;
 

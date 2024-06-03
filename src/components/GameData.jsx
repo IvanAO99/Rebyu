@@ -10,6 +10,17 @@ import GameVideoError from "./GameVideoError.jsx";
 
 import { formatScore } from "../libraries/manipulateData.js";
 
+/**
+ * Componente GameData
+ *
+ * Este componente muestra los detalles de un juego, incluyendo el título, tráiler (si está disponible),
+ * puntuación promedio, número de reseñas, sinopsis, géneros, plataformas y desarrolladores. Utiliza
+ * ReactPlayer para reproducir el tráiler del juego y formatea la puntuación promedio utilizando la función
+ * formatScore del módulo manipulateData.
+ *
+ * Utiliza los hooks useGames y useReviews para obtener la información del juego y las reseñas relacionadas.
+ *
+ */
 const GameData = () => {
   const { game } = useGames();
   const { reviewsWithLikes } = useReviews();

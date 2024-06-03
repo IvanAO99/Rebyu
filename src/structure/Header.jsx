@@ -9,6 +9,14 @@ import ThemeToggler from "../components/ThemeToggler.jsx";
 
 import { validateObject } from "../libraries/validateData.js";
 
+/**
+ * Componente Header
+ *
+ * Este componente renderiza la cabecera de la aplicación, que incluye el logo, la navegación y el interruptor de tema.
+ * El contenido de la cabecera puede variar dependiendo de si el usuario está autenticado y si es un administrador.
+ *
+ */
+
 const Header = () => {
   const navigate = useNavigate();
 

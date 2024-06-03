@@ -9,6 +9,15 @@ import Game from "./Game.jsx";
 
 import { validateArray } from "../libraries/validateData.js";
 
+/**
+ * Componente LatestGames
+ *
+ * Este componente muestra una lista de los últimos juegos agregados.
+ * Utiliza el hook useGames para obtener los últimos juegos y el estado de carga.
+ * Utiliza el componente Game para representar cada juego en la lista.
+ *
+ */
+
 const LatestGames = () => {
   const { latestGames, isLoadingLatestGames } = useGames();
 

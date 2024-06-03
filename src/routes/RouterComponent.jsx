@@ -20,6 +20,17 @@ import ReviewAdministration from "../components/ReviewAdministration.jsx";
 
 import { validateObject } from "../libraries/validateData.js";
 
+/**
+ * Componente RouterComponent
+ *
+ * Este componente maneja el enrutamiento de la aplicación, determinando qué página mostrar según la sesión del usuario y su rol.
+ * Si el usuario está autenticado y es administrador, se mostrarán las páginas de administración.
+ * Si el usuario está autenticado pero no es administrador, se mostrarán las páginas de perfil y afiliación.
+ * Si el usuario no está autenticado, se mostrarán las páginas de inicio de sesión y registro.
+ * También maneja la visualización de la página de error para rutas no encontradas.
+ *
+ */
+
 const RouterComponent = () => {
   const { isSessionUp, user, isAdmin } = useUsers();
 

@@ -2,6 +2,20 @@ import React from "react";
 
 import { FaX } from "react-icons/fa6";
 
+/**
+ * Componente DeleteModal
+ *
+ * Este componente representa un modal de eliminación que muestra un título, contenido y botones para confirmar o
+ * cancelar la eliminación. Utiliza el icono FaX de la biblioteca react-icons/fa6 para el botón de cierre. Proporciona
+ * funciones para ocultar el modal (hideFunction) y realizar la eliminación (deleteFunction).
+ *
+ * Props:
+ * @param {ReactNode} children - Contenido del modal.
+ * @param {string} title - Título del modal.
+ * @param {Function} hideFunction - Función para ocultar el modal.
+ * @param {Function} deleteFunction - Función para realizar la eliminación.
+ *
+ */
 const DeleteModal = ({ children, title, hideFunction, deleteFunction }) => {
   return (
     <>

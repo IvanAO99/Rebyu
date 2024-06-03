@@ -5,6 +5,14 @@ import useReviews from "../hooks/useReviews.js";
 import ReviewsFilter from "./ReviewsFilter.jsx";
 import Reviews from "./Reviews.jsx";
 
+/**
+ * Componente ReviewAdministration
+ *
+ * Este componente es responsable de administrar las revisiones de los usuarios.
+ * Permite filtrar las revisiones por usuario y mensaje y mostrarlas en la interfaz.
+ * También proporciona una funcionalidad de búsqueda para buscar revisiones específicas.
+ *
+ */
 function ReviewAdministration() {
   const { handleFilter, isLoadingReviews, filteredByUserAndMessage } =
     useReviews();

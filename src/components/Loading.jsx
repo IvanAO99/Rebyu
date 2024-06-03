@@ -1,5 +1,12 @@
 import React from "react";
 
+/**
+ * Componente Loading
+ *
+ * Este componente muestra un indicador de carga animado mientras se cargan los datos.
+ * Utiliza una animación de giro para indicar que la página está cargando.
+ *
+ */
 const Loading = () => {
   return (
     <>

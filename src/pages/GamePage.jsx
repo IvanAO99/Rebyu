@@ -20,6 +20,15 @@ import InformativeTable from "../components/InformativeTable.jsx";
 
 import { validateObject } from "../libraries/validateData.js";
 
+/**
+ * Página del Juego
+ *
+ * Esta página muestra la información detallada de un juego, incluyendo sus datos, revisiones y formulario de revisión.
+ * Proporciona funcionalidades para que los usuarios registrados puedan enviar revisiones, así como para que los administradores
+ * puedan ver y eliminar revisiones existentes.
+ *
+ */
+
 const GamePage = () => {
   const { isSessionUp, user, isAdmin } = useUsers();
   const { isLoadingGame, game } = useGames();

@@ -1,5 +1,12 @@
 import React from "react";
 
+/**
+ * Página de Error
+ *
+ * Esta página muestra un mensaje de error 404 cuando se intenta acceder a una página que no existe.
+ * Proporciona un mensaje descriptivo para informar al usuario sobre el error.
+ *
+ */
 const ErrorPage = () => {
   return (
     <div className="min-h-screen flex flex-col justify-center items-center">

@@ -9,6 +9,15 @@ import useUsers from "../hooks/useUsers.js";
 
 import { validateObject } from "../libraries/validateData.js";
 
+/**
+ * Componente DecorativeCounter
+ *
+ * Este componente muestra un contador decorativo con el número de juegos registrados y el número de personas
+ * afiliadas. Utiliza la biblioteca react-countup para animar los números cuando entran en la vista. También
+ * proporciona enlaces para que los usuarios se registren o inicien sesión, dependiendo de si están autenticados
+ * o no.
+ *
+ */
 function DecorativeCounter() {
   const { user, isSessionUp } = useUsers();
   const { filteredGames } = useGames();

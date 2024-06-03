@@ -2,6 +2,12 @@ import React from "react";
 
 import { FaExclamation } from "react-icons/fa6";
 
+/**
+ * Componente GameVideoError
+ *
+ * Este componente muestra un mensaje de error cuando el video del juego no se encuentra o no ha sido cargado.
+ *
+ */
 const GameVideoError = () => {
   return (
     <>

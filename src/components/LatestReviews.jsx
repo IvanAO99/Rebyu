@@ -9,6 +9,15 @@ import Review from "./Review.jsx";
 
 import { validateArray } from "../libraries/validateData.js";
 
+/**
+ * Componente LatestReviews
+ *
+ * Este componente muestra una lista de las últimas reseñas agregadas.
+ * Utiliza el hook useReviews para obtener las últimas reseñas y el estado de carga.
+ * Utiliza el componente Review para representar cada reseña en la lista.
+ *
+ */
+
 const LatestReviews = () => {
   const { lastReviews, isLoadingLastReviews } = useReviews();
 

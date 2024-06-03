@@ -2,6 +2,15 @@ import React, { useState } from "react";
 
 import useReviews from "../hooks/useReviews.js";
 
+/**
+ * Componente ReviewsFilter
+ *
+ * Este componente proporciona opciones para filtrar las revisiones por tipo.
+ * Los tipos de filtro incluyen "All Reviews", "Positive Reviews" y "Negative Reviews".
+ * Al hacer clic en una opción de filtro, se activa y se aplica el filtro correspondiente.
+ *
+ */
+
 const ReviewsFilter = () => {
   const initialActiveOption = "all";
 

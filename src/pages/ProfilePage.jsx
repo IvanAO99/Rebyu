@@ -9,6 +9,14 @@ import ListFormModal from "../components/ListFormModal.jsx";
 import DeleteModal from "../components/DeleteModal.jsx";
 import InformativeTable from "../components/InformativeTable.jsx";
 
+/**
+ * Página de Perfil
+ *
+ * Esta página representa el perfil de un usuario. Muestra la información del perfil del usuario, como su nombre,
+ * imagen de perfil y listas creadas por el usuario. Permite al usuario interactuar con sus listas, como crear nuevas listas,
+ * ver y editar listas existentes, y eliminar listas.
+ *
+ */
 const ProfilePage = () => {
   const {
     listToDelete,
