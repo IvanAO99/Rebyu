@@ -25,7 +25,7 @@ const TopGames = () => {
     infinite: true,
     slidesToShow: 5,
     slidesToScroll: 5,
-    speed: 20000,
+    speed: 50000,
     cssEase: "linear",
     variableWidth: true,
   };
@@ -55,16 +55,22 @@ const TopGames = () => {
               <p>{JSON.stringify(topGames)}</p>
             </div> */}
             {!validateArray(topGames) ? (
-              <p className="text-center text-purple-400 font-bold py-5 px-2 text-lg">No top games yet!</p>
+              <p className="text-center text-purple-400 font-bold py-5 px-2 text-lg">
+                No top games yet!
+              </p>
             ) : (
               <div className="flex flex-col gap-5">
-              <Slider {...settings}>
-                {validateArray(topGames) &&
-                  topGames.map((game, index) => (
-                    <Game key={crypto.randomUUID()} game={game} onSlide = {true} />
-                  ))}
-              </Slider>
-            </div>
+                <Slider {...settings}>
+                  {validateArray(topGames) &&
+                    topGames.map((game, index) => (
+                      <Game
+                        key={crypto.randomUUID()}
+                        game={game}
+                        onSlide={true}
+                      />
+                    ))}
+                </Slider>
+              </div>
             )}
           </>
         )}

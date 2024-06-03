@@ -16,7 +16,7 @@ const LatestGames = () => {
     infinite: true,
     slidesToShow: 5,
     slidesToScroll: 5,
-    speed: 20000,
+    speed: 50000,
     cssEase: "linear",
     variableWidth: true,
   };
@@ -48,7 +48,7 @@ const LatestGames = () => {
               </p>
             ) : (
               <div className="flex flex-col gap-5">
-                <Slider {...settings}>
+                <Slider {...settings} rtl={true}>
                   {validateArray(latestGames) &&
                     latestGames.map((game, index) => (
                       <Game

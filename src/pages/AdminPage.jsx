@@ -30,6 +30,13 @@ const AdminPage = () => {
     reviewForm,
   } = useReviews();
 
+  const informativeTableUser = reviewForm?.users?.nickname
+    ? reviewForm.users.nickname
+    : "";
+  const informativeTableMessage = reviewForm?.reviews?.message
+    ? reviewForm.reviews.message
+    : "";
+
   useEffect(() => {
     getAllReviews();
   }, []);
@@ -81,8 +88,8 @@ const AdminPage = () => {
           </h1>
           <InformativeTable
             object={{
-              user: reviewForm.users.nickname,
-              message: reviewForm.reviews.message,
+              user: informativeTableUser,
+              message: informativeTableMessage,
             }}
           />
         </DeleteModal>

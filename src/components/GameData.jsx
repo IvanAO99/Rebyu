@@ -19,7 +19,7 @@ const GameData = () => {
         <div className="border-b-4 border-purple-600 text-right">
           <h2 className="text-8xl font-bold text-purple-600">{game.title}</h2>
         </div>
-        <div className="flex flex-row gap-5">
+        <div className="flex flex-wrap flex-row gap-5">
           {game.trailer ? (
             <>
               <ReactPlayer
@@ -67,7 +67,7 @@ const GameData = () => {
             <p>{game.synopsis}</p>
           </div>
         </div>
-        <div className="flex flex-row justify-between items-stretch gap-5">
+        <div className="flex flex-wrap flex-row justify-between items-stretch gap-5">
           <div className="flex-grow rounded-3xl bg-gray-100 dark:bg-gray-800 px-5 py-2 text-center shadow">
             <h3 className="px-5 py-2 text-6xl font-bold text-purple-600">
               GENRES
@@ -101,6 +101,23 @@ const GameData = () => {
                 </Fragment>
               ))}
             </div>
+          </div>
+        </div>
+        <div className="flex-grow rounded-3xl bg-gray-100 dark:bg-gray-800 px-5 py-2 text-center shadow">
+          <h3 className="px-5 py-2 text-6xl font-bold text-purple-600">
+            DEVELOPERS
+          </h3>
+          <div className="flex flex-row justify-center gap-5 px-5 py-2">
+            {game.game_developer.map((developer, index) => (
+              <Fragment key={developer.developers.id}>
+                {index > 0 && (
+                  <>
+                    <div className="border-x-[0.5px]"></div>
+                  </>
+                )}
+                <p>{developer.developers.name}</p>
+              </Fragment>
+            ))}
           </div>
         </div>
       </div>

@@ -15,7 +15,7 @@ const Main = ({ children }) => {
         </>
       ) : (
         <>
-          <main className="flex-grow container mx-auto py-2">{children}</main>
+          <main className="flex-grow container mx-auto p-5">{children}</main>
         </>
       )}
     </>
