@@ -23,7 +23,7 @@ const LatestReviews = () => {
     infinite: true,
     slidesToShow: 4,
     slidesToScroll: 4,
-    speed: 20000,
+    speed: 50000,
     cssEase: "linear",
     variableWidth: true,
   };
@@ -57,8 +57,10 @@ const LatestReviews = () => {
           </>
         ) : (
           <>
-            {!validateArray(lastReviews) ?  (
-              <p className="text-center text-purple-400 font-bold py-5 px-2 text-lg">Be our first reviewer!</p>
+            {!validateArray(lastReviews) ? (
+              <p className="text-center text-purple-400 font-bold py-5 px-2 text-lg">
+                Be our first reviewer!
+              </p>
             ) : (
               <div className="flex flex-col gap-5">
                 <Slider {...settings}>
