@@ -170,7 +170,7 @@ const ReviewsProvider = ({ children }) => {
           await likeAReview(reviewId);
         }
       } catch (error) {
-        console.log(error);
+        sendReviewAlert("error", "Something went wrong!");
       }
     }
   };
@@ -191,7 +191,7 @@ const ReviewsProvider = ({ children }) => {
       // Actualizar las reviews después de dar like
       getReviewsByGame();
     } catch (error) {
-      console.log(error);
+      sendReviewAlert("error", "Something went wrong!");
     }
   };
 
@@ -209,7 +209,7 @@ const ReviewsProvider = ({ children }) => {
       // Actualizar las reviews después de quitar el like
       getReviewsByGame();
     } catch (error) {
-      console.log(error);
+      sendReviewAlert("error", "Something went wrong!");
     }
   };
 
@@ -268,7 +268,7 @@ const ReviewsProvider = ({ children }) => {
         setUserReview(initialValues.userReview);
       }
     } catch (error) {
-      console.log(error);
+      sendReviewAlert("error", "Something went wrong!");
     }
   };
 
@@ -408,7 +408,7 @@ const ReviewsProvider = ({ children }) => {
       /*       getTopGames();
       getLastReviews(); */
     } catch (error) {
-      console.log(error);
+      sendReviewAlert("error", "Something went wrong!");
     }
   };
 

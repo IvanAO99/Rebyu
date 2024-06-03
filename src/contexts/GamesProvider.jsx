@@ -206,7 +206,7 @@ const GamesProvider = ({ children }) => {
 
       setGames(gamesWithScore);
     } catch (error) {
-      console.log(error.message);
+      sendGameAlert("error", "Something went wrong!");
     } finally {
       setIsLoadingGames(false);
     }
@@ -225,7 +225,9 @@ const GamesProvider = ({ children }) => {
       if (error) throw error;
 
       setNewGames(data);
-    } catch (error) {}
+    } catch (error) {
+      sendGameAlert("error", "Something went wrong!");
+    }
   };
 
   const getLatestGames = async () => {
@@ -244,7 +246,7 @@ const GamesProvider = ({ children }) => {
 
       setLatestGames(data);
     } catch (error) {
-      console.log(error);
+      sendGameAlert("error", "Something went wrong!");
     } finally {
       setIsLoadingLatestGames(false);
     }
@@ -262,12 +264,8 @@ const GamesProvider = ({ children }) => {
       if (error) throw error;
 
       setTopGames(data);
-
-      //const calculatedTopGames = calculateTopGames(data);
-
-      //setTopGames(calculatedTopGames);
     } catch (error) {
-      console.log(error);
+      sendGameAlert("error", "Something went wrong!");
     } finally {
       setIsLoadingTopGames(false);
     }
@@ -314,7 +312,7 @@ const GamesProvider = ({ children }) => {
           : data[0]
       );
     } catch (error) {
-      console.log(error);
+      sendGameAlert("error", "Something went wrong!");
     } finally {
       setIsLoadingGame(false);
     }
@@ -338,7 +336,7 @@ const GamesProvider = ({ children }) => {
         );
       setGenres(data);
     } catch (error) {
-      console.log(error.message);
+      sendGameAlert("error", "Something went wrong!");
     }
   };
 
@@ -360,7 +358,7 @@ const GamesProvider = ({ children }) => {
         );
       setDevelopers(data);
     } catch (error) {
-      console.log(error.message);
+      sendGameAlert("error", "Something went wrong!");
     }
   };
 
@@ -382,7 +380,7 @@ const GamesProvider = ({ children }) => {
         );
       setPlatforms(data);
     } catch (error) {
-      console.log(error.message);
+      sendGameAlert("error", "Something went wrong!");
     }
   };
 
@@ -581,7 +579,7 @@ const GamesProvider = ({ children }) => {
 
       if (error) throw error;
     } catch (error) {
-      //console.log(error.message);
+      sendGameAlert("error", "Something went wrong!");
     }
   };
 
@@ -647,7 +645,7 @@ const GamesProvider = ({ children }) => {
         }
       }
     } catch (error) {
-      //console.log(error.message);
+      sendGameAlert("error", "Something went wrong!");
     }
   };
 
@@ -815,7 +813,7 @@ const GamesProvider = ({ children }) => {
 
       if (error) throw error;
     } catch (error) {
-      console.log(error.message);
+      sendGameAlert("error", "Something went wrong!");
     }
   };
 

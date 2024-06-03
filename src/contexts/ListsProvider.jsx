@@ -111,7 +111,7 @@ const ListsProvider = ({ children }) => {
 
       if (error) throw error;
     } catch (error) {
-      console.log(error);
+      sendListAlert("error", "Something went wrong!");
     }
   };
 
@@ -137,7 +137,7 @@ const ListsProvider = ({ children }) => {
         setSelectedList(updatedList);
       }
     } catch (error) {
-      console.log(error);
+      sendListAlert("error", "Something went wrong!");
     }
   };
 

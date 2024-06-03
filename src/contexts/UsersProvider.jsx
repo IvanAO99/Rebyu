@@ -347,7 +347,7 @@ const UsersProvider = ({ children }) => {
 
       setAllUsers(data);
     } catch (error) {
-      console.log(error);
+      sendUserAlert("error", "Something went wrong!");
     }
   };
 
