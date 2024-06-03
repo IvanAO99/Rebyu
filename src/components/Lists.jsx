@@ -11,6 +11,7 @@ import { validateArray } from "../libraries/validateData.js";
 
 const Lists = () => {
   const { userLists, showListFormModal } = useLists();
+
   return (
     <Fragment>
       <div id="lists">

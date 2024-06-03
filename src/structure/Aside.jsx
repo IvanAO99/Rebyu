@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import useUsers from "../hooks/useUsers";
+
 import { NavLink } from "react-router-dom";
-import ThemeToggler from "../components/ThemeToggler";
 import { FaBars, FaX } from "react-icons/fa6";
+
+import useUsers from "../hooks/useUsers.js";
+
+import ThemeToggler from "../components/ThemeToggler.jsx";
 
 const Aside = () => {
   const { user, signOut } = useUsers();

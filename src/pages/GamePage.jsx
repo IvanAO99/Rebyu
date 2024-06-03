@@ -1,23 +1,27 @@
 import React from "react";
 
-import useGames from "../hooks/useGames";
-import { validateObject } from "../libraries/validateData";
-import Review from "../components/Review";
-import Loading from "../components/Loading";
-import ReviewForm from "../components/ReviewForm";
-import GameData from "../components/GameData";
-import Reviews from "../components/Reviews";
-import useReviews from "../hooks/useReviews";
-import CustomModal from "../components/CustomModal";
-import ReviewFormModal from "../components/ReviewFormModal";
-import DeleteModal from "../components/DeleteModal";
-import useUsers from "../hooks/useUsers";
-import ReviewsFilter from "../components/ReviewsFilter";
-import InformativeTable from "../components/InformativeTable";
 import { Link } from "react-router-dom";
 import { FaAngleLeft } from "react-icons/fa6";
 
+import useUsers from "../hooks/useUsers.js";
+import useGames from "../hooks/useGames.js";
+import useReviews from "../hooks/useReviews.js";
+
+import Loading from "../components/Loading.jsx";
+import GameData from "../components/GameData.jsx";
+import ReviewForm from "../components/ReviewForm.jsx";
+import ReviewsFilter from "../components/ReviewsFilter.jsx";
+import Reviews from "../components/Reviews.jsx";
+import Review from "../components/Review.jsx";
+import CustomModal from "../components/CustomModal.jsx";
+import ReviewFormModal from "../components/ReviewFormModal.jsx";
+import DeleteModal from "../components/DeleteModal.jsx";
+import InformativeTable from "../components/InformativeTable.jsx";
+
+import { validateObject } from "../libraries/validateData.js";
+
 const GamePage = () => {
+  const { isSessionUp, user, isAdmin } = useUsers();
   const { isLoadingGame, game } = useGames();
   const {
     userReview,
@@ -28,12 +32,9 @@ const GamePage = () => {
     deletingReview,
     handleReviewSubmit,
     isLoadingReviews,
-    reviewsWithLikes,
     filteredReviews,
     reviewForm,
   } = useReviews();
-
-  const { isSessionUp, user, isAdmin } = useUsers();
 
   return (
     <>

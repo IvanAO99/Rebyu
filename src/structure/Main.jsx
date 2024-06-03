@@ -1,7 +1,10 @@
 import React from "react";
-import useUsers from "../hooks/useUsers";
-import { validateObject } from "../libraries/validateData";
+
+import useUsers from "../hooks/useUsers.js";
+
 import Aside from "./Aside.jsx";
+
+import { validateObject } from "../libraries/validateData.js";
 
 const Main = ({ children }) => {
   const { isSessionUp, user, isAdmin } = useUsers();

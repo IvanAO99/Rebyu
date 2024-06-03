@@ -1,9 +1,9 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment } from "react";
+
+import useLists from "../hooks/useLists.js";
 
 import Profile from "../components/Profile.jsx";
 import Lists from "../components/Lists.jsx";
-import ListForm from "../components/ListForm.jsx";
-import useLists from "../hooks/useLists.js";
 import CustomModal from "../components/CustomModal.jsx";
 import ListFormModal from "../components/ListFormModal.jsx";
 import DeleteModal from "../components/DeleteModal.jsx";

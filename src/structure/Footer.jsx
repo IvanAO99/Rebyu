@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
   FaTwitter,
   FaInstagram,
@@ -6,11 +7,14 @@ import {
   FaFacebookF,
   FaYoutube,
 } from "react-icons/fa";
-import useUsers from "../hooks/useUsers";
-import { validateObject } from "../libraries/validateData";
+
+import useUsers from "../hooks/useUsers.js";
+
+import { validateObject } from "../libraries/validateData.js";
 
 function Footer() {
   const { isSessionUp, user, isAdmin } = useUsers();
+
   return (
     <>
       {isSessionUp && validateObject(user) && isAdmin ? (

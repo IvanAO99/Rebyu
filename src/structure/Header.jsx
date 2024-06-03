@@ -1,24 +1,25 @@
 import React, { useEffect, useState } from "react";
+
 import { Link, useNavigate } from "react-router-dom";
-import { FaBars, FaMoon, FaSun, FaX } from "react-icons/fa6";
+import { FaBars, FaX } from "react-icons/fa6";
 
 import useUsers from "../hooks/useUsers.js";
 
-import { validateObject } from "../libraries/validateData.js";
 import ThemeToggler from "../components/ThemeToggler.jsx";
 
+import { validateObject } from "../libraries/validateData.js";
+
 const Header = () => {
+  const navigate = useNavigate();
+
   const { isSessionUp, user, signOut, isAdmin } = useUsers();
 
   const [isHeaderOpen, setIsHeaderOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const navigate = useNavigate();
-
   const toggleHeader = () => {
     setIsHeaderOpen(!isHeaderOpen);
   };
-
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
