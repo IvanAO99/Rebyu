@@ -33,7 +33,7 @@ const NewGames = () => {
 
   return (
     <>
-      <div className="h-[800px] relative rounded-3xl overflow-hidden">
+      <div className="h-[400px] md:h-[800px] relative rounded-3xl overflow-hidden">
         <div className="absolute h-full w-full">
           <Swiper
             autoplay={{

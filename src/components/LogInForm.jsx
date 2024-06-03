@@ -11,8 +11,10 @@ function LogInForm() {
     <>
       <div className="flex flex-col justify-center items-center gap-5">
         <div className="flex flex-col gap-1">
-          <h1 className="text-6xl font-bold text-center">LOG IN</h1>
-          <h2 className="text-3xl text-center">Access your account</h2>
+          <h1 className="text-3xl md:text-6xl font-bold text-center">LOG IN</h1>
+          <h2 className="text-xl md:text-3xl text-center">
+            Access your account
+          </h2>
         </div>
         <div className="flex flex-col gap-5">
           <form
@@ -22,7 +24,7 @@ function LogInForm() {
             <div className="flex flex-col gap-5">
               <label
                 htmlFor="email"
-                className="block text-xl font-bold text-purple-600"
+                className="block text-lg md:text-xl font-bold text-purple-600"
               >
                 Email
               </label>
@@ -47,7 +49,7 @@ function LogInForm() {
             <div className="flex flex-col gap-5">
               <label
                 htmlFor="password"
-                className="block text-xl font-bold text-purple-600"
+                className="block text-lg md:text-xl font-bold text-purple-600"
               >
                 Password
               </label>

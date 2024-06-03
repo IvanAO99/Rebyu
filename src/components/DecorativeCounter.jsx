@@ -24,17 +24,19 @@ function DecorativeCounter() {
   });
 
   return (
-    <div className="flex flex-col items-center justify-center bg-cover w-3/4 mx-auto">
-      <h1 className="text-5xl font-bold text-gray-800 dark:text-gray-200 mb-6">
-        ¡Already Many of Us!
-      </h1>
-      <div className="w-full h-64 relative">
+    <div className="flex flex-col items-center justify-center bg-cover">
+      <div className="self-stretch flex flex-row justify-stretch items-center gap-2 mb-5 py-2">
+        <div className="flex-grow border-y-2 border-purple-600"></div>
+        <h2 className="text-3xl md:text-6xl font-bold">¡Already Many of Us!</h2>
+        <div className="flex-grow border-y-2 border-purple-600"></div>
+      </div>
+      <div className="w-full h-64 relative overflow-hidden">
         <img
           src="src/assets/layout-image.png"
           alt="Decorative Image"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-fade-edge"></div>
+        <div className="absolute inset-0 bg-fade-edge-light dark:bg-fade-edge-dark "></div>
       </div>
       <div className="flex flex-col md:flex-row justify-evenly w-full px-8 my-10">
         <div
@@ -45,14 +47,14 @@ function DecorativeCounter() {
             <CountUp
               end={registeredGames}
               duration={3}
-              className="text-purple-500 dark:text-purple-400 text-7xl font-bold"
+              className="text-purple-600 text-6xl font-bold"
             />
           ) : (
-            <p className="text-purple-500 dark:text-purple-400 text-7xl font-bold">
+            <p className="text-purple-600 text-6xl font-bold">
               {registeredGames}
             </p>
           )}
-          <p className="text-3xl text-gray-800 dark:text-gray-200">
+          <p className="text-3xl text-gray-900 dark:text-gray-50">
             Registered Games
           </p>
         </div>
@@ -61,27 +63,25 @@ function DecorativeCounter() {
             <CountUp
               end={affiliates}
               duration={3}
-              className="text-purple-500 dark:text-purple-400 text-7xl font-bold"
+              className="text-purple-600 text-6xl font-bold"
             />
           ) : (
-            <p className="text-purple-500 dark:text-purple-400 text-7xl font-bold">
-              {affiliates}
-            </p>
+            <p className="text-purple-600 text-6xl font-bold">{affiliates}</p>
           )}
-          <p className="text-3xl text-gray-800 dark:text-gray-200">
+          <p className="text-3xl text-gray-900 dark:text-gray-50">
             Affiliated People
           </p>
         </div>
       </div>
-      <div className="flex flex-col items-center mt-4">
-        <p className="text-lg text-gray-800 dark:text-gray-200">
+      <div className="flex flex-col items-center mt-5">
+        <p className="text-lg text-gray-900 dark:text-gray-50">
           What are you waiting for?
         </p>
         {isSessionUp && validateObject(user) ? (
           <>
             <Link
               to="/affiliate"
-              className="text-purple-500 dark:text-purple-400 hover:underline text-2xl"
+              className="text-purple-600 hover:underline text-3xl"
             >
               Become a member and support the project!
             </Link>
@@ -90,7 +90,7 @@ function DecorativeCounter() {
           <>
             <Link
               to="/login"
-              className="text-purple-500 dark:text-purple-400 hover:underline text-2xl"
+              className="text-purple-600 hover:underline text-3xl"
             >
               Log in and discover our advantages!
             </Link>

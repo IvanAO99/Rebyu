@@ -10,11 +10,8 @@ const List = ({ list }) => {
 
   const { id, name, type, games_on_list } = list;
 
-  const {
-    showListFormModal,
-    removeGameFromList,
-    showListDeleteModal,
-  } = useLists();
+  const { showListFormModal, removeGameFromList, showListDeleteModal } =
+    useLists();
   const { getGame, filteredGames } = useGames();
 
   const handleGameClick = (event) => {
@@ -34,7 +31,7 @@ const List = ({ list }) => {
   const filteredGamesOnList = filteredGames.filter((game) =>
     gameIDsOnList.includes(game.id)
   );
-  
+
   return (
     <Fragment>
       <div className="[&:not(:last-child)]:border-b-2 border-gray-100 dark:border-gray-800">
@@ -44,14 +41,14 @@ const List = ({ list }) => {
           } hover:bg-gray-100 hover:dark:bg-gray-800 px-5 py-2 hover:cursor-pointer transition-all duration-300`}
           onClick={() => setIsOpen(!isOpen)}
         >
-          <div className="flex flex-row justify-start items-center gap-5">
+          <div className="flex flex-col sm:flex-row justify-start items-center gap-5">
             {isOpen ? <FaAngleDown size={24} /> : <FaAngleRight size={24} />}
             <h3>{name.toUpperCase()}</h3>
             <p>({games_on_list.length} GAMES SAVED)</p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-col sm:flex-row justify-center items-end gap-2">
             <p
-              className={`mr-10 px-5 py-2 rounded-3xl font-bold ${
+              className={`px-5 py-2 rounded-3xl font-bold ${
                 type === "public" ? "bg-purple-600" : "bg-red-600"
               } text-gray-50`}
             >
@@ -89,7 +86,7 @@ const List = ({ list }) => {
           } bg-gray-100 dark:bg-gray-800/50 px-5 py-2`}
         >
           <div
-            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 place-items-center gap-5 p-5"
+            className="flex flex-row flex-wrap justify-center xl:justify-start items-center gap-5 p-5"
             onClick={(event) => {
               handleGameClick(event);
 

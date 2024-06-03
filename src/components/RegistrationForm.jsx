@@ -11,8 +11,10 @@ function RegistrationForm() {
     <>
       <div className="flex flex-col justify-center gap-5">
         <div className="flex flex-col gap-1">
-          <h1 className="text-6xl font-bold text-center">REGISTER</h1>
-          <h2 className="text-3xl text-center">
+          <h1 className="text-3xl md:text-6xl font-bold text-center">
+            REGISTER
+          </h1>
+          <h2 className="text-xl md:text-3xl text-center">
             And contribute to the community
           </h2>
         </div>
@@ -26,7 +28,7 @@ function RegistrationForm() {
               <div className="flex flex-col gap-1">
                 <label
                   htmlFor="nickname"
-                  className="block text-xl font-bold text-purple-600"
+                  className="block text-lg md:text-xl font-bold text-purple-600"
                 >
                   Nickname
                 </label>
@@ -53,7 +55,7 @@ function RegistrationForm() {
               <div className="flex flex-col gap-1">
                 <label
                   htmlFor="email"
-                  className="block text-xl font-bold text-purple-600"
+                  className="block text-lg md:text-xl font-bold text-purple-600"
                 >
                   Email
                 </label>
@@ -79,7 +81,7 @@ function RegistrationForm() {
               <div className="flex flex-col gap-1">
                 <label
                   htmlFor="password"
-                  className="block text-xl font-bold text-purple-600"
+                  className="block text-lg md:text-xl font-bold text-purple-600"
                 >
                   Password
                 </label>
@@ -105,7 +107,7 @@ function RegistrationForm() {
               <div className="flex flex-col gap-1">
                 <label
                   htmlFor="repeated_password"
-                  className="block text-xl font-bold text-purple-600"
+                  className="block text-lg md:text-xl font-bold text-purple-600"
                 >
                   Confirm Password
                 </label>
@@ -135,7 +137,7 @@ function RegistrationForm() {
               <div className="flex flex-col gap-1">
                 <label
                   htmlFor="name"
-                  className="block text-xl font-bold text-purple-600"
+                  className="block text-lg md:text-xl font-bold text-purple-600"
                 >
                   Name
                 </label>
@@ -161,7 +163,7 @@ function RegistrationForm() {
               <div className="flex flex-col gap-1">
                 <label
                   htmlFor="birth_date"
-                  className="block text-xl font-bold text-purple-600"
+                  className="block text-lg md:text-xl font-bold text-purple-600"
                 >
                   Date of Birth
                 </label>
@@ -186,7 +188,7 @@ function RegistrationForm() {
               <div className="flex flex-col gap-1">
                 <label
                   htmlFor="profile_photo"
-                  className="block text-xl font-bold text-purple-600"
+                  className="block text-lg md:text-xl font-bold text-purple-600"
                 >
                   Profile Picture
                 </label>
