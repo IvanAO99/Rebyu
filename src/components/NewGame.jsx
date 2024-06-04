@@ -21,7 +21,7 @@ const NewGame = ({ game }) => {
     <>
       <div className="relative h-full w-full">
         <img
-          src={wallpaper || ""}
+          src={wallpaper || "./src/assets/img/default-game-wallpaper.jpg"}
           alt=""
           srcSet=""
           className="object-cover h-full w-full"

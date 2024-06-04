@@ -54,7 +54,7 @@ const Header = () => {
               {/* Logo y marca */}
               <div className="flex flex-row justify-between md:justify-center items-center gap-2">
                 <img
-                  src="./src/assets/logo.svg"
+                  src="./src/assets/img/logo.svg"
                   alt="Logo"
                   className="h-32 w-32"
                 />
@@ -142,7 +142,7 @@ const Header = () => {
                           <img
                             src={
                               user.profile_photo ||
-                              "src/assets/profile-photo-default.jpg"
+                              "src/assets/img/default-profile-photo.jpg"
                             }
                             alt="User"
                             className="h-16 w-16 rounded-full object-cover"
@@ -235,7 +235,7 @@ const Header = () => {
                         <img
                           src={
                             user.profile_photo ||
-                            "src/assets/profile-photo-default.jpg"
+                            "./src/assets/img/default-profile-photo.jpg"
                           }
                           alt="User"
                           className="cursor-pointer h-16 w-16 rounded-full object-cover"
