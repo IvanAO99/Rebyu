@@ -13,10 +13,10 @@ import { validateArray } from "../libraries/validateData.js";
 import "swiper/css";
 
 /**
- * Componente NewGames
+ * Component NewGames
  *
- * Este componente muestra una lista de nuevos juegos en un carrusel deslizante.
- * Utiliza el hook useGames para obtener la lista de nuevos juegos.
+ * This component displays a list of new games in a sliding carousel.
+ * It uses the useGames hook to fetch the list of new games.
  *
  */
 const NewGames = () => {

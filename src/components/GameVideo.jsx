@@ -1,12 +1,12 @@
 import React, { Fragment } from "react";
 
 /**
- * Componente GameVideo
+ * Component GameVideo
  *
- * Este componente envuelve un video de juego y aplica estilos de diseño.
+ * This component wraps a game video and applies design styles.
  *
  * Props:
- * @param {ReactNode} children - Los elementos hijos del componente.
+ * @param {ReactNode} children - The children elements of the component.
  *
  */
 const GameVideo = ({ children }) => {

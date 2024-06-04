@@ -21,14 +21,14 @@ import InformativeTable from "../components/InformativeTable.jsx";
 import { validateObject } from "../libraries/validateData.js";
 
 /**
- * Página del Juego
+ * Game Page
  *
- * Esta página muestra la información detallada de un juego, incluyendo sus datos, revisiones y formulario de revisión.
- * Proporciona funcionalidades para que los usuarios registrados puedan enviar revisiones, así como para que los administradores
- * puedan ver y eliminar revisiones existentes.
+ * This page displays the detailed information of a game,
+ * including its data, reviews, and review form.
+ * It provides functionalities for registered users to submit reviews,
+ * as well as for administrators to view and delete existing reviews.
  *
  */
-
 const GamePage = () => {
   const { isSessionUp, user, isAdmin } = useUsers();
   const { isLoadingGame, game } = useGames();

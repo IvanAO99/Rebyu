@@ -15,6 +15,7 @@ const ListsProvider = ({ children }) => {
   const { user, userCreation, cancelUserCreation, idUserCreated } = useUsers();
 
   /* INITIAL STATES VALUES */
+
   const initialValues = {
     defaultList: {
       name: "FAVOURITES",
@@ -37,6 +38,7 @@ const ListsProvider = ({ children }) => {
   };
 
   /* STATES */
+
   const [userLists, setUserLists] = useState(initialValues.userLists);
   const [selectedList, setSelectedList] = useState(initialValues.selectedList);
   const [listToUpdate, setListToUpdate] = useState(initialValues.listToUpdate);
@@ -60,6 +62,13 @@ const ListsProvider = ({ children }) => {
 
   /* FUNCTIONS */
 
+  /**
+   * Sends a list alert with the specified type and message.
+   *
+   * @param {string} type - The type of alert to display (success or error).
+   * @param {string} message - The message to display in the alert.
+   *
+   */
   const sendListAlert = (type, message) => {
     const notify = () => {
       switch (type) {
@@ -99,6 +108,12 @@ const ListsProvider = ({ children }) => {
     notify();
   };
 
+  /**
+   * Creates a default list for the specified user ID.
+   *
+   * @param {string} userID - The ID of the user for whom to create the default list.
+   *
+   */
   const createDefaultList = async (userID) => {
     try {
       const { data, error } = await supabaseConnection
@@ -115,6 +130,10 @@ const ListsProvider = ({ children }) => {
     }
   };
 
+  /**
+   * Retrieves lists belonging to the current user from the database.
+   *
+   */
   const getListsFromUser = async () => {
     try {
       const { data, error } = await supabaseConnection
@@ -141,6 +160,12 @@ const ListsProvider = ({ children }) => {
     }
   };
 
+  /**
+   * Adds a game to the selected list if the user is authenticated and the game is not already in the list.
+   *
+   * @param {string} gameID - The ID of the game to add to the list.
+   *
+   */
   const addGameToList = async (gameID) => {
     if (user.id && !checkGameInList(gameID)) {
       try {
@@ -165,7 +190,7 @@ const ListsProvider = ({ children }) => {
       } catch (error) {
         sendListAlert(
           "error",
-          "Something went wrong, the game could not be added to list."
+          "Something went wrong, the game could not be added to list!"
         );
       }
     } else {
@@ -173,10 +198,21 @@ const ListsProvider = ({ children }) => {
     }
   };
 
+  /**
+   * Refreshes the user's lists by fetching them from the database.
+   *
+   */
   const refreshListsFromUser = () => {
     getListsFromUser();
   };
 
+  /**
+   * Removes a game from a specified list if the user is authenticated.
+   *
+   * @param {string} gameID - The ID of the game to remove from the list.
+   * @param {string} listID - The ID of the list from which to remove the game.
+   *
+   */
   const removeGameFromList = async (gameID, listID) => {
     if (user.id) {
       try {
@@ -186,7 +222,7 @@ const ListsProvider = ({ children }) => {
           .eq("game_id", gameID)
           .eq("list_id", listID);
 
-        if (error) throw new Error(`The game could not be deleted.`);
+        if (error) throw new Error(`The game could not be deleted!`);
 
         getListsFromUser();
 
@@ -194,12 +230,18 @@ const ListsProvider = ({ children }) => {
       } catch (error) {
         sendListAlert(
           "error",
-          "Something went wrong, the game could not be removed from list."
+          "Something went wrong, the game could not be removed from list!"
         );
       }
     }
   };
 
+  /**
+   * Changes the active list based on the provided list ID if the user's lists are valid.
+   *
+   * @param {string} listID - The ID of the list to set as active.
+   *
+   */
   const changeActiveList = (listID) => {
     if (validateArray(userLists)) {
       userLists.map((list) => {
@@ -208,6 +250,14 @@ const ListsProvider = ({ children }) => {
     }
   };
 
+  /**
+   * Checks if a game exists in the selected list.
+   *
+   * @param {string} gameID - The ID of the game to check.
+   *
+   * @returns {boolean} - Whether the game is in the active list.
+   *
+   */
   const checkGameInList = (gameID) => {
     let gameInList = false;
     if (selectedList && validateArray(selectedList.games_on_list)) {
@@ -219,10 +269,20 @@ const ListsProvider = ({ children }) => {
     return gameInList;
   };
 
+  /**
+   * Sets the list to be updated.
+   *
+   * @param {object} list - The list to update.
+   *
+   */
   const selectListToUpdate = (list) => {
     setListToUpdate(list);
   };
 
+  /**
+   * Updates the details of a list.
+   *
+   */
   const updateList = async () => {
     try {
       const { data, error } = await supabaseConnection
@@ -244,13 +304,17 @@ const ListsProvider = ({ children }) => {
     } catch (error) {
       sendListAlert(
         "error",
-        "Something went wrong, the list could not be updated."
+        "Something went wrong, the list could not be updated!"
       );
     } finally {
       setListToUpdate(initialValues.listToUpdate);
     }
   };
 
+  /**
+   * Deletes a list.
+   *
+   */
   const deleteList = async () => {
     try {
       const { data, error } = await supabaseConnection
@@ -269,11 +333,15 @@ const ListsProvider = ({ children }) => {
     } catch (error) {
       sendListAlert(
         "error",
-        "Something went wrong, the list could not be deleted."
+        "Something went wrong, the list could not be deleted!"
       );
     }
   };
 
+  /**
+   * Creates a new list.
+   *
+   */
   const createList = async () => {
     try {
       const { data, error } = await supabaseConnection
@@ -300,6 +368,13 @@ const ListsProvider = ({ children }) => {
     }
   };
 
+  /**
+   * Updates data based on the provided event and mode.
+   *
+   * @param {object} event - The event object containing the updated data.
+   * @param {string} mode - The mode of the update (creation or update).
+   *
+   */
   const updateData = (event, mode) => {
     const { name, value } = event.target;
     if (mode === "creation") {
@@ -309,6 +384,13 @@ const ListsProvider = ({ children }) => {
     }
   };
 
+  /**
+   * Shows the list form modal for creating or updating a list.
+   *
+   * @param {boolean} isUpdate - Indicates whether the operation is an update.
+   * @param {Object} [list=null] - The list to be updated. This parameter is optional and defaults to null.
+   *
+   */
   const showListFormModal = (isUpdate, list = null) => {
     if (isUpdate && validateObject(list)) {
       selectListToUpdate(list);
@@ -320,29 +402,54 @@ const ListsProvider = ({ children }) => {
     setIsListFormModalOpen(true);
   };
 
+  /**
+   * Hides the list form modal.
+   *
+   */
   const hideListFormModal = () => {
     setUpdatingList(initialValues.updatingList);
     setIsListFormModalOpen(initialValues.isListModalOpen);
-
-    /* PONER ESTADOS INICIALES DEL FORMULARIO PARA LIMPIARLO (NO ENTIENDO LOS ESTADOS DE DIANA) */
   };
 
+  /**
+   * Shows the list delete confirmation modal.
+   *
+   * @param {Object} list - The list to be deleted.
+   *
+   */
   const showListDeleteModal = (list) => {
     setListToDelete(list);
     setIsDeleteListModalOpen(true);
   };
 
+  /**
+   * Hides the list delete confirmation modal.
+   *
+   */
   const hideListDeleteModal = () => {
     setListToDelete({});
     setIsDeleteListModalOpen(initialValues.isListModalOpen);
   };
 
+  /**
+   * Checks if a list with the provided name already exists.
+   *
+   * @param {string} ListName - The name of the list to check.
+   *
+   */
   const isListAlreadyCreated = (ListName) => {
     return userLists.some(
       (list) => list.name.toUpperCase() === ListName.toUpperCase()
     );
   };
 
+  /**
+   * Validates the form data for creating or updating a list.
+   *
+   * @param {boolean} creationMode - Indicates whether the form is for creating a new list.
+   *  If true, it validates `newList`. Otherwise, it validates `listToUpdate`.
+   *
+   */
   const validateListForm = (creationMode) => {
     let validationErrors = {};
 
@@ -370,6 +477,13 @@ const ListsProvider = ({ children }) => {
     return validationErrors;
   };
 
+  /**
+   * Handles the creation or update of a list based on the specified mode.
+   *
+   * @param {boolean} [creationMode = false] - Indicates whether a new list is being created.
+   *  If true, a new list is created. If false, an existing list is updated.
+   *
+   */
   const handleListCreation = (creationMode = false) => {
     const validationErrors = validateListForm(creationMode);
     if (validateObject(validationErrors)) {
@@ -380,14 +494,24 @@ const ListsProvider = ({ children }) => {
     }
   };
 
+  /**
+   * Executes side effects when the 'gameAdded' state changes.
+   *
+   * This effect updates the selected list if a game has been added to it.
+   */
   useEffect(() => {
     if (gameAdded) {
       const updatedList = userLists.find((list) => list.id === selectedList.id);
-      setSelectedList(updatedList); // Asegurarte de que selectedList se actualice
+      setSelectedList(updatedList);
       setGameAdded(false);
     }
   }, [gameAdded, userLists]);
 
+  /**
+   * Executes side effects when the 'userCreation' state changes.
+   *
+   * This effect creates a default list for the newly created user and cancels the user creation process.
+   */
   useEffect(() => {
     if (userCreation) {
       createDefaultList(idUserCreated);
@@ -395,6 +519,11 @@ const ListsProvider = ({ children }) => {
     }
   }, [userCreation]);
 
+  /**
+   * Executes side effects when the 'user' state changes.
+   *
+   * This effect retrieves the lists associated with the user.
+   */
   useEffect(() => {
     if (user.id) {
       getListsFromUser();
@@ -412,7 +541,6 @@ const ListsProvider = ({ children }) => {
     listToUpdate,
     listToDelete,
     selectListToUpdate,
-    /* changeNameOfList, */
     updateList,
     deleteList,
     updateData,

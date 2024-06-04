@@ -4,12 +4,12 @@ import useUsers from "../hooks/useUsers.js";
 import useGames from "../hooks/useGames.js";
 
 /**
- * Componente GamesFilters
+ * GamesFilters Component
  *
- * Este componente muestra filtros para buscar juegos por género, plataforma, desarrollador y nombre.
- * Utiliza los hooks useUsers y useGames para obtener la información necesaria y realizar las operaciones de filtrado.
- * Los filtros incluyen opciones desplegables para género, plataforma y desarrollador, así como un campo de búsqueda
- * para el nombre del juego. También incluye un botón para restablecer los filtros.
+ * This component displays filters for searching games by genre, platform, developer, and name.
+ * It uses the useUsers and useGames hooks to retrieve necessary information and perform filtering operations.
+ * The filters include dropdown options for genre, platform, and developer, as well as a search field
+ * for the game name. It also includes a button to reset the filters.
  *
  */
 const GamesFilters = () => {

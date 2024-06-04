@@ -8,12 +8,14 @@ import "slick-carousel/slick/slick-theme.css";
 import "./index.css";
 
 /**
- * Punto de entrada de la aplicación
+ * Application Entry Point
  *
- * Este archivo es el punto de entrada principal de la aplicación. Renderiza el componente raíz de la aplicación (`App`) en el elemento con el id "app-root" del DOM.
+ * This file is the main entry point of the application.
+ * It renders the root component of the application (`App`) in the DOM element with the id "app-root".
  *
- * @param {React.StrictMode} - <React.StrictMode> Componente de React utilizado para activar el modo estricto.
- * @param {App} - <App /> Componente raíz de la aplicación.
+ * @param {React.StrictMode} - <React.StrictMode> React component used to enable strict mode.
+ * @param {App} - <App /> Root component of the application.
+ *
  */
 ReactDOM.createRoot(document.getElementById("app-root")).render(
   <React.StrictMode>

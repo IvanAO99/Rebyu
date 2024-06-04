@@ -3,11 +3,11 @@ import React, { useEffect, useState } from "react";
 import { FaMoon, FaSun } from "react-icons/fa6";
 
 /**
- * Componente ThemeToggler
+ * Component ThemeToggler
  *
- * Este componente proporciona un botón para alternar entre el modo claro y oscuro.
- * El modo se establece según la preferencia del sistema del usuario.
- * Al hacer clic en el botón, se alterna entre los modos claro y oscuro.
+ * This component provides a button to toggle between light and dark mode.
+ * The mode is set according to the user's system preference.
+ * Clicking the button toggles between light and dark modes.
  *
  */
 const ThemeToggler = () => {

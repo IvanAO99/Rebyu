@@ -12,14 +12,15 @@ import AboutUs from "../components/AboutUs";
 import DecorativeCounter from "../components/DecorativeCounter";
 
 /**
- * Página de Inicio
+ * Home Page
  *
- * Esta página representa la página principal de la aplicación. Muestra una variedad de componentes,
- * incluyendo los juegos más recientes, juegos destacados, últimas revisiones, información sobre la empresa, etc.
- * Dependiendo de si hay una sesión activa, también puede mostrar un formulario para agregar juegos a la lista activa del usuario.
+ * This page represents the main page of the application.
+ * It displays a variety of components, including the latest games,
+ * featured games, latest reviews, company information, etc.
+ * Depending on whether there is an active session,
+ * it may also show a form to add games to the user's active list.
  *
  */
-
 const HomePage = () => {
   const { isSessionUp } = useUsers();
 

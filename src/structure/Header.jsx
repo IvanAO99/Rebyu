@@ -11,13 +11,14 @@ import { validateObject } from "../libraries/validateData.js";
 import { HashLink, NavHashLink } from "react-router-hash-link";
 
 /**
- * Componente Header
+ * Header Component
  *
- * Este componente renderiza la cabecera de la aplicación, que incluye el logo, la navegación y el interruptor de tema.
- * El contenido de la cabecera puede variar dependiendo de si el usuario está autenticado y si es un administrador.
+ * This component renders the header of the application, which includes the logo,
+ * navigation, and theme toggle.
+ * The content of the header may vary depending on whether the user is
+ * authenticated and if they are an administrator.
  *
  */
-
 const Header = () => {
   const navigate = useNavigate();
 

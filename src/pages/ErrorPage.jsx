@@ -1,10 +1,10 @@
 import React from "react";
 
 /**
- * Página de Error
+ * Error Page
  *
- * Esta página muestra un mensaje de error 404 cuando se intenta acceder a una página que no existe.
- * Proporciona un mensaje descriptivo para informar al usuario sobre el error.
+ * This page displays a 404 error message when trying to access a non-existent page.
+ * It provides a descriptive message to inform the user about the error.
  *
  */
 const ErrorPage = () => {

@@ -7,13 +7,13 @@ import Loading from "../components/Loading.jsx";
 import { validateObject } from "../libraries/validateData.js";
 
 /**
- * Componente Container
+ * Container Component
  *
- * Este componente envuelve el contenido principal de la aplicación y gestiona la carga del usuario y su sesión.
- * Muestra un indicador de carga mientras se está autenticando al usuario.
+ * This component wraps the main content of the application and manages the user's load and session.
+ * It displays a loading indicator while the user is authenticating.
  *
  * Props:
- * @param {JSX.Element} children - Componentes hijos a renderizar dentro del contenedor.
+ * @param {JSX.Element} children - Child components to render inside the container.
  *
  */
 const Container = ({ children }) => {

@@ -7,12 +7,14 @@ import Aside from "./Aside.jsx";
 import { validateObject } from "../libraries/validateData.js";
 
 /**
- * Componente Main
+ * Main Component
  *
- * Este componente renderiza el contenido principal de la aplicación, que puede incluir el aside para administradores, dependiendo del estado de autenticación del usuario.
+ * This component renders the main content of the application,
+ * which can include the aside for administrators,
+ * depending on the authentication state of the user.
  *
  * Props:
- * @param {JSX.Element} children - Contenido que se renderizará dentro del componente.
+ * @param {JSX.Element} children - The content that will be rendered inside the component.
  *
  */
 const Main = ({ children }) => {

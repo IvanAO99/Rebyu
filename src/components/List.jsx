@@ -10,16 +10,16 @@ import Game from "./Game.jsx";
 import { validateArray } from "../libraries/validateData.js";
 
 /**
- * Componente List
+ * Component List
  *
- * Este componente representa una lista de juegos guardada por el usuario.
- * Muestra el nombre de la lista, el número de juegos guardados y el tipo de lista.
- * Permite expandir y contraer la lista para mostrar u ocultar los juegos.
- * Utiliza los hooks useGames y useLists para obtener los juegos y gestionar las listas de juegos.
- * Utiliza el componente Game para mostrar cada juego en la lista.
+ * This component represents a list of games saved by the user.
+ * It displays the list name, the number of saved games, and the list type.
+ * It allows expanding and collapsing the list to show or hide the games.
+ * It uses the useGames and useLists hooks to fetch games and manage game lists.
+ * It utilizes the Game component to display each game in the list.
  *
  * Props:
- * @param {object} list - Objeto que contiene la información de la lista.
+ * @param {object} list - Object containing the list information.
  *
  */
 const List = ({ list }) => {

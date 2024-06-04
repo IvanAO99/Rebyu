@@ -5,8 +5,8 @@ import { GamesContext } from "../contexts/GamesProvider.jsx";
 /**
  * Hook useGames
  *
- * Este hook permite acceder al contexto proporcionado por GamesProvider.
- * Proporciona acceso a los estados y funciones relacionadas con los juegos.
+ * This hook allows access to the context provided by GamesProvider.
+ * It provides access to the states and functions related to games.
  *
  */
 const useGames = () => {

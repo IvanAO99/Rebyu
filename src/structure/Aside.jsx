@@ -8,10 +8,12 @@ import useUsers from "../hooks/useUsers.js";
 import ThemeToggler from "../components/ThemeToggler.jsx";
 
 /**
- * Componente Aside
+ * Aside Component
  *
- * Este componente representa el menú lateral de la aplicación, que contiene información del usuario autenticado,
- * opciones de navegación y un botón para cambiar el tema de la aplicación. También incluye un botón para cerrar sesión.
+ * This component represents the sidebar of the application,
+ * which contains information about the authenticated user,
+ * navigation options, and a button to change the application's theme.
+ * It also includes a button to log out.
  *
  */
 const Aside = () => {

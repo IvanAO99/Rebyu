@@ -6,6 +6,7 @@
  * @param {Array} array - The array to be validated.
  *
  * @returns {boolean} true if the array exists and has elements, false otherwise.
+ *
  */
 const validateArray = (array) => {
   return Array.isArray(array) && array.length > 0;
@@ -17,6 +18,7 @@ const validateArray = (array) => {
  * @param {Object} object - The object to be validated.
  *
  * @returns {boolean} true if the object exists and has properties, false otherwise.
+ *
  */
 const validateObject = (object) => {
   return Object.keys(object).length > 0;
@@ -24,8 +26,11 @@ const validateObject = (object) => {
 
 /**
  * Checks if the given URL is valid.
+ *
  * @param {string} url - The URL to validate.
+ *
  * @returns {boolean} - True if the URL is valid, otherwise false.
+ *
  */
 const isValidURL = (url) => {
   try {

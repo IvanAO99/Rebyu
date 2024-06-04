@@ -5,11 +5,10 @@ import { ListsContext } from "../contexts/ListsProvider.jsx";
 /**
  * Hook useLists
  *
- * Este hook permite acceder al contexto proporcionado por ListsProvider.
- * Proporciona acceso a los estados y funciones relacionadas con las listas de usuarios.
+ * This hook allows access to the context provided by ListsProvider.
+ * It provides access to the states and functions related to user lists.
  *
  */
-
 const useLists = () => {
   const context = useContext(ListsContext);
   return context;

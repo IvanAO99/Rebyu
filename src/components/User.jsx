@@ -3,13 +3,13 @@ import React from "react";
 import { FaPen, FaTrash } from "react-icons/fa6";
 
 /**
- * Componente User
+ * Component User
  *
- * Este componente muestra los detalles de un usuario, incluyendo su foto de perfil, nombre, apodo y fecha de nacimiento.
- * Proporciona opciones para editar y eliminar el usuario.
+ * This component displays the details of a user, including their profile picture, name, nickname, and date of birth.
+ * It provides options to edit and delete the user.
  *
  * Props:
- *   @param {Object} user - Objeto que contiene los detalles del usuario, incluyendo su nombre, apodo, fecha de nacimiento y URL de la foto de perfil.
+ *   @param {Object} user - Object containing the details of the user, including their name, nickname, date of birth, and profile picture URL.
  *
  */
 const User = ({ user }) => {

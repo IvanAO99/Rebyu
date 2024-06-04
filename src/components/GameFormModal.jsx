@@ -7,14 +7,14 @@ import useGames from "../hooks/useGames.js";
 import GameForm from "./GameForm.jsx";
 
 /**
- * Componente GameFormModal
+ * Component GameFormModal
  *
- * Este componente muestra un modal para crear o actualizar un juego.
- * Utiliza el hook useGames para manejar la apertura y cierre del modal, así como para manejar las acciones de creación o actualización del juego.
- * El modal contiene el componente GameForm para ingresar los datos del juego.
+ * This component displays a modal for creating or updating a game.
+ * It uses the useGames hook to handle the modal opening and closing, as well as to handle game creation or update actions.
+ * The modal contains the GameForm component to input game data.
  *
  * Props:
- * @param {boolean} creationMode - Booleano que indica si el modal está en modo de creación (true) o actualización (false).
+ * @param {boolean} creationMode - Boolean indicating whether the modal is in creation mode (true) or update mode (false).
  *
  */
 const GameFormModal = ({ creationMode }) => {

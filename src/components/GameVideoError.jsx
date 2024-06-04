@@ -3,9 +3,9 @@ import React from "react";
 import { FaExclamation } from "react-icons/fa6";
 
 /**
- * Componente GameVideoError
+ * Component GameVideoError
  *
- * Este componente muestra un mensaje de error cuando el video del juego no se encuentra o no ha sido cargado.
+ * This component displays an error message when the game video is not found or has not been loaded.
  *
  */
 const GameVideoError = () => {

@@ -26,6 +26,23 @@ Ejemplos:
 Cada vez que te pase una reseña, quiero que la analices y me devuelvas solo un número comprendido entre -1 y 1, sin explicar la clasificación.
 `;
 
+/**
+ * Scores a video game review based on its overall sentiment.
+ *
+ * This function uses the ChatCohere API to analyze the sentiment of a video game review
+ * and assigns it a score within the range of -1 to 1. The scoring system is as follows:
+ * - -1: Extremely negative review
+ * - -0.5: Negative review
+ * - 0: Neutral review
+ * - 0.5: Positive review
+ * - 1: Extremely positive review
+ *
+ * @param {string} reviewMessage - The review message to be analyzed.
+ *
+ * @returns {Promise<number>} A promise that resolves to the sentiment score of the review,
+ *                            which is a number between -1 and 1. If an error occurs, it returns -1.
+ *
+ */
 const score_review = async (reviewMessage) => {
   try {
     const prompt = ChatPromptTemplate.fromMessages([

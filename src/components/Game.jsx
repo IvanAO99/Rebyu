@@ -9,17 +9,16 @@ import { validateObject } from "../libraries/validateData.js";
 import { formatScore } from "../libraries/manipulateData.js";
 
 /**
- * Componente Game
+ * Game Component
  *
- * Este componente representa un juego dentro de la aplicación. Muestra información básica del juego como título,
- * sinopsis y portada. Además, proporciona funcionalidades adicionales como agregar a favoritos, editar o eliminar
- * el juego (para administradores). Utiliza iconos de la biblioteca react-icons/fa6 para las acciones de edición
- * y eliminación.
+ * This component represents a game within the application. It displays basic game information such as title,
+ * synopsis, and cover image. Additionally, it provides additional functionalities like adding to favorites, editing,
+ * or deleting the game (for administrators). It uses icons from the react-icons/fa6 library for edit and delete actions.
  *
  * Props:
- * @param {Object} game - Objeto que contiene la información del juego.
- * @param {boolean} onList - Indica si el juego se muestra en una lista de juegos.
- * @param {boolean} onSlide - Indica si el juego se muestra en un carrusel de juegos.
+ * @param {Object} game - Object containing game information.
+ * @param {boolean} onList - Indicates whether the game is displayed in a game list.
+ * @param {boolean} onSlide - Indicates whether the game is displayed in a game carousel.
  *
  */
 const Game = ({ game, onList = false, onSlide = false }) => {

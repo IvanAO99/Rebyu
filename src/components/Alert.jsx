@@ -9,12 +9,12 @@ import "react-toastify/dist/ReactToastify.css";
 import "../assets/css/customAlert.css";
 
 /**
- * Componente Alert
+ * Alert Component
  *
- * Este componente muestra notificaciones emergentes utilizando la biblioteca react-toastify. Utiliza un portal de
- * ReactDOM para renderizar las notificaciones fuera del árbol de DOM principal. Las notificaciones se configuran
- * para cerrarse automáticamente después de 5000 milisegundos y utilizan un icono personalizado para el botón de
- * cierre.
+ * This component displays alert notifications using the react-toastify library.
+ * It uses a ReactDOM portal to render the notifications outside the main DOM tree.
+ * The notifications are configured to close automatically after 5000 milliseconds
+ * and use a custom icon for the close button.
  *
  */
 const Alert = () => {

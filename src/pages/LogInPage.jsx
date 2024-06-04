@@ -3,13 +3,13 @@ import React from "react";
 import LogInForm from "../components/LogInForm.jsx";
 
 /**
- * Página de Inicio de Sesión
+ * Login Page
  *
- * Esta página representa la página de inicio de sesión de la aplicación. Muestra un formulario de inicio de sesión
- * donde los usuarios pueden ingresar sus credenciales para iniciar sesión en sus cuentas.
+ * This page represents the login page of the application.
+ * It displays a login form where users can enter their
+ * credentials to log in to their accounts.
  *
  */
-
 function LogInPage() {
   return (
     <>
