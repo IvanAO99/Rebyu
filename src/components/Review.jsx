@@ -22,7 +22,7 @@ import { formatDateString } from "../libraries/manipulateData.js";
  * @param {boolean} ownReview - (optional) boolean indicating if the review belongs to the current user.
  *
  */
-const Review = ({ review, onSlide = false, ownReview = false }) => {
+const Review = ({ review, onSlide = false, ownReview = false, onGamePage = false }) => {
   const { users, reviews, likes, review_id } = review;
 
   const { isAdmin } = useUsers();
@@ -115,7 +115,7 @@ const Review = ({ review, onSlide = false, ownReview = false }) => {
               />
             </div>
           )}
-          {isAdmin && (
+          {isAdmin && !onGamePage && (
             <div className="cursor-pointer shadow rounded-full p-2 text-red-600 hover:text-red-400">
               <FaTrash
                 size={24}

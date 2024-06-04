@@ -122,6 +122,34 @@ function GameForm({ creationMode }) {
           </div>
           <div className="flex flex-col gap-1 w-full max-w-md">
             <label
+              htmlFor="wallpaper"
+              className="block text-xl font-bold text-purple-600"
+            >
+              Wallpaper URL
+            </label>
+            <input
+              type="url"
+              id="wallpaper"
+              name="wallpaper"
+              placeholder="Enter wallpaper URL..."
+              className={`w-full border-none focus:outline-none ${
+                gameRegisterErrors.wallpaper
+                  ? "ring-2 ring-red-600 focus:ring-red-600 placeholder-red-600"
+                  : "focus:ring-2 focus:ring-purple-600"
+              } rounded-3xl bg-gray-100 dark:bg-gray-800 px-5 py-2 caret-purple-600 shadow`}
+              value={actualGame.wallpaper || ""}
+              onChange={(event) => {
+                updateGameForm(event.target, creationMode);
+              }}
+            />
+            {gameRegisterErrors.wallpaper && (
+              <p className="font-bold text-red-600">
+                {gameRegisterErrors.wallpaper}
+              </p>
+            )}
+          </div>
+          <div className="flex flex-col gap-1 w-full max-w-md">
+            <label
               htmlFor="trailer"
               className="block text-xl font-bold text-purple-600"
             >

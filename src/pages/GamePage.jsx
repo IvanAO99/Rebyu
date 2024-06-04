@@ -120,7 +120,7 @@ const GamePage = () => {
                 )}
                 {/* <div className="border-y-2 border-gray-100 dark:border-gray-800"></div> */}
                 <ReviewsFilter />
-                <Reviews loading={isLoadingReviews} reviews={filteredReviews} />
+                <Reviews loading={isLoadingReviews} reviews={filteredReviews} onGamePage={true} />
               </div>
             </div>
           </>

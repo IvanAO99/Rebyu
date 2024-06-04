@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import useReviews from "../hooks/useReviews.js";
 
@@ -14,12 +14,16 @@ import Reviews from "./Reviews.jsx";
  *
  */
 function ReviewAdministration() {
-  const { handleFilter, isLoadingReviews, filteredByUserAndMessage } =
+  const { handleFilter, isLoadingReviews, filteredByUserAndMessage, getAllReviews } =
     useReviews();
 
   const handleSearchChange = (event) => {
     handleFilter(event.target.value);
   };
+
+  useEffect(() => {
+    getAllReviews();
+  }, [])
 
   return (
     <div>

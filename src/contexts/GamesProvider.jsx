@@ -45,6 +45,7 @@ const GamesProvider = ({ children }) => {
       synopsis: "",
       release_date: "",
       cover_pic: "",
+      wallpaper: "",
       trailer: "",
       game_genre: [],
       game_platform: [],
@@ -534,6 +535,13 @@ const GamesProvider = ({ children }) => {
       };
     }
 
+    if (actualGame.wallpaper && !isValidURL(actualGame.wallpaper)) {
+      validationErrors = {
+        ...validationErrors,
+        wallpaper: "The URL doesn't exist.",
+      };
+    }
+
     if (actualGame.trailer && !isValidURL(actualGame.trailer)) {
       validationErrors = {
         ...validationErrors,
@@ -745,6 +753,7 @@ const GamesProvider = ({ children }) => {
           synopsis: selectedGame.synopsis,
           title: selectedGame.title,
           release_date: selectedGame.release_date,
+          wallpaper: selectedGame.wallpaper,
           cover_pic: selectedGame.cover_pic ? selectedGame.cover_pic : null,
           trailer: selectedGame.trailer,
         })
