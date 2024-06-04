@@ -21,7 +21,10 @@ function AboutUs() {
 
   return (
     <>
-      <div className="self-stretch flex flex-row justify-stretch items-center gap-2 mb-5 py-2">
+      <div
+        id="about-us"
+        className="self-stretch flex flex-row justify-stretch items-center gap-2 mb-5 py-2"
+      >
         <div className="flex-grow border-y-2 border-purple-600"></div>
         <h2 className="text-3xl md:text-6xl font-bold"> Who Are We?</h2>
         <div className="flex-grow border-y-2 border-purple-600"></div>

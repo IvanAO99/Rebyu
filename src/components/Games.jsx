@@ -48,7 +48,7 @@ function Games({ onAdminPage = false }) {
 
   return (
     <Fragment>
-      <div>
+      <div id="games">
         <div className="flex flex-row justify-stretch items-center gap-2 py-2">
           <div className="flex-grow border-y-2 border-purple-600"></div>
           <h2 className="text-3xl md:text-6xl font-bold">

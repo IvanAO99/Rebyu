@@ -55,7 +55,7 @@ const TopGames = () => {
 
   return (
     <>
-      <div>
+      <div id="recommended">
         <div className="flex flex-row justify-stretch items-center gap-2 mb-5 py-2">
           <div className="flex-grow border-y-2 border-purple-600"></div>
           <h2 className="text-3xl md:text-6xl font-bold">TOP GAMES</h2>
