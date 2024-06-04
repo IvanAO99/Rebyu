@@ -5,8 +5,8 @@ import { UsersContext } from "../contexts/UsersProvider.jsx";
 /**
  * Hook useUsers
  *
- * Este hook permite acceder al contexto proporcionado por UsersProvider.
- * Proporciona acceso a los estados y funciones relacionadas con los usuarios.
+ * This hook allows access to the context provided by UsersProvider.
+ * It provides access to the states and functions related to users.
  *
  */
 const useUsers = () => {

@@ -10,11 +10,11 @@ import List from "./List.jsx";
 import { validateArray } from "../libraries/validateData.js";
 
 /**
- * Componente Lists
+ * Component Lists
  *
- * Este componente muestra una lista de listas de juegos.
- * Permite al usuario ver todas sus listas de juegos y crear nuevas listas.
- * Utiliza el hook useLists para manejar la lógica relacionada con las listas de juegos.
+ * This component displays a list of game lists.
+ * It allows the user to view all their game lists and create new lists.
+ * It uses the useLists hook to handle logic related to game lists.
  *
  */
 const Lists = () => {

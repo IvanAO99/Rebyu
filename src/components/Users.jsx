@@ -3,9 +3,9 @@ import React from "react";
 import User from "./User.jsx";
 
 /**
- * Componente Users
+ * Component Users
  *
- * Este componente muestra una lista de usuarios.
+ * This component displays a list of users.
  *
  */
 const Users = ({ users }) => {

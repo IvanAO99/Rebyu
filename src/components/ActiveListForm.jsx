@@ -5,15 +5,17 @@ import useLists from "../hooks/useLists.js";
 import { validateArray } from "../libraries/validateData.js";
 
 /**
- * Componente ActiveListForm
+ * ActiveListForm Component
  *
- * Este componente muestra un formulario para seleccionar una lista activa. Utiliza el hook useLists para obtener
- * las listas de usuario y controlar la lista activa. Permite al usuario cambiar la lista activa a través de un
- * menú desplegable. Si no hay una lista seleccionada y hay listas de usuario disponibles, selecciona
- * automáticamente la primera lista como lista activa.
+ * This component displays a form to select an active list.
+ * It uses the useLists hook to get the user lists and control
+ * the active list. It allows the user to change the active list
+ * through a dropdown menu. If there is no selected list and
+ * there are user lists available, it automatically selects
+ * the first list as the active list.
  *
  * Props:
- * @param {boolean} onProfile - Indica si el formulario se muestra en el perfil del usuario. Por defecto, es true.
+ * @param {boolean} onProfile - Indicates whether the form is displayed on the user's profile. Default is true.
  *
  */
 const ActiveListForm = ({ onProfile = true }) => {

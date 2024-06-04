@@ -10,13 +10,13 @@ import Game from "./Game.jsx";
 import { validateArray } from "../libraries/validateData.js";
 
 /**
- * Componente TopGames
+ * Component TopGames
  *
- * Este componente muestra una lista de los mejores juegos.
- * Utiliza el hook useGames para obtener la lista de los mejores juegos y su estado de carga.
- * Muestra una animación de carga mientras se cargan los juegos.
- * Si no hay juegos cargados, muestra un mensaje indicando que no hay juegos.
- * Si hay juegos cargados, los muestra en un carrusel utilizando el componente Slider de react-slick.
+ * This component displays a list of top games.
+ * It uses the useGames hook to fetch the list of top games and its loading state.
+ * It shows a loading animation while the games are being loaded.
+ * If there are no loaded games, it displays a message indicating there are no games.
+ * If there are loaded games, it displays them in a carousel using the react-slick Slider component.
  *
  */
 const TopGames = () => {

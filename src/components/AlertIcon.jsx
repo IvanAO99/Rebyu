@@ -5,15 +5,15 @@ import { FaExclamation } from "react-icons/fa6";
 import { FaInfo } from "react-icons/fa6";
 
 /**
- * Componente AlertIcon
+ * AlertIcon Component
  *
- * Este componente representa un icono para las notificaciones emergentes. Puede mostrar diferentes iconos
- * según el tipo de notificación (éxito, error o información). Utiliza iconos de la biblioteca react-icons/fa6
- * (FaCheck, FaExclamation y FaInfo) y aplica estilos de acuerdo al tipo de notificación.
+ * This component represents an icon for alert notifications.
+ * It can display different icons depending on the type of notification
+ * (success, error, or information). It uses icons from the react-icons/fa6 library
+ * (FaCheck, FaExclamation, and FaInfo) and applies styles based on the notification type.
  *
  * Props:
- * @param {string} theme - Tema de la notificación (success, error, info).
- * @param {string} type - Tipo de icono a mostrar (success, error, info).
+ * @param {string} type - Type of icon to display (success, error, info).
  *
  */
 const AlertIcon = ({ theme, type }) => {

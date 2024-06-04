@@ -17,12 +17,11 @@ import Footer from "./structure/Footer.jsx";
 import Alert from "./components/Alert.jsx";
 
 /**
- * Componente App
+ * App Component
  *
- * Este componente es el punto de entrada principal de la aplicación.
- * Engloba la aplicación dentro del enrutador BrowserRouter de
- * React Router y proporciona los contextos y proveedores necesarios para
- * el funcionamiento de la aplicación.
+ * This component is the main entry point of the application.
+ * It wraps the application within the BrowserRouter of React Router
+ * and provides the contexts and providers necessary for the application to function.
  *
  */
 function App() {

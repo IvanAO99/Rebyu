@@ -3,10 +3,11 @@ import React from "react";
 import RegistrationForm from "../components/RegistrationForm.jsx";
 
 /**
- * Página de Registro
+ * Registration Page
  *
- * Esta página proporciona un formulario de registro para que los usuarios puedan crear una nueva cuenta en la plataforma.
- * El formulario incluye campos para el nombre de usuario, correo electrónico y contraseña.
+ * This page provides a registration form for users to create
+ * a new account on the platform. The form includes fields
+ * for username, email address, and password.
  *
  */
 function RegistrationPage() {

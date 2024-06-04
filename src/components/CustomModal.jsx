@@ -5,15 +5,16 @@ import Modal from "react-modal";
 Modal.setAppElement("#modal-root");
 
 /**
- * Componente CustomModal
+ * CustomModal Component
  *
- * Este componente representa un modal personalizado utilizando la biblioteca react-modal. Configura el elemento
- * raíz de la aplicación para el modal y proporciona estilos personalizados para el overlay y el contenido del
- * modal. El modal puede estar abierto o cerrado según el valor de la prop isOpen.
+ * This component represents a custom modal using the react-modal library.
+ * It sets the root element of the application for the modal and provides
+ * custom styles for the overlay and modal content. The modal can be open
+ * or closed depending on the value of the isOpen prop.
  *
  * Props:
- * @param {boolean} isOpen - Indica si el modal está abierto o cerrado.
- * @param {ReactNode} children - Contenido del modal.
+ * @param {boolean} isOpen - Indicates whether the modal is open or closed.
+ * @param {ReactNode} children - Modal content.
  *
  */
 const CustomModal = ({ children, isOpen }) => {

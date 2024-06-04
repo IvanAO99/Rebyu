@@ -26,6 +26,7 @@ const GamesProvider = ({ children }) => {
   const { gameAdded, cancelGameAdded } = useLists();
 
   /* INITIAL STATES VALUES */
+
   const initialValues = {
     newGames: [],
     genres: [],
@@ -63,6 +64,7 @@ const GamesProvider = ({ children }) => {
   };
 
   /* STATES */
+
   const [newGames, setNewGames] = useState(initialValues.newGames);
   const [games, setGames] = useState(initialValues.games);
   const [latestGames, setLatestGames] = useState(initialValues.latestGames);
@@ -105,6 +107,13 @@ const GamesProvider = ({ children }) => {
 
   /* FUNCTIONS */
 
+  /**
+   * Sends a game-related alert notification.
+   *
+   * @param {string} type - The type of alert ('success' or 'error').
+   * @param {string} message - The message content of the alert.
+   *
+   */
   const sendGameAlert = (type, message) => {
     const notify = () => {
       switch (type) {
@@ -144,6 +153,12 @@ const GamesProvider = ({ children }) => {
     notify();
   };
 
+  /**
+   * Shows the game form modal based on the specified mode.
+   *
+   * @param {string} formMode - The mode of the form ('create' or 'update').
+   *
+   */
   const showGameFormModal = (formMode) => {
     setCreationMode(formMode === "create");
 
@@ -151,14 +166,26 @@ const GamesProvider = ({ children }) => {
     setIsGameFormModalOpen(true);
   };
 
+  /**
+   * Hides the game form modal.
+   *
+   */
   const hideGameFormModal = () => {
     setIsGameFormModalOpen(initialValues.isGameFormModalOpen);
   };
 
+  /**
+   * Shows the game delete modal.
+   *
+   */
   const showGameDeleteModal = () => {
     setIsGameDeleteModalOpen(true);
   };
 
+  /**
+   * Hides the game delete modal.
+   *
+   */
   const hideGameDeleteModal = () => {
     setIsGameDeleteModalOpen(initialValues.isGameDeleteModalOpen);
   };
@@ -176,9 +203,7 @@ const GamesProvider = ({ children }) => {
   /**
    * Retrieves all games from the database, including associated genres, platforms, and developers.
    * Games are ordered by their ID.
-   * @async
-   * @function getGames
-   * @returns {Promise<void>} A Promise that resolves once the games are fetched and loaded into the state.
+   *
    */
   const getGames = async () => {
     try {
@@ -212,6 +237,10 @@ const GamesProvider = ({ children }) => {
     }
   };
 
+  /**
+   * Fetches the newest games from the database.
+   *
+   */
   const getNewGames = async () => {
     try {
       const { data, error } = await supabaseConnection
@@ -230,6 +259,10 @@ const GamesProvider = ({ children }) => {
     }
   };
 
+  /**
+   * Fetches the latest games from the database and updates the state.
+   *
+   */
   const getLatestGames = async () => {
     try {
       setIsLoadingLatestGames(initialValues.isLoadingLatestGames);
@@ -252,6 +285,10 @@ const GamesProvider = ({ children }) => {
     }
   };
 
+  /**
+   * Fetches the top games from the database and updates the state.
+   *
+   */
   const getTopGames = async () => {
     try {
       setIsLoadingTopGames(initialValues.isLoadingTopGames);
@@ -265,7 +302,7 @@ const GamesProvider = ({ children }) => {
 
       setTopGames(data);
     } catch (error) {
-      sendGameAlert("error", "Something went wrong! TOP GAMES");
+      sendGameAlert("error", "Something went wrong!");
     } finally {
       setIsLoadingTopGames(false);
     }
@@ -273,10 +310,9 @@ const GamesProvider = ({ children }) => {
 
   /**
    * Retrieves a specific game from the database by its ID, including associated genres, platforms, and developers.
-   * @async
-   * @function getGame
+   *
    * @param {string} gameID - The ID of the game to retrieve.
-   * @returns {Promise<void>} A Promise that resolves once the game is fetched and loaded into the state.
+   *
    */
   const getGame = async (gameID) => {
     try {
@@ -320,9 +356,7 @@ const GamesProvider = ({ children }) => {
 
   /**
    * Retrieves genres from the database.
-   * @async
-   * @function getGenres
-   * @returns {Promise<void>} A Promise that resolves once genres are fetched and loaded into the state.
+   *
    */
   const getGenres = async () => {
     try {
@@ -342,9 +376,7 @@ const GamesProvider = ({ children }) => {
 
   /**
    * Retrieves developers from the database.
-   * @async
-   * @function getDevelopers
-   * @returns {Promise<void>} A Promise that resolves once developers are fetched and loaded into the state.
+   *
    */
   const getDevelopers = async () => {
     try {
@@ -364,9 +396,7 @@ const GamesProvider = ({ children }) => {
 
   /**
    * Retrieves platforms from the database.
-   * @async
-   * @function getPlatforms
-   * @returns {Promise<void>} A Promise that resolves once platforms are fetched and loaded into the state.
+   *
    */
   const getPlatforms = async () => {
     try {
@@ -386,9 +416,10 @@ const GamesProvider = ({ children }) => {
 
   /**
    * Handles the change event for checkboxes.
+   *
    * @param {Object} event - The event object containing information about the checkbox change.
    * @param {boolean} creationMode - Indicates whether the operation is in creation mode or update mode.
-   * @returns {void}
+   *
    */
   const handleCheckboxChange = (event, creationMode) => {
     const { name, value } = event.target;
@@ -414,9 +445,10 @@ const GamesProvider = ({ children }) => {
 
   /**
    * Updates the game form state based on the input.
+   *
    * @param {Object} input - The input object containing the name and value to update.
    * @param {boolean} creation - Indicates whether the operation is in creation mode or update mode.
-   * @returns {void}
+   *
    */
   const updateGameForm = (input, creation) => {
     const { name, value } = input;
@@ -430,9 +462,12 @@ const GamesProvider = ({ children }) => {
 
   /**
    * Checks if all options selected are valid by comparing them with an array of valid options.
+   *
    * @param {Array} optionsSelected - An array of selected options to be validated.
    * @param {Array} arrayParam - An array containing valid options for comparison.
+   *
    * @returns {boolean} - True if all selected options are valid, otherwise false.
+   *
    */
   const checkValues = (optionsSelected, arrayParam) => {
     const arrayParamNames = arrayParam.map((value) => value.id);
@@ -441,16 +476,17 @@ const GamesProvider = ({ children }) => {
 
   /**
    * Validates the game registration data based on the specified creation mode.
+   *
    * @param {boolean} creationMode - Indicates whether the data is for creating a new game.
+   *
    * @returns {Object} - An object containing validation errors, if any.
+   *
    */
   const validateGameRegister = (creationMode) => {
     let validationErrors = {};
 
-    // Determine which game data object to validate based on creation mode
     let actualGame = creationMode ? gameRegister : selectedGame;
 
-    // Validate title field
     if (!actualGame.title) {
       validationErrors = {
         ...validationErrors,
@@ -463,7 +499,6 @@ const GamesProvider = ({ children }) => {
       };
     }
 
-    // Validate synopsis field
     if (!actualGame.synopsis) {
       validationErrors = {
         ...validationErrors,
@@ -478,7 +513,6 @@ const GamesProvider = ({ children }) => {
       };
     }
 
-    // Validate release date field
     if (!actualGame.release_date) {
       validationErrors = {
         ...validationErrors,
@@ -493,7 +527,6 @@ const GamesProvider = ({ children }) => {
       };
     }
 
-    // Validate cover pic URL
     if (actualGame.cover_pic && !isValidURL(actualGame.cover_pic)) {
       validationErrors = {
         ...validationErrors,
@@ -501,7 +534,6 @@ const GamesProvider = ({ children }) => {
       };
     }
 
-    // Validate trailer URL
     if (actualGame.trailer && !isValidURL(actualGame.trailer)) {
       validationErrors = {
         ...validationErrors,
@@ -509,7 +541,6 @@ const GamesProvider = ({ children }) => {
       };
     }
 
-    // Validate game developer field
     if (!validateArray(actualGame.game_developer)) {
       validationErrors = {
         ...validationErrors,
@@ -522,7 +553,6 @@ const GamesProvider = ({ children }) => {
       };
     }
 
-    // Validate game platform field
     if (!validateArray(actualGame.game_platform)) {
       validationErrors = {
         ...validationErrors,
@@ -535,7 +565,6 @@ const GamesProvider = ({ children }) => {
       };
     }
 
-    // Validate game genre field
     if (!validateArray(actualGame.game_genre)) {
       validationErrors = {
         ...validationErrors,
@@ -553,11 +582,13 @@ const GamesProvider = ({ children }) => {
 
   /**
    * Inserts data into an intermediary table in the database.
+   *
    * @param {string} tableName - The name of the intermediary table.
    * @param {string} idGame - The ID of the game associated with the data.
    * @param {Array} arrayData - An array of data to be inserted into the intermediary table.
    * @param {string} columnName1 - The name of the first column in the intermediary table.
    * @param {string} columnName2 - The name of the second column in the intermediary table.
+   *
    */
   const insertIntoIntermediaryTable = async (
     tableName,
@@ -585,11 +616,13 @@ const GamesProvider = ({ children }) => {
 
   /**
    * Updates data in an intermediary table based on the provided parameters.
+   *
    * @param {string} tableName - The name of the intermediary table.
    * @param {string} idGame - The ID of the game associated with the data.
    * @param {Array} arrayData - An array of data to be updated in the intermediary table.
    * @param {string} columnName1 - The name of the first column in the intermediary table.
    * @param {string} columnName2 - The name of the second column in the intermediary table.
+   *
    */
   const updateIntermediaryTable = async (
     tableName,
@@ -599,27 +632,22 @@ const GamesProvider = ({ children }) => {
     columnName2
   ) => {
     try {
-      // Fetch current data from the intermediary table
       const { data: currentData, error: fetchError } = await supabaseConnection
         .from(tableName)
         .select(columnName2)
         .eq(columnName1, idGame);
 
-      // Throw an error if there's an issue fetching the data
       if (fetchError) throw fetchError;
 
-      // Create a Set of current data for efficient comparison
       const currentDataSet = new Set(
         currentData.map((item) => item[columnName2])
       );
 
-      // Determine data to add and data to delete
       const dataToAdd = arrayData.filter((item) => !currentDataSet.has(item));
       const dataToDelete = currentData.filter(
         (item) => !arrayData.includes(item[columnName2])
       );
 
-      // Insert new data into the intermediary table
       if (dataToAdd.length > 0) {
         const rowsToInsert = dataToAdd.map((singleData) => ({
           [columnName1]: idGame,
@@ -633,7 +661,6 @@ const GamesProvider = ({ children }) => {
         if (insertError) throw insertError;
       }
 
-      // Delete obsolete data from the intermediary table
       if (dataToDelete.length > 0) {
         for (const item of dataToDelete) {
           const { error: deleteError } = await supabaseConnection
@@ -651,6 +678,7 @@ const GamesProvider = ({ children }) => {
 
   /**
    * Registers a new game by inserting data into the 'games' table and associated intermediary tables.
+   *
    */
   const registerGame = async () => {
     try {
@@ -670,7 +698,6 @@ const GamesProvider = ({ children }) => {
 
       if (error) throw error;
 
-      // Insert data into intermediary tables (game_genre, game_platform, game_developer)
       insertIntoIntermediaryTable(
         "game_genre",
         data[0].id,
@@ -697,9 +724,7 @@ const GamesProvider = ({ children }) => {
 
       hideGameFormModal();
 
-      // Reset game register state and errors, and reload games data
       sendGameAlert("success", "Game registered successfully!");
-      //setGameAlert({ message: `Game ${data[0].id} registered successfully!` });
       setGameRegister(initialValues.gameRegister);
       setGameRegisterErrors(initialValues.gameRegisterErrors);
       getGames();
@@ -710,6 +735,7 @@ const GamesProvider = ({ children }) => {
 
   /**
    * Updates an existing game in the database and associated intermediary tables.
+   *
    */
   const updateGame = async () => {
     try {
@@ -721,13 +747,11 @@ const GamesProvider = ({ children }) => {
           release_date: selectedGame.release_date,
           cover_pic: selectedGame.cover_pic ? selectedGame.cover_pic : null,
           trailer: selectedGame.trailer,
-          //score: (Math.random() * 10).toFixed(2),
         })
         .eq("id", selectedGame.id);
 
       if (error) throw error;
 
-      // Update data in intermediary tables (game_genre, game_platform, game_developer)
       await updateIntermediaryTable(
         "game_genre",
         selectedGame.id,
@@ -755,7 +779,6 @@ const GamesProvider = ({ children }) => {
       hideGameFormModal();
 
       sendGameAlert("success", "Game updated successfully!");
-      // Reload games data
       getGames();
 
       setSelectedGame(initialValues.gameRegister);
@@ -766,12 +789,13 @@ const GamesProvider = ({ children }) => {
 
   /**
    * Handles the submission of the game form, either for creation or update.
+   *
    * @param {boolean} creationMode - Indicates whether the form is for creating a new game.
+   *
    */
   const handleGameForm = (creationMode) => {
     const validationErrors = validateGameRegister(creationMode);
 
-    // If there are validation errors, set them in the state
     if (validateObject(validationErrors)) {
       setGameRegisterErrors(validationErrors);
     } else {
@@ -786,7 +810,9 @@ const GamesProvider = ({ children }) => {
 
   /**
    * Updates the selected game data based on the provided game ID.
+   *
    * @param {string} id - The ID of the game to be updated.
+   *
    */
   const updateSelectedGame = async (id) => {
     try {
@@ -798,7 +824,6 @@ const GamesProvider = ({ children }) => {
         .eq("id", id);
 
       if (data) {
-        // Transform the data structure to match the format of gameRegister
         const transformedData = {
           ...data[0],
           game_genre: data[0].game_genre.map((item) => item.genres.id),
@@ -819,6 +844,7 @@ const GamesProvider = ({ children }) => {
 
   /**
    * Deletes the selected game from the database.
+   *
    */
   const deleteGame = async () => {
     try {
@@ -830,9 +856,7 @@ const GamesProvider = ({ children }) => {
       if (error) throw new Error(`The game could not be deleted.`);
 
       sendGameAlert("success", "Game deleted successfully!");
-      // After successful deletion, refresh the list of games
       getGames();
-      // Reset the selected game state to its initial values
       setSelectedGame(initialValues.gameRegister);
     } catch (error) {
       sendGameAlert("error", "The game could not be deleted!");
@@ -843,8 +867,9 @@ const GamesProvider = ({ children }) => {
 
   /**
    * Updates the game filter state based on user input.
+   *
    * @param {Object} input - The input object containing name and value.
-   * @returns {void}
+   *
    */
   const updateGameFilter = (input) => {
     const { name, value } = input;
@@ -854,8 +879,10 @@ const GamesProvider = ({ children }) => {
 
   /**
    * Filters a game based on the provided filters.
+   *
    * @param {Object} game - The game object to filter.
    * @param {Object} filters - The filters to apply.
+   *
    * @returns {boolean} - True if the game passes all filters, false otherwise.
    */
   const filterGame = (game, filters) => {
@@ -881,8 +908,10 @@ const GamesProvider = ({ children }) => {
 
   /**
    * Filters a list of games based on the provided filters.
+   *
    * @param {Object[]} games - The array of game objects to filter.
    * @param {Object} filters - The filters to apply.
+   *
    * @returns {Object[]} - The filtered array of game objects.
    */
   const filterGameList = (games, filters) => {
@@ -891,26 +920,42 @@ const GamesProvider = ({ children }) => {
 
   /**
    * Resets the game filter state to its initial values.
-   * @returns {void}
+   *
    */
   const resetGameFilter = () => {
     setGameFilter(initialValues.gameFilter);
   };
 
+  /**
+   * Refreshes the games by fetching the latest game data.
+   *
+   */
   const refreshGames = () => {
     getGames();
     getGame(game.id);
   };
 
+  /**
+   * Filters and updates the games list based on the selected game filter.
+   *
+   */
   useEffect(() => {
     const filteredGames = filterGameList(games, gameFilter);
     setFilteredGames(filteredGames);
   }, [gameFilter]);
 
+  /**
+   * Updates the filtered games list whenever the games list changes.
+   *
+   */
   useEffect(() => {
     setFilteredGames(games);
   }, [games]);
 
+  /**
+   * Initializes the game data by fetching various game-related information.
+   *
+   */
   useEffect(() => {
     getNewGames();
     getGames();

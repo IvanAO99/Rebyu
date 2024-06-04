@@ -1,14 +1,13 @@
 import React, { Fragment } from "react";
 
 /**
- * Componente InformativeTable
+ * Component InformativeTable
  *
- * Este componente muestra una tabla informativa con los datos proporcionados en el objeto.
+ * This component displays an informative table with the data provided in the object.
  *
  * Props:
- * @param {object} object - Objeto que contiene los datos a mostrar en la tabla.
+ * @param {object} object - Object containing the data to display in the table.
  */
-
 const InformativeTable = ({ object }) => {
   return (
     <>
