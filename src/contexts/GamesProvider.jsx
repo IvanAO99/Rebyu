@@ -265,7 +265,7 @@ const GamesProvider = ({ children }) => {
 
       setTopGames(data);
     } catch (error) {
-      sendGameAlert("error", "Something went wrong!");
+      sendGameAlert("error", "Something went wrong! TOP GAMES");
     } finally {
       setIsLoadingTopGames(false);
     }
@@ -956,6 +956,7 @@ const GamesProvider = ({ children }) => {
     showGameDeleteModal,
     hideGameDeleteModal,
     refreshGames,
+    getTopGames,
   };
 
   return (

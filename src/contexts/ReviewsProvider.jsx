@@ -220,13 +220,14 @@ const ReviewsProvider = ({ children }) => {
 
       const { data, error } = await supabaseConnection
         .from("user_game_review")
-        .select("*, reviews(*), users(*)");
+        .select("*, reviews(*), users(*)")
+        .order("reviews(date_time)", { ascending: false });
 
       if (error) throw error;
 
       setReviews(data);
     } catch (error) {
-      console.error("Error fetching reviews:", error.message);
+      sendReviewAlert("error", "Something went wrong!");
     } finally {
       // Reset loading state
       setIsLoadingReviews(initialValues.isLoadingReviews);
@@ -261,6 +262,8 @@ const ReviewsProvider = ({ children }) => {
         .select("*, reviews(*), users(*)")
         .eq("user_id", user.id)
         .eq("game_id", game.id);
+
+      if (error) throw error;
 
       if (validateArray(data)) {
         setUserReview(data[0]);
@@ -311,13 +314,6 @@ const ReviewsProvider = ({ children }) => {
       // Set loading state
       setIsLoadingLastReviews(true);
 
-      // Fetch last reviews from the "reviews" table with game and reviewer details
-      /*       let { data, error } = await supabaseConnection
-        .from("reviews")
-        .select("*")
-        .order("date_time", { ascending: false })
-        .range(0, 20); */
-
       const { data, error } = await supabaseConnection
         .from("user_game_review")
         .select("*, reviews(*), users(*)")
@@ -330,10 +326,7 @@ const ReviewsProvider = ({ children }) => {
       setLastReviews(data);
     } catch (error) {
       // Display an error alert if something goes wrong
-      sendReviewAlert(
-        "error",
-        "Something went wrong, please wait and try again."
-      );
+      sendReviewAlert("error", "Something went wrong!");
     } finally {
       // Reset loading state
       setIsLoadingLastReviews(initialValues.isLoadingLastReviews);
@@ -371,17 +364,15 @@ const ReviewsProvider = ({ children }) => {
       const { data, error } = await supabaseConnection
         .from("user_game_review")
         .select("*, reviews(*), users(*)")
-        .eq("game_id", game.id);
+        .eq("game_id", game.id)
+        .order("reviews(date_time)", { ascending: false });
 
       if (error) throw error;
       // Update reviews state with fetched data
       setReviews(data);
     } catch (error) {
       // Display an error alert if something goes wrong
-      sendReviewAlert(
-        "error",
-        "Something went wrong, please wait and try again."
-      );
+      sendReviewAlert("error", "Something went wrong!");
     } finally {
       // Reset loading state
       setIsLoadingReviews(initialValues.isLoadingReviews);
@@ -405,10 +396,11 @@ const ReviewsProvider = ({ children }) => {
       getUserReview();
       getReviewsByGame();
       refreshGames();
-      /*       getTopGames();
-      getLastReviews(); */
+      getTopGames();
+      getLastReviews();
     } catch (error) {
-      sendReviewAlert("error", "Something went wrong!");
+      console.log(error);
+      sendReviewAlert("error", "Something went wrong! CREATING REVIEW");
     }
   };
 
