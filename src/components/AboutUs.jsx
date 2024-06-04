@@ -41,7 +41,7 @@ function AboutUs() {
           >
             <div className="md:w-1/2 flex items-center justify-center">
               <img
-                src="src/assets/ivan.jpeg"
+                src="./src/assets/img/ivan.jpeg"
                 alt="Ivan's profile"
                 className="w-48 h-48 rounded-full object-cover border-2"
               />
@@ -77,7 +77,7 @@ function AboutUs() {
             </div>
             <div className="md:w-1/2 order-1 md:order-2 flex items-center justify-center">
               <img
-                src="src/assets/diana.jpg"
+                src="./src/assets/img/diana.jpg"
                 alt="Diana's profile"
                 className="w-48 h-48 rounded-full object-cover border-2"
               />

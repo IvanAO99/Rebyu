@@ -49,7 +49,8 @@ const Review = ({ review, onSlide = false, ownReview = false }) => {
           <div className="flex flex-row justify-center items-center gap-1">
             <img
               src={
-                users.profile_photo || "./src/assets/profile-photo-default.jpg"
+                users.profile_photo ||
+                "./src/assets/img/default-profile-photo.jpg"
               }
               alt="User Profile Photo"
               className="rounded-full w-16 h-16 object-cover"

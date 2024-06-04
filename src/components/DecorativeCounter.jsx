@@ -43,7 +43,7 @@ function DecorativeCounter() {
       </div>
       <div className="w-full h-64 relative overflow-hidden">
         <img
-          src="src/assets/layout-image.png"
+          src="./src/assets/img/layout-image.png"
           alt="Decorative Image"
           className="w-full h-full object-cover"
         />

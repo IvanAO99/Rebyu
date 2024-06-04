@@ -27,7 +27,9 @@ const Profile = () => {
       <div>
         <div className="flex flex-col md:flex-row justify-stretch items-stretch gap-5">
           <img
-            src={user.profile_photo || "./src/assets/profile-photo-default.jpg"}
+            src={
+              user.profile_photo || "./src/assets/img/default-profile-photo.jpg"
+            }
             alt="User Profile Photo"
             className="self-center rounded-full w-96 h-96 object-cover"
           />

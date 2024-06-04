@@ -95,7 +95,7 @@ const Game = ({ game, onList = false, onSlide = false }) => {
             ))
           )}
           <img
-            src={cover_pic}
+            src={cover_pic || "./src/assets/img/default-game-cover.jpg"}
             alt="Game Cover IMG"
             className="object-cover w-full h-full"
           />

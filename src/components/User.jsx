@@ -17,7 +17,9 @@ const User = ({ user }) => {
     <div className="flex items-center justify-between p-4 border-b border-gray-200 w-2/3 dark:border-white">
       <div className="flex items-center">
         <img
-          src={user.profile_photo}
+          src={
+            user.profile_photo || "./src/assets/img/default-profile-photo.jpg"
+          }
           alt={`${user.name}'s profile`}
           className="w-16 h-16 rounded-full object-cover"
         />

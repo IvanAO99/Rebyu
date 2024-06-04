@@ -30,7 +30,7 @@ const Aside = () => {
           <div className="flex flex-col gap-5 px-5 pt-5">
             <div className="flex flex-row justify-center items-center gap-2">
               <img
-                src="./src/assets/logo.svg"
+                src="./src/assets/img/logo.svg"
                 alt="Logo"
                 className={` ${
                   isAsideOpen ? "block" : "hidden xl:block "
@@ -66,7 +66,7 @@ const Aside = () => {
                 <img
                   src={
                     user.profile_photo ||
-                    "./src/assets/profile-photo-default.jpg"
+                    "./src/assets/img/default-profile-photo.jpg"
                   }
                   alt="User"
                   className="h-16 w-16 rounded-full object-cover"
