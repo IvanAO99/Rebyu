@@ -13,14 +13,14 @@ import Game from "./Game.jsx";
 import { validateArray, validateObject } from "../libraries/validateData.js";
 
 /**
- * Componente Games
+ * Component Games
  *
- * Este componente muestra una lista de juegos. Puede mostrar todos los juegos o solo los juegos filtrados.
- * Los juegos pueden ser mostrados en diferentes disposiciones según el estado de la página de administrador.
- * Utiliza los hooks useUsers, useGames y useLists para manejar la sesión del usuario, obtener los juegos y agregar juegos a listas.
+ * This component displays a list of games. It can display all games or only filtered games.
+ * Games can be displayed in different layouts depending on the admin page state.
+ * It uses the useUsers, useGames, and useLists hooks to handle user session, fetch games, and add games to lists.
  *
  * Props:
- * @param {boolean} onAdminPage - Booleano que indica si la página está en modo de administrador (true) o no (false).
+ * @param {boolean} onAdminPage - Boolean indicating whether the page is in admin mode (true) or not (false).
  *
  */
 function Games({ onAdminPage = false }) {
@@ -31,7 +31,9 @@ function Games({ onAdminPage = false }) {
 
   /**
    * Handles the click event on the game card.
+   *
    * @param {React.MouseEvent} event - The click event.
+   *
    */
   const handleGameClick = (event) => {
     event.preventDefault();
@@ -48,7 +50,7 @@ function Games({ onAdminPage = false }) {
 
   return (
     <Fragment>
-      <div>
+      <div id="games">
         <div className="flex flex-row justify-stretch items-center gap-2 py-2">
           <div className="flex-grow border-y-2 border-purple-600"></div>
           <h2 className="text-3xl md:text-6xl font-bold">

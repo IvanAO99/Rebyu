@@ -8,18 +8,18 @@ import useReviews from "../hooks/useReviews";
 import { formatDateString } from "../libraries/manipulateData.js";
 
 /**
- * Componente Review
+ * Component Review
  *
- * Este componente renderiza un elemento de revisión de usuario.
- * Recibe props que incluyen la información de la revisión, como el usuario que la realizó,
- * la revisión en sí misma, el número de likes, etc.
- * Permite a los usuarios ver la revisión, indicar si contiene spoilers y dar likes.
- * Además, los administradores tienen la capacidad de eliminar la revisión.
+ * This component renders a user review element.
+ * It receives props including the review information, such as the user who made it,
+ * the review itself, the number of likes, etc.
+ * It allows users to view the review, indicate if it contains spoilers, and give likes.
+ * Additionally, administrators have the ability to delete the review.
  *
  * Props:
- * @param {Object} review - objeto que contiene la información de la revisión, incluyendo el usuario que la realizó, la revisión, etc.
- * @param {boolean} onSlide - (opcional) booleano que indica si la revisión se muestra en un carrusel de deslizamiento.
- * @param {boolean} ownReview - (opcional) booleano que indica si la revisión pertenece al usuario actual.
+ * @param {Object} review - object containing the review information, including the user who made it, the review, etc.
+ * @param {boolean} onSlide - (optional) boolean indicating if the review is displayed in a sliding carousel.
+ * @param {boolean} ownReview - (optional) boolean indicating if the review belongs to the current user.
  *
  */
 const Review = ({ review, onSlide = false, ownReview = false }) => {
@@ -49,7 +49,8 @@ const Review = ({ review, onSlide = false, ownReview = false }) => {
           <div className="flex flex-row justify-center items-center gap-1">
             <img
               src={
-                users.profile_photo || "./src/assets/profile-photo-default.jpg"
+                users.profile_photo ||
+                "./src/assets/img/default-profile-photo.jpg"
               }
               alt="User Profile Photo"
               className="rounded-full w-16 h-16 object-cover"

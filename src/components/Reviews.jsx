@@ -6,16 +6,16 @@ import Review from "./Review.jsx";
 import { validateArray } from "../libraries/validateData.js";
 
 /**
- * Componente Reviews
+ * Component Reviews
  *
- * Este componente muestra una lista de revisiones.
- * Muestra un mensaje de carga mientras se cargan las revisiones,
- * luego muestra las revisiones si están disponibles o un mensaje
- * indicando que no hay revisiones si la lista está vacía.
+ * This component displays a list of reviews.
+ * It shows a loading message while the reviews are being loaded,
+ * then displays the reviews if available or a message
+ * indicating there are no reviews if the list is empty.
  *
  * Props:
- *   @param {boolean} loading - Un booleano que indica si se están cargando las revisiones.
- *   @param {Object} reviews - Un array de objetos que representan las revisiones.
+ *   @param {boolean} loading - A boolean indicating whether reviews are being loaded.
+ *   @param {Object} reviews - An array of objects representing the reviews.
  *
  */
 const Reviews = ({ loading, reviews }) => {

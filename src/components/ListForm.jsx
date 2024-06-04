@@ -3,14 +3,14 @@ import React from "react";
 import useLists from "../hooks/useLists.js";
 
 /**
- * Componente ListForm
+ * Component ListForm
  *
- * Este componente representa un formulario para crear o actualizar una lista de juegos.
- * Permite al usuario ingresar el nombre y seleccionar el tipo de la lista.
- * Utiliza el hook useLists para manejar la lógica relacionada con las listas de juegos.
+ * This component represents a form for creating or updating a game list.
+ * It allows the user to input the name and select the type of the list.
+ * It uses the useLists hook to handle logic related to game lists.
  *
  * Props:
- * @param {boolean} creationMode - Booleano que indica si el formulario está en modo de creación (true) o actualización (false).
+ * @param {boolean} creationMode - Boolean indicating whether the form is in creation mode (true) or update mode (false).
  */
 const ListForm = ({ creationMode = false }) => {
   const { listToUpdate, updateData, newList, listFormErrors } = useLists();

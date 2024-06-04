@@ -8,10 +8,12 @@ import useUsers from "../hooks/useUsers.js";
 import ThemeToggler from "../components/ThemeToggler.jsx";
 
 /**
- * Componente Aside
+ * Aside Component
  *
- * Este componente representa el menú lateral de la aplicación, que contiene información del usuario autenticado,
- * opciones de navegación y un botón para cambiar el tema de la aplicación. También incluye un botón para cerrar sesión.
+ * This component represents the sidebar of the application,
+ * which contains information about the authenticated user,
+ * navigation options, and a button to change the application's theme.
+ * It also includes a button to log out.
  *
  */
 const Aside = () => {
@@ -30,7 +32,7 @@ const Aside = () => {
           <div className="flex flex-col gap-5 px-5 pt-5">
             <div className="flex flex-row justify-center items-center gap-2">
               <img
-                src="./src/assets/logo.svg"
+                src="./src/assets/img/logo.svg"
                 alt="Logo"
                 className={` ${
                   isAsideOpen ? "block" : "hidden xl:block "
@@ -66,7 +68,7 @@ const Aside = () => {
                 <img
                   src={
                     user.profile_photo ||
-                    "./src/assets/profile-photo-default.jpg"
+                    "./src/assets/img/default-profile-photo.jpg"
                   }
                   alt="User"
                   className="h-16 w-16 rounded-full object-cover"

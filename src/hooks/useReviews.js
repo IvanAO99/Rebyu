@@ -5,8 +5,8 @@ import { ReviewsContext } from "../contexts/ReviewsProvider";
 /**
  * Hook useReviews
  *
- * Este hook permite acceder al contexto proporcionado por ReviewsProvider.
- * Proporciona acceso a los estados y funciones relacionadas con las reseñas.
+ * This hook allows access to the context provided by ReviewsProvider.
+ * It provides access to the states and functions related to reviews.
  *
  */
 const useReviews = () => {

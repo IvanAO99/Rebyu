@@ -18,6 +18,7 @@ const UsersProvider = ({ children }) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   /* INITIAL STATES VALUES */
+
   const initialValues = {
     signInForm: {
       email: "",
@@ -46,6 +47,7 @@ const UsersProvider = ({ children }) => {
   };
 
   /* STATES */
+
   const [signInForm, setSignInForm] = useState(initialValues.signInForm);
   const [signInFormErrors, setSignInFormErrors] = useState(
     initialValues.signInFormErrors
@@ -72,21 +74,18 @@ const UsersProvider = ({ children }) => {
   /* FUNCTIONS */
 
   /**
-   * Display a toast notification to the user.
-   * @param {string} type - The type of the alert ("info" or "error").
-   * @param {string} message - The content of the alert message.
-   * @returns {void}
+   * Sends a user alert with the specified type and message.
+   *
+   * @param {string} type - The type of alert to display (info or error).
+   * @param {string} message - The message to display in the alert.
+   *
    */
   const sendUserAlert = (type, message) => {
-    /**
-     * Notify the user using toast notifications.
-     * @returns {void}
-     */
     const notify = () => {
       switch (type) {
         case "info":
           toast.info(message, {
-            position: "top-right",
+            position: "bottom-right",
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
@@ -100,7 +99,7 @@ const UsersProvider = ({ children }) => {
           break;
         case "error":
           toast.error(message, {
-            position: "top-right",
+            position: "bottom-right",
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
@@ -121,9 +120,10 @@ const UsersProvider = ({ children }) => {
   };
 
   /**
-   * Update the sign-in form state based on the input value.
-   * @param {Object} input - The input object containing the name and value.
-   * @returns {void}
+   * Updates the sign-in form state with the provided input.
+   *
+   * @param {object} input - The input object containing the name and value of the updated field.
+   *
    */
   const updateSignInForm = (input) => {
     const { name, value } = input;
@@ -133,10 +133,10 @@ const UsersProvider = ({ children }) => {
   };
 
   /**
-   * Update the sign-up form state based on the input value.
-   * If the input is for the "terms_services" checkbox, toggle its value.
-   * @param {Object} input - The input object containing the name and value.
-   * @returns {void}
+   * Updates the sign-up form state with the provided input.
+   *
+   * @param {object} input - The input object containing the name and value of the updated field.
+   *
    */
   const updateSignUpForm = (input) => {
     const { name, value } = input;
@@ -154,8 +154,8 @@ const UsersProvider = ({ children }) => {
   };
 
   /**
-   * Validate the sign-in form data.
-   * @returns {Object} An object containing validation errors, if any.
+   * Validates the sign-in form fields and returns an object containing validation errors.
+   *
    */
   const validateSignIn = () => {
     let validationErrors = {};
@@ -178,8 +178,8 @@ const UsersProvider = ({ children }) => {
   };
 
   /**
-   * Validate the sign-up form data.
-   * @returns {Object} An object containing validation errors, if any.
+   * Validates the sign-up form fields and returns an object containing validation errors.
+   *
    */
   const validateSignUp = () => {
     let validationErrors = {};
@@ -253,7 +253,8 @@ const UsersProvider = ({ children }) => {
   };
 
   /**
-   * Handle the sign-in process, validating the form data and initiating the sign-in.
+   * Handles the sign-in process by validating the form and initiating the sign-in request.
+   *
    */
   const handleSignIn = () => {
     const validationErrors = validateSignIn();
@@ -268,10 +269,12 @@ const UsersProvider = ({ children }) => {
   };
 
   /**
-   * Handle the sign-up process, validating the form data and initiating the sign-up.
+   * Handles the sign-up process by validating the form and initiating the user creation request.
+   *
    */
   const handleSignUp = () => {
     const validationErrors = validateSignUp();
+
     if (validateObject(validationErrors)) {
       setSignUpFormErrors(validationErrors);
     } else {
@@ -284,8 +287,8 @@ const UsersProvider = ({ children }) => {
   /* SUPABASE FETCHS */
 
   /**
-   * Sign in a user with their email and password.
-   * Handles loading state, form reset, and error handling.
+   * Signs in a user with their email and password using Supabase authentication.
+   *
    */
   const signInWithPassword = async () => {
     try {
@@ -313,9 +316,10 @@ const UsersProvider = ({ children }) => {
   };
 
   /**
-   * Get a user's data by their authentication ID.
-   * Updates the user state and displays alerts based on success or failure.
-   * @param {object} authUser - The user object obtained after authentication.
+   * Fetches user data from the database based on the provided user ID and updates the user state.
+   *
+   * @param {object} authUser - The authenticated user object.
+   *
    */
   const getUserByID = async (authUser) => {
     try {
@@ -327,16 +331,19 @@ const UsersProvider = ({ children }) => {
       if (error) throw error;
 
       setUser({ ...authUser, ...users[0] });
-      //sendUserAlert("info", `Welcome! ${users[0].nickname}`);
 
-      //navigate("/");
+      navigate("/");
     } catch (error) {
-      sendUserAlert("error", "Something went wrong, please try again.");
+      sendUserAlert("error", "Something went wrong!");
     } finally {
       setIsLoadingUser(initialValues.isLoadingUser);
     }
   };
 
+  /**
+   * Fetches all users from the database and sets the state with the fetched data.
+   *
+   */
   const getAllUsers = async () => {
     try {
       const { data, error } = await supabaseConnection
@@ -352,8 +359,8 @@ const UsersProvider = ({ children }) => {
   };
 
   /**
-   * Get the current user's data and check if they have admin privileges.
-   * Updates the user and admin states accordingly.
+   * Fetches user data from Supabase authentication and sets the user state.
+   *
    */
   const getUser = async () => {
     try {
@@ -374,9 +381,10 @@ const UsersProvider = ({ children }) => {
   };
 
   /**
-   * Create a new user in the database with the provided data.
-   * Displays an information alert to instruct the user to validate their email.
-   * @param {string} authUserID - The authentication user ID.
+   * Creates a new user in the database with the provided user data.
+   *
+   * @param {string} authUserID - The ID of the authenticated user.
+   *
    */
   const createUser = async (authUserID) => {
     try {
@@ -394,7 +402,7 @@ const UsersProvider = ({ children }) => {
       setIDUserCreated(authUserID);
       sendUserAlert("info", "Please, validate your email to continue.");
     } catch (error) {
-      sendUserAlert("error", "Something went wrong, please try again.");
+      sendUserAlert("error", "Something went wrong!");
     } finally {
       setSignUpForm(initialValues.signUpForm);
       setSignUpFormErrors(initialValues.signUpFormErrors);
@@ -402,9 +410,8 @@ const UsersProvider = ({ children }) => {
   };
 
   /**
-   * Create a new authentication user with the provided email and password.
-   * Calls createUser to create a corresponding user in the database.
-   * Displays an error alert if something goes wrong.
+   * Creates a new user authentication account using the provided email and password.
+   *
    */
   const createAuthUser = async () => {
     try {
@@ -422,13 +429,13 @@ const UsersProvider = ({ children }) => {
 
       createUser(data.user.id);
     } catch (error) {
-      sendUserAlert("error", "Something went wrong, please try again.");
+      sendUserAlert("error", "Something went wrong!");
     }
   };
 
   /**
-   * Sign out the currently authenticated user.
-   * Displays an information alert bidding farewell to the user.
+   * Signs the current user out of the application.
+   *
    */
   const signOut = async () => {
     try {
@@ -438,10 +445,14 @@ const UsersProvider = ({ children }) => {
 
       sendUserAlert("info", `Bye! Come back soon ${user.nickname}`);
     } catch (error) {
-      sendUserAlert("error", "Something went wrong, please try again.");
+      sendUserAlert("error", "Something went wrong!");
     }
   };
 
+  /**
+   * Cancels the user creation process and resets the userCreation state to false.
+   *
+   */
   const cancelUserCreation = () => {
     setUserCreation(false);
   };
@@ -449,34 +460,22 @@ const UsersProvider = ({ children }) => {
   /* USE EFFECTS */
 
   /**
-   * Set up an authentication state change listener using Supabase.
-   * Redirects to the appropriate route based on the authentication state.
-   * Retrieves user information if authenticated.
+   * Handles authentication state changes and updates user-related states accordingly.
+   *
    */
   useEffect(() => {
-    // Set up a listener for changes in authentication state
     const { data } = supabaseConnection.auth.onAuthStateChange(
-      /**
-       * Callback function triggered on authentication state change.
-       * @param {string} event - The type of authentication event ("SIGNED_IN" or "SIGNED_OUT").
-       * @param {object} session - The authentication session object.
-       */
       (event, session) => {
-        // Check if a session is present (user is signed in)
         if (session) {
-          // Check if user information is already available
           if (!validateObject(user)) {
             setIsLoadingUser(true);
 
-            // Redirect to the authenticated route and initialize state
             setIsConfirmEmailOpen(initialValues.isConfirmEmailOpen);
             setIsSessionUp(true);
 
-            // Retrieve user information
             getUser();
           }
         } else {
-          // If no session, redirect to the public part of the web
           setIsSessionUp(initialValues.isSessionUp);
           setUser(initialValues.user);
           setIsAdmin(initialValues.isAdmin);

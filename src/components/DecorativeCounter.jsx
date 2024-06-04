@@ -10,12 +10,10 @@ import useUsers from "../hooks/useUsers.js";
 import { validateObject } from "../libraries/validateData.js";
 
 /**
- * Componente DecorativeCounter
+ * DecorativeCounter Component
  *
- * Este componente muestra un contador decorativo con el número de juegos registrados y el número de personas
- * afiliadas. Utiliza la biblioteca react-countup para animar los números cuando entran en la vista. También
- * proporciona enlaces para que los usuarios se registren o inicien sesión, dependiendo de si están autenticados
- * o no.
+ * This component displays a decorative counter with the number of registered games and the number of affiliated people.
+ * It uses the react-countup library to animate the numbers when they enter the view. It also provides links for users to register or log in, depending on whether they are authenticated or not.
  *
  */
 function DecorativeCounter() {
@@ -43,7 +41,7 @@ function DecorativeCounter() {
       </div>
       <div className="w-full h-64 relative overflow-hidden">
         <img
-          src="src/assets/layout-image.png"
+          src="./src/assets/img/layout-image.png"
           alt="Decorative Image"
           className="w-full h-full object-cover"
         />

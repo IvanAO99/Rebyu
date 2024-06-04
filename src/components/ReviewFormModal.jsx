@@ -7,10 +7,10 @@ import useReviews from "../hooks/useReviews.js";
 import ReviewForm from "./ReviewForm.jsx";
 
 /**
- * Componente ReviewFormModal
+ * Component ReviewFormModal
  *
- * Este componente representa un modal para actualizar una revisión existente.
- * Contiene un formulario para editar la revisión y botones para actualizar o cancelar la acción.
+ * This component represents a modal for updating an existing review.
+ * It contains a form to edit the review and buttons to update or cancel the action.
  *
  */
 const ReviewFormModal = () => {

@@ -8,15 +8,17 @@ import useUsers from "../hooks/useUsers.js";
 import ThemeToggler from "../components/ThemeToggler.jsx";
 
 import { validateObject } from "../libraries/validateData.js";
+import { HashLink, NavHashLink } from "react-router-hash-link";
 
 /**
- * Componente Header
+ * Header Component
  *
- * Este componente renderiza la cabecera de la aplicación, que incluye el logo, la navegación y el interruptor de tema.
- * El contenido de la cabecera puede variar dependiendo de si el usuario está autenticado y si es un administrador.
+ * This component renders the header of the application, which includes the logo,
+ * navigation, and theme toggle.
+ * The content of the header may vary depending on whether the user is
+ * authenticated and if they are an administrator.
  *
  */
-
 const Header = () => {
   const navigate = useNavigate();
 
@@ -53,7 +55,7 @@ const Header = () => {
               {/* Logo y marca */}
               <div className="flex flex-row justify-between md:justify-center items-center gap-2">
                 <img
-                  src="./src/assets/logo.svg"
+                  src="./src/assets/img/logo.svg"
                   alt="Logo"
                   className="h-32 w-32"
                 />
@@ -92,28 +94,44 @@ const Header = () => {
                     }}
                   >
                     <li className="py-5 md:p-0">
-                      <Link
-                        to="/"
+                      <HashLink
+                        smooth
+                        elementId="top"
+                        to={"/"}
                         className="font-bold hover:text-purple-600 text-lg transition-all duration-500"
                       >
                         Home
-                      </Link>
+                      </HashLink>
                     </li>
                     <li className="py-5 md:p-0">
-                      <a
-                        href="#recommended"
+                      <HashLink
+                        smooth
+                        elementId="games"
+                        to={"/"}
+                        className="font-bold hover:text-purple-600 text-lg transition-all duration-500"
+                      >
+                        Games
+                      </HashLink>
+                    </li>
+                    <li className="py-5 md:p-0">
+                      <HashLink
+                        smooth
+                        elementId="recommended"
+                        to={"/"}
                         className="font-bold hover:text-purple-600 text-lg transition-all duration-500"
                       >
                         Recommended
-                      </a>
+                      </HashLink>
                     </li>
                     <li className="py-5 md:p-0">
-                      <a
-                        href="#about-us"
+                      <HashLink
+                        smooth
+                        elementId="about-us"
+                        to={"/"}
                         className="font-bold hover:text-purple-600 text-lg transition-all duration-500"
                       >
-                        About Us
-                      </a>
+                        About
+                      </HashLink>
                     </li>
                   </ul>
                 </nav>
@@ -125,7 +143,7 @@ const Header = () => {
                           <img
                             src={
                               user.profile_photo ||
-                              "src/assets/profile-photo-default.jpg"
+                              "src/assets/img/default-profile-photo.jpg"
                             }
                             alt="User"
                             className="h-16 w-16 rounded-full object-cover"
@@ -165,20 +183,24 @@ const Header = () => {
                           }}
                         >
                           <li className="py-5">
-                            <Link
-                              to="/profile"
-                              className="block font-bold hover:text-purple-600  px-5 py-2 transition-all duration-300"
+                            <HashLink
+                              smooth
+                              elementId="top"
+                              to={"/profile"}
+                              className="block font-bold hover:text-purple-600 px-5 py-2 transition-all duration-500"
                             >
                               Profile
-                            </Link>
+                            </HashLink>
                           </li>
                           <li className="py-5">
-                            <Link
-                              to="/profile"
-                              className="block font-bold hover:text-purple-600 px-5 py-2 transition-all duration-300"
+                            <HashLink
+                              smooth
+                              elementId="lists"
+                              to={"/profile"}
+                              className="block font-bold hover:text-purple-600 px-5 py-2 transition-all duration-500"
                             >
                               Lists
-                            </Link>
+                            </HashLink>
                           </li>
                           <li className="py-5">
                             <Link
@@ -214,7 +236,7 @@ const Header = () => {
                         <img
                           src={
                             user.profile_photo ||
-                            "src/assets/profile-photo-default.jpg"
+                            "./src/assets/img/default-profile-photo.jpg"
                           }
                           alt="User"
                           className="cursor-pointer h-16 w-16 rounded-full object-cover"
@@ -242,25 +264,29 @@ const Header = () => {
                             >
                               <ul className="divide-y-2 divide-gray-200/50 dark:divide-gray-800/50  text-center">
                                 <li>
-                                  <Link
-                                    to="/profile"
-                                    className="block font-bold hover:text-purple-600  px-5 py-2 transition-all duration-300"
+                                  <HashLink
+                                    smooth
+                                    elementId="top"
+                                    to={"/profile"}
+                                    className="block font-bold hover:text-purple-600 px-5 py-2 text-lg transition-all duration-500"
                                   >
                                     Profile
-                                  </Link>
+                                  </HashLink>
                                 </li>
                                 <li>
-                                  <Link
-                                    to="/profile"
-                                    className="block font-bold hover:text-purple-600 px-5 py-2 transition-all duration-300"
+                                  <HashLink
+                                    smooth
+                                    elementId="lists"
+                                    to={"/profile"}
+                                    className="block font-bold hover:text-purple-600 px-5 py-2 text-lg transition-all duration-500"
                                   >
                                     Lists
-                                  </Link>
+                                  </HashLink>
                                 </li>
                                 <li>
                                   <Link
                                     to="/affiliate"
-                                    className="block font-bold hover:text-purple-600 px-5 py-2 transition-all duration-300"
+                                    className="block font-bold hover:text-purple-600 px-5 py-2 transition-all duration-500"
                                   >
                                     Affiliate
                                   </Link>
@@ -279,7 +305,7 @@ const Header = () => {
                           </>
                         )}
                       </div>
-                      <p>
+                      <p className="hidden lg:block">
                         <span>@</span>
                         {user.nickname}
                       </p>
@@ -304,7 +330,6 @@ const Header = () => {
         </>
       )}
     </>
-    /* <header className={`bg-gray-100 dark:bg-gray-800 border-b-2 border-gray-200 dark:border-gray-900 sticky top-0 w-full z-50 ${isAdmin ? 'hidden' : ''}`}> */
   );
 };
 

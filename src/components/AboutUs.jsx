@@ -3,11 +3,11 @@ import React from "react";
 import { useInView } from "react-intersection-observer";
 
 /**
- * Componente AboutUs
+ * Component AboutUs
  *
- * Este componente presenta información sobre los fundadores de la empresa y su objetivo, utilizando animaciones
- * para una experiencia de usuario dinámica y atractiva. Utiliza `react-intersection-observer` para detectar
- * cuándo los elementos están en la vista y aplicar las animaciones correspondientes.
+ * This component presents information about the company founders and its mission, using animations
+ * for a dynamic and engaging user experience. It utilizes `react-intersection-observer` to detect
+ * when elements are in view and apply the corresponding animations.
  *
  */
 function AboutUs() {
@@ -21,7 +21,10 @@ function AboutUs() {
 
   return (
     <>
-      <div className="self-stretch flex flex-row justify-stretch items-center gap-2 mb-5 py-2">
+      <div
+        id="about-us"
+        className="self-stretch flex flex-row justify-stretch items-center gap-2 mb-5 py-2"
+      >
         <div className="flex-grow border-y-2 border-purple-600"></div>
         <h2 className="text-3xl md:text-6xl font-bold"> Who Are We?</h2>
         <div className="flex-grow border-y-2 border-purple-600"></div>
@@ -38,7 +41,7 @@ function AboutUs() {
           >
             <div className="md:w-1/2 flex items-center justify-center">
               <img
-                src="src/assets/ivan.jpeg"
+                src="./src/assets/img/ivan.jpeg"
                 alt="Ivan's profile"
                 className="w-48 h-48 rounded-full object-cover border-2"
               />
@@ -74,7 +77,7 @@ function AboutUs() {
             </div>
             <div className="md:w-1/2 order-1 md:order-2 flex items-center justify-center">
               <img
-                src="src/assets/diana.jpg"
+                src="./src/assets/img/diana.jpg"
                 alt="Diana's profile"
                 className="w-48 h-48 rounded-full object-cover border-2"
               />

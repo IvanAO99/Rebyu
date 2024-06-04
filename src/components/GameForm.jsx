@@ -3,15 +3,15 @@ import React from "react";
 import useGames from "../hooks/useGames.js";
 
 /**
- * Componente GameForm
+ * Component GameForm
  *
- * Este componente muestra un formulario para crear o actualizar un juego.
- * Utiliza el hook useGames para obtener la información necesaria, manejar los cambios en el formulario y las validaciones de entrada.
- * El formulario incluye campos para el título, fecha de lanzamiento, URL de la imagen de portada, URL del tráiler, sinopsis, género, desarrollador y plataforma.
- * También muestra mensajes de error si se ingresan datos incorrectos en el formulario.
+ * This component displays a form for creating or updating a game.
+ * It uses the useGames hook to fetch necessary information, handle form changes, and input validations.
+ * The form includes fields for title, release date, cover image URL, trailer URL, synopsis, genre, developer, and platform.
+ * It also displays error messages if incorrect data is inputted in the form.
  *
  * Props:
- * @param {boolean} creationMode - Booleano que indica si el formulario está en modo de creación (true) o actualización (false).
+ * @param {boolean} creationMode - Boolean indicating whether the form is in creation mode (true) or update mode (false).
  *
  */
 function GameForm({ creationMode }) {

@@ -20,6 +20,13 @@ import { validateObject } from "../libraries/validateData.js";
  * Incluye opciones para crear, editar o eliminar juegos y reseñas, así como una lista de usuarios.
  *
  */
+/**
+ * AdminPage Component
+ *
+ * The system administration page that allows administrators to manage games, and reviews.
+ * It includes options to create, edit, or delete games and delete reviews.
+ *
+ */
 const AdminPage = () => {
   const { isSessionUp, user, isAdmin } = useUsers();
   const {

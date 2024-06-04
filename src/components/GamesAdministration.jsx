@@ -3,13 +3,12 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 
 /**
- * Componente GamesAdministration
+ * Component GamesAdministration
  *
- * Este componente sirve como contenedor para la administración de juegos. Renderiza el componente Outlet de react-router-dom
- * para renderizar el contenido específico de la administración de juegos definido en las rutas anidadas.
+ * This component serves as a container for game administration. It renders the Outlet component from react-router-dom
+ * to render specific game administration content defined in nested routes.
  *
  */
-
 const GamesAdministration = () => {
   return (
     <>

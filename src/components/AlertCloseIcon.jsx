@@ -3,13 +3,14 @@ import React from "react";
 import { FaX } from "react-icons/fa6";
 
 /**
- * Componente AlertCloseIcon
+ * AlertCloseIcon Component
  *
- * Este componente representa un icono de cierre personalizado para las notificaciones emergentes. Utiliza el
- * icono FaX de la biblioteca react-icons/fa6 y se activa al hacer clic para cerrar la notificación asociada.
+ * This component represents a custom close icon for alert notifications.
+ * It uses the FaX icon from the react-icons/fa6 library and is activated
+ * by clicking to close the associated notification.
  *
  * Props:
- * @param {Function} closeToast - Función para cerrar la notificación asociada.
+ * @param {Function} closeToast - Function to close the associated notification.
  *
  */
 const AlertCloseIcon = ({ closeToast }) => {

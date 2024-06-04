@@ -7,14 +7,14 @@ import useUsers from "../hooks/useUsers.js";
 import { formatDateString } from "../libraries/manipulateData.js";
 
 /**
- * Componente Profile
+ * Component Profile
  *
- * Este componente muestra el perfil del usuario actual.
- * Utiliza el hook useUsers para obtener la información del usuario.
- * El perfil incluye el apodo, nombre, correo electrónico, fecha de nacimiento,
- * fecha de registro y, si el usuario es afiliado, la fecha de inicio de afiliación.
- * Permite al usuario cancelar su suscripción si es afiliado, o convertirse en afiliado si no lo es.
- * Utiliza la función formatDateString del archivo manipulateData.js para formatear las fechas.
+ * This component displays the profile of the current user.
+ * It uses the useUsers hook to fetch user information.
+ * The profile includes the nickname, name, email, date of birth,
+ * registration date, and if the user is an affiliate, the affiliate start date.
+ * It allows the user to cancel their subscription if they are an affiliate, or become an affiliate if they are not.
+ * It uses the formatDateString function from the manipulateData.js file to format dates.
  *
  */
 const Profile = () => {
@@ -27,7 +27,9 @@ const Profile = () => {
       <div>
         <div className="flex flex-col md:flex-row justify-stretch items-stretch gap-5">
           <img
-            src={user.profile_photo || "./src/assets/profile-photo-default.jpg"}
+            src={
+              user.profile_photo || "./src/assets/img/default-profile-photo.jpg"
+            }
             alt="User Profile Photo"
             className="self-center rounded-full w-96 h-96 object-cover"
           />

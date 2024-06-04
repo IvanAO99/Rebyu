@@ -13,10 +13,11 @@ import useUsers from "../hooks/useUsers.js";
 import { validateObject } from "../libraries/validateData.js";
 
 /**
- * Componente Footer
+ * Footer Component
  *
- * Este componente renderiza el pie de página de la aplicación, que incluye enlaces a redes sociales y un mensaje.
- * El contenido del pie de página puede variar según si el usuario está autenticado y si es un administrador.
+ * This component renders the footer of the application, which includes links to social media and a message.
+ * The content of the footer may vary depending on whether
+ * the user is authenticated and if they are an administrator.
  *
  */
 function Footer() {

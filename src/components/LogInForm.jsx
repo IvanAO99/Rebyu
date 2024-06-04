@@ -5,15 +5,14 @@ import { Link } from "react-router-dom";
 import useUsers from "../hooks/useUsers.js";
 
 /**
- * Componente LogInForm
+ * Component LogInForm
  *
- * Este componente muestra un formulario de inicio de sesión para que los usuarios
- * puedan acceder a sus cuentas. Incluye campos para ingresar correo electrónico
- * y contraseña, así como un botón para enviar el formulario de inicio de sesión.
- * También proporciona un enlace para registrarse si el usuario aún no tiene una cuenta.
+ * This component displays a login form for users
+ * to access their accounts. It includes fields to input email
+ * and password, as well as a button to submit the login form.
+ * It also provides a link to register if the user doesn't have an account yet.
  *
  */
-
 function LogInForm() {
   const { signInForm, signInFormErrors, updateSignInForm, handleSignIn } =
     useUsers();
