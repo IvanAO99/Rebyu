@@ -18,7 +18,7 @@ import { validateArray } from "../libraries/validateData.js";
  *   @param {Object} reviews - An array of objects representing the reviews.
  *
  */
-const Reviews = ({ loading, reviews }) => {
+const Reviews = ({ loading, reviews, onGamePage = false }) => {
   return (
     <>
       <div className="p-5">
@@ -36,7 +36,7 @@ const Reviews = ({ loading, reviews }) => {
             <div className="flex flex-col items-center gap-5">
               {reviews.map((review) => (
                 <Fragment key={review.review_id}>
-                  <Review review={review} />
+                  <Review review={review} onGamePage={onGamePage} />
                 </Fragment>
               ))}
             </div>
